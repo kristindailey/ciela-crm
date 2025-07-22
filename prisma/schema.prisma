@@ -1,0 +1,193 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  password        String?
+  name            String
+  googleId        String?
+  profilePicture  String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  companies    Company[]
+  applications Application[]
+  contacts     Contact[]
+  interactions Interaction[]
+
+  @@map("users")
+}
+
+model Company {
+  id            String    @id @default(cuid())
+  name          String
+  website       String?
+  linkedin      String?
+  bluesky       String?
+  github        String?
+  description   String?
+  techStack     String[]
+  notes         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  userId        String
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jobs          Job[]
+  contacts      Contact[]
+  applications  Application[]
+
+  @@map("companies")
+}
+
+
+model Job {
+  id           String   @id @default(cuid())
+  title        String
+  description  String?
+  requirements String?
+  notes        String?
+  salaryMin    Int?
+  salaryMax    Int?
+  location     String?
+  jobUrl       String?
+  posted       DateTime?
+  deadline     DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  companyId    String
+  company      Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  applications Application[]
+
+  @@map("jobs")
+}
+
+enum ApplicationStatus {
+  APPLIED
+  PHONE_SCREEN
+  TECHNICAL
+  ONSITE
+  OFFER
+  REJECTED
+  WITHDRAWN
+}
+
+model Application {
+  id             String            @id @default(cuid())
+  status         ApplicationStatus @default(APPLIED)
+  appliedDate    DateTime          @default(now())
+  notes          String?
+  resumeUrl      String?
+  coverLetterUrl String?
+  projectDocsUrl String?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  // Referral tracking
+  hasReferral    Boolean           @default(false)
+  referralSource String?
+  referralNotes  String?
+
+  // Relations 
+  userId         String
+  user           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jobId          String
+  job            Job               @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  companyId      String 
+  company        Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  interviews     Interview[]
+
+  @@unique([userId, jobId])
+  @@map("applications")
+}
+
+model Contact {
+  id            String        @id @default(cuid())
+  firstName     String
+  lastName      String 
+  email         String?
+  role          String?
+  linkedin      String?
+  bluesky       String?
+  github        String?
+  website       String?
+  location      String?
+  notes         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  // Relations
+  userId        String
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyId     String
+  company       Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  interactions  Interaction[]
+
+  @@map("contacts")
+}
+
+enum InteractionType {
+  EMAIL 
+  PHONE
+  MEETING 
+  MEETUP
+  LINKEDIN
+  BLUESKY
+  OTHER
+}
+
+model Interaction {
+  id            String            @id @default(cuid())
+  type          InteractionType
+  subject       String?
+  message       String 
+  followUpDate  DateTime?
+  completed     Boolean           @default(false)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  // Relations
+  userId        String
+  user          User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contactId     String
+  contact       Contact           @relation(fields: [contactId], references: [id], onDelete: Cascade)
+
+  @@map("interactions")
+}
+
+enum InterviewStatus {
+  SCHEDULED
+  COMPLETED 
+  CANCELLED 
+  RESCHEDULED 
+}
+
+model Interview {
+  id            String            @id @default(cuid())
+  scheduledFor  DateTime
+  type          String?
+  interviewers  String[]
+  prepNotes     String?
+  postNotes     String?
+  outcome       String?
+  status        InterviewStatus   @default(SCHEDULED)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  // Relations
+  applicationId String
+  application   Application       @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@map("interviews")
+}
