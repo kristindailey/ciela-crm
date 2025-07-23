@@ -12,7 +12,7 @@ model User {
   email           String   @unique
   password        String?
   name            String
-  googleId        String?
+  googleId        String?  @unique
   profilePicture  String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -190,4 +190,11 @@ model Interview {
   application   Application       @relation(fields: [applicationId], references: [id], onDelete: Cascade)
 
   @@map("interviews")
+}
+
+model Session {
+  id        String  @id
+  sid       String  @unique
+  data      String
+  expiresAt DateTime
 }
