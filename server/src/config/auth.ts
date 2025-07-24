@@ -1,5 +1,7 @@
 import passport from "passport";
+import * as argon2 from "argon2";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import { Strategy as LocalStrategy } from "passport-local";
 import { prisma } from "../lib/prisma";
 import { User } from "@prisma/client";
 
@@ -26,8 +28,38 @@ passport.use(new GoogleStrategy({
         }
 
         return done(null, user);
-    } catch (error) {
-        return done(error, null);
+    } catch (err) {
+        return done(err, null);
+    }
+  }
+));
+
+passport.use(new LocalStrategy({
+    usernameField: "email",
+  },
+  async (email: string, password: string, done: any) => {
+    try {
+      const user = await prisma.user.findUnique({
+        where: { email: email.toLowerCase() }
+      });
+
+      if (!user) {
+        return done(null, false, { message: "No account found with this email address." });
+      }
+
+      if (!user.password) {
+        return done(null, false, { message: "Your account is registered using a sign-in provider. Please sign in using a provider." })
+      }
+
+      const isValidPassword = await argon2.verify(user.password, password);
+
+      if (!isValidPassword) {
+        return done(null, false, { message: "Invalid password." });
+      }
+
+      return done(null, user);
+    } catch (err) {
+      return done(err, null);
     }
   }
 ));
@@ -41,9 +73,8 @@ passport.deserializeUser(async (id: string, done) => {
     const user = await prisma.user.findUnique({
       where: { id },
     });
-
     done(null, user);
-  } catch (error) {
-    done(error, null);
+  } catch (err) {
+    done(err, null);
   }
 });

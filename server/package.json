@@ -14,12 +14,14 @@
   "dependencies": {
     "@prisma/client": "^6.12.0",
     "@quixo3/prisma-session-store": "^3.1.13",
+    "argon2": "^0.43.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "express-session": "^1.18.2",
     "morgan": "^1.10.1",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0",
     "prisma": "^6.12.0"
   },
   "devDependencies": {
@@ -30,6 +32,7 @@
     "@types/node": "^24.1.0",
     "@types/passport": "^1.0.17",
     "@types/passport-google-oauth20": "^2.0.16",
+    "@types/passport-local": "^1.0.38",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   }
