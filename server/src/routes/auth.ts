@@ -16,6 +16,17 @@ router.get("/google/callback",
     }
 );
 
+router.get("/github",
+    passport.authenticate("github", { scope: [ "user:email" ] })
+);
+
+router.get("/github/callback", 
+    passport.authenticate("github", { failureRedirect: `${process.env.FRONTEND_URL}/login` }),
+    (req, res) => {
+        res.redirect(process.env.FRONTEND_URL!);
+    }
+);
+
 router.post("/login", (req, res, next) => {
     passport.authenticate("local", (err: any, user: any, info: any) => {
         if (err) {
