@@ -27,6 +27,15 @@ router.get("/github/callback",
     }
 );
 
+router.get("/me", (req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ error: "Not authenticated." });
+    }
+
+    const { password, ...userWithoutPassword } = req.user as any;
+    res.json({ user: userWithoutPassword });
+});
+
 router.post("/login", (req, res, next) => {
     passport.authenticate("local", (err: any, user: any, info: any) => {
         if (err) {
