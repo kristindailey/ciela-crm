@@ -27,8 +27,15 @@ model User {
   @@map("users")
 }
 
+enum CompanyTier {
+  TIER_1
+  TIER_2
+  TIER_3
+  BACKLOG
+}
+
 model Company {
-  id            String    @id @default(cuid())
+  id            String      @id @default(cuid())
   name          String
   website       String?
   linkedin      String?
@@ -37,8 +44,9 @@ model Company {
   description   String?
   techStack     String[]
   notes         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  tier          CompanyTier @default(BACKLOG)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 
   // Relations
   userId        String
