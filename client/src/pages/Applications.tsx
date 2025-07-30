@@ -1,6 +1,6 @@
 import Sidebar from "../components/Sidebar";
 
-const Contacts = () => {
+const Applications = () => {
     return (
         <>
             <div className="bg-gray-50">
@@ -10,4 +10,4 @@ const Contacts = () => {
     );
 };
 
-export default Contacts;
+export default Applications;
