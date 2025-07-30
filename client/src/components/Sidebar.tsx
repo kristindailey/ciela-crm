@@ -5,6 +5,7 @@ import { IoMdSettings } from "react-icons/io";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { useAuth } from "../context/AuthContext";
 import logo from "../assets/ciela-logo.png"; 
+import { Link } from 'react-router';
 
 const Sidebar = () => {
     const { logout } = useAuth();
@@ -20,33 +21,38 @@ const Sidebar = () => {
     return (
         <div className="min-h-screen w-48 md:w-64 bg-[var(--royal-blue)] shadow-sm border-r flex flex-col">
             <div className="flex-1 flex flex-col items-start self-center justify-center px-4 sm:px-6 lg:px-8 text-[var(--soft-lavender)] space-y-8 pt-30 text-xl">
-                <div className="flex items-center hover:text-white">
+                <Link to="/" className="flex items-center hover:text-white">
                     <FaHouse className="mr-2"/>
-                    <a href="/">Home</a>
-                </div>
-                <div className="flex items-center hover:text-white">
+                    <span>Home</span>
+                </Link>
+                <Link to="/contacts" className="flex items-center hover:text-white">
                     <FaUserLarge className="mr-2"/>
-                    <a href="/contacts">Contacts</a>
-                </div>
-                <div className="flex items-center hover:text-white">
+                    <span>Contacts</span>
+                </Link>
+                <Link to="/companies" className="flex items-center hover:text-white">
                     <BsBuildingsFill className="mr-2"/>
-                    <a href="/companies">Companies</a>
-                </div>
-                <div className="flex items-center hover:text-white">
+                    <span>Companies</span>
+                </Link>
+                <Link to="/applications" className="flex items-center hover:text-white">
                     <GrDocumentText className="mr-2"/>
-                    <a href="/applications">Applications</a>
-                </div>
-                <div className="flex items-center hover:text-white">
+                    <span>Applications</span>
+                </Link>
+                <Link to="/settings" className="flex items-center hover:text-white">
                     <IoMdSettings className="mr-2"/>
-                    <a href="/settings">Settings</a>
-                </div>
-                <div className="flex items-center pt-7 hover:text-white">
+                    <span>Settings</span>
+                </Link>
+                <button 
+                    onClick={handleLogout}
+                    className="flex items-center pt-7 hover:text-white"
+                >
                     <RiLogoutBoxLine className="mr-2"/>
-                    <a onClick={handleLogout}>Logout</a>
-                </div>
+                    <span>Logout</span>
+                </button>
             </div>
 
-            <img src={logo} alt="Ciela logo" className="self-end"></img>
+            <Link to="/">
+                <img src={logo} alt="Ciela logo" className="self-end"></img>
+            </Link>
         </div>
     );
 };
