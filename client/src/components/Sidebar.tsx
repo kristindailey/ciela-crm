@@ -20,27 +20,27 @@ const Sidebar = () => {
     return (
         <div className="min-h-screen w-48 md:w-64 bg-[var(--royal-blue)] shadow-sm border-r flex flex-col">
             <div className="flex-1 flex flex-col items-start self-center justify-center px-4 sm:px-6 lg:px-8 text-[var(--soft-lavender)] space-y-8 pt-30 text-xl">
-                <div className="flex items-center">
+                <div className="flex items-center hover:text-white">
                     <FaHouse className="mr-2"/>
                     <a href="/">Home</a>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center hover:text-white">
                     <FaUserLarge className="mr-2"/>
                     <a href="/contacts">Contacts</a>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center hover:text-white">
                     <BsBuildingsFill className="mr-2"/>
                     <a href="/companies">Companies</a>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center hover:text-white">
                     <GrDocumentText className="mr-2"/>
                     <a href="/applications">Applications</a>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center hover:text-white">
                     <IoMdSettings className="mr-2"/>
                     <a href="/settings">Settings</a>
                 </div>
-                <div className="flex items-center pt-7">
+                <div className="flex items-center pt-7 hover:text-white">
                     <RiLogoutBoxLine className="mr-2"/>
                     <a onClick={handleLogout}>Logout</a>
                 </div>
