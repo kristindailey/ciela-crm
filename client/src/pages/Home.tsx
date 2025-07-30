@@ -1,14 +1,38 @@
+import { useAuth } from "../context/AuthContext";
+
 const Home = () => {
-    const isLoggedIn = false;
+    const { user, isLoading, logout } = useAuth();
     
-    if (isLoggedIn) {
+    const handleLogout = async () => {
+        try { 
+            await logout();
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    };
+
+    if (isLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+                    <p className="text-gray-600">Loading...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (user) {
         return (
             <div className="min-h-screen bg-gray-50">
                 <div className="bg-white shadow-sm border-b">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between items-center py-4">
                             <h1 className="text-2xl font-thin">Ciela CRM</h1>
-                            <button className="text-gray-600 hover:text-gray-800">
+                            <button 
+                                onClick={handleLogout}
+                                className="text-gray-600 hover:text-gray-800"
+                            >
                                 Logout
                             </button>
                         </div>
@@ -18,7 +42,7 @@ const Home = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <div className="bg-white rounded-lg shadow-md p-8">
                         <h2 className="text-xl font-medium mb-4">Welcome back!</h2>
-                        <p className="text-white">Your job search management tools will appear here.</p>
+                        <p>Your job search management tools will appear here.</p>
                     </div>
                 </div>
             </div>
@@ -27,19 +51,19 @@ const Home = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center">
-            <div className="text-center">
-                <h1 className="text-4xl font-thin mb-8">Ciela CRM</h1>
-                <p className="text-white mb-8">Welcome to your job search management system.</p>
+            <div className="text-center font-thin">
+                <h1 className="text-4xl mb-8">Ciela CRM</h1>
+                <p className="mb-8">Welcome to your job search management system.</p>
                 <div className="space-x-4">
                     <a 
                         href="/login"
-                        className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
+                        className="border-2 border-[var(--soft-lavender)] text-white font-extralight px-6 py-2 rounded hover:bg-[var(--soft-lavender)] hover:text-black"
                     >
                         Sign In
                     </a>
                     <a 
                         href="/register"
-                        className="border border-blue-500 text-white px-6 py-2 rounded hover:bg-blue-50"
+                        className="border-2 border-white text-white font-extralight px-6 py-2 rounded hover:bg-white hover:text-black"
                     >
                         Sign Up
                     </a>

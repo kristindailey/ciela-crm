@@ -4,7 +4,6 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Contacts from "./pages/Contacts";
-import "./App.css";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 const router = createBrowserRouter([
