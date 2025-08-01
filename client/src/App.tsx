@@ -3,6 +3,8 @@ import { AuthProvider } from "./context/AuthContext";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import NewContact from "./pages/NewContact";
+import NewCompany from "./pages/NewCompany";
 import Contacts from "./pages/Contacts";
 import Companies from "./pages/Companies";
 import Applications from "./pages/Applications";
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
   {
     path: "/contacts",
     element: <ProtectedRoute><Contacts /></ProtectedRoute>,
+  },
+  {
+    path: "/contacts/new",
+    element: <ProtectedRoute><NewContact /></ProtectedRoute>,
+  },
+  {
+    path: "/companies/new",
+    element: <ProtectedRoute><NewCompany /></ProtectedRoute>,
   },
   {
     path: "/companies",

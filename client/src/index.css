@@ -1,4 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 @import "tailwindcss";
+
+@layer utilities {
+  .font-pacifico {
+    font-family: "Pacifico", sans-serif;
+  }
+}
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
