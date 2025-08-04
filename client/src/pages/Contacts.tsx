@@ -6,8 +6,9 @@ import PageHeader from "../components/PageHeader";
 
 const Contacts = () => {
     const [searchQuery, setSearchQuery] = useState("");
-    const [contacts, _setContacts] = useState<Contact[]>([]);
+    const [contacts, setContacts] = useState<Contact[]>([]);
     const [_filteredContacts, setFilteredContacts] = useState<Contact[]>([]);
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const navigate = useNavigate();
 
@@ -18,6 +19,25 @@ const Contacts = () => {
     const handleSearchContacts = (value: string) => {
         setSearchQuery(value);
     };
+
+    useEffect(() => {
+        const fetchContacts = async () => {
+            try {
+                const response = await fetch(`${API_BASE_URL}/contacts`, {
+                    credentials: "include",
+                });
+
+                if (response.ok) {
+                    const contactsData = await response.json();
+                    setContacts(contactsData);
+                } 
+            } catch (error) {
+                console.error("Error fetching contacts:", error);
+            }
+        };
+
+        fetchContacts();
+    }, []);
 
     useEffect(() => {
         if (searchQuery === "") {
@@ -45,6 +65,13 @@ const Contacts = () => {
                     onSearchChange={handleSearchContacts}
                     onAddClick={handleAddContact}
                 />
+
+                <div className="p-6 text-black">
+                    <h2 className="text-xl font-semibold mb-4">Contacts ({contacts.length})</h2>
+                    <pre className="bg-white p-4 rounded border text-sm overflow-auto max-h-96 max-w-full whitespace-pre-wrap break-words">
+                        {JSON.stringify(contacts, null, 2)}
+                    </pre>
+                </div>
             </div>
         </div>
     );
