@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { useNavigate } from "react-router";
 import Sidebar from "../components/Sidebar";
 
-const NewCompany = () => {
+const AddCompanyPage = () => {
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const navigate = useNavigate();
 
@@ -12,11 +11,13 @@ const NewCompany = () => {
                 method: "POST",
                 headers: {"Content-Type": "application/json" },
                 body: JSON.stringify(companyData),
+                credentials: "include",
             });
 
             const newCompany = await response.json();
 
-            navigate(`/contacts/${newCompany.id}`);
+            // navigate(`/contacts/${newCompany.id}`);
+            navigate(`/contacts`);
         } catch (error) {
             console.error("Error creating company:", error);
         }
@@ -36,4 +37,4 @@ const NewCompany = () => {
     );
 };
 
-export default NewCompany;
+export default AddCompanyPage;

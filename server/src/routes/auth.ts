@@ -1,9 +1,9 @@
-import express from "express";
 import passport from "passport";
+import { Router } from "express";
 import { hashPassword } from "../lib/auth";
 import { prisma } from "../lib/prisma";
 
-const router = express.Router();
+const router = Router();
 
 router.get("/google",   
     passport.authenticate("google", { scope: [ "profile", "email" ] }),

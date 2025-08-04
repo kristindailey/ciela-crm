@@ -7,9 +7,18 @@ import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import { prisma } from "./lib/prisma";
 import "./config/auth";
 import authRoutes from "./routes/auth";
+import contactRoutes from "./routes/contacts";
+import companyRoutes from "./routes/companies";
 
 const app = express();
 const PORT = process.env.PORT;
+
+const requireAuth = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    if (!req.user) {
+        return res.status(401).json({ error: "Not authenticated." });
+    }
+    next();
+};
 
 // Middleware
 app.use(cors({
@@ -35,6 +44,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/auth", authRoutes);
+app.use("/contacts", requireAuth, contactRoutes);
+app.use("/companies", requireAuth, companyRoutes);
 
 app.get("/api/test", (req, res) => {
     res.json({ 

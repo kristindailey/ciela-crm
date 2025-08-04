@@ -1,0 +1,43 @@
+import { Router } from "express";
+import { prisma } from "../lib/prisma";
+
+const router = Router();
+
+router.get("/", async (req, res) => {
+    try {
+        const userId = (req.user as any).id;
+
+        const companies = await prisma.company.findMany({
+            where: { userId },
+            orderBy: { name: "asc" }, 
+        });
+
+        res.json(companies);
+    } catch (error) {
+        console.error("Error fetching companies:", error);
+        res.status(500).json({ error: "Failed to fetch companies." });
+    }
+});
+
+router.post("/", async (req, res) => {
+    try {
+        const userId = (req.user as any).id;
+        const { name, website, description } = req.body;
+
+        const company = await prisma.company.create({
+            data: {
+                name, 
+                website, 
+                description, 
+                userId,
+            },
+        });
+
+        res.status(201).json(company);
+    } catch (error) {
+        console.error("Error creating company:", error);
+        res.status(500).json({ error: "Failed to create company." });
+    }
+});
+
+export default router;
