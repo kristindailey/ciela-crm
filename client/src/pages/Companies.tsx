@@ -6,8 +6,9 @@ import PageHeader from "../components/PageHeader";
 
 const Companies = () => {
     const [searchQuery, setSearchQuery] = useState("");
-    const [companies, _setCompanies] = useState<Company[]>([]);
+    const [companies, setCompanies] = useState<Company[]>([]);
     const [_filteredCompanies, setFilteredCompanies] = useState<Company[]>([]);
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const navigate = useNavigate();
 
@@ -20,11 +21,30 @@ const Companies = () => {
     };
 
     useEffect(() => {
+        const fetchCompanies = async () => {
+            try {
+                const response = await fetch(`${API_BASE_URL}/companies`, {
+                    credentials: "include",
+                });
+
+                if (response.ok) {
+                    const companiesData = await response.json();
+                    setCompanies(companiesData);
+                } 
+            } catch (error) {
+                console.error("Error fetching companies:", error);
+            }
+        };
+
+        fetchCompanies();
+    }, []);
+
+    useEffect(() => {
         if (searchQuery === "") {
             setFilteredCompanies(companies);
         } else {
             const filtered = companies.filter((company) => {
-                company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                return company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 company.description?.toLowerCase().includes(searchQuery.toLowerCase())
             });
                 
@@ -43,6 +63,13 @@ const Companies = () => {
                     onSearchChange={handleSearchCompanies}
                     onAddClick={handleAddCompany}
                 />
+
+                <div className="p-6 text-black">
+                    <h2 className="text-xl font-semibold mb-4">Companies ({companies.length})</h2>
+                    <pre className="bg-white p-4 rounded border text-sm overflow-auto max-h-96 max-w-full whitespace-pre-wrap break-words">
+                        {JSON.stringify(companies, null, 2)}
+                    </pre>
+                </div>
             </div>
         </div>
     );
