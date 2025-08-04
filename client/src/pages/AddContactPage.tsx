@@ -19,6 +19,7 @@ const AddContactPage = () => {
         website: "",
         description: "",
     });
+    const [error, setError] = useState<string>("");
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     
     const navigate = useNavigate();
@@ -50,6 +51,10 @@ const AddContactPage = () => {
             ...prev,
             [name]: value,
         }));
+
+        if (name === "name" && error) {
+            setError("");
+        }
     };
 
     const handleSave = async (e: React.FormEvent) => {
@@ -64,9 +69,11 @@ const AddContactPage = () => {
                 });
 
                 if (existingCompany) {
-                    alert("Company already exists! Please select it from the dropdown.");
+                    setError("Company already exists! Please select it from the dropdown.");
                     return;
                 }
+
+                setError("");
 
                 const companyResponse = await fetch(`${API_BASE_URL}/companies`, {
                     method: "POST",
@@ -122,6 +129,12 @@ const AddContactPage = () => {
             <div className="flex-1">
                 <div className="p-6 text-black">
                     <h1 className="text-2xl font-bold mb-4">Add New Contact</h1>
+
+                    {error && (
+                        <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                            {error}
+                        </div>
+                    )}
                     
                     <form className="space-y-4" onSubmit={handleSave}>
                         <div>
