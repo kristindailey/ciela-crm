@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Sidebar from "../components/Sidebar";
 import type { Company } from "../types/company";
@@ -11,7 +11,7 @@ const AddContactPage = () => {
         role: "",
         notes: "",
     });
-    const [companies, _setCompanies] = useState<Company[]>([]);
+    const [companies, setCompanies] = useState<Company[]>([]);
     const [selectedCompany, setSelectedCompany] = useState("");
     const [showNewCompany, setShowNewCompany] = useState(false);
     const [newCompanyData, setNewCompanyData] = useState({
@@ -70,23 +70,42 @@ const AddContactPage = () => {
                 companyId = newCompany.id;
             }
 
-            // const contactResponse = await fetch(`${API_BASE_URL}/contacts`, {
-            //     method: "POST",
-            //     headers: { "Content-Type": "application/json" },
-            //     body: JSON.stringify({
-            //         ...formData,
-            //         companyId,
-            //     }),
-            //     credentials: "include",
-            // });
+            const contactResponse = await fetch(`${API_BASE_URL}/contacts`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    ...formData,
+                    companyId,
+                }),
+                credentials: "include",
+            });
 
-            // const newContact = await contactResponse.json();
+            const newContact = await contactResponse.json();
             // navigate(`/contacts/${newContact.id}`);
             navigate(`/contacts`);
         } catch (error) {
             console.error("Error creating contact:", error);
         }
     };
+
+    useEffect(() => {
+        const fetchCompanies = async () => {
+            try {
+                const response = await fetch(`${API_BASE_URL}/companies`, {
+                    credentials: "include",
+                });
+    
+                if (response.ok) {
+                    const companiesData = await response.json();
+                        setCompanies(companiesData);
+                    } 
+                } catch (error) {
+                    console.error("Error fetching companies:", error);
+                }
+            };
+    
+            fetchCompanies();
+    }, []);
 
     return (
         <div className="bg-gray-50 flex">

@@ -44,7 +44,7 @@ const Contacts = () => {
             setFilteredContacts(contacts);
         } else {
             const filtered = contacts.filter((contact) => {
-                contact.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                return contact.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 contact.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 contact.role?.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 contact.company.name.toLowerCase().includes(searchQuery.toLowerCase())
