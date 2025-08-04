@@ -55,6 +55,7 @@ model Company {
   contacts      Contact[]
   applications  Application[]
 
+  @@unique([name, userId])
   @@map("companies")
 }
 
