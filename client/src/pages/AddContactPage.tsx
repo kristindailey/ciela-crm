@@ -70,17 +70,17 @@ const AddContactPage = () => {
                 companyId = newCompany.id;
             }
 
-            const contactResponse = await fetch(`${API_BASE_URL}/contacts`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    ...formData,
-                    companyId,
-                }),
-                credentials: "include",
-            });
+            // const contactResponse = await fetch(`${API_BASE_URL}/contacts`, {
+            //     method: "POST",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify({
+            //         ...formData,
+            //         companyId,
+            //     }),
+            //     credentials: "include",
+            // });
 
-            const newContact = await contactResponse.json();
+            // const newContact = await contactResponse.json();
             // navigate(`/contacts/${newContact.id}`);
             navigate(`/contacts`);
         } catch (error) {

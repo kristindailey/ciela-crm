@@ -1,23 +1,40 @@
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import Sidebar from "../components/Sidebar";
 
 const AddCompanyPage = () => {
+    const [formData, setFormData] = useState({
+        name: "",
+        website: "",
+        description: "",
+    });
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
     const navigate = useNavigate();
 
-    const handleSave = async (companyData: any) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+
+        setFormData(prev => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const handleSave = async (e: React.FormEvent) => {
+        e.preventDefault();
+
         try {
             const response = await fetch(`${API_BASE_URL}/companies`, {
                 method: "POST",
-                headers: {"Content-Type": "application/json" },
-                body: JSON.stringify(companyData),
+                headers: {  "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
                 credentials: "include",
             });
 
             const newCompany = await response.json();
-
             // navigate(`/contacts/${newCompany.id}`);
-            navigate(`/contacts`);
+            navigate("/companies");
         } catch (error) {
             console.error("Error creating company:", error);
         }
@@ -29,8 +46,54 @@ const AddCompanyPage = () => {
             <div className="flex-1">
                 <div className="p-6 text-black">
                     <h1 className="text-2xl font-bold mb-4">New Company</h1>
-                    {/* ADD COMPANY FORM */}
-                    <p>Company creation form will go here.</p>
+                    
+                    <form className="space-y-4" onSubmit={handleSave}>
+                        <div>
+                            <label htmlFor="name" className="block text-sm font-medium mb-1">Company Name</label>
+                            <input 
+                                type="text" 
+                                id="name"
+                                name="name"
+                                required
+                                value={formData.name}
+                                onChange={handleInputChange}
+                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="website" className="block text-sm font-medium mb-1">Company Website</label>
+                            <input 
+                                type="text" 
+                                id="website"
+                                name="website"
+                                required
+                                value={formData.website}
+                                onChange={handleInputChange}
+                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="description" className="block text-sm font-medium mb-1">Company Description</label>
+                            <textarea 
+                                id="description"
+                                name="description" 
+                                rows={4}
+                                value={formData.description}
+                                onChange={handleInputChange}
+                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            >    
+                            </textarea>
+                        </div>
+
+                        <button
+                            type="submit"
+                            className="px-4 py-2 bg-[var(--royal-blue)] text-white rounded-md hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] hover:font-medium"
+                        >
+                            Create Company
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
