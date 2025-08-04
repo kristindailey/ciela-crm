@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { prisma } from "../lib/prisma";
 
 const router = Router();
@@ -36,6 +37,11 @@ router.post("/", async (req, res) => {
         res.status(201).json(company);
     } catch (error) {
         console.error("Error creating company:", error);
+
+        if (error instanceof PrismaClientKnownRequestError && error.code === "P2002") {
+            return res.status(400).json({ error: "A company with this name already exists." });
+        }
+
         res.status(500).json({ error: "Failed to create company." });
     }
 });

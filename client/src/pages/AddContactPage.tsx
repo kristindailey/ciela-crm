@@ -59,6 +59,15 @@ const AddContactPage = () => {
             let companyId = selectedCompany;
 
             if (showNewCompany) {
+                const existingCompany = companies.find((c) => {
+                    return c.name.toLowerCase() === newCompanyData.name.toLowerCase();
+                });
+
+                if (existingCompany) {
+                    alert("Company already exists! Please select it from the dropdown.");
+                    return;
+                }
+
                 const companyResponse = await fetch(`${API_BASE_URL}/companies`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
