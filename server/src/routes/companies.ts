@@ -23,13 +23,14 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
     try {
         const userId = (req.user as any).id;
-        const { name, website, description } = req.body;
+        const { name, website, description, tier } = req.body;
 
         const company = await prisma.company.create({
             data: {
                 name, 
                 website, 
                 description, 
+                tier,
                 userId,
             },
         });

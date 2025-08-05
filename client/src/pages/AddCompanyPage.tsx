@@ -7,12 +7,13 @@ const AddCompanyPage = () => {
         name: "",
         website: "",
         description: "",
+        tier: "BACKLOG",
     });
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const navigate = useNavigate();
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
 
         setFormData(prev => ({
@@ -85,6 +86,22 @@ const AddCompanyPage = () => {
                                 className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
                             >    
                             </textarea>
+                        </div>
+
+                        <div>
+                            <label htmlFor="tier" className="block text-sm font-medium mb-1">Company Tier</label>
+                            <select 
+                                id="tier"
+                                name="tier" 
+                                value={formData.tier}
+                                onChange={handleInputChange}
+                                className="px-4 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            >    
+                                <option value="BACKLOG">Backlog</option>
+                                <option value="TIER_1">Tier 1</option>
+                                <option value="TIER_2">Tier 2</option>
+                                <option value="TIER_3">Tier 3</option>
+                            </select>
                         </div>
 
                         <button
