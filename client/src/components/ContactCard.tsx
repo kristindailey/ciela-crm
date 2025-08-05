@@ -6,7 +6,10 @@ interface ContactCardProps {
 
 const ContactCard = ({ contact }: ContactCardProps) => {
     const formatTier = (tier: string) => {
-        return tier.toLowerCase().replace(/^\w/, c => c.toUpperCase());
+        return tier
+            .toLowerCase()
+            .replace(/_/g, " ")
+            .replace(/^\w/, c => c.toUpperCase());
     };
 
     return (

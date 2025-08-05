@@ -3,12 +3,15 @@ import { useNavigate } from "react-router";
 import type { Contact } from "../types/contact";
 import Sidebar from "../components/Sidebar";
 import PageHeader from "../components/PageHeader";
+import TierTabs from "../components/TierTabs";
 import ContactCard from "../components/ContactCard";
 
 const Contacts = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [contacts, setContacts] = useState<Contact[]>([]);
     const [filteredContacts, setFilteredContacts] = useState<Contact[]>([]);
+    const [activeTier, setActiveTier] = useState("TIER_1");
+    const tiers = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG", "ALL"];
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const navigate = useNavigate();
@@ -19,6 +22,10 @@ const Contacts = () => {
 
     const handleSearchContacts = (value: string) => {
         setSearchQuery(value);
+    };
+
+    const handleTierChange = (tier: string) => {
+        setActiveTier(tier);
     };
 
     useEffect(() => {
@@ -41,19 +48,25 @@ const Contacts = () => {
     }, []);
 
     useEffect(() => {
-        if (searchQuery === "") {
-            setFilteredContacts(contacts);
-        } else {
-            const filtered = contacts.filter((contact) => {
-                return contact.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                contact.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                contact.role?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                contact.company.name.toLowerCase().includes(searchQuery.toLowerCase())
+        let filtered = contacts;
+
+        if (activeTier !== "ALL") {
+            filtered = filtered.filter((contact) => {
+              return contact.company.tier === activeTier;  
             });
-            
-            setFilteredContacts(filtered);
         }
-    }, [contacts, searchQuery]);
+
+        if (searchQuery !== "") {
+            filtered.filter((contact) => {
+                return contact.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    contact.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    contact.role?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    contact.company.name.toLowerCase().includes(searchQuery.toLowerCase())
+            });
+        }
+
+        setFilteredContacts(filtered);
+    }, [contacts, searchQuery, activeTier]);
 
     return (
         <div className="bg-gray-50 flex">
@@ -65,6 +78,12 @@ const Contacts = () => {
                     searchPlaceholder="Search contacts..."
                     onSearchChange={handleSearchContacts}
                     onAddClick={handleAddContact}
+                />
+
+                <TierTabs 
+                    tiers={tiers}
+                    activeTier={activeTier}
+                    onTierChange={handleTierChange}
                 />
 
                 <div className="p-6">
