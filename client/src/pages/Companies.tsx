@@ -3,11 +3,12 @@ import { useNavigate } from "react-router";
 import type { Company } from "../types/company";
 import Sidebar from "../components/Sidebar";
 import PageHeader from "../components/PageHeader";
+import CompanyCard from "../components/CompanyCard";
 
 const Companies = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [companies, setCompanies] = useState<Company[]>([]);
-    const [_filteredCompanies, setFilteredCompanies] = useState<Company[]>([]);
+    const [filteredCompanies, setFilteredCompanies] = useState<Company[]>([]);
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const navigate = useNavigate();
@@ -64,11 +65,12 @@ const Companies = () => {
                     onAddClick={handleAddCompany}
                 />
 
-                <div className="p-6 text-black">
-                    <h2 className="text-xl font-semibold mb-4">Companies ({companies.length})</h2>
-                    <pre className="bg-white p-4 rounded border text-sm overflow-auto max-h-96 max-w-full whitespace-pre-wrap break-words">
-                        {JSON.stringify(companies, null, 2)}
-                    </pre>
+                <div className="p-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {filteredCompanies.map((company) => (
+                            <CompanyCard key={company.id} company={company} />
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
