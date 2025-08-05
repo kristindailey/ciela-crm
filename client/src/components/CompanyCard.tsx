@@ -13,7 +13,7 @@ const CompanyCard = ({ company }: CompanyCardProps) => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg border shadow-sm">
+    <div className="bg-white p-4 rounded-lg shadow-sm">
       <h3 className="text-lg font-semibold text-[var(--royal-blue)] mb-2">
         {company.name}
       </h3>
