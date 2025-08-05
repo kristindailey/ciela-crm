@@ -25,10 +25,10 @@ const ContactCard = ({ contact }: ContactCardProps) => {
 
             {contact.email && (
                 <a 
-                href={`mailto:${contact.email}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 text-sm mb-2 block"
+                    href={`mailto:${contact.email}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 text-sm mb-2 block"
                 >
                 {contact.email}
                 </a>

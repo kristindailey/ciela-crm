@@ -17,11 +17,12 @@ const Home = () => {
 
     if (user) {
         return (
-            <>
-                <div className="bg-gray-50">
-                    <Sidebar />
+            <div className="bg-gray-50 flex">
+                <Sidebar />
+                <div className="flex-1">
+                    <h1 className="text-[var(--royal-blue)] font-pacifico text-5xl mt-20 ml-5 mb-4">home</h1>
                 </div>
-            </>
+            </div>
         );
     }
 
