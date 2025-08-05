@@ -3,12 +3,15 @@ import { useNavigate } from "react-router";
 import type { Company } from "../types/company";
 import Sidebar from "../components/Sidebar";
 import PageHeader from "../components/PageHeader";
+import TierTabs from "../components/TierTabs";
 import CompanyCard from "../components/CompanyCard";
 
 const Companies = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [companies, setCompanies] = useState<Company[]>([]);
     const [filteredCompanies, setFilteredCompanies] = useState<Company[]>([]);
+    const [activeTier, setActiveTier] = useState("TIER_1");
+    const tiers = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG", "ALL"];
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const navigate = useNavigate();
@@ -19,6 +22,10 @@ const Companies = () => {
 
     const handleSearchCompanies = (value: string) => {
         setSearchQuery(value);
+    };
+
+    const handleTierChange = (tier: string) => {
+        setActiveTier(tier);
     };
 
     useEffect(() => {
@@ -41,17 +48,23 @@ const Companies = () => {
     }, []);
 
     useEffect(() => {
-        if (searchQuery === "") {
-            setFilteredCompanies(companies);
-        } else {
-            const filtered = companies.filter((company) => {
-                return company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                company.description?.toLowerCase().includes(searchQuery.toLowerCase())
+        let filtered = companies;
+
+        if (activeTier !== "ALL") {
+            filtered = filtered.filter((company) => {
+              return company.tier === activeTier;  
             });
-                
-            setFilteredCompanies(filtered);
         }
-    }, [companies, searchQuery]);
+
+        if (searchQuery !== "") {
+            filtered.filter((company) => {
+                return company.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                    company.description?.toLowerCase().includes(searchQuery.toLowerCase());
+            });
+        }
+        
+        setFilteredCompanies(filtered);
+    }, [companies, searchQuery, activeTier]);
 
     return (
         <div className="bg-gray-50 flex">
@@ -63,6 +76,12 @@ const Companies = () => {
                     searchPlaceholder="Search companies..."
                     onSearchChange={handleSearchCompanies}
                     onAddClick={handleAddCompany}
+                />
+
+                <TierTabs 
+                    tiers={tiers}
+                    activeTier={activeTier}
+                    onTierChange={handleTierChange}
                 />
 
                 <div className="p-6">
