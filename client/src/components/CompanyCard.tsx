@@ -27,7 +27,7 @@ const CompanyCard = ({ company }: CompanyCardProps) => {
       )}
 
       <div className="text-sm text-gray-600">
-        Tier: <span className="font-medium">{formatTier(company.tier)}</span>
+        <span className="font-medium">Tier: {formatTier(company.tier)}</span>
       </div>
     </div>
   );
