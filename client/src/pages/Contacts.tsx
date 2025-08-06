@@ -57,11 +57,13 @@ const Contacts = () => {
         }
 
         if (searchQuery !== "") {
-            filtered.filter((contact) => {
+            filtered = filtered.filter((contact) => {
+                const normalizedTier = contact.company.tier.toLowerCase().replace("_", " ");
                 return contact.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                     contact.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                     contact.role?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    contact.company.name.toLowerCase().includes(searchQuery.toLowerCase())
+                    contact.company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    normalizedTier.includes(searchQuery.toLowerCase());
             });
         }
 

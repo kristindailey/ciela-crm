@@ -57,9 +57,11 @@ const Companies = () => {
         }
 
         if (searchQuery !== "") {
-            filtered.filter((company) => {
+            filtered = filtered.filter((company) => {
+                const normalizedTier = company.tier.toLowerCase().replace("_", " ");
                 return company.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                    company.description?.toLowerCase().includes(searchQuery.toLowerCase());
+                    company.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    normalizedTier.includes(searchQuery.toLowerCase());
             });
         }
         
