@@ -20,6 +20,29 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.get("/:id", async (req, res) => {
+    try {
+        const userId = (req.user as any).id;
+        const { id } = req.params;
+
+        const company = await prisma.company.findFirst({
+            where: {
+                id,
+                userId,
+            },
+        });
+
+        if (!company) {
+            return res.status(404).json({ error: "Company not found." });
+        }
+
+        res.json();
+    } catch (error) {
+        console.error("Error fetching company:", error);
+        res.status(500).json({ error: "Failed to fetch company." });
+    }
+});
+
 router.post("/", async (req, res) => {
     try {
         const userId = (req.user as any).id;

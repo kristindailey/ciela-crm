@@ -32,18 +32,18 @@ const router = createBrowserRouter([
     path: "/contacts/new",
     element: <ProtectedRoute><AddContactPage /></ProtectedRoute>,
   },
-  // {
-  //   path: "/contacts/:id",
-  //   element: <ProtectedRoute><AddContactPage /></ProtectedRoute>,
-  // },
+  {
+    path: "/contacts/:id",
+    element: <ProtectedRoute><AddContactPage /></ProtectedRoute>,
+  },
   {
     path: "/companies/new",
     element: <ProtectedRoute><AddCompanyPage /></ProtectedRoute>,
   },
-  // {
-  //   path: "/companies/:id",
-  //   element: <ProtectedRoute><AddCompanyPage /></ProtectedRoute>,
-  // },
+  {
+    path: "/companies/:id",
+    element: <ProtectedRoute><AddCompanyPage /></ProtectedRoute>,
+  },
   {
     path: "/companies",
     element: <ProtectedRoute><Companies /></ProtectedRoute>,

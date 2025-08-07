@@ -31,6 +31,38 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.get("/:id", async (req, res) => {
+    try {
+        const userId = (req.user as any).id;
+        const { id } = req.params;
+
+        const contact = await prisma.contact.findFirst({
+            where: {
+                id, 
+                userId,
+            },
+            include: {
+                company: {
+                    select: {
+                        id: true,
+                        name: true,
+                        tier: true,
+                    },
+                },
+            },
+        });
+
+        if (!contact) {
+            return res.status(404).json({ error: "Contact not found." });
+        }
+
+        res.json(contact);
+    } catch (error) {
+        console.error("Error fetching contact:", error);
+        res.status(500).json({ error: "Failed to fetch contact." });
+    }
+});
+
 router.post("/", async (req, res) => {
     try {
         const userId = (req.user as any).id;
