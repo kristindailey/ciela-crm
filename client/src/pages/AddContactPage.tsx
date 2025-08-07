@@ -97,8 +97,7 @@ const AddContactPage = () => {
             });
 
             const newContact = await contactResponse.json();
-            // navigate(`/contacts/${newContact.id}`);
-            navigate(`/contacts`);
+            navigate(`/contacts/${newContact.id}`);
         } catch (error) {
             console.error("Error creating contact:", error);
         }

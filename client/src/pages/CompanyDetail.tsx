@@ -6,7 +6,6 @@ import type { Company } from "../types/company";
 const CompanyDetail = () => {
     const { id } = useParams<{ id: string }>();
     const [company, setCompany] = useState<Company | null>(null)
-    const [loading, setLoading] = useState(true);
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     useEffect(() => {
@@ -22,9 +21,7 @@ const CompanyDetail = () => {
                 }
             } catch (error) {
                 console.error("Error fetching company:", error);
-            } finally {
-                setLoading(false);
-            }
+            } 
         };
 
         if (id) {
@@ -32,12 +29,8 @@ const CompanyDetail = () => {
         }
     }, [id, API_BASE_URL]);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
     if (!company) {
-        return <div>Company not found.</div>;
+        return null;
     }
 
     return (

@@ -6,7 +6,9 @@ import Register from "./pages/Register";
 import AddContactPage from "./pages/AddContactPage";
 import AddCompanyPage from "./pages/AddCompanyPage";
 import Contacts from "./pages/Contacts";
+import ContactDetail from "./pages/ContactDetail";
 import Companies from "./pages/Companies";
+import CompanyDetail from "./pages/CompanyDetail";
 import Applications from "./pages/Applications";
 import Settings from "./pages/Settings";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
@@ -34,7 +36,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/contacts/:id",
-    element: <ProtectedRoute><AddContactPage /></ProtectedRoute>,
+    element: <ProtectedRoute><ContactDetail /></ProtectedRoute>,
   },
   {
     path: "/companies/new",
@@ -42,7 +44,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/companies/:id",
-    element: <ProtectedRoute><AddCompanyPage /></ProtectedRoute>,
+    element: <ProtectedRoute><CompanyDetail /></ProtectedRoute>,
   },
   {
     path: "/companies",

@@ -6,7 +6,6 @@ import type { Contact } from "../types/contact";
 const ContactDetail = () => {
     const { id } = useParams<{ id: string }>();
     const [contact, setContact] = useState<Contact | null>(null)
-    const [loading, setLoading] = useState(true);
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     useEffect(() => {
@@ -22,8 +21,6 @@ const ContactDetail = () => {
                 }
             } catch (error) {
                 console.error("Error fetching contact:", error);
-            } finally {
-                setLoading(false);
             }
         };
 
@@ -32,12 +29,8 @@ const ContactDetail = () => {
         }
     }, [id, API_BASE_URL]);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
     if (!contact) {
-        return <div>Contact not found.</div>;
+        return null;
     }
 
     return (

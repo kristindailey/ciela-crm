@@ -36,7 +36,7 @@ router.get("/:id", async (req, res) => {
             return res.status(404).json({ error: "Company not found." });
         }
 
-        res.json();
+        res.json(company);
     } catch (error) {
         console.error("Error fetching company:", error);
         res.status(500).json({ error: "Failed to fetch company." });

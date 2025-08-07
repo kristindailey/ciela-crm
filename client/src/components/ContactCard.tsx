@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import type { Contact } from "../types/contact";
 
 interface ContactCardProps {
@@ -5,6 +6,8 @@ interface ContactCardProps {
 }
 
 const ContactCard = ({ contact }: ContactCardProps) => {
+    const navigate = useNavigate();
+    
     const formatTier = (tier: string) => {
         return tier
             .toLowerCase()
@@ -12,8 +15,15 @@ const ContactCard = ({ contact }: ContactCardProps) => {
             .replace(/^\w/, c => c.toUpperCase());
     };
 
+    const handleClick = () => {
+        navigate(`/contacts/${contact.id}`);
+    };
+
     return (
-        <div className="bg-white p-4 rounded-lg border shadow-sm">
+        <div
+            onClick={handleClick} 
+            className="bg-white p-4 rounded-lg border border shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+        >
             <h3 className="text-lg font-semibold text-[var(--royal-blue)] mb-2">
                 {contact.firstName} {contact.lastName}
             </h3>

@@ -34,8 +34,7 @@ const AddCompanyPage = () => {
             });
 
             const newCompany = await response.json();
-            // navigate(`/contacts/${newCompany.id}`);
-            navigate("/companies");
+            navigate(`/contacts/${newCompany.id}`);
         } catch (error) {
             console.error("Error creating company:", error);
         }
