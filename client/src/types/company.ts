@@ -2,6 +2,8 @@ export interface Company {
     id: string;
     name: string;
     website?: string;
+    careersPage?: string;
+    glassdoor?: string;
     linkedin?: string;
     bluesky?: string;
     github?: string;

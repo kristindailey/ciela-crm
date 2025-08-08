@@ -37,10 +37,12 @@ enum CompanyTier {
 model Company {
   id            String      @id @default(cuid())
   name          String
+  careersPage   String?
   website       String?
+  glassdoor     String?
+  github        String?
   linkedin      String?
   bluesky       String?
-  github        String?
   description   String?
   techStack     String[]
   notes         String?

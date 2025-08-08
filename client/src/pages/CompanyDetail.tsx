@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import Sidebar from "../components/Sidebar";
 import type { Company } from "../types/company";
+import CompanyHeader from "../components/CompanyHeader";
 
 const CompanyDetail = () => {
     const { id } = useParams<{ id: string }>();
@@ -36,11 +37,8 @@ const CompanyDetail = () => {
     return (
         <div className="bg-gray-50 flex">
             <Sidebar />
-            <div className="flex-1">
-                <div className="p-6">
-                    <h1 className="text-3xl font-bold mb-4">{company.name}</h1>
-                    <pre>{JSON.stringify(company, null, 2)}</pre>
-                </div>
+            <div className="flex-1 text-black">
+                <CompanyHeader company={company} />
             </div>
         </div>
     );
