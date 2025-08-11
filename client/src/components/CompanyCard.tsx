@@ -22,7 +22,7 @@ const CompanyCard = ({ company }: CompanyCardProps) => {
   return (
     <div 
       onClick={handleClick}
-      className="bg-white p-6 rounded-lg border shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+      className="bg-white p-6 rounded-lg border shadow-sm cursor-pointer hover:shadow-md hover:bg-[var(--royal-blue)]/20 hover:border-[var(--royal-blue)]/30 transition-all"
     >
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold text-[var(--royal-blue)]">

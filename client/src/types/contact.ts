@@ -20,5 +20,6 @@ export interface Contact {
         id: string;
         name: string;
         tier: string;
+        logoUrl?: string;
     }
 }
