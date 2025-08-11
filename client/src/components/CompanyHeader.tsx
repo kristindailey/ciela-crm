@@ -14,7 +14,7 @@ interface CompanyHeaderProps {
 }
 
 const CompanyHeader = ({ company, onCompanyUpdate }: CompanyHeaderProps) => {
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [_selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const socialLinks = [
@@ -75,6 +75,12 @@ const CompanyHeader = ({ company, onCompanyUpdate }: CompanyHeaderProps) => {
                     if (response.ok) {
                         const updatedCompany = await response.json();
                         onCompanyUpdate(updatedCompany);
+
+                        if (previewUrl && previewUrl.startsWith("blob:")) {
+                            URL.revokeObjectURL(previewUrl);
+                        }
+
+                        setPreviewUrl(null);
                     }                    
                 } catch (error) {
                     console.error("Failed to save logo URL to database:", error);
