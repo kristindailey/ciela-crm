@@ -22,26 +22,23 @@ const CompanyCard = ({ company }: CompanyCardProps) => {
   return (
     <div 
       onClick={handleClick}
-      className="bg-white p-4 rounded-lg border shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+      className="bg-white p-6 rounded-lg border shadow-sm cursor-pointer hover:shadow-md transition-shadow"
     >
-      <h3 className="text-lg font-semibold text-[var(--royal-blue)] mb-2">
-        {company.name}
-      </h3>
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold text-[var(--royal-blue)]">
+          {company.name}
+        </h3>
 
-      {company.website && (
-        <a 
-          href={company.website}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 hover:text-blue-800 text-sm mb-2 block"
-        >
-          {company.website}
-        </a>
-      )}
-
-      <div className="text-sm text-gray-600">
-        <span className="font-medium">{formatTier(company.tier)}</span>
+        {company.logoUrl && (
+          <img 
+            src={company.logoUrl} 
+            alt={`${company.name} logo`}
+            className="h-10 max-w-16 object-contain"
+          />
+        )}
       </div>
+      
+      <span className="text-sm text-gray-600 font-medium">{formatTier(company.tier)}</span>
     </div>
   );
 };
