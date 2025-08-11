@@ -41,7 +41,7 @@ const CompanyDetail = () => {
     return (
         <div className="bg-gray-50 flex">
             <Sidebar />
-            <div className="flex-1 text-black">
+            <div className="flex-1">
                 <CompanyHeader company={company} onCompanyUpdate={handleCompanyUpdate} />
             </div>
         </div>

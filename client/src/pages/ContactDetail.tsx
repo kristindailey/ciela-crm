@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import Sidebar from "../components/Sidebar";
+import ContactHeader from "../components/ContactHeader";
 import type { Contact } from "../types/contact";
 
 const ContactDetail = () => {
@@ -36,13 +37,8 @@ const ContactDetail = () => {
     return (
         <div className="bg-gray-50 flex">
             <Sidebar />
-            <div className="flex-1">
-                <div className="p-6">
-                    <h1 className="text-3xl font-bold mb-4">
-                        {contact.firstName} {contact.lastName}
-                    </h1>
-                    <pre>{JSON.stringify(contact, null, 2)}</pre>
-                </div>
+             <div className="flex-1">
+                <ContactHeader contact={contact} />
             </div>
         </div>
     );
