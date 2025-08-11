@@ -18,13 +18,13 @@ const CompanyHeader = ({ contact }: ContactHeaderProps) => {
     ];
 
     return (
-        <div className="flex items-center justify-between mb-4">
+        <div className="mb-4">
             <div className="flex items-center justify-between w-full mt-20 ml-5 mr-5">
                 <div className="flex items-center gap-4 font-inter">
-                    <h1 className="text-[var(--royal-blue)] font-extrabold text-4xl">{contact.firstName} {contact.lastName}</h1>
+                    <h1 className="text-[var(--royal-blue)] font-extrabold text-4xl mt-5">{contact.firstName} {contact.lastName}</h1>
 
                     {contact.company.logoUrl && (
-                        <div className="ml-10">
+                        <div className="ml-8">
                             <img 
                                 src={contact.company.logoUrl} 
                                 alt={`${contact.company} logo`}
@@ -33,11 +33,11 @@ const CompanyHeader = ({ contact }: ContactHeaderProps) => {
                         </div>
                     )}
 
-                    <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold ml-5">
+                    <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold ml-8 mt-5">
                         {contact.company.tier.toLowerCase().replace("_", " ")}
                     </div>
 
-                    <div className="flex items-center gap-4 ml-85 text-2xl text-[var(--royal-blue)]">
+                    <div className="flex items-center gap-4 text-3xl text-[var(--royal-blue)] ml-85 mt-7">
                         {socialLinks.map(({ url, icon: Icon, label }) => (
                             <a 
                                 key={label}
@@ -52,6 +52,7 @@ const CompanyHeader = ({ contact }: ContactHeaderProps) => {
                     </div>
                 </div>
             </div>
+            <div className="h-4 bg-[var(--soft-lavender)] mt-2 mx-5"></div>
         </div>
     );
 };

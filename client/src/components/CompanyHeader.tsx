@@ -90,12 +90,12 @@ const CompanyHeader = ({ company, onCompanyUpdate }: CompanyHeaderProps) => {
     };
 
     return (
-        <div className="flex items-center justify-between mb-4">
+        <div className="mb-4">
             <div className="flex items-center justify-between w-full mt-20 ml-5 mr-5">
                 <div className="flex items-center gap-4 font-inter">
-                    <h1 className="text-[var(--royal-blue)] font-extrabold text-4xl">{company.name}</h1>
+                    <h1 className="text-[var(--royal-blue)] font-extrabold text-4xl mt-5">{company.name}</h1>
 
-                    <div className="ml-2">
+                    <div className="ml-8">
                         {(previewUrl || company.logoUrl) ? (
                             <div className="relative group">
                                 <img 
@@ -129,11 +129,11 @@ const CompanyHeader = ({ company, onCompanyUpdate }: CompanyHeaderProps) => {
                         />
                     </div>
 
-                    <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold ml-8">
+                    <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold ml-8 mt-5">
                         {company.tier.toLowerCase().replace("_", " ")}
                     </div>
 
-                    <div className="flex items-center gap-4 ml-35 text-2xl text-[var(--royal-blue)]">
+                    <div className="flex items-center gap-4 text-3xl text-[var(--royal-blue)] ml-85 mt-7">
                         {socialLinks.map(({ url, icon: Icon, label }) => (
                             <a 
                                 key={label}
@@ -148,6 +148,7 @@ const CompanyHeader = ({ company, onCompanyUpdate }: CompanyHeaderProps) => {
                     </div>
                 </div>
             </div>
+            <div className="h-4 bg-[var(--soft-lavender)] mt-2 mx-5"></div>
         </div>
     );
 };
