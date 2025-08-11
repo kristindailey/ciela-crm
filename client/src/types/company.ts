@@ -7,6 +7,7 @@ export interface Company {
     linkedin?: string;
     bluesky?: string;
     github?: string;
+    logoUrl?: string;
     description?: string;
     techStack?: string[];
     notes?: string;

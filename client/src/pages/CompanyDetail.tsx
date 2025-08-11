@@ -9,6 +9,10 @@ const CompanyDetail = () => {
     const [company, setCompany] = useState<Company | null>(null)
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+    const handleCompanyUpdate = (updatedCompany: Company) => {
+        setCompany(updatedCompany);
+    };
+
     useEffect(() => {
         const fetchCompany = async () => {
             try {
@@ -38,7 +42,7 @@ const CompanyDetail = () => {
         <div className="bg-gray-50 flex">
             <Sidebar />
             <div className="flex-1 text-black">
-                <CompanyHeader company={company} />
+                <CompanyHeader company={company} onCompanyUpdate={handleCompanyUpdate} />
             </div>
         </div>
     );

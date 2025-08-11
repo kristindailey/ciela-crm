@@ -43,6 +43,35 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+router.patch("/:id", async (req, res) => {
+    try {
+        const userId = (req.user as any).id;
+        const { id } = req.params;
+        const updateData = req.body;
+        
+        const existingCompany = await prisma.company.findFirst({
+            where: {
+                id,
+                userId,
+            },
+        });
+
+        if (!existingCompany) {
+            return res.status(404).json({ error: "Company not found." });
+        }
+
+        const updatedCompany = await prisma.company.update({
+            where: { id },
+            data: updateData,
+        });
+
+        res.json(updatedCompany);
+    } catch (error) {
+        console.error("Error updating company:", error);
+        res.status(500).json({ error: "Failed to update company." });
+    }
+});
+
 router.post("/", async (req, res) => {
     try {
         const userId = (req.user as any).id;
