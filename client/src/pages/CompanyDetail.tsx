@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import Sidebar from "../components/Sidebar";
 import type { Company } from "../types/company";
+import Sidebar from "../components/Sidebar";
 import CompanyHeader from "../components/CompanyHeader";
 
 const CompanyDetail = () => {

@@ -22,7 +22,7 @@ const ContactCard = ({ contact }: ContactCardProps) => {
     return (
         <div
             onClick={handleClick} 
-            className="bg-white p-4 rounded-lg border border shadow-sm cursor-pointer hover:shadow-md hover:bg-[var(--royal-blue)]/20 hover:border-[var(--royal-blue)]/30 transition-all"
+            className="bg-white p-4 rounded-lg border shadow-sm cursor-pointer hover:shadow-md hover:bg-[var(--royal-blue)]/20 hover:border-[var(--royal-blue)]/30 transition-all"
         >
             <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-[var(--royal-blue)] mb-2">

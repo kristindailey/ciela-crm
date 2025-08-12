@@ -2,12 +2,77 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import Sidebar from "../components/Sidebar";
 import ContactHeader from "../components/ContactHeader";
+import ContactInfoPill from "../components/ContactInfoPill";
 import type { Contact } from "../types/contact";
 
 const ContactDetail = () => {
     const { id } = useParams<{ id: string }>();
     const [contact, setContact] = useState<Contact | null>(null)
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString("en-US", {
+            month: "2-digit",
+            day: "2-digit",
+            year: "numeric",
+        });
+    };
+
+    const handleSaveRole = async (newRole: string) => {
+        if (!contact) {
+            return;
+        }
+
+        setContact((prev) => prev ? { 
+            ...prev, 
+            role: newRole,
+        } : null);
+
+        try { 
+            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${contact.company.id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ role: newRole }),
+                credentials: "include",
+            });
+        } catch (error) {
+            console.error("Failed to save role:", error);
+        }
+    };
+
+    const handleSaveCompany = async (newCompany: string) => {
+        setContact((prev) => prev ? { 
+            ...prev, 
+            company: { ...prev.company, name: newCompany },
+        } : null); 
+    };
+
+    const handleSaveLocation = async (newLocation: string) => {
+        if (!contact) {
+            return;
+        }
+        
+        setContact((prev) => prev ? { 
+            ...prev, 
+            location: newLocation,
+        } : null);
+
+        try { 
+            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${contact.location}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application.json" },
+                body: JSON.stringify({ location: newLocation }),
+                credentials: "include",
+            });
+        } catch (error) {
+            console.error("Failed to save location:", error);
+        }
+    };
+
+    const handleSaveDate = async (newDate: string) => {
+        console.log("Date save not implemented yet:", newDate);
+    };
 
     useEffect(() => {
         const fetchContact = async () => {
@@ -39,6 +104,33 @@ const ContactDetail = () => {
             <Sidebar />
              <div className="flex-1">
                 <ContactHeader contact={contact} />
+
+                <div className="flex gap-5 px-5 mt-3">
+                    <ContactInfoPill 
+                        label="Role"
+                        value={contact.role}
+                        placeholder="No role specified"
+                        onSave={(newValue) => handleSaveRole(newValue)}
+                    />
+                    <ContactInfoPill 
+                        label="Company"
+                        value={contact.company.name}
+                        placeholder="No company specified"
+                        onSave={(newValue) => handleSaveCompany(newValue)}
+                    />
+                    <ContactInfoPill w-full max-w-4xl
+                        label="Location"
+                        value={contact.location}
+                        placeholder="No location specified"
+                        onSave={(newValue) => handleSaveLocation(newValue)}
+                    />
+                    <ContactInfoPill 
+                        label="Last contacted"
+                        value={contact.updatedAt ? formatDate(contact.updatedAt) : undefined}
+                        placeholder="Never contacted"
+                        onSave={(newValue) => handleSaveDate(newValue)}
+                    />
+                </div>
             </div>
         </div>
     );
