@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma";
+import { dmmfToRuntimeDataModel } from "@prisma/client/runtime/library";
 
 const router = Router();
 
@@ -62,6 +63,45 @@ router.get("/:id", async (req, res) => {
     } catch (error) {
         console.error("Error fetching contact:", error);
         res.status(500).json({ error: "Failed to fetch contact." });
+    }
+});
+
+router.patch("/:id", async (req, res) => {
+    try {
+        const userId = (req.user as any).id;
+        const { id } = req.params;
+        const updateData = req.body;
+
+        const existingContact = await prisma.contact.findFirst({
+            where: {
+                id,
+                userId,
+            },
+        });
+
+        if (!existingContact) {
+            return res.status(404).json({ error: "Contact not found." });
+        }
+
+        const updatedContact = await prisma.contact.update({
+            where: { id },
+            data: updateData,
+            include: {
+                company: {
+                    select: {
+                        id: true,
+                        name: true,
+                        tier: true,
+                        logoUrl: true,
+                    },
+                },
+            },
+        });
+
+        res.json(updatedContact);
+    } catch (error) {
+        console.error("Error updating contact:", error);
+        res.status(500).json({ error: "Failed to update contact." });
     }
 });
 

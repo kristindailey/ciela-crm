@@ -30,7 +30,7 @@ const ContactDetail = () => {
         } : null);
 
         try { 
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${contact.company.id}`, {
+            await fetch(`${import.meta.env.VITE_API_BASE_URL}/contacts/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ role: newRole }),
@@ -59,9 +59,9 @@ const ContactDetail = () => {
         } : null);
 
         try { 
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${contact.location}`, {
+            await fetch(`${import.meta.env.VITE_API_BASE_URL}/contacts/${id}`, {
                 method: "PATCH",
-                headers: { "Content-Type": "application.json" },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ location: newLocation }),
                 credentials: "include",
             });
@@ -118,7 +118,7 @@ const ContactDetail = () => {
                         placeholder="No company specified"
                         onSave={(newValue) => handleSaveCompany(newValue)}
                     />
-                    <ContactInfoPill w-full max-w-4xl
+                    <ContactInfoPill
                         label="Location"
                         value={contact.location}
                         placeholder="No location specified"
