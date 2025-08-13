@@ -10,6 +10,7 @@ export interface Contact {
     website?: string;
     location?: string;
     notes?: string;
+    outreachNotes?: string;
     createdAt: string;
     updatedAt: string;
     

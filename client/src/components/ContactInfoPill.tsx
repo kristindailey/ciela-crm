@@ -37,7 +37,7 @@ const ContactInfoPill = ({ label, value, placeholder, onSave }: ContactInfoPillP
 
     return (
         <div>
-            <label className="text-sm text-gray-600 mb-1 block">{label}</label>
+            <label className="font-inter text-sm text-gray-600 mb-1 block">{label}</label>
             <div className="bg-white px-20 py-10 rounded-xl shadow-md cursor-pointer transition-all text-lg font-semibold text-[var(--royal-blue)]">
                 {isEditing ? (
                     <input 
@@ -46,6 +46,7 @@ const ContactInfoPill = ({ label, value, placeholder, onSave }: ContactInfoPillP
                         onChange={(e) => setEditValue(e.target.value)}
                         onKeyDown={handleKeyDown}
                         onBlur={handleBlur}
+                        className="border-none outline-none bg-transparent"
                         autoFocus
                     />
                 ) : (

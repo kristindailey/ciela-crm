@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma";
-import { dmmfToRuntimeDataModel } from "@prisma/client/runtime/library";
 
 const router = Router();
 

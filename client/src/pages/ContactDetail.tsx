@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import type { Contact } from "../types/contact";
 import Sidebar from "../components/Sidebar";
 import ContactHeader from "../components/ContactHeader";
 import ContactInfoPill from "../components/ContactInfoPill";
-import type { Contact } from "../types/contact";
+import NotesSection from "../components/NotesSection";
 
 const ContactDetail = () => {
     const { id } = useParams<{ id: string }>();
@@ -74,6 +75,50 @@ const ContactDetail = () => {
         console.log("Date save not implemented yet:", newDate);
     };
 
+    const handleSaveContactNotes = async (newNotes: string) => {
+        if (!contact) {
+            return;
+        }
+
+        setContact((prev) => prev ? { 
+            ...prev, 
+            notes: newNotes,
+        } : null);
+
+        try { 
+            await fetch(`${import.meta.env.VITE_API_BASE_URL}/contacts/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ notes: newNotes }),
+                credentials: "include",
+            });
+        } catch (error) {
+            console.error("Failed to save contact notes:", error);
+        }
+    };
+
+    const handleSaveOutreachNotes = async (newNotes: string) => {
+        if (!contact) {
+            return;
+        }
+
+        setContact((prev) => prev ? { 
+            ...prev, 
+            outreachNotes: newNotes,
+        } : null);
+
+        try { 
+            await fetch(`${import.meta.env.VITE_API_BASE_URL}/contacts/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ outreachNotes: newNotes }),
+                credentials: "include",
+            });
+        } catch (error) {
+            console.error("Failed to save outreach notes:", error);
+        }
+    }; 
+
     useEffect(() => {
         const fetchContact = async () => {
             try {
@@ -125,10 +170,25 @@ const ContactDetail = () => {
                         onSave={(newValue) => handleSaveLocation(newValue)}
                     />
                     <ContactInfoPill 
-                        label="Last contacted"
+                        label="Last Contacted"
                         value={contact.updatedAt ? formatDate(contact.updatedAt) : undefined}
                         placeholder="Never contacted"
                         onSave={(newValue) => handleSaveDate(newValue)}
+                    />
+                </div>
+
+                <div className="flex gap-5 px-5 mt-3">
+                    <NotesSection 
+                        label="Contact Notes"
+                        value={contact.notes}
+                        placeholder="Click to add contact notes..."
+                        onSave={(newValue) => handleSaveContactNotes(newValue)}
+                    />
+                    <NotesSection 
+                        label="Outreach Notes"
+                        value={contact.outreachNotes}
+                        placeholder="Click to add outreach notes..."
+                        onSave={(newValue) => handleSaveOutreachNotes(newValue)}
                     />
                 </div>
             </div>

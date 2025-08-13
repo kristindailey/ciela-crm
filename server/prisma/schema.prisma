@@ -137,6 +137,7 @@ model Contact {
   website       String?
   location      String?
   notes         String?
+  outreachNotes String?
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
