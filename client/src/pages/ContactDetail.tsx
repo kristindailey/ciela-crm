@@ -5,6 +5,7 @@ import Sidebar from "../components/Sidebar";
 import ContactHeader from "../components/ContactHeader";
 import ContactInfoPill from "../components/ContactInfoPill";
 import NotesSection from "../components/NotesSection";
+import OutreachHistory from "../components/OutreachHistory";
 
 const ContactDetail = () => {
     const { id } = useParams<{ id: string }>();
@@ -189,6 +190,10 @@ const ContactDetail = () => {
                         value={contact.outreachNotes}
                         placeholder="Click to add outreach notes..."
                         onSave={(newValue) => handleSaveOutreachNotes(newValue)}
+                    />
+                    <OutreachHistory 
+                        label="Outreach History"
+                        placeholder="TODO: Make functional"
                     />
                 </div>
             </div>
