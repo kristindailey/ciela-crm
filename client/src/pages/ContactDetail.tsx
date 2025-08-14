@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import type { Contact } from "../types/contact";
 import Sidebar from "../components/Sidebar";
 import ContactHeader from "../components/ContactHeader";
-import ContactInfoPill from "../components/ContactInfoPill";
+import InfoPill from "../components/InfoPill";
 import NotesSection from "../components/NotesSection";
 import OutreachHistory from "../components/OutreachHistory";
 
@@ -152,25 +152,25 @@ const ContactDetail = () => {
                 <ContactHeader contact={contact} />
 
                 <div className="flex gap-5 px-5 mt-3">
-                    <ContactInfoPill 
+                    <InfoPill 
                         label="Role"
                         value={contact.role}
                         placeholder="No role specified"
                         onSave={(newValue) => handleSaveRole(newValue)}
                     />
-                    <ContactInfoPill 
+                    <InfoPill 
                         label="Company"
                         value={contact.company.name}
                         placeholder="No company specified"
                         onSave={(newValue) => handleSaveCompany(newValue)}
                     />
-                    <ContactInfoPill
+                    <InfoPill
                         label="Location"
                         value={contact.location}
                         placeholder="No location specified"
                         onSave={(newValue) => handleSaveLocation(newValue)}
                     />
-                    <ContactInfoPill 
+                    <InfoPill 
                         label="Last Contacted"
                         value={contact.updatedAt ? formatDate(contact.updatedAt) : undefined}
                         placeholder="Never contacted"

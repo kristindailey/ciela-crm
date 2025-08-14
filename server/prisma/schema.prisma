@@ -34,8 +34,14 @@ enum CompanyTier {
   BACKLOG
 }
 
+enum OfficePolicy {
+  REMOTE
+  HYBRID
+  IN_OFFICE
+}
+
 model Company {
-  id            String      @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String
   logoUrl       String?
   careersPage   String?
@@ -45,11 +51,15 @@ model Company {
   linkedin      String?
   bluesky       String?
   description   String?
+  hqLocation    String?
+  localLocation String?
+  employeeCount Int?
+  officePolicy  OfficePolicy?
   techStack     String[]
   notes         String?
-  tier          CompanyTier @default(BACKLOG)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  tier          CompanyTier   @default(BACKLOG)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 
   // Relations
   userId        String

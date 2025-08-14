@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-interface ContactInfoPillProps {
+interface InfoPillProps {
     label: string;
     value: string | undefined;
     placeholder: string;
@@ -8,7 +8,7 @@ interface ContactInfoPillProps {
 }
 
 
-const ContactInfoPill = ({ label, value, placeholder, onSave }: ContactInfoPillProps) => {
+const InfoPill = ({ label, value, placeholder, onSave }: InfoPillProps) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editValue, setEditValue] = useState(value || "");
 
@@ -52,6 +52,7 @@ const ContactInfoPill = ({ label, value, placeholder, onSave }: ContactInfoPillP
                 ) : (
                     <span 
                         onClick={handleClick}
+                        className="text-center"
                     >
                             { value || placeholder}
                     </span>
@@ -61,4 +62,4 @@ const ContactInfoPill = ({ label, value, placeholder, onSave }: ContactInfoPillP
     );
 };
 
-export default ContactInfoPill;
+export default InfoPill;

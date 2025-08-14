@@ -93,7 +93,7 @@ const CompanyHeader = ({ company, onCompanyUpdate }: CompanyHeaderProps) => {
         <div className="mb-4">
             <div className="flex items-center justify-between w-full mt-20 ml-5 mr-5">
                 <div className="flex items-center gap-4 font-inter">
-                    <h1 className="text-[var(--royal-blue)] font-extrabold text-4xl mt-5">{company.name}</h1>
+                    <h1 className="text-[var(--royal-blue)] font-extrabold text-3xl mt-5">{company.name}</h1>
 
                     <div className="ml-8">
                         {(previewUrl || company.logoUrl) ? (
@@ -133,7 +133,7 @@ const CompanyHeader = ({ company, onCompanyUpdate }: CompanyHeaderProps) => {
                         {company.tier.toLowerCase().replace("_", " ")}
                     </div>
 
-                    <div className="flex items-center gap-4 text-3xl text-[var(--royal-blue)] ml-85 mt-7">
+                    <div className="flex items-center gap-4 text-3xl text-[var(--royal-blue)] ml-140 mt-7">
                         {socialLinks.map(({ url, icon: Icon, label }) => (
                             <a 
                                 key={label}

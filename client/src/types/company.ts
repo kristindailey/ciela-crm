@@ -9,6 +9,10 @@ export interface Company {
     github?: string;
     logoUrl?: string;
     description?: string;
+    hqLocation?: string;
+    localLocation?: string;
+    employeeCount?: number;
+    officePolicy?: string;
     techStack?: string[];
     notes?: string;
     tier: string;
