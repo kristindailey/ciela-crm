@@ -18,6 +18,14 @@ const CompanyDetail = () => {
             year: "numeric",
         });
     };
+
+    const formatEmployeeCount = (count: number | null | undefined) => {
+        if (!count) {
+            return;
+        }
+
+        return count.toLocaleString();
+    };
     
     const handleCompanyUpdate = (updatedCompany: Company) => {
         setCompany(updatedCompany);
@@ -139,9 +147,12 @@ const CompanyDetail = () => {
                     />
                     <InfoPill 
                         label="Employee Count"
-                        value={company.employeeCount?.toString()}
+                        value={formatEmployeeCount(company.employeeCount)}
                         placeholder="No employee count specified"
-                        onSave={(newValue) => handleSaveEmployeeCount(parseInt(newValue, 10))}
+                        onSave={(newValue) => {
+                            const cleanValue = newValue.replace(/,/g, "");
+                            handleSaveEmployeeCount(parseInt(cleanValue, 10));
+                        }}
                     />
                     <InfoPill 
                         label="Last Contacted"
