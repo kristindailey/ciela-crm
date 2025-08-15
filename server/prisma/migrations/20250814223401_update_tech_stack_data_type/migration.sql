@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "companies" ALTER COLUMN "techStack" DROP NOT NULL,
+ALTER COLUMN "techStack" SET DATA TYPE TEXT;

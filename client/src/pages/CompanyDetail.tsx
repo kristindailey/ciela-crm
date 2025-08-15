@@ -4,6 +4,8 @@ import type { Company } from "../types/company";
 import Sidebar from "../components/Sidebar";
 import CompanyHeader from "../components/CompanyHeader";
 import InfoPill from "../components/InfoPill";
+import NotesSection from "../components/NotesSection";
+import OutreachHistory from "../components/OutreachHistory";
 
 const CompanyDetail = () => {
     const { id } = useParams<{ id: string }>();
@@ -101,6 +103,72 @@ const CompanyDetail = () => {
         console.log("Date save not implemented yet:", newDate);
     };
 
+    const handleSaveLocalLocation = async (newLocalLocation: string) => {
+        if (!company) {
+            return;
+        }
+
+        setCompany((prev) => prev ? { 
+            ...prev, 
+            localLocation: newLocalLocation,
+        } : null);
+
+        try { 
+            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ localLocation: newLocalLocation }),
+                credentials: "include",
+            });
+        } catch (error) {
+            console.error("Failed to save local location:", error);
+        }
+    };
+
+    const handleSaveTechStack = async (newTechStack: string) => {
+        if (!company) {
+            return;
+        }
+
+        setCompany((prev) => prev ? { 
+            ...prev, 
+            techStack: newTechStack,
+        } : null);
+
+        try { 
+            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ techStack: newTechStack }),
+                credentials: "include",
+            });
+        } catch (error) {
+            console.error("Failed to save tech stack:", error);
+        }
+    };
+
+    const handleSaveCompanyNotes = async (newNotes: string) => {
+        if (!company) {
+            return;
+        }
+
+        setCompany((prev) => prev ? { 
+            ...prev, 
+            notes: newNotes,
+        } : null);
+
+        try { 
+            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ notes: newNotes }),
+                credentials: "include",
+            });
+        } catch (error) {
+            console.error("Failed to save company notes:", error);
+        }
+    };
+
     useEffect(() => {
         const fetchCompany = async () => {
             try {
@@ -110,6 +178,8 @@ const CompanyDetail = () => {
 
                 if (response.ok) {
                     const companyData = await response.json();
+                    console.log("Employee count value:", companyData.employeeCount);
+                    console.log("Type:", typeof companyData.employeeCount);
                     setCompany(companyData);
                 }
             } catch (error) {
@@ -160,6 +230,38 @@ const CompanyDetail = () => {
                         placeholder="Never contacted"
                         onSave={(newValue) => handleSaveDate(newValue)}
                     />
+                </div>
+
+                <div className="flex gap-5 px-5 mt-3">
+                    <div>
+                        <InfoPill 
+                            label="Local Location"
+                            value={company.localLocation}
+                            placeholder="No local location specified"
+                            onSave={(newValue) => handleSaveLocalLocation(newValue)}
+                        />
+                        <div className="mt-3">
+                            <InfoPill 
+                            label="Tech Stack"
+                            value={company.techStack}
+                            placeholder="No tech stack specified"
+                            onSave={(newValue) => handleSaveTechStack(newValue)}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="flex gap-3">
+                        <NotesSection 
+                            label="Company Notes"
+                            value={company.notes}
+                            placeholder="Click to add company notes..."
+                            onSave={(newValue) => handleSaveCompanyNotes(newValue)}
+                        />
+                        <OutreachHistory 
+                            label="Outreach History"
+                            placeholder="TODO: Make functional"
+                        />
+                    </div>
                 </div>
             </div>
         </div>

@@ -12,8 +12,8 @@ export interface Company {
     hqLocation?: string;
     localLocation?: string;
     employeeCount?: number;
-    officePolicy?: string;
-    techStack?: string[];
+    officePolicy?: "REMOTE" | "HYBRID" | "IN_OFFICE";
+    techStack?: string;
     notes?: string;
     tier: string;
     createdAt: string;

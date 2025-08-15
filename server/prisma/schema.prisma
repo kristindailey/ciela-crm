@@ -55,7 +55,7 @@ model Company {
   localLocation String?
   employeeCount Int?
   officePolicy  OfficePolicy?
-  techStack     String[]
+  techStack     String?
   notes         String?
   tier          CompanyTier   @default(BACKLOG)
   createdAt     DateTime      @default(now())
