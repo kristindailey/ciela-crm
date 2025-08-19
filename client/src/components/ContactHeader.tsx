@@ -8,7 +8,7 @@ interface ContactHeaderProps {
     contact: Contact;
 }
 
-const CompanyHeader = ({ contact }: ContactHeaderProps) => {
+const ContactHeader = ({ contact }: ContactHeaderProps) => {
     const socialLinks = [
         { url: contact.email, icon: IoIosMail, label: "email" },
         { url: contact.bluesky, icon: RiBlueskyLine, label: "bluesky" },
@@ -57,4 +57,4 @@ const CompanyHeader = ({ contact }: ContactHeaderProps) => {
     );
 };
 
-export default CompanyHeader;
+export default ContactHeader;

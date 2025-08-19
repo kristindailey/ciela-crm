@@ -1,12 +1,12 @@
+import { Link } from "react-router";
+import { useAuth } from "../context/AuthContext";
 import { FaHouse, FaUserLarge } from "react-icons/fa6";
 import { BsBuildingsFill } from "react-icons/bs";
 import { GrDocumentText } from "react-icons/gr";
 import { IoMdSettings } from "react-icons/io";
 import { RiLogoutBoxLine } from "react-icons/ri";
-import { useAuth } from "../context/AuthContext";
 import logo from "../assets/ciela-logo.png"; 
 import mobileLogo from "../assets/ciela-text.png";
-import { Link } from 'react-router';
 
 const Sidebar = () => {
     const { logout } = useAuth();

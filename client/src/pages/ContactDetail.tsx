@@ -9,7 +9,7 @@ import OutreachHistory from "../components/OutreachHistory";
 
 const ContactDetail = () => {
     const { id } = useParams<{ id: string }>();
-    const [contact, setContact] = useState<Contact | null>(null)
+    const [contact, setContact] = useState<Contact | null>(null);
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const formatDate = (dateString: string) => {
