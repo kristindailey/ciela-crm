@@ -6,6 +6,9 @@ const AddCompanyPage = () => {
     const [formData, setFormData] = useState({
         name: "",
         website: "",
+        employeeCount: "",
+        hqLocation: "",
+        localLocation: "",
         description: "",
         tier: "BACKLOG",
     });
@@ -49,7 +52,7 @@ const AddCompanyPage = () => {
                     
                     <form className="space-y-4" onSubmit={handleSave}>
                         <div>
-                            <label htmlFor="name" className="block text-sm font-medium mb-1">Company Name</label>
+                            <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
                             <input 
                                 type="text" 
                                 id="name"
@@ -62,7 +65,7 @@ const AddCompanyPage = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="website" className="block text-sm font-medium mb-1">Company Website</label>
+                            <label htmlFor="website" className="block text-sm font-medium mb-1">Website</label>
                             <input 
                                 type="text" 
                                 id="website"
@@ -75,7 +78,45 @@ const AddCompanyPage = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="description" className="block text-sm font-medium mb-1">Company Description</label>
+                            <label htmlFor="employeeCount" className="block text-sm font-medium mb-1">Employee Count</label>
+                            <input 
+                                type="text" 
+                                id="employeeCount"
+                                name="employeeCount"
+                                required
+                                value={formData.employeeCount}
+                                onChange={handleInputChange}
+                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="hqLocation" className="block text-sm font-medium mb-1">HQ Location</label>
+                            <input 
+                                type="text" 
+                                id="hqLocation"
+                                name="hqLocation"
+                                required
+                                value={formData.hqLocation}
+                                onChange={handleInputChange}
+                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="employeeCount" className="block text-sm font-medium mb-1">Local Location</label>
+                            <input 
+                                type="text" 
+                                id="localLocation"
+                                name="localLocation"
+                                value={formData.localLocation}
+                                onChange={handleInputChange}
+                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="description" className="block text-sm font-medium mb-1">Description</label>
                             <textarea 
                                 id="description"
                                 name="description" 
@@ -88,7 +129,7 @@ const AddCompanyPage = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="tier" className="block text-sm font-medium mb-1">Company Tier</label>
+                            <label htmlFor="tier" className="block text-sm font-medium mb-1">Tier</label>
                             <select 
                                 id="tier"
                                 name="tier" 
