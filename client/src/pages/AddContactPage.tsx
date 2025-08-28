@@ -7,8 +7,13 @@ const AddContactPage = () => {
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
-        email: "",
         role: "",
+        location: "",
+        email: "",
+        bluesky: "",
+        github: "",
+        linkedin: "",
+        website: "",
         notes: "",
     });
     const [companies, setCompanies] = useState<Company[]>([]);
@@ -163,36 +168,12 @@ const AddContactPage = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
-                            <input 
-                                type="email" 
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            />
-                        </div>
-
-                        <div>
                             <label htmlFor="role" className="block text-sm font-medium mb-1">Role</label>
                             <input 
                                 type="text" 
                                 id="role"
                                 name="role"
                                 value={formData.role}
-                                onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="notes" className="block text-sm font-medium mb-1">Notes</label>
-                            <textarea 
-                                id="notes"
-                                name="notes"
-                                rows={3}
-                                value={formData.notes}
                                 onChange={handleInputChange}
                                 className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
                             />
@@ -250,6 +231,90 @@ const AddContactPage = () => {
                                     </div>
                                 </div>
                             )}
+                        </div>
+
+                        <div>
+                            <label htmlFor="location" className="block text-sm font-medium mb-1">Location</label>
+                            <input 
+                                type="text" 
+                                id="location"
+                                name="location"
+                                value={formData.location}
+                                onChange={handleInputChange}
+                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
+                            <input 
+                                type="email" 
+                                id="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="bluesky" className="block text-sm font-medium mb-1">Bluesky</label>
+                            <input 
+                                type="url" 
+                                id="bluesky"
+                                name="bluesky"
+                                value={formData.bluesky}
+                                onChange={handleInputChange}
+                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="github" className="block text-sm font-medium mb-1">GitHub</label>
+                            <input 
+                                type="url" 
+                                id="github"
+                                name="github"
+                                value={formData.github}
+                                onChange={handleInputChange}
+                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="linkedin" className="block text-sm font-medium mb-1">LinkedIn</label>
+                            <input 
+                                type="url" 
+                                id="linkedin"
+                                name="linkedin"
+                                value={formData.linkedin}
+                                onChange={handleInputChange}
+                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="website" className="block text-sm font-medium mb-1">Website</label>
+                            <input 
+                                type="url" 
+                                id="website"
+                                name="website"
+                                value={formData.website}
+                                onChange={handleInputChange}
+                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="notes" className="block text-sm font-medium mb-1">Notes</label>
+                            <textarea 
+                                id="notes"
+                                name="notes"
+                                rows={5}
+                                value={formData.notes}
+                                onChange={handleInputChange}
+                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            />
                         </div>
 
                         <button
