@@ -46,73 +46,93 @@ const AddCompanyPage = () => {
     return (
         <div className="bg-gray-50 flex">
             <Sidebar />
-            <div className="flex-1">
+            <div className="flex-1 ml-3">
                 <div className="p-6 text-black">
-                    <h1 className="text-2xl font-bold mb-4">New Company</h1>
+                    <h1 className="text-2xl font-bold mt-20 mb-4">Add New Company</h1>
                     
                     <form className="space-y-4" onSubmit={handleSave}>
-                        <div>
-                            <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
-                            <input 
-                                type="text" 
-                                id="name"
-                                name="name"
-                                required
-                                value={formData.name}
-                                onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            />
+                        <div className="flex gap-5 mt-5">
+                            <div>
+                                <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
+                                <input 
+                                    type="text" 
+                                    id="name"
+                                    name="name"
+                                    required
+                                    value={formData.name}
+                                    onChange={handleInputChange}
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="website" className="block text-sm font-medium mb-1">Website</label>
+                                <input 
+                                    type="text" 
+                                    id="website"
+                                    name="website"
+                                    required
+                                    value={formData.website}
+                                    onChange={handleInputChange}
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="tier" className="block text-sm font-medium mb-1">Tier</label>
+                                <select 
+                                    id="tier"
+                                    name="tier" 
+                                    value={formData.tier}
+                                    onChange={handleInputChange}
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] text-center rounded-md"
+                                >    
+                                    <option value="BACKLOG">Backlog</option>
+                                    <option value="TIER_1">Tier 1</option>
+                                    <option value="TIER_2">Tier 2</option>
+                                    <option value="TIER_3">Tier 3</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <div>
-                            <label htmlFor="website" className="block text-sm font-medium mb-1">Website</label>
-                            <input 
-                                type="text" 
-                                id="website"
-                                name="website"
-                                required
-                                value={formData.website}
-                                onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            />
-                        </div>
+                        <div className="flex gap-5 mt-5">
+                            <div>
+                                <label htmlFor="employeeCount" className="block text-sm font-medium mb-1">Employee Count</label>
+                                <input 
+                                    type="text" 
+                                    id="employeeCount"
+                                    name="employeeCount"
+                                    required
+                                    value={formData.employeeCount}
+                                    onChange={handleInputChange}
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                />
+                            </div>
 
-                        <div>
-                            <label htmlFor="employeeCount" className="block text-sm font-medium mb-1">Employee Count</label>
-                            <input 
-                                type="text" 
-                                id="employeeCount"
-                                name="employeeCount"
-                                required
-                                value={formData.employeeCount}
-                                onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            />
-                        </div>
+                            <div>
+                                <label htmlFor="hqLocation" className="block text-sm font-medium mb-1">HQ Location</label>
+                                <input 
+                                    type="text" 
+                                    id="hqLocation"
+                                    name="hqLocation"
+                                    required
+                                    value={formData.hqLocation}
+                                    onChange={handleInputChange}
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                />
+                            </div>
 
-                        <div>
-                            <label htmlFor="hqLocation" className="block text-sm font-medium mb-1">HQ Location</label>
-                            <input 
-                                type="text" 
-                                id="hqLocation"
-                                name="hqLocation"
-                                required
-                                value={formData.hqLocation}
-                                onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="employeeCount" className="block text-sm font-medium mb-1">Local Location</label>
-                            <input 
-                                type="text" 
-                                id="localLocation"
-                                name="localLocation"
-                                value={formData.localLocation}
-                                onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            />
+                            <div>
+                                <label htmlFor="employeeCount" className="block text-sm font-medium mb-1">Local Location</label>
+                                <input 
+                                    type="text" 
+                                    id="localLocation"
+                                    name="localLocation"
+                                    value={formData.localLocation}
+                                    onChange={handleInputChange}
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                />
+                            </div>
                         </div>
 
                         <div>
@@ -120,33 +140,17 @@ const AddCompanyPage = () => {
                             <textarea 
                                 id="description"
                                 name="description" 
-                                rows={4}
+                                rows={2}
                                 value={formData.description}
                                 onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                className="w-full px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
                             >    
                             </textarea>
                         </div>
 
-                        <div>
-                            <label htmlFor="tier" className="block text-sm font-medium mb-1">Tier</label>
-                            <select 
-                                id="tier"
-                                name="tier" 
-                                value={formData.tier}
-                                onChange={handleInputChange}
-                                className="px-4 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            >    
-                                <option value="BACKLOG">Backlog</option>
-                                <option value="TIER_1">Tier 1</option>
-                                <option value="TIER_2">Tier 2</option>
-                                <option value="TIER_3">Tier 3</option>
-                            </select>
-                        </div>
-
                         <button
                             type="submit"
-                            className="px-4 py-2 bg-[var(--royal-blue)] text-white rounded-md hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] hover:font-medium"
+                            className="w-full px-3 py-2 bg-[var(--royal-blue)] text-white rounded-md hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] hover:font-medium"
                         >
                             Create Company
                         </button>
