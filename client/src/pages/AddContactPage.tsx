@@ -130,9 +130,9 @@ const AddContactPage = () => {
     return (
         <div className="bg-gray-50 flex">
             <Sidebar />
-            <div className="flex-1">
+            <div className="flex-1 ml-3">
                 <div className="p-6 text-black">
-                    <h1 className="text-2xl font-bold mb-4">Add New Contact</h1>
+                    <h1 className="text-2xl font-bold mt-20 mb-4">Add New Contact</h1>
 
                     {error && (
                         <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
@@ -141,185 +141,193 @@ const AddContactPage = () => {
                     )}
                     
                     <form className="space-y-4" onSubmit={handleSave}>
-                        <div>
-                            <label htmlFor="firstName" className="block text-sm font-medium mb-1">First Name</label>
-                            <input 
-                                type="text" 
-                                id="firstName"
-                                name="firstName"
-                                required
-                                value={formData.firstName}
-                                onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            />
-                        </div>
+                        <div className="flex gap-5 mt-5">
+                            <div>
+                                <label htmlFor="firstName" className="block text-sm font-medium mb-1">First Name</label>
+                                <input 
+                                    type="text" 
+                                    id="firstName"
+                                    name="firstName"
+                                    required
+                                    value={formData.firstName}
+                                    onChange={handleInputChange}
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                />
+                            </div>
 
-                        <div>
-                            <label htmlFor="lastName" className="block text-sm font-medium mb-1">Last Name</label>
-                            <input 
-                                type="text" 
-                                id="lastName"
-                                name="lastName"
-                                required
-                                value={formData.lastName}
-                                onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            />
-                        </div>
+                            <div>
+                                <label htmlFor="lastName" className="block text-sm font-medium mb-1">Last Name</label>
+                                <input 
+                                    type="text" 
+                                    id="lastName"
+                                    name="lastName"
+                                    required
+                                    value={formData.lastName}
+                                    onChange={handleInputChange}
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                />
+                            </div>
 
-                        <div>
-                            <label htmlFor="role" className="block text-sm font-medium mb-1">Role</label>
-                            <input 
-                                type="text" 
-                                id="role"
-                                name="role"
-                                value={formData.role}
-                                onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            />
-                        </div>
+                            <div>
+                                <label htmlFor="company" className="block text-sm font-medium mb-1">Company</label>
+                                <select 
+                                    name="company" 
+                                    id="company"
+                                    value={selectedCompany}
+                                    onChange={handleCompanySelect}
+                                    required={!showNewCompany}
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                >    
+                                    <option value="">Choose a company...</option>
+                                    {companies.map((company) => (
+                                        <option key={company.id} value={company.id}>
+                                            {company.name}
+                                        </option>
+                                    ))}
+                                    
+                                    <option value="create-new">Create New Company</option>
+                                </select>
+                                {showNewCompany && (
+                                    <div className="mt-4 p-4 border border-2 border-[var(--royal-blue)] rounded-md">
+                                        <h3 className="text-lg font-medium mb-4">New Company Details</h3>
 
-                        <div>
-                            <label htmlFor="company" className="block text-sm font-medium mb-1">Company</label>
-                            <select 
-                                name="company" 
-                                id="company"
-                                value={selectedCompany}
-                                onChange={handleCompanySelect}
-                                required={!showNewCompany}
-                                className="px-4 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            >    
-                                <option value="">Choose a company...</option>
-                                {companies.map((company) => (
-                                    <option key={company.id} value={company.id}>
-                                        {company.name}
-                                    </option>
-                                ))}
-                                
-                                <option value="create-new">Create New Company</option>
-                            </select>
-                            {showNewCompany && (
-                                <div className="mt-4 p-4 border border-2 border-[var(--royal-blue)] rounded-md">
-                                    <h3 className="text-lg font-medium mb-4">New Company Details</h3>
+                                        <div className="space-y-4">
+                                            <div>
+                                                <label htmlFor="companyName" className="block text-sm font-medium mb-1">Company Name</label>
+                                                <input 
+                                                    type="text" 
+                                                    id="companyName"
+                                                    name="name"
+                                                    required
+                                                    value={newCompanyData.name}
+                                                    onChange={handleNewCompanyChange}
+                                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                                />
+                                            </div>
 
-                                    <div className="space-y-4">
-                                        <div>
-                                            <label htmlFor="companyName" className="block text-sm font-medium mb-1">Company Name</label>
-                                            <input 
-                                                type="text" 
-                                                id="companyName"
-                                                name="name"
-                                                required
-                                                value={newCompanyData.name}
-                                                onChange={handleNewCompanyChange}
-                                                className="px-4 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                                            />
-                                        </div>
-
-                                        <div>
-                                            <label htmlFor="companyWebsite" className="block text-sm font-medium mb-1">Company Website</label>
-                                            <input 
-                                                type="text" 
-                                                id="companyWebsite"
-                                                name="website"
-                                                required
-                                                value={newCompanyData.website}
-                                                onChange={handleNewCompanyChange}
-                                                className="px-4 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                                            />
+                                            <div>
+                                                <label htmlFor="companyWebsite" className="block text-sm font-medium mb-1">Company Website</label>
+                                                <input 
+                                                    type="text" 
+                                                    id="companyWebsite"
+                                                    name="website"
+                                                    required
+                                                    value={newCompanyData.website}
+                                                    onChange={handleNewCompanyChange}
+                                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                                />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            )}
+                                )}
+                            </div>
+                        </div>
+                        
+                        <div className="flex gap-5 mt-8">
+                            <div>
+                                <label htmlFor="role" className="block text-sm font-medium mb-1">Role</label>
+                                <input 
+                                    type="text" 
+                                    id="role"
+                                    name="role"
+                                    value={formData.role}
+                                    onChange={handleInputChange}
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="location" className="block text-sm font-medium mb-1">Location</label>
+                                <input 
+                                    type="text" 
+                                    id="location"
+                                    name="location"
+                                    value={formData.location}
+                                    onChange={handleInputChange}
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                />
+                            </div>
                         </div>
 
-                        <div>
-                            <label htmlFor="location" className="block text-sm font-medium mb-1">Location</label>
-                            <input 
-                                type="text" 
-                                id="location"
-                                name="location"
-                                value={formData.location}
-                                onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            />
+                        <div className="flex gap-5 mt-8">
+                            <div>
+                                <label htmlFor="linkedin" className="block text-sm font-medium mb-1">LinkedIn</label>
+                                <input 
+                                    type="url" 
+                                    id="linkedin"
+                                    name="linkedin"
+                                    value={formData.linkedin}
+                                    onChange={handleInputChange}
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="bluesky" className="block text-sm font-medium mb-1">Bluesky</label>
+                                <input 
+                                    type="url" 
+                                    id="bluesky"
+                                    name="bluesky"
+                                    value={formData.bluesky}
+                                    onChange={handleInputChange}
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="github" className="block text-sm font-medium mb-1">GitHub</label>
+                                <input 
+                                    type="url" 
+                                    id="github"
+                                    name="github"
+                                    value={formData.github}
+                                    onChange={handleInputChange}
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                />
+                            </div>
                         </div>
 
-                        <div>
-                            <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
-                            <input 
-                                type="email" 
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            />
+                        <div className="flex gap-5 mt-8">
+                            <div>
+                                <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
+                                <input 
+                                    type="email" 
+                                    id="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="website" className="block text-sm font-medium mb-1">Website</label>
+                                <input 
+                                    type="url" 
+                                    id="website"
+                                    name="website"
+                                    value={formData.website}
+                                    onChange={handleInputChange}
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                />
+                            </div>
                         </div>
 
-                        <div>
-                            <label htmlFor="bluesky" className="block text-sm font-medium mb-1">Bluesky</label>
-                            <input 
-                                type="url" 
-                                id="bluesky"
-                                name="bluesky"
-                                value={formData.bluesky}
-                                onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="github" className="block text-sm font-medium mb-1">GitHub</label>
-                            <input 
-                                type="url" 
-                                id="github"
-                                name="github"
-                                value={formData.github}
-                                onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="linkedin" className="block text-sm font-medium mb-1">LinkedIn</label>
-                            <input 
-                                type="url" 
-                                id="linkedin"
-                                name="linkedin"
-                                value={formData.linkedin}
-                                onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="website" className="block text-sm font-medium mb-1">Website</label>
-                            <input 
-                                type="url" 
-                                id="website"
-                                name="website"
-                                value={formData.website}
-                                onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                            />
-                        </div>
-
-                        <div>
+                        <div className="mt-8">
                             <label htmlFor="notes" className="block text-sm font-medium mb-1">Notes</label>
                             <textarea 
                                 id="notes"
                                 name="notes"
-                                rows={5}
+                                rows={2}
                                 value={formData.notes}
                                 onChange={handleInputChange}
-                                className="px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                className="w-full px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
                             />
                         </div>
 
                         <button
                             type="submit"
-                            className="px-4 py-2 bg-[var(--royal-blue)] text-white rounded-md hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] hover:font-medium"
+                            className="w-full py-2 bg-[var(--royal-blue)] text-white rounded-md hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] hover:font-medium"
                         >
                             Create Contact
                         </button>
