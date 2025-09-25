@@ -41,7 +41,7 @@ const ContactHeader = ({ contact }: ContactHeaderProps) => {
                         {socialLinks.map(({ url, icon: Icon, label }) => (
                             <a 
                                 key={label}
-                                href={label === "email" ? `mailto:${url}` : url || undefined}
+                                href={label === "email" && url ? `mailto:${url}` : url || undefined}
                                 target={url ? "_blank" : undefined}
                                 rel={url ? "noopener noreferrer" : undefined}
                                 className={`${url ? "hover:text-[var(--soft-lavender)]" : "text-gray-300 cursor-not-allowed"}`}

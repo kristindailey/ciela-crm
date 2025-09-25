@@ -85,7 +85,7 @@ const AddCompanyPage = () => {
                                     name="tier" 
                                     value={formData.tier}
                                     onChange={handleInputChange}
-                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] text-center rounded-md"
+                                    className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
                                 >    
                                     <option value="BACKLOG">Backlog</option>
                                     <option value="TIER_1">Tier 1</option>

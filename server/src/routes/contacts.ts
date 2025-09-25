@@ -107,15 +107,20 @@ router.patch("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
     try {
         const userId = (req.user as any).id;
-        const { firstName, lastName, email, role, notes, companyId } = req.body;
+        const { firstName, lastName, role, location, notes, email, bluesky, github, linkedin, website, companyId  } = req.body;
 
         const contact = await prisma.contact.create({
             data: {
                 firstName,
                 lastName,
-                email,
                 role,
+                location,
                 notes,
+                email, 
+                linkedin, 
+                bluesky,
+                github,
+                website,
                 userId,
                 companyId,
             },
