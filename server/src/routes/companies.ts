@@ -75,14 +75,17 @@ router.patch("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
     try {
         const userId = (req.user as any).id;
-        const { name, website, description, tier } = req.body;
+        const { name, website, tier, employeeCount, hqLocation, localLocation, description } = req.body;
 
         const company = await prisma.company.create({
             data: {
                 name, 
                 website, 
-                description, 
                 tier,
+                employeeCount, 
+                hqLocation, 
+                localLocation,
+                description, 
                 userId,
             },
         });

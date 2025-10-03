@@ -32,12 +32,15 @@ const AddCompanyPage = () => {
             const response = await fetch(`${API_BASE_URL}/companies`, {
                 method: "POST",
                 headers: {  "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({
+                    ...formData,
+                    employeeCount: parseInt(formData.employeeCount) || null,
+                }),
                 credentials: "include",
             });
 
             const newCompany = await response.json();
-            navigate(`/contacts/${newCompany.id}`);
+            navigate(`/companies/${newCompany.id}`);
         } catch (error) {
             console.error("Error creating company:", error);
         }
@@ -99,7 +102,7 @@ const AddCompanyPage = () => {
                             <div>
                                 <label htmlFor="employeeCount" className="block text-sm font-medium mb-1">Employee Count</label>
                                 <input 
-                                    type="text" 
+                                    type="number" 
                                     id="employeeCount"
                                     name="employeeCount"
                                     required
