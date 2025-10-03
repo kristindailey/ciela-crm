@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import Sidebar from "../components/Sidebar";
+import { normalizeUrl } from "../utils/urlHelpers";
 
 const AddCompanyPage = () => {
     const [formData, setFormData] = useState({
@@ -35,6 +36,7 @@ const AddCompanyPage = () => {
                 body: JSON.stringify({
                     ...formData,
                     employeeCount: parseInt(formData.employeeCount) || null,
+                    website: normalizeUrl(formData.website),
                 }),
                 credentials: "include",
             });

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Sidebar from "../components/Sidebar";
 import type { Company } from "../types/company";
+import { normalizeUrl } from "../utils/urlHelpers";
 
 const AddContactPage = () => {
     const [formData, setFormData] = useState({
@@ -83,7 +84,10 @@ const AddContactPage = () => {
                 const companyResponse = await fetch(`${API_BASE_URL}/companies`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newCompanyData),
+                    body: JSON.stringify({
+                        ...newCompanyData,
+                        website: normalizeUrl(newCompanyData.website),
+                    }),
                     credentials: "include",
                 });
 
@@ -97,6 +101,10 @@ const AddContactPage = () => {
                 body: JSON.stringify({
                     ...formData,
                     companyId,
+                    website: normalizeUrl(formData.website),
+                    linkedin: normalizeUrl(formData.linkedin),
+                    bluesky: normalizeUrl(formData.bluesky),
+                    github: normalizeUrl(formData.github),
                 }),
                 credentials: "include",
             });
@@ -253,7 +261,7 @@ const AddContactPage = () => {
                             <div>
                                 <label htmlFor="linkedin" className="block text-sm font-medium mb-1">LinkedIn</label>
                                 <input 
-                                    type="url" 
+                                    type="text" 
                                     id="linkedin"
                                     name="linkedin"
                                     value={formData.linkedin}
@@ -265,7 +273,7 @@ const AddContactPage = () => {
                             <div>
                                 <label htmlFor="bluesky" className="block text-sm font-medium mb-1">Bluesky</label>
                                 <input 
-                                    type="url" 
+                                    type="text" 
                                     id="bluesky"
                                     name="bluesky"
                                     value={formData.bluesky}
@@ -277,7 +285,7 @@ const AddContactPage = () => {
                             <div>
                                 <label htmlFor="github" className="block text-sm font-medium mb-1">GitHub</label>
                                 <input 
-                                    type="url" 
+                                    type="text" 
                                     id="github"
                                     name="github"
                                     value={formData.github}
@@ -303,7 +311,7 @@ const AddContactPage = () => {
                             <div>
                                 <label htmlFor="website" className="block text-sm font-medium mb-1">Website</label>
                                 <input 
-                                    type="url" 
+                                    type="text" 
                                     id="website"
                                     name="website"
                                     value={formData.website}
