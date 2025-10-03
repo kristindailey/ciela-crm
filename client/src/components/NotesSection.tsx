@@ -76,10 +76,10 @@ const NotesSection = ({ label, value, placeholder, onSave }: NotesSectionProps) 
                         onChange={handleTextChange}
                         onBlur={handleBlur}
                         ref={textareaRef}
-                        className="w-full h-full resize-none border-none outline-none bg-transparent pl-4 pt-4"
+                        className="w-full h-full resize-none border-none outline-none bg-transparent px-4 pt-4"
                     />
                 ) : (
-                    <p className="pl-4 pt-4 whitespace-pre-wrap">
+                    <p className="px-4 pt-4 whitespace-pre-wrap">
                         { value || placeholder}
                     </p>
                 )}
