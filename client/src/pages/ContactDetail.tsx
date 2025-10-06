@@ -120,6 +120,23 @@ const ContactDetail = () => {
         }
     }; 
 
+    const handleSaveSocialField = async (field: string, newValue: string) => {
+        if (!contact) return;
+
+        setContact((prev) => prev ? { ...prev, [field]: newValue } : null);
+
+        try {
+            await fetch(`${import.meta.env.VITE_API_BASE_URL}/contacts/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ [field]: newValue }),
+                credentials: "include",
+            });
+        } catch (error) {
+            console.error(`Failed to save ${field}:`, error);
+        }
+    };
+
     useEffect(() => {
         const fetchContact = async () => {
             try {
@@ -149,7 +166,10 @@ const ContactDetail = () => {
         <div className="bg-gray-50 flex">
             <Sidebar />
              <div className="flex-1">
-                <ContactHeader contact={contact} />
+                <ContactHeader 
+                    contact={contact} 
+                    onSaveField={handleSaveSocialField}
+                />
 
                 <div className="flex gap-5 px-5 mt-3">
                     <InfoPill 

@@ -3,12 +3,14 @@ import { RiBlueskyLine } from "react-icons/ri";
 import { FiGithub } from "react-icons/fi";
 import { CiLinkedin } from "react-icons/ci";
 import { IoIosLink, IoIosMail } from "react-icons/io";
+import SocialIcon from "./SocialIcon";
 
 interface ContactHeaderProps {
     contact: Contact;
+    onSaveField: (field: string, value: string) => Promise<void>;
 }
 
-const ContactHeader = ({ contact }: ContactHeaderProps) => {
+const ContactHeader = ({ contact, onSaveField }: ContactHeaderProps) => {
     const socialLinks = [
         { url: contact.email, icon: IoIosMail, label: "email" },
         { url: contact.bluesky, icon: RiBlueskyLine, label: "bluesky" },
@@ -38,16 +40,14 @@ const ContactHeader = ({ contact }: ContactHeaderProps) => {
                     </div>
 
                     <div className="flex items-center gap-4 text-3xl text-[var(--royal-blue)] ml-160 mt-7">
-                        {socialLinks.map(({ url, icon: Icon, label }) => (
-                            <a 
+                        {socialLinks.map(({ url, icon, label }) => (
+                            <SocialIcon 
                                 key={label}
-                                href={label === "email" && url ? `mailto:${url}` : url || undefined}
-                                target={url ? "_blank" : undefined}
-                                rel={url ? "noopener noreferrer" : undefined}
-                                className={`${url ? "hover:text-[var(--soft-lavender)]" : "text-gray-300 cursor-not-allowed"}`}
-                            >
-                                <Icon />
-                            </a>
+                                url={url}
+                                icon={icon}
+                                label={label}
+                                onSave={(newValue) => onSaveField(label, newValue)}
+                            />
                         ))}
                     </div>
                 </div>
