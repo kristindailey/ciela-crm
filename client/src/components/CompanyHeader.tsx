@@ -7,13 +7,15 @@ import { CiLinkedin, CiStar } from "react-icons/ci";
 import { IoIosLink } from "react-icons/io";
 import { IoImageOutline } from "react-icons/io5";
 import { MdModeEditOutline } from "react-icons/md";
+import SocialIcon from "./SocialIcon";
 
 interface CompanyHeaderProps {
     company: Company;
     onCompanyUpdate: (updatedCompany: Company) => void;
+    onSaveField: (field: string, newValue: string) => Promise<void>;
 }
 
-const CompanyHeader = ({ company, onCompanyUpdate }: CompanyHeaderProps) => {
+const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderProps) => {
     const [_selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -134,16 +136,14 @@ const CompanyHeader = ({ company, onCompanyUpdate }: CompanyHeaderProps) => {
                     </div>
 
                     <div className="flex items-center gap-4 text-3xl text-[var(--royal-blue)] ml-120 mt-7">
-                        {socialLinks.map(({ url, icon: Icon, label }) => (
-                            <a 
+                        {socialLinks.map(({ url, icon, label }) => (
+                            <SocialIcon 
                                 key={label}
-                                href={url || undefined}
-                                target={url ? "_blank" : undefined}
-                                rel={url ? "noopener noreferrer" : undefined}
-                                className={`${url ? "hover:text-[var(--soft-lavender)]" : "text-gray-300 cursor-not-allowed"}`}
-                            >
-                                <Icon />
-                            </a>
+                                url={url}
+                                icon={icon}
+                                label={label}
+                                onSave={(newValue) => onSaveField(label, newValue)}
+                            />
                         ))}
                     </div>
                 </div>

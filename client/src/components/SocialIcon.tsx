@@ -18,6 +18,8 @@ const SocialIcon = ({ url, icon: Icon, label, onSave }: SocialIconProps) => {
         github: "GitHub",
         linkedin: "LinkedIn",
         website: "Website",
+        careersPage: "Careers Page",
+        glassdoor: "Glassdoor",
     };
 
     const handleSave = async () => {

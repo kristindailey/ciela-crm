@@ -169,6 +169,23 @@ const CompanyDetail = () => {
         }
     };
 
+    const handleSaveSocialField = async (field: string, newValue: string) => {
+        if (!company) return;
+
+        setCompany((prev) => prev ? {...prev, [field]: newValue } : null);
+
+        try {
+            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ [field]: newValue }),
+                credentials: "include",
+            });
+        } catch (error) {
+            console.error(`Failed to save ${field} URL:`, error);
+        }
+    };
+
     useEffect(() => {
         const fetchCompany = async () => {
             try {
@@ -178,8 +195,6 @@ const CompanyDetail = () => {
 
                 if (response.ok) {
                     const companyData = await response.json();
-                    console.log("Employee count value:", companyData.employeeCount);
-                    console.log("Type:", typeof companyData.employeeCount);
                     setCompany(companyData);
                 }
             } catch (error) {
@@ -200,7 +215,7 @@ const CompanyDetail = () => {
         <div className="bg-gray-50 flex">
             <Sidebar />
             <div className="flex-1">
-                <CompanyHeader company={company} onCompanyUpdate={handleCompanyUpdate} />
+                <CompanyHeader company={company} onCompanyUpdate={handleCompanyUpdate} onSaveField={handleSaveSocialField}/>
 
                 <div className="flex gap-5 px-5 mt-3">
                     <InfoPill 

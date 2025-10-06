@@ -133,7 +133,7 @@ const ContactDetail = () => {
                 credentials: "include",
             });
         } catch (error) {
-            console.error(`Failed to save ${field}:`, error);
+            console.error(`Failed to save ${field} URL:`, error);
         }
     };
 
