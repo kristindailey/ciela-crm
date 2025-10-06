@@ -54,7 +54,7 @@ const SocialIcon = ({ url, icon: Icon, label, onSave }: SocialIconProps) => {
                 e.preventDefault();
                 setIsEditing(true);
             }}
-            className={`${url ? "hover:text-[var(--soft-lavender)]" : "text-gray-300"} cursor-pointer`}
+            className={`flex items-center justify-center w-7 h-7 ${url ? "hover:text-[var(--soft-lavender)]" : "text-gray-300"} cursor-pointer`}
         >
             <Icon />
         </a>
