@@ -25,16 +25,6 @@ const InfoPill = ({ label, value, placeholder, onSave }: InfoPillProps) => {
         }
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (e.key === "Enter") {
-            handleSave();
-        }
-    };
-
-    const handleBlur = () => {
-        handleSave();
-    };
-
     return (
         <div>
             <label className="font-inter text-sm text-gray-600 mb-1 block">{label}</label>
@@ -44,8 +34,8 @@ const InfoPill = ({ label, value, placeholder, onSave }: InfoPillProps) => {
                         type="text" 
                         value={editValue}
                         onChange={(e) => setEditValue(e.target.value)}
-                        onKeyDown={handleKeyDown}
-                        onBlur={handleBlur}
+                        onKeyDown={(e) => e.key === "Enter" && handleSave()}
+                        onBlur={handleSave}
                         className="border-none outline-none bg-transparent w-full min-w-0 text-center"
                         autoFocus
                     />
