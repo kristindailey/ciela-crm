@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { IconType } from "react-icons";
+import { FiEdit2 } from "react-icons/fi";
 
 interface SocialIconProps {
     url: string | undefined;
@@ -32,32 +33,48 @@ const SocialIcon = ({ url, icon: Icon, label, onSave }: SocialIconProps) => {
 
     if (isEditing) {
         return (
-            <input 
-                type="text" 
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                onBlur={handleSave}
-                onKeyDown={(e) => e.key === "Enter" && handleSave()}
-                placeholder={`${labelMap[label]} URL`}
-                className="w-32 sm:w-40 md:w-48 px-2 py-1 text-sm border border-[var(--royal-blue)] rounded focus:outline-none"
-                autoFocus
-            />
+            <div className="relative">
+                <input 
+                    type="text" 
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    onBlur={handleSave}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") handleSave();
+                        if (e.key === "Escape") {
+                            setValue(url || "");
+                            setIsEditing(false);
+                        }
+                    }}
+                    placeholder={`${labelMap[label]} URL`}
+                    className="w-32 sm:w-40 md:w-48 px-2 py-1 text-sm border border-[var(--royal-blue)] rounded focus:outline-none focus:ring-1 focus:ring-[var(--royal-blue)]"
+                    autoFocus
+                />
+            </div>
         );
     }
 
     return (
-        <a
-            href={label === "email" && url ? `mailto:${url}` : url || undefined}
-            target={url && label !== "email" ? "_blank" : undefined}
-            rel={url ? "noopener noreferrer" : undefined}
-            onClick={(e) => {
-                e.preventDefault();
-                setIsEditing(true);
-            }}
-            className={`flex items-center justify-center w-7 h-7 ${url ? "hover:text-[var(--soft-lavender)]" : "text-gray-300"} cursor-pointer`}
-        >
-            <Icon />
-        </a>
+        <div className="relative group">
+            <a
+                href={label === "email" && url ? `mailto:${url}` : url || "#"}
+                target={url && label !== "email" ? "_blank" : undefined}
+                rel={url ? "noopener noreferrer" : undefined}
+                className={`flex items-center justify-center w-7 h-7 ${url ? "hover:text-[var(--soft-lavender)]" : "text-gray-300"} ${!url ? "pointer-events-none" : ""}`}
+            >
+                <Icon />
+            </a>
+            <button
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setIsEditing(true);
+                }}
+                className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center bg-white border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
+                aria-label={`Edit ${labelMap[label]}`}
+            >
+                <FiEdit2 className="w-2.5 h-2.5"/>
+            </button>
+        </div>
     );
 };
 

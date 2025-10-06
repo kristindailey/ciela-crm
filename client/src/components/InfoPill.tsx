@@ -28,7 +28,7 @@ const InfoPill = ({ label, value, placeholder, onSave }: InfoPillProps) => {
     return (
         <div>
             <label className="font-inter text-sm text-gray-600 mb-1 block">{label}</label>
-            <div className="bg-white rounded-xl shadow-md cursor-pointer transition-all text-lg font-semibold text-[var(--royal-blue)] h-25 w-85 overflow-hidden flex items-center justify-center">
+            <div className="bg-white rounded-xl shadow-md cursor-pointer transition-all text-medium font-semibold text-[var(--royal-blue)] h-25 w-85 overflow-hidden flex items-center justify-center">
                 {isEditing ? (
                     <input 
                         type="text" 
