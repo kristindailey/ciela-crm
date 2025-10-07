@@ -7,6 +7,7 @@ import { CiLinkedin, CiStar } from "react-icons/ci";
 import { IoIosLink } from "react-icons/io";
 import { IoImageOutline } from "react-icons/io5";
 import { MdModeEditOutline } from "react-icons/md";
+import { FiEdit2 } from "react-icons/fi";
 import SocialIcon from "./SocialIcon";
 
 interface CompanyHeaderProps {
@@ -18,6 +19,7 @@ interface CompanyHeaderProps {
 const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderProps) => {
     const [_selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    const [isEditingTier, setIsEditingTier] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const socialLinks = [
         { url: company.careersPage, icon: BsBriefcase, label: "careersPage" },
@@ -91,6 +93,26 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
         }
     };
 
+    const handleSaveTier = async (newTier: string) => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${company.id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ tier: newTier }),
+                credentials: "include",
+            });
+
+            if (response.ok) {
+                const updatedCompany = await response.json();
+                onCompanyUpdate(updatedCompany);
+            }
+        } catch (error) {
+            console.error("Failed to save tier:", error);
+        }
+
+        setIsEditingTier(false);
+    };
+
     return (
         <div className="mb-4">
             <div className="flex items-center justify-between w-full mt-20 ml-5 mr-5">
@@ -131,10 +153,35 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
                         />
                     </div>
 
-                    <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold ml-8 mt-5">
-                        {company.tier.toLowerCase().replace("_", " ")}
-                    </div>
+                    {isEditingTier ? (
+                        <select 
+                            value={company.tier}
+                            onChange={(e) => handleSaveTier(e.target.value)}
+                            onBlur={() => setIsEditingTier(false)}
+                            className="h-10 px-6 rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold ml-8 mt-5 border-2 border-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-white"
+                            autoFocus
+                        >
+                            <option value="TIER_1">tier 1</option>
+                            <option value="TIER_2">tier 2</option>
+                            <option value="TIER_3">tier 3</option>
+                            <option value="BACKLOG">backlog</option>
+                        </select>
+                    ) : (
+                        <div className="relative group inline-block ml-8 mt-5">
+                            <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold">
+                                {company.tier.toLowerCase().replace("_", " ")}
+                            </div>
 
+                            <button
+                                onClick={() => setIsEditingTier(true)}
+                                className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-white border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
+                                aria-label="Edit tier"
+                            >
+                                <FiEdit2 className="w-3 h-3" />
+                            </button>
+                        </div>
+                    )}
+                    
                     <div className="flex items-center gap-4 text-3xl text-[var(--royal-blue)] ml-120 mt-7">
                         {socialLinks.map(({ url, icon, label }) => (
                             <SocialIcon 
