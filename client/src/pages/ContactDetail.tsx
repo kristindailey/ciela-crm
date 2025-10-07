@@ -21,6 +21,10 @@ const ContactDetail = () => {
         });
     };
 
+    const handleContactUpdate = (updatedContact: Contact) => {
+        setContact(updatedContact);
+    };
+
     const handleSaveRole = async (newRole: string) => {
         if (!contact) {
             return;
@@ -168,6 +172,7 @@ const ContactDetail = () => {
              <div className="flex-1">
                 <ContactHeader 
                     contact={contact} 
+                    onContactUpdate={handleContactUpdate}
                     onSaveField={handleSaveSocialField}
                 />
 
