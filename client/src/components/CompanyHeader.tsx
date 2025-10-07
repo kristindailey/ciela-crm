@@ -6,7 +6,6 @@ import { FiGithub } from "react-icons/fi";
 import { CiLinkedin, CiStar } from "react-icons/ci";
 import { IoIosLink } from "react-icons/io";
 import { IoImageOutline } from "react-icons/io5";
-import { MdModeEditOutline } from "react-icons/md";
 import { FiEdit2 } from "react-icons/fi";
 import SocialIcon from "./SocialIcon";
 
@@ -120,30 +119,36 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
                     <h1 className="text-[var(--royal-blue)] font-extrabold text-3xl mt-5">{company.name}</h1>
 
                     <div className="ml-8">
-                        {(previewUrl || company.logoUrl) ? (
-                            <div className="relative group">
+                        <div 
+                            onClick={handleLogoClick}
+                            className="relative group cursor-pointer"
+                        >
+                            {(previewUrl || company.logoUrl) ? (                            
                                 <img 
                                     src={previewUrl || company.logoUrl} 
                                     alt="Company logo"
-                                    className="h-15 object-contain group-hover:opacity-30 transition-opacity" 
+                                    className="h-15 object-contain" 
                                 />
-                                
-                                <div 
-                                    onClick={handleLogoClick}
-                                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
+                            ) : (
+                                <div
+                                    className="w-13 h-13 rounded-full bg-gray-200 border border-dashed border-gray-400 flex items-center justify-center hover:bg-gray-100 transition-colors"
                                 >
-                                    <MdModeEditOutline className="text-xl text-black"/>    
+                                    <IoImageOutline className="text-2xl"/>
                                 </div>
-                            </div>
-                        ) : (
-                            <div
-                                onClick={handleLogoClick} 
-                                className="w-13 h-13 rounded-full bg-gray-200 border border-dashed border-gray-400 flex items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors"
-                            >
-                                <IoImageOutline className="text-2xl"/>
+                            )}
                         
-                            </div>
-                        )}
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleLogoClick();
+                                }}
+                                className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-white border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
+                                aria-label="Edit logo"
+                            >
+                                <FiEdit2 className="w-3 h-3"/> 
+                            </button>
+                        </div>
+
                         <input 
                             ref={fileInputRef}
                             type="file"
