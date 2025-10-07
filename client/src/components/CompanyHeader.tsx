@@ -18,6 +18,8 @@ interface CompanyHeaderProps {
 const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderProps) => {
     const [_selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    const [nameValue, setNameValue] = useState(company.name);
+    const [isEditingName, setIsEditingName] = useState(false);
     const [isEditingTier, setIsEditingTier] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const socialLinks = [
@@ -112,11 +114,61 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
         setIsEditingTier(false);
     };
 
+    const handleSaveName = async () => {
+        if (nameValue !== company.name) {
+            try {
+                const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${company.id}`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name: nameValue }),
+                    credentials: "include",
+                });
+
+                if (response.ok) {
+                    const updatedCompany = await response.json();
+                    onCompanyUpdate(updatedCompany);
+                }
+            } catch (error) {
+                console.error("Failed to save company name:", error);
+            }
+        }
+
+        setIsEditingName(false);
+    };
+
     return (
         <div className="mb-4">
             <div className="flex items-center justify-between w-full mt-20 ml-5 mr-5">
                 <div className="flex items-center gap-4 font-inter">
-                    <h1 className="text-[var(--royal-blue)] font-extrabold text-3xl mt-5">{company.name}</h1>
+                    {isEditingName ? (
+                        <input 
+                            type="text"
+                            value={nameValue}
+                            onChange={(e) => setNameValue(e.target.value)}
+                            onBlur={handleSaveName}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") handleSaveName();
+                                if (e.key === "Escape") {
+                                    setNameValue(company.name);
+                                    setIsEditingName(false);
+                                }
+                            }} 
+                            className="text-[var(--royal-blue)] font-extrabold text-3xl mt-5 bg-transparent focus:outline-none focus:border-b-2 focus:border-[var(--soft-lavender)]"
+                            style={{ width: `${nameValue.length * 0.6}em` }}
+                            autoFocus
+                        />
+                    ) : (
+                        <h1 className="relative group text-[var(--royal-blue)] font-extrabold text-3xl mt-5">
+                            {company.name}
+                            <button
+                                onClick={() => setIsEditingName(true)}
+                                className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-white border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
+                                aria-label="Edit company name"
+                            >
+                                <FiEdit2 className="w-3 h-3"/>
+                            </button>    
+                        </h1>
+                    )}
 
                     <div className="ml-8">
                         <div 
