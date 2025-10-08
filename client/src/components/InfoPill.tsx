@@ -4,11 +4,12 @@ interface InfoPillProps {
     label: string;
     value: string | undefined;
     placeholder: string;
+    size?: "small" | "default";
     onSave: (newValue: string) => void;
 }
 
 
-const InfoPill = ({ label, value, placeholder, onSave }: InfoPillProps) => {
+const InfoPill = ({ label, value, placeholder, size = "default", onSave }: InfoPillProps) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editValue, setEditValue] = useState(value || "");
 
@@ -28,7 +29,9 @@ const InfoPill = ({ label, value, placeholder, onSave }: InfoPillProps) => {
     return (
         <div>
             <label className="font-inter text-sm text-gray-600 mb-1 block">{label}</label>
-            <div className="bg-white rounded-xl shadow-md cursor-pointer transition-all text-medium font-semibold text-[var(--royal-blue)] h-25 w-85 overflow-hidden flex items-center justify-center">
+            <div className={`bg-white rounded-xl shadow-md cursor-pointer transition-all text-medium font-semibold text-[var(--royal-blue)] overflow-hidden flex items-center justify-center 
+                ${size === "small" ? "h-20 w-24" : "h-25 w-85"}`}
+            >
                 {isEditing ? (
                     <input 
                         type="text" 

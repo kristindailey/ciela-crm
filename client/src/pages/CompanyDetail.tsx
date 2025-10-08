@@ -125,6 +125,50 @@ const CompanyDetail = () => {
         }
     };
 
+    const handleSaveGlassdoorRating = async (newRating: number) => {
+        if (!company) {
+            return;
+        }
+        
+        setCompany((prev) => prev ? { 
+            ...prev, 
+            glassdoorRating: newRating,
+        } : null);
+
+        try {
+            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ glassdoorRating: newRating }),
+                credentials: "include",
+            });
+        } catch (error) {
+            console.error("Failed to save Glassdoor rating:", error);
+        }
+    };
+
+    const handleSaveGlassdoorSweRating = async (newRating: number) => {
+        if (!company) {
+            return;
+        }
+
+        setCompany((prev) => prev ? { 
+            ...prev, 
+            glassdoorSweRating: newRating,
+        } : null);
+
+        try {
+            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+                method: "PATCH", 
+                headers: { "Content-Type": "application/json" }, 
+                body: JSON.stringify({ glassdoorSweRating: newRating }),
+                credentials: "include",
+            })
+        } catch (error) {
+            console.error("Failed to save Glassdoor SWE rating:", error);
+        }
+    };
+
     const handleSaveTechStack = async (newTechStack: string) => {
         if (!company) {
             return;
@@ -248,6 +292,45 @@ const CompanyDetail = () => {
                 </div>
 
                 <div className="flex gap-5 px-5 mt-3">
+                    <div>
+                        <InfoPill 
+                            label="Glasdoor Rating"
+                            value={company.glassdoorRating?.toString()}
+                            placeholder="No rating"
+                            size="small"
+                            onSave={(newValue) => {
+                                const rating = parseFloat(newValue);
+                                if (!isNaN(rating) && rating >= 0 && rating <= 5) {
+                                    handleSaveGlassdoorRating(rating);
+                                }
+                            }}
+                        />
+
+                        <div className="mt-3">
+                            <InfoPill
+                                label="Glassdoor SWE Rating"
+                                value={company.glassdoorSweRating?.toString()}
+                                placeholder="No rating"
+                                size="small"
+                                onSave={(newValue) => {
+                                    const rating = parseFloat(newValue);
+                                    if (!isNaN(rating) && rating >= 0 && rating <= 5) {
+                                        handleSaveGlassdoorSweRating(rating);
+                                    }
+                                }}
+                            />
+                        </div>
+
+                        <div className="mt-3">
+                            {/* <InfoPill 
+                                label="Office Policy"
+                                value={company.officePolicy}
+                                // placeholder=""
+                                // onSave={(newValue) => handleSaveTechStack(newValue)}
+                            /> */}
+                        </div>
+                    </div>
+
                     <div>
                         <InfoPill 
                             label="Local Location"

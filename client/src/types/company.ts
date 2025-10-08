@@ -15,6 +15,8 @@ export interface Company {
     officePolicy?: "REMOTE" | "HYBRID" | "IN_OFFICE";
     techStack?: string;
     notes?: string;
+    glassdoorRating?: number;
+    glassdoorSweRating?: number;
     tier: string;
     createdAt: string;
     updatedAt: string;

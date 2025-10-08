@@ -41,25 +41,27 @@ enum OfficePolicy {
 }
 
 model Company {
-  id            String        @id @default(cuid())
-  name          String
-  logoUrl       String?
-  careersPage   String?
-  website       String?
-  glassdoor     String?
-  github        String?
-  linkedin      String?
-  bluesky       String?
-  description   String?
-  hqLocation    String?
-  localLocation String?
-  employeeCount Int?
-  officePolicy  OfficePolicy?
-  techStack     String?
-  notes         String?
-  tier          CompanyTier   @default(BACKLOG)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  id                  String        @id @default(cuid())
+  name                String
+  logoUrl             String?
+  careersPage         String?
+  website             String?
+  glassdoor           String?
+  github              String?
+  linkedin            String?
+  bluesky             String?
+  description         String?
+  hqLocation          String?
+  localLocation       String?
+  employeeCount       Int?
+  officePolicy        OfficePolicy?
+  techStack           String?
+  notes               String?
+  glassdoorRating     Decimal?      @db.Decimal(2, 1)
+  glassdoorSweRating  Decimal?      @db.Decimal(2, 1)
+  tier                CompanyTier   @default(BACKLOG)
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
 
   // Relations
   userId        String
