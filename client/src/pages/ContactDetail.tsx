@@ -176,7 +176,7 @@ const ContactDetail = () => {
                     onSaveField={handleSaveSocialField}
                 />
 
-                <div className="flex gap-5 px-5 mt-3">
+                <div className="grid grid-cols-4 gap-4 px-5 mt-5">
                     <InfoPill 
                         label="Role"
                         value={contact.role}
@@ -203,23 +203,31 @@ const ContactDetail = () => {
                     />
                 </div>
 
-                <div className="flex gap-5 px-5 mt-3">
-                    <NotesSection 
-                        label="Contact Notes"
-                        value={contact.notes}
-                        placeholder="Click to add contact notes..."
-                        onSave={(newValue) => handleSaveContactNotes(newValue)}
-                    />
-                    <NotesSection 
-                        label="Outreach Notes"
-                        value={contact.outreachNotes}
-                        placeholder="Click to add outreach notes..."
-                        onSave={(newValue) => handleSaveOutreachNotes(newValue)}
-                    />
-                    <OutreachHistory 
-                        label="Outreach History"
-                        placeholder="TODO: Make functional"
-                    />
+                <div className="grid grid-cols-12 gap-4 px-5 mt-5">
+                    <div className="col-span-4">
+                        <NotesSection 
+                            label="Contact Notes"
+                            value={contact.notes}
+                            placeholder="Click to add contact notes..."
+                            onSave={(newValue) => handleSaveContactNotes(newValue)}
+                        />
+                    </div>
+                    
+                    <div className="col-span-4">
+                        <NotesSection 
+                            label="Outreach Notes"
+                            value={contact.outreachNotes}
+                            placeholder="Click to add outreach notes..."
+                            onSave={(newValue) => handleSaveOutreachNotes(newValue)}
+                        />
+                    </div>
+                    
+                    <div className="col-span-4">
+                        <OutreachHistory 
+                            label="Outreach History"
+                            placeholder="TODO: Make functional"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
