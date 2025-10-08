@@ -5,11 +5,12 @@ interface InfoPillProps {
     value: string | undefined;
     placeholder: string;
     size?: "small" | "default";
+    dropdownOptions?: string[];
     onSave: (newValue: string) => void;
 }
 
 
-const InfoPill = ({ label, value, placeholder, size = "default", onSave }: InfoPillProps) => {
+const InfoPill = ({ label, value, placeholder, size = "default", dropdownOptions, onSave }: InfoPillProps) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editValue, setEditValue] = useState(value || "");
 
@@ -33,15 +34,37 @@ const InfoPill = ({ label, value, placeholder, size = "default", onSave }: InfoP
                 ${size === "small" ? "h-20 w-24" : "h-25 w-85"}`}
             >
                 {isEditing ? (
-                    <input 
-                        type="text" 
-                        value={editValue}
-                        onChange={(e) => setEditValue(e.target.value)}
-                        onKeyDown={(e) => e.key === "Enter" && handleSave()}
-                        onBlur={handleSave}
-                        className="border-none outline-none bg-transparent w-full min-w-0 text-center"
-                        autoFocus
-                    />
+                    dropdownOptions ? (
+                        <select 
+                            value={editValue}
+                            onChange={(e) => {
+                                setEditValue(e.target.value);
+                                setIsEditing(false);
+                                if (e.target.value !== (value || "")) {
+                                    onSave(e.target.value);
+                                }
+                            }}
+                            onBlur={handleSave}
+                            className="border-none outline-none bg-transparent w-full min-w-0 text-center cursor-pointer"
+                            autoFocus
+                        >
+                            {dropdownOptions.map((option) => (
+                                <option key={option} value={option}>
+                                    {option}
+                                </option>
+                            ))}
+                        </select>
+                    ) : (
+                        <input 
+                            type="text" 
+                            value={editValue}
+                            onChange={(e) => setEditValue(e.target.value)}
+                            onKeyDown={(e) => e.key === "Enter" && handleSave()}
+                            onBlur={handleSave}
+                            className="border-none outline-none bg-transparent w-full min-w-0 text-center"
+                            autoFocus
+                        />
+                    )
                 ) : (
                     <span 
                         onClick={handleClick}

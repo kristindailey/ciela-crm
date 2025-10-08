@@ -22,11 +22,15 @@ const CompanyDetail = () => {
     };
 
     const formatEmployeeCount = (count: number | null | undefined) => {
-        if (!count) {
-            return;
-        }
+        if (!count) return;
 
         return count.toLocaleString();
+    };
+
+    const formatOfficePolicy = (policy: string | undefined) => {
+        if (!policy) return undefined;
+        const formatted = policy.toLowerCase().replace("_", "-");
+        return formatted.charAt(0).toUpperCase() + formatted.slice(1);
     };
     
     const handleCompanyUpdate = (updatedCompany: Company) => {
@@ -34,9 +38,7 @@ const CompanyDetail = () => {
     };
 
     const handleSaveDescription = async (newDescription: string) => {
-        if (!company) {
-            return;
-        }
+        if (!company) return;
 
         setCompany((prev) => prev ? { 
             ...prev, 
@@ -56,9 +58,7 @@ const CompanyDetail = () => {
     };
 
     const handleSaveHQLocation = async (newHQLocation: string) => {
-        if (!company) {
-            return;
-        }
+        if (!company) return;
 
         setCompany((prev) => prev ? { 
             ...prev, 
@@ -78,9 +78,7 @@ const CompanyDetail = () => {
     };
 
     const handleSaveEmployeeCount = async (newEmployeeCount: number) => {
-        if (!company) {
-            return;
-        }
+        if (!company) return;
 
         setCompany((prev) => prev ? { 
             ...prev, 
@@ -104,9 +102,7 @@ const CompanyDetail = () => {
     };
 
     const handleSaveLocalLocation = async (newLocalLocation: string) => {
-        if (!company) {
-            return;
-        }
+        if (!company) return;
 
         setCompany((prev) => prev ? { 
             ...prev, 
@@ -126,9 +122,7 @@ const CompanyDetail = () => {
     };
 
     const handleSaveGlassdoorRating = async (newRating: number) => {
-        if (!company) {
-            return;
-        }
+        if (!company) return;
         
         setCompany((prev) => prev ? { 
             ...prev, 
@@ -148,9 +142,7 @@ const CompanyDetail = () => {
     };
 
     const handleSaveGlassdoorSweRating = async (newRating: number) => {
-        if (!company) {
-            return;
-        }
+        if (!company) return;
 
         setCompany((prev) => prev ? { 
             ...prev, 
@@ -169,10 +161,28 @@ const CompanyDetail = () => {
         }
     };
 
-    const handleSaveTechStack = async (newTechStack: string) => {
-        if (!company) {
-            return;
+    const handleSaveOfficePolicy = async (newPolicy: string) => {
+        if (!company) return;
+
+        setCompany((prev) => prev ? { 
+            ...prev, 
+            officePolicy: newPolicy as "REMOTE" | "HYBRID" | "IN_OFFICE",
+        } : null);
+
+        try {
+            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ officePolicy: newPolicy }),
+                credentials: "include",
+            });
+        } catch (error) {
+            console.log("Failed to save office policy:", error);
         }
+    };
+
+    const handleSaveTechStack = async (newTechStack: string) => {
+        if (!company) return;
 
         setCompany((prev) => prev ? { 
             ...prev, 
@@ -192,9 +202,7 @@ const CompanyDetail = () => {
     };
 
     const handleSaveCompanyNotes = async (newNotes: string) => {
-        if (!company) {
-            return;
-        }
+        if (!company) return;
 
         setCompany((prev) => prev ? { 
             ...prev, 
@@ -251,9 +259,7 @@ const CompanyDetail = () => {
         }
     }, [id, API_BASE_URL]);
 
-    if (!company) {
-        return null;
-    }
+    if (!company) return null;
 
     return (
         <div className="bg-gray-50 flex">
@@ -291,22 +297,22 @@ const CompanyDetail = () => {
                     />
                 </div>
 
-                <div className="flex gap-5 px-5 mt-3">
+                <div className="flex gap-5 px-5 mt-5">
                     <div>
-                        <InfoPill 
-                            label="Glasdoor Rating"
-                            value={company.glassdoorRating?.toString()}
-                            placeholder="No rating"
-                            size="small"
-                            onSave={(newValue) => {
-                                const rating = parseFloat(newValue);
-                                if (!isNaN(rating) && rating >= 0 && rating <= 5) {
-                                    handleSaveGlassdoorRating(rating);
-                                }
-                            }}
-                        />
+                        <div className="flex justify-center gap-6">
+                            <InfoPill 
+                                label="Glasdoor Rating"
+                                value={company.glassdoorRating?.toString()}
+                                placeholder="No rating"
+                                size="small"
+                                onSave={(newValue) => {
+                                    const rating = parseFloat(newValue);
+                                    if (!isNaN(rating) && rating >= 0 && rating <= 5) {
+                                        handleSaveGlassdoorRating(rating);
+                                    }
+                                }}
+                            />
 
-                        <div className="mt-3">
                             <InfoPill
                                 label="Glassdoor SWE Rating"
                                 value={company.glassdoorSweRating?.toString()}
@@ -321,13 +327,21 @@ const CompanyDetail = () => {
                             />
                         </div>
 
-                        <div className="mt-3">
-                            {/* <InfoPill 
+                        <div className="mt-8">
+                            <InfoPill 
                                 label="Office Policy"
-                                value={company.officePolicy}
-                                // placeholder=""
-                                // onSave={(newValue) => handleSaveTechStack(newValue)}
-                            /> */}
+                                value={formatOfficePolicy(company.officePolicy)}
+                                placeholder="No policy specified"
+                                dropdownOptions={["Remote", "Hybrid", "In-Office"]}
+                                onSave={(newValue) => {
+                                    const policyMap: Record<string, string> = {
+                                        "Remote": "REMOTE",
+                                        "Hybrid": "HYBRID",
+                                        "In-Office": "IN_OFFICE",
+                                    };
+                                    handleSaveOfficePolicy(policyMap[newValue]);
+                                }}
+                            />
                         </div>
                     </div>
 
