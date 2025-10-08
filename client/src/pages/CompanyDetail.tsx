@@ -267,7 +267,7 @@ const CompanyDetail = () => {
             <div className="flex-1">
                 <CompanyHeader company={company} onCompanyUpdate={handleCompanyUpdate} onSaveField={handleSaveSocialField}/>
 
-                <div className="flex gap-5 px-5 mt-3">
+                <div className="grid grid-cols-4 gap-4 px-5 mt-3">
                     <InfoPill 
                         label="Description"
                         value={company.description}
@@ -297,43 +297,41 @@ const CompanyDetail = () => {
                     />
                 </div>
 
-                <div className="flex gap-5 px-5 mt-5">
-                    <div>
-                        <div className="flex justify-center gap-6">
-                            <InfoPill 
-                                label="Glasdoor Rating"
-                                value={company.glassdoorRating?.toString()}
-                                placeholder="No rating"
-                                size="small"
-                                onSave={(newValue) => {
-                                    const rating = parseFloat(newValue);
-                                    if (!isNaN(rating) && rating >= 0 && rating <= 5) {
-                                        handleSaveGlassdoorRating(rating);
-                                    }
-                                }}
-                            />
+                <div className="grid grid-cols-4 gap-4 px-5 mt-5">
+                    <div className="flex justify-center gap-5">
+                        <InfoPill 
+                            label="Glasdoor Rating"
+                            value={company.glassdoorRating?.toString()}
+                            placeholder="No rating"
+                            size="small"
+                            onSave={(newValue) => {
+                                const rating = parseFloat(newValue);
+                                if (!isNaN(rating) && rating >= 0 && rating <= 5) {
+                                    handleSaveGlassdoorRating(rating);
+                                }
+                            }}
+                        />
 
-                            <InfoPill
-                                label="Glassdoor SWE Rating"
-                                value={company.glassdoorSweRating?.toString()}
-                                placeholder="No rating"
-                                size="small"
-                                onSave={(newValue) => {
-                                    const rating = parseFloat(newValue);
-                                    if (!isNaN(rating) && rating >= 0 && rating <= 5) {
-                                        handleSaveGlassdoorSweRating(rating);
-                                    }
-                                }}
-                            />
-                        </div>
+                        <InfoPill
+                            label="Glassdoor SWE Rating"
+                            value={company.glassdoorSweRating?.toString()}
+                            placeholder="No rating"
+                            size="small"
+                            onSave={(newValue) => {
+                                const rating = parseFloat(newValue);
+                                if (!isNaN(rating) && rating >= 0 && rating <= 5) {
+                                    handleSaveGlassdoorSweRating(rating);
+                                }
+                             }}
+                        />
+                    </div>
 
-                        <div className="mt-8">
-                            <InfoPill 
-                                label="Office Policy"
-                                value={formatOfficePolicy(company.officePolicy)}
-                                placeholder="No policy specified"
-                                dropdownOptions={["Remote", "Hybrid", "In-Office"]}
-                                onSave={(newValue) => {
+                        <InfoPill 
+                            label="Office Policy"
+                            value={formatOfficePolicy(company.officePolicy)}
+                            placeholder="No policy specified"
+                            dropdownOptions={["Remote", "Hybrid", "In-Office"]}
+                            onSave={(newValue) => {
                                     const policyMap: Record<string, string> = {
                                         "Remote": "REMOTE",
                                         "Hybrid": "HYBRID",
@@ -341,34 +339,34 @@ const CompanyDetail = () => {
                                     };
                                     handleSaveOfficePolicy(policyMap[newValue]);
                                 }}
-                            />
-                        </div>
-                    </div>
+                        />
 
-                    <div>
                         <InfoPill 
                             label="Local Location"
                             value={company.localLocation}
                             placeholder="No local location specified"
                             onSave={(newValue) => handleSaveLocalLocation(newValue)}
                         />
-                        <div className="mt-3">
-                            <InfoPill 
+
+                        <InfoPill 
                             label="Tech Stack"
                             value={company.techStack}
                             placeholder="No tech stack specified"
                             onSave={(newValue) => handleSaveTechStack(newValue)}
-                            />
-                        </div>
-                    </div>
+                        />
+                </div>
 
-                    <div className="flex gap-3">
+                <div className="grid grid-cols-4 gap-4 px-5 mt-5">
+                    <div className="col-span-2">
                         <NotesSection 
                             label="Company Notes"
                             value={company.notes}
                             placeholder="Click to add company notes..."
                             onSave={(newValue) => handleSaveCompanyNotes(newValue)}
                         />
+                    </div>
+                    
+                    <div className="col-span-2">
                         <OutreachHistory 
                             label="Outreach History"
                             placeholder="TODO: Make functional"

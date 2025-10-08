@@ -31,7 +31,7 @@ const InfoPill = ({ label, value, placeholder, size = "default", dropdownOptions
         <div>
             <label className="font-inter text-sm text-gray-600 mb-1 block">{label}</label>
             <div className={`bg-white rounded-xl shadow-md cursor-pointer transition-all text-medium font-semibold text-[var(--royal-blue)] overflow-hidden flex items-center justify-center 
-                ${size === "small" ? "h-20 w-24" : "h-25 w-85"}`}
+                ${size === "small" ? "h-20" : "h-25 w-full"}`}
             >
                 {isEditing ? (
                     dropdownOptions ? (
