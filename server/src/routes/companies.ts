@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { dmmfToRuntimeDataModel, PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { prisma } from "../lib/prisma";
 
 const router = Router();
@@ -40,6 +40,50 @@ router.get("/:id", async (req, res) => {
     } catch (error) {
         console.error("Error fetching company:", error);
         res.status(500).json({ error: "Failed to fetch company." });
+    }
+});
+
+router.get("/:id/contacts", async (req, res) => {
+    try {
+        const userId = (req.user as any).id;
+        const { id } = req.params;
+
+        const company = await prisma.company.findFirst({
+            where: {
+                id, 
+                userId,
+            },
+        });    
+        
+        if (!company) {
+            return res.status(404).json({ error: "Company not found." });
+        }
+
+        const contacts = await prisma.contact.findMany({
+            where: {
+                companyId: id,
+                userId,
+            },
+            include: {
+                company: {
+                    select: {
+                        id: true,
+                        name: true,
+                        tier: true,
+                        logoUrl: true,
+                    },
+                },
+            },
+            orderBy: [
+                { lastName: "asc" },
+                { firstName: "asc" },
+            ],
+        });
+
+        res.json(contacts);
+    } catch (error) {
+        console.error("Error fetching company contacts:", error);
+        res.status(500).json({ error: "Failed to fetch company contacts." });
     }
 });
 
