@@ -271,19 +271,19 @@ const CompanyDetail = () => {
                     <InfoPill 
                         label="Description"
                         value={company.description}
-                        placeholder="No description specified"
+                        placeholder="Add description"
                         onSave={(newValue) => handleSaveDescription(newValue)}
                     />
                     <InfoPill 
                         label="HQ Location"
                         value={company.hqLocation}
-                        placeholder="No location specified"
+                        placeholder="Add HQ location"
                         onSave={(newValue) => handleSaveHQLocation(newValue)}
                     />
                     <InfoPill 
                         label="Employee Count"
                         value={formatEmployeeCount(company.employeeCount)}
-                        placeholder="No employee count specified"
+                        placeholder="Add employee count"
                         onSave={(newValue) => {
                             const cleanValue = newValue.replace(/,/g, "");
                             handleSaveEmployeeCount(parseInt(cleanValue, 10));
@@ -292,7 +292,7 @@ const CompanyDetail = () => {
                     <InfoPill 
                         label="Last Contacted"
                         value={company.updatedAt ? formatDate(company.updatedAt) : undefined}
-                        placeholder="Never contacted"
+                        placeholder="Not yet contacted"
                         onSave={(newValue) => handleSaveDate(newValue)}
                     />
                 </div>
@@ -302,7 +302,7 @@ const CompanyDetail = () => {
                         <InfoPill 
                             label="Glasdoor Rating"
                             value={company.glassdoorRating?.toString()}
-                            placeholder="No rating"
+                            placeholder="Add rating"
                             size="small"
                             onSave={(newValue) => {
                                 const rating = parseFloat(newValue);
@@ -315,7 +315,7 @@ const CompanyDetail = () => {
                         <InfoPill
                             label="Glassdoor SWE Rating"
                             value={company.glassdoorSweRating?.toString()}
-                            placeholder="No rating"
+                            placeholder="Add rating"
                             size="small"
                             onSave={(newValue) => {
                                 const rating = parseFloat(newValue);
@@ -329,7 +329,7 @@ const CompanyDetail = () => {
                         <InfoPill 
                             label="Office Policy"
                             value={formatOfficePolicy(company.officePolicy)}
-                            placeholder="No policy specified"
+                            placeholder="Add office policy"
                             dropdownOptions={["Remote", "Hybrid", "In-Office"]}
                             onSave={(newValue) => {
                                     const policyMap: Record<string, string> = {
@@ -344,14 +344,14 @@ const CompanyDetail = () => {
                         <InfoPill 
                             label="Local Location"
                             value={company.localLocation}
-                            placeholder="No local location specified"
+                            placeholder="Add local location"
                             onSave={(newValue) => handleSaveLocalLocation(newValue)}
                         />
 
                         <InfoPill 
                             label="Tech Stack"
                             value={company.techStack}
-                            placeholder="No tech stack specified"
+                            placeholder="Add tech stack"
                             onSave={(newValue) => handleSaveTechStack(newValue)}
                         />
                 </div>
@@ -361,7 +361,7 @@ const CompanyDetail = () => {
                         <NotesSection 
                             label="Company Notes"
                             value={company.notes}
-                            placeholder="Click to add company notes..."
+                            placeholder="Add company notes"
                             onSave={(newValue) => handleSaveCompanyNotes(newValue)}
                         />
                     </div>
@@ -369,7 +369,7 @@ const CompanyDetail = () => {
                     <div className="col-span-2">
                         <OutreachHistory 
                             label="Outreach History"
-                            placeholder="TODO: Make functional"
+                            placeholder="Add outreach history"
                         />
                     </div>
                 </div>

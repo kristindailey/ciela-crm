@@ -180,25 +180,25 @@ const ContactDetail = () => {
                     <InfoPill 
                         label="Role"
                         value={contact.role}
-                        placeholder="No role specified"
+                        placeholder="Add role"
                         onSave={(newValue) => handleSaveRole(newValue)}
                     />
                     <InfoPill 
                         label="Company"
                         value={contact.company.name}
-                        placeholder="No company specified"
+                        placeholder="Add company"
                         onSave={(newValue) => handleSaveCompany(newValue)}
                     />
                     <InfoPill
                         label="Location"
                         value={contact.location}
-                        placeholder="No location specified"
+                        placeholder="Add location"
                         onSave={(newValue) => handleSaveLocation(newValue)}
                     />
                     <InfoPill 
                         label="Last Contacted"
                         value={contact.updatedAt ? formatDate(contact.updatedAt) : undefined}
-                        placeholder="Never contacted"
+                        placeholder="Not yet contacted"
                         onSave={(newValue) => handleSaveDate(newValue)}
                     />
                 </div>
@@ -208,7 +208,7 @@ const ContactDetail = () => {
                         <NotesSection 
                             label="Contact Notes"
                             value={contact.notes}
-                            placeholder="Click to add contact notes..."
+                            placeholder="Add contact notes"
                             onSave={(newValue) => handleSaveContactNotes(newValue)}
                         />
                     </div>
@@ -217,7 +217,7 @@ const ContactDetail = () => {
                         <NotesSection 
                             label="Outreach Notes"
                             value={contact.outreachNotes}
-                            placeholder="Click to add outreach notes..."
+                            placeholder="Add outreach notes"
                             onSave={(newValue) => handleSaveOutreachNotes(newValue)}
                         />
                     </div>
@@ -225,7 +225,7 @@ const ContactDetail = () => {
                     <div className="col-span-4">
                         <OutreachHistory 
                             label="Outreach History"
-                            placeholder="TODO: Make functional"
+                            placeholder="Add outreach history"
                         />
                     </div>
                 </div>
