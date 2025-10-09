@@ -298,12 +298,11 @@ const CompanyDetail = () => {
                 </div>
 
                 <div className="grid grid-cols-4 gap-4 px-5 mt-5">
-                    <div className="flex justify-center gap-5">
+                    <div className="grid grid-cols-2 gap-5">
                         <InfoPill 
                             label="Glasdoor Rating"
                             value={company.glassdoorRating?.toString()}
                             placeholder="Add rating"
-                            size="small"
                             onSave={(newValue) => {
                                 const rating = parseFloat(newValue);
                                 if (!isNaN(rating) && rating >= 0 && rating <= 5) {
@@ -316,7 +315,6 @@ const CompanyDetail = () => {
                             label="Glassdoor SWE Rating"
                             value={company.glassdoorSweRating?.toString()}
                             placeholder="Add rating"
-                            size="small"
                             onSave={(newValue) => {
                                 const rating = parseFloat(newValue);
                                 if (!isNaN(rating) && rating >= 0 && rating <= 5) {
