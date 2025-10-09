@@ -138,8 +138,8 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
 
     return (
         <div className="mb-4">
-            <div className="flex items-center justify-between w-full mt-20 ml-5 mr-5">
-                <div className="flex items-center gap-4 font-inter">
+            <div className="flex items-end w-full mt-20 px-5">
+                <div className="flex items-end gap-6 font-inter">
                     {isEditingName ? (
                         <input 
                             type="text"
@@ -153,12 +153,12 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
                                     setIsEditingName(false);
                                 }
                             }} 
-                            className="text-[var(--royal-blue)] font-extrabold text-3xl mt-5 bg-transparent focus:outline-none focus:border-b-2 focus:border-[var(--soft-lavender)]"
+                            className="text-[var(--royal-blue)] font-extrabold text-3xl bg-transparent focus:outline-none focus:border-b-2 focus:border-[var(--soft-lavender)]"
                             style={{ width: `${nameValue.length * 0.6}em` }}
                             autoFocus
                         />
                     ) : (
-                        <h1 className="relative group text-[var(--royal-blue)] font-extrabold text-3xl mt-5">
+                        <h1 className="relative group text-[var(--royal-blue)] font-extrabold text-3xl">
                             {company.name}
                             <button
                                 onClick={() => setIsEditingName(true)}
@@ -170,7 +170,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
                         </h1>
                     )}
 
-                    <div className="ml-8">
+                    <div>
                         <div 
                             onClick={handleLogoClick}
                             className="relative group cursor-pointer"
@@ -215,7 +215,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
                             value={company.tier}
                             onChange={(e) => handleSaveTier(e.target.value)}
                             onBlur={() => setIsEditingTier(false)}
-                            className="h-10 px-6 rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold ml-8 mt-5 border-2 border-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-white"
+                            className="h-10 px-6 rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold ml-8 border-2 border-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-white"
                             autoFocus
                         >
                             <option value="TIER_1">tier 1</option>
@@ -224,7 +224,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
                             <option value="BACKLOG">backlog</option>
                         </select>
                     ) : (
-                        <div className="relative group inline-block ml-8 mt-5">
+                        <div className="relative group inline-block">
                             <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold">
                                 {company.tier.toLowerCase().replace("_", " ")}
                             </div>
@@ -238,20 +238,21 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
                             </button>
                         </div>
                     )}
-                    
-                    <div className="flex items-center gap-4 text-3xl text-[var(--royal-blue)] ml-120 mt-7">
-                        {socialLinks.map(({ url, icon, label }) => (
-                            <SocialIcon 
-                                key={label}
-                                url={url}
-                                icon={icon}
-                                label={label}
-                                onSave={(newValue) => onSaveField(label, newValue)}
-                            />
-                        ))}
-                    </div>
+                </div>
+
+                <div className="flex items-center gap-4 text-3xl text-[var(--royal-blue)] ml-auto">
+                    {socialLinks.map(({ url, icon, label }) => (
+                        <SocialIcon 
+                            key={label}
+                            url={url}
+                            icon={icon}
+                            label={label}
+                            onSave={(newValue) => onSaveField(label, newValue)}
+                        />
+                    ))}
                 </div>
             </div>
+            
             <div className="h-4 bg-[var(--soft-lavender)] mt-2 mx-5"></div>
         </div>
     );
