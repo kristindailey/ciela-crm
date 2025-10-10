@@ -1,38 +1,23 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import type { Company } from "../types/company";
 import Sidebar from "../components/Sidebar";
 import CompanyHeader from "../components/CompanyHeader";
-import InfoPill from "../components/InfoPill";
-import NotesSection from "../components/NotesSection";
-import OutreachHistory from "../components/OutreachHistory";
+import TabBar from "../components/TabBar";
+import CompanyOverview from "../components/CompanyOverview";
+import CompanyContacts from "../components/CompanyContacts";
 
 const CompanyDetail = () => {
     const { id } = useParams<{ id: string }>();
-    const [company, setCompany] = useState<Company | null>(null)
+    const [company, setCompany] = useState<Company | null>(null);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const activeTab = searchParams.get("tab") || "overview";
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString("en-US", {
-            month: "2-digit",
-            day: "2-digit",
-            year: "numeric",
-        });
-    };
-
-    const formatEmployeeCount = (count: number | null | undefined) => {
-        if (!count) return;
-
-        return count.toLocaleString();
-    };
-
-    const formatOfficePolicy = (policy: string | undefined) => {
-        if (!policy) return undefined;
-        const formatted = policy.toLowerCase().replace("_", "-");
-        return formatted.charAt(0).toUpperCase() + formatted.slice(1);
-    };
     
+    const handleTabChange = (tab: string) => {
+        setSearchParams({ tab });
+    };
+
     const handleCompanyUpdate = (updatedCompany: Company) => {
         setCompany(updatedCompany);
     };
@@ -46,7 +31,7 @@ const CompanyDetail = () => {
         } : null);
 
         try { 
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+            await fetch(`${API_BASE_URL}/companies/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ description: newDescription }),
@@ -66,7 +51,7 @@ const CompanyDetail = () => {
         } : null);
 
         try { 
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+            await fetch(`${API_BASE_URL}/companies/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ hqLocation: newHQLocation }),
@@ -86,7 +71,7 @@ const CompanyDetail = () => {
         } : null);
 
         try { 
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+            await fetch(`${API_BASE_URL}/companies/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ employeeCount: newEmployeeCount }),
@@ -110,7 +95,7 @@ const CompanyDetail = () => {
         } : null);
 
         try { 
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+            await fetch(`${API_BASE_URL}/companies/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ localLocation: newLocalLocation }),
@@ -130,7 +115,7 @@ const CompanyDetail = () => {
         } : null);
 
         try {
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+            await fetch(`${API_BASE_URL}/companies/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ glassdoorRating: newRating }),
@@ -150,7 +135,7 @@ const CompanyDetail = () => {
         } : null);
 
         try {
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+            await fetch(`${API_BASE_URL}/companies/${id}`, {
                 method: "PATCH", 
                 headers: { "Content-Type": "application/json" }, 
                 body: JSON.stringify({ glassdoorSweRating: newRating }),
@@ -170,7 +155,7 @@ const CompanyDetail = () => {
         } : null);
 
         try {
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+            await fetch(`${API_BASE_URL}/companies/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ officePolicy: newPolicy }),
@@ -190,7 +175,7 @@ const CompanyDetail = () => {
         } : null);
 
         try { 
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+            await fetch(`${API_BASE_URL}/companies/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ techStack: newTechStack }),
@@ -210,7 +195,7 @@ const CompanyDetail = () => {
         } : null);
 
         try { 
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+            await fetch(`${API_BASE_URL}/companies/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ notes: newNotes }),
@@ -227,7 +212,7 @@ const CompanyDetail = () => {
         setCompany((prev) => prev ? {...prev, [field]: newValue } : null);
 
         try {
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${id}`, {
+            await fetch(`${API_BASE_URL}/companies/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ [field]: newValue }),
@@ -267,110 +252,34 @@ const CompanyDetail = () => {
             <div className="flex-1">
                 <CompanyHeader company={company} onCompanyUpdate={handleCompanyUpdate} onSaveField={handleSaveSocialField}/>
 
-                <div className="grid grid-cols-4 gap-4 px-5 mt-3">
-                    <InfoPill 
-                        label="Description"
-                        value={company.description}
-                        placeholder="Add description"
-                        onSave={(newValue) => handleSaveDescription(newValue)}
+                <TabBar
+                    tabs={[
+                        { value: "overview", label: "overview" },
+                        { value: "contacts", label: "contacts" },
+                    ]}
+                    activeTab={activeTab}
+                    onTabChange={handleTabChange}
+                />
+
+                {activeTab === "overview" && (
+                    <CompanyOverview
+                        company={company}
+                        onSaveDescription={handleSaveDescription}
+                        onSaveHQLocation={handleSaveHQLocation}
+                        onSaveEmployeeCount={handleSaveEmployeeCount}
+                        onSaveDate={handleSaveDate}
+                        onSaveLocalLocation={handleSaveLocalLocation}
+                        onSaveGlassdoorRating={handleSaveGlassdoorRating}
+                        onSaveGlassdoorSweRating={handleSaveGlassdoorSweRating}
+                        onSaveOfficePolicy={handleSaveOfficePolicy}
+                        onSaveTechStack={handleSaveTechStack}
+                        onSaveCompanyNotes={handleSaveCompanyNotes}
                     />
-                    <InfoPill 
-                        label="HQ Location"
-                        value={company.hqLocation}
-                        placeholder="Add HQ location"
-                        onSave={(newValue) => handleSaveHQLocation(newValue)}
-                    />
-                    <InfoPill 
-                        label="Employee Count"
-                        value={formatEmployeeCount(company.employeeCount)}
-                        placeholder="Add employee count"
-                        onSave={(newValue) => {
-                            const cleanValue = newValue.replace(/,/g, "");
-                            handleSaveEmployeeCount(parseInt(cleanValue, 10));
-                        }}
-                    />
-                    <InfoPill 
-                        label="Last Contacted"
-                        value={company.updatedAt ? formatDate(company.updatedAt) : undefined}
-                        placeholder="Not yet contacted"
-                        onSave={(newValue) => handleSaveDate(newValue)}
-                    />
-                </div>
+                )}
 
-                <div className="grid grid-cols-4 gap-4 px-5 mt-5">
-                    <div className="grid grid-cols-2 gap-5">
-                        <InfoPill 
-                            label="Glasdoor Rating"
-                            value={company.glassdoorRating?.toString()}
-                            placeholder="Add rating"
-                            onSave={(newValue) => {
-                                const rating = parseFloat(newValue);
-                                if (!isNaN(rating) && rating >= 0 && rating <= 5) {
-                                    handleSaveGlassdoorRating(rating);
-                                }
-                            }}
-                        />
-
-                        <InfoPill
-                            label="Glassdoor SWE Rating"
-                            value={company.glassdoorSweRating?.toString()}
-                            placeholder="Add rating"
-                            onSave={(newValue) => {
-                                const rating = parseFloat(newValue);
-                                if (!isNaN(rating) && rating >= 0 && rating <= 5) {
-                                    handleSaveGlassdoorSweRating(rating);
-                                }
-                             }}
-                        />
-                    </div>
-
-                        <InfoPill 
-                            label="Office Policy"
-                            value={formatOfficePolicy(company.officePolicy)}
-                            placeholder="Add office policy"
-                            dropdownOptions={["Remote", "Hybrid", "In-Office"]}
-                            onSave={(newValue) => {
-                                    const policyMap: Record<string, string> = {
-                                        "Remote": "REMOTE",
-                                        "Hybrid": "HYBRID",
-                                        "In-Office": "IN_OFFICE",
-                                    };
-                                    handleSaveOfficePolicy(policyMap[newValue]);
-                                }}
-                        />
-
-                        <InfoPill 
-                            label="Local Location"
-                            value={company.localLocation}
-                            placeholder="Add local location"
-                            onSave={(newValue) => handleSaveLocalLocation(newValue)}
-                        />
-
-                        <InfoPill 
-                            label="Tech Stack"
-                            value={company.techStack}
-                            placeholder="Add tech stack"
-                            onSave={(newValue) => handleSaveTechStack(newValue)}
-                        />
-                </div>
-
-                <div className="grid grid-cols-4 gap-4 px-5 mt-5">
-                    <div className="col-span-2">
-                        <NotesSection 
-                            label="Company Notes"
-                            value={company.notes}
-                            placeholder="Add company notes"
-                            onSave={(newValue) => handleSaveCompanyNotes(newValue)}
-                        />
-                    </div>
-                    
-                    <div className="col-span-2">
-                        <OutreachHistory 
-                            label="Outreach History"
-                            placeholder="Add outreach history"
-                        />
-                    </div>
-                </div>
+                {activeTab === "contacts" && (
+                    <CompanyContacts companyId={id!} />
+                )}
             </div>
         </div>
     );
