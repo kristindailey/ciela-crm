@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import type { Contact } from "../types/contact";
 import ContactCard from "./ContactCard";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 interface CompanyContactsProps {
 	companyId: string;
@@ -50,14 +51,18 @@ const CompanyContacts = ({ companyId }: CompanyContactsProps) => {
 
 	return (
 		<div className="px-5 mt-5">
-			<div className="mb-4">
+			<div className="relative mb-4">
 				<input 
 					type="text" 
 					placeholder="Search contacts..."
 					value={searchQuery}
 					onChange={(e) => setSearchQuery(e.target.value)}
-					className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--royal-blue)] focus:border-transparent text-black"
+					className="w-1/2 px-10 py-2 border border-2 border-[var(--royal-blue)] rounded-full focus:outline-none focus:ring-2 focus:ring-[var(--royal-blue)] focus:border-transparent text-black"
 				/>
+
+				<div className="absolute left-3 top-1/2 translate -translate-y-1/2">
+					<FaMagnifyingGlass className="text-[var(--royal-blue)]"/>
+				</div>
 			</div>
 
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
