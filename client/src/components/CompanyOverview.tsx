@@ -53,7 +53,7 @@ const CompanyOverview = ({
 
 	return (
 		<>
-			<div className="grid grid-cols-4 gap-4 px-5 mt-3">
+			<div className="grid grid-cols-4 gap-4 px-5 mt-5">
                 <InfoPill 
                     label="Description"
                     value={company.description}

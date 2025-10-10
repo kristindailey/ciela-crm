@@ -137,123 +137,119 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
     };
 
     return (
-        <div className="mb-4">
-            <div className="flex items-end w-full mt-20 px-5">
-                <div className="flex items-end gap-6 font-inter">
-                    {isEditingName ? (
-                        <input 
-                            type="text"
-                            value={nameValue}
-                            onChange={(e) => setNameValue(e.target.value)}
-                            onBlur={handleSaveName}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") handleSaveName();
-                                if (e.key === "Escape") {
-                                    setNameValue(company.name);
-                                    setIsEditingName(false);
-                                }
-                            }} 
-                            className="text-[var(--royal-blue)] font-extrabold text-3xl bg-transparent focus:outline-none focus:border-b-2 focus:border-[var(--soft-lavender)]"
-                            style={{ width: `${nameValue.length * 0.6}em` }}
-                            autoFocus
-                        />
-                    ) : (
-                        <h1 className="relative group text-[var(--royal-blue)] font-extrabold text-3xl">
-                            {company.name}
-                            <button
-                                onClick={() => setIsEditingName(true)}
-                                className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-white border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
-                                aria-label="Edit company name"
-                            >
-                                <FiEdit2 className="w-3 h-3"/>
-                            </button>    
-                        </h1>
-                    )}
-
-                    <div>
-                        <div 
-                            onClick={handleLogoClick}
-                            className="relative group cursor-pointer"
+        <div className="flex items-end w-full mt-20 px-5">
+            <div className="flex items-end gap-6 font-inter">
+                {isEditingName ? (
+                    <input 
+                        type="text"
+                        value={nameValue}
+                        onChange={(e) => setNameValue(e.target.value)}
+                        onBlur={handleSaveName}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") handleSaveName();
+                            if (e.key === "Escape") {
+                                setNameValue(company.name);
+                                setIsEditingName(false);
+                            }
+                        }} 
+                        className="text-[var(--royal-blue)] font-extrabold text-3xl bg-transparent focus:outline-none focus:border-b-2 focus:border-[var(--soft-lavender)]"
+                        style={{ width: `${nameValue.length * 0.6}em` }}
+                        autoFocus
+                    />
+                ) : (
+                    <h1 className="relative group text-[var(--royal-blue)] font-extrabold text-3xl">
+                        {company.name}
+                        <button
+                            onClick={() => setIsEditingName(true)}
+                            className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-white border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
+                            aria-label="Edit company name"
                         >
-                            {(previewUrl || company.logoUrl) ? (                            
-                                <img 
-                                    src={previewUrl || company.logoUrl} 
-                                    alt="Company logo"
-                                    className="h-15 object-contain" 
-                                />
-                            ) : (
-                                <div
-                                    className="w-13 h-13 rounded-full bg-gray-200 border border-dashed border-gray-400 flex items-center justify-center hover:bg-gray-100 transition-colors"
-                                >
-                                    <IoImageOutline className="text-2xl"/>
-                                </div>
-                            )}
-                        
-                            <button
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleLogoClick();
-                                }}
-                                className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-white border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
-                                aria-label="Edit logo"
-                            >
-                                <FiEdit2 className="w-3 h-3"/> 
-                            </button>
-                        </div>
+                            <FiEdit2 className="w-3 h-3"/>
+                        </button>    
+                    </h1>
+                )}
 
-                        <input 
-                            ref={fileInputRef}
-                            type="file"
-                            accept="image/*"
-                            onChange={handleFileChange}
-                            className="hidden" 
-                        />
+                <div>
+                    <div 
+                        onClick={handleLogoClick}
+                        className="relative group cursor-pointer"
+                    >
+                        {(previewUrl || company.logoUrl) ? (                            
+                            <img 
+                                src={previewUrl || company.logoUrl} 
+                                alt="Company logo"
+                                className="h-15 object-contain" 
+                            />
+                        ) : (
+                            <div
+                                className="w-13 h-13 rounded-full bg-gray-200 border border-dashed border-gray-400 flex items-center justify-center hover:bg-gray-100 transition-colors"
+                            >
+                                <IoImageOutline className="text-2xl"/>
+                            </div>
+                        )}
+                        
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleLogoClick();
+                            }}
+                            className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-white border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
+                            aria-label="Edit logo"
+                        >
+                            <FiEdit2 className="w-3 h-3"/> 
+                        </button>
                     </div>
 
-                    {isEditingTier ? (
-                        <select 
-                            value={company.tier}
-                            onChange={(e) => handleSaveTier(e.target.value)}
-                            onBlur={() => setIsEditingTier(false)}
-                            className="h-10 px-6 rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold ml-8 border-2 border-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-white"
-                            autoFocus
-                        >
-                            <option value="TIER_1">tier 1</option>
-                            <option value="TIER_2">tier 2</option>
-                            <option value="TIER_3">tier 3</option>
-                            <option value="BACKLOG">backlog</option>
-                        </select>
-                    ) : (
-                        <div className="relative group inline-block">
-                            <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold">
-                                {company.tier.toLowerCase().replace("_", " ")}
-                            </div>
+                    <input 
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        className="hidden" 
+                    />
+                </div>
 
-                            <button
-                                onClick={() => setIsEditingTier(true)}
-                                className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-white border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
-                                aria-label="Edit tier"
-                            >
-                                <FiEdit2 className="w-3 h-3" />
-                            </button>
+                {isEditingTier ? (
+                    <select 
+                        value={company.tier}
+                        onChange={(e) => handleSaveTier(e.target.value)}
+                        onBlur={() => setIsEditingTier(false)}
+                        className="h-10 px-6 rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold ml-8 border-2 border-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-white"
+                        autoFocus
+                    >
+                        <option value="TIER_1">tier 1</option>
+                        <option value="TIER_2">tier 2</option>
+                        <option value="TIER_3">tier 3</option>
+                        <option value="BACKLOG">backlog</option>
+                    </select>
+                ) : (
+                    <div className="relative group inline-block">
+                        <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold">
+                            {company.tier.toLowerCase().replace("_", " ")}
                         </div>
-                    )}
-                </div>
 
-                <div className="flex items-center gap-4 text-3xl text-[var(--royal-blue)] ml-auto">
-                    {socialLinks.map(({ url, icon, label }) => (
-                        <SocialIcon 
-                            key={label}
-                            url={url}
-                            icon={icon}
-                            label={label}
-                            onSave={(newValue) => onSaveField(label, newValue)}
-                        />
-                    ))}
-                </div>
+                        <button
+                            onClick={() => setIsEditingTier(true)}
+                            className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-white border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
+                            aria-label="Edit tier"
+                        >
+                            <FiEdit2 className="w-3 h-3" />
+                        </button>
+                    </div>
+                )}
             </div>
-            
-            <div className="h-4 bg-[var(--soft-lavender)] mt-2 mx-5"></div>
+
+            <div className="flex items-center gap-4 text-3xl text-[var(--royal-blue)] ml-auto">
+                {socialLinks.map(({ url, icon, label }) => (
+                    <SocialIcon 
+                        key={label}
+                        url={url}
+                        icon={icon}
+                        label={label}
+                        onSave={(newValue) => onSaveField(label, newValue)}
+                    />
+                ))}
+            </div>
         </div>
     );
 };
