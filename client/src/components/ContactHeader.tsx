@@ -114,7 +114,8 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField }: ContactHeaderP
                 </div>
             </div>
 
-            <div className="h-4 bg-[var(--soft-lavender)] mt-2 mx-5"></div>
+            <div className="h-11 bg-[var(--royal-blue)] mt-2 mx-5"></div>
+            <div className="h-[5px] bg-[var(--soft-lavender)] mt-1 mx-5"></div>
         </div>
     );
 };

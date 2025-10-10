@@ -11,7 +11,7 @@ interface TabBarProps {
 
 const TabBar = ({ tabs, activeTab, onTabChange }: TabBarProps) => {
 	return (
-		<div className="bg-[var(--royal-blue)] mx-5 mt-2 mb-4">
+		<div className="bg-[var(--royal-blue)] mx-5 mt-2 mb-6">
 			<div className="flex">
 				{tabs.map((tab) => (
 					<button
