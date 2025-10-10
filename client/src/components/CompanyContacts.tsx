@@ -57,7 +57,7 @@ const CompanyContacts = ({ companyId }: CompanyContactsProps) => {
 					placeholder="Search contacts..."
 					value={searchQuery}
 					onChange={(e) => setSearchQuery(e.target.value)}
-					className="w-1/2 px-10 py-2 border border-2 border-[var(--royal-blue)] rounded-full focus:outline-none focus:ring-2 focus:ring-[var(--royal-blue)] focus:border-transparent text-black"
+					className="w-full px-10 py-2 border border-2 border-[var(--royal-blue)] rounded-full focus:outline-none focus:ring-2 focus:ring-[var(--royal-blue)] focus:border-transparent text-black"
 				/>
 
 				<div className="absolute left-3 top-1/2 translate -translate-y-1/2">
