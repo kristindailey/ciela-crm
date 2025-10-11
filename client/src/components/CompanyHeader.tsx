@@ -239,7 +239,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
                 )}
             </div>
 
-            <div className="flex items-center gap-4 text-3xl text-[var(--royal-blue)] ml-auto">
+            <div className="flex items-center gap-4 text-2xl text-[var(--royal-blue)] ml-auto">
                 {socialLinks.map(({ url, icon, label }) => (
                     <SocialIcon 
                         key={label}

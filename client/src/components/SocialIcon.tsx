@@ -60,7 +60,7 @@ const SocialIcon = ({ url, icon: Icon, label, onSave }: SocialIconProps) => {
                 href={label === "email" && url ? `mailto:${url}` : url || "#"}
                 target={url && label !== "email" ? "_blank" : undefined}
                 rel={url ? "noopener noreferrer" : undefined}
-                className={`flex items-center justify-center w-7 h-7 ${url ? "hover:text-[var(--soft-lavender)]" : "text-gray-300"} ${!url ? "pointer-events-none" : ""}`}
+                className={`flex items-center justify-center w-9 h-9 rounded-full bg-[var(--soft-lavender)] hover:bg-[var(--royal-blue)] shadow-md transition-colors ${url ? "text-[var(--royal-blue)] hover:text-[var(--soft-lavender)]" : "text-gray-400 pointer-events-none"}`}
             >
                 <Icon />
             </a>
