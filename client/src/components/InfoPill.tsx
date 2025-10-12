@@ -15,7 +15,7 @@ const InfoPill = ({ label, value, placeholder, dropdownOptions, onSave }: InfoPi
 
     const handleClick = () => {
         setIsEditing(true);
-        setEditValue(value || "");
+        setEditValue(value || (dropdownOptions?.[0] || ""));
     };  
 
     const handleSave = () => {
