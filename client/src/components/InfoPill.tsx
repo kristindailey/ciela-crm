@@ -30,6 +30,7 @@ const InfoPill = ({ label, value, placeholder, dropdownOptions, onSave }: InfoPi
         <div>
             <label className="font-inter text-sm text-gray-600 mb-1 block">{label}</label>
             <div 
+                onClick={handleClick}
                 className="bg-white rounded-xl shadow-md cursor-pointer transition-all text-medium font-semibold text-[var(--royal-blue)] overflow-hidden flex items-center justify-center h-25 w-full"
             >
                 {isEditing ? (
@@ -66,7 +67,6 @@ const InfoPill = ({ label, value, placeholder, dropdownOptions, onSave }: InfoPi
                     )
                 ) : (
                     <span 
-                        onClick={handleClick}
                         className="text-center"
                     >
                             { value || placeholder}
