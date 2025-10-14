@@ -5,6 +5,7 @@ import Sidebar from "../components/Sidebar";
 import PageHeader from "../components/PageHeader";
 import TierTabs from "../components/TierTabs";
 import CompanyCard from "../components/CompanyCard";
+import { DiCelluloid } from "react-icons/di";
 
 const Companies = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -92,6 +93,12 @@ const Companies = () => {
                             <CompanyCard key={company.id} company={company} />
                         ))}
                     </div>
+
+                    {filteredCompanies.length === 0 && (
+                        <div className="text-center text-gray-500 mt-8">
+                            {searchQuery ? "No companies found matching your search." : "Ready to add your first company? Click the + button to get started."}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

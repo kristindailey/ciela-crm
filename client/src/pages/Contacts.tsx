@@ -94,6 +94,12 @@ const Contacts = () => {
                             <ContactCard key={contact.id} contact={contact} />
                         ))}
                     </div>
+
+                    {filteredContacts.length === 0 && (
+                        <div className="text-center text-gray-500 mt-8">
+                            {searchQuery ? "No contacts found matching your search." : "Ready to add your first contact? Click the + button to get started."}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
