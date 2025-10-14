@@ -5,7 +5,6 @@ import Sidebar from "../components/Sidebar";
 import PageHeader from "../components/PageHeader";
 import TierTabs from "../components/TierTabs";
 import CompanyCard from "../components/CompanyCard";
-import { DiCelluloid } from "react-icons/di";
 
 const Companies = () => {
     const [searchQuery, setSearchQuery] = useState("");
