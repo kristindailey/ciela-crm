@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import type { Contact } from "../types/contact";
 import ContactCard from "./ContactCard";
 import Pagination from "./Pagination";
@@ -11,14 +11,29 @@ interface CompanyContactsProps {
 
 const CompanyContacts = ({ companyId }: CompanyContactsProps) => {
 	const [contacts, setContacts] = useState<Contact[]>([]);
-	const [filteredContacts, setFilteredContacts] = useState<Contact[]>([]);
 	const [searchQuery, setSearchQuery] = useState("");
 	const itemsPerPage = 9;
+	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+	const filteredContacts = useMemo(() => {
+		let filtered = contacts;
+
+        if (searchQuery !== "") {
+            filtered = filtered.filter((contact) => {
+                return contact.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    contact.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    contact.role?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    contact.email?.toLowerCase().includes(searchQuery.toLowerCase());
+            });
+        }
+
+        return filtered;
+	}, [contacts, searchQuery]);
+
 	const { currentPage, setCurrentPage, totalPages, paginatedItems: paginatedContacts, handlePageChange } = usePagination<Contact>({
 		items: filteredContacts,
 		itemsPerPage,
 	});
-	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 	useEffect(() => {
 		const fetchContacts = async () => {
@@ -40,21 +55,6 @@ const CompanyContacts = ({ companyId }: CompanyContactsProps) => {
 			fetchContacts();
 		}
 	}, [companyId, API_BASE_URL]);
-
-	useEffect(() => {
-        let filtered = contacts;
-
-        if (searchQuery !== "") {
-            filtered = filtered.filter((contact) => {
-                return contact.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    contact.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    contact.role?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    contact.email?.toLowerCase().includes(searchQuery.toLowerCase());
-            });
-        }
-
-        setFilteredContacts(filtered);
-    }, [contacts, searchQuery]);
 
 	return (
 		<div className="px-5 mt-5">

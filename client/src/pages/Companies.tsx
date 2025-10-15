@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router";
 import type { Company } from "../types/company";
 import Sidebar from "../components/Sidebar";
@@ -11,17 +11,37 @@ import { usePagination } from "../hooks/usePagination";
 const Companies = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [companies, setCompanies] = useState<Company[]>([]);
-    const [filteredCompanies, setFilteredCompanies] = useState<Company[]>([]);
     const [activeTier, setActiveTier] = useState("TIER_1");
     const itemsPerPage = 9;
+    const tiers = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG", "ALL"];
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    const navigate = useNavigate();
+
+    const filteredCompanies = useMemo(() => {
+        let filtered = companies;
+
+        if (activeTier !== "ALL") {
+            filtered = filtered.filter((company) => {
+              return company.tier === activeTier;  
+            });
+        }
+
+        if (searchQuery !== "") {
+            filtered = filtered.filter((company) => {
+                const normalizedTier = company.tier.toLowerCase().replace("_", " ");
+                return company.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                    company.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    normalizedTier.includes(searchQuery.toLowerCase());
+            });
+        }
+
+        return filtered;
+    }, [companies, searchQuery, activeTier]);
+
     const { currentPage, setCurrentPage, totalPages, paginatedItems: paginatedCompanies, handlePageChange } = usePagination<Company>({
         items: filteredCompanies,
         itemsPerPage,
     });
-    const tiers = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG", "ALL"];
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-    const navigate = useNavigate();
 
     const handleAddCompany = () => {
         navigate("/companies/new");
@@ -55,27 +75,6 @@ const Companies = () => {
 
         fetchCompanies();
     }, []);
-
-    useEffect(() => {
-        let filtered = companies;
-
-        if (activeTier !== "ALL") {
-            filtered = filtered.filter((company) => {
-              return company.tier === activeTier;  
-            });
-        }
-
-        if (searchQuery !== "") {
-            filtered = filtered.filter((company) => {
-                const normalizedTier = company.tier.toLowerCase().replace("_", " ");
-                return company.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                    company.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    normalizedTier.includes(searchQuery.toLowerCase());
-            });
-        }
-        
-        setFilteredCompanies(filtered);
-    }, [companies, searchQuery, activeTier]);
 
     return (
         <div className="bg-gray-50 flex">

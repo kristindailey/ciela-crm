@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router";
 import type { Contact } from "../types/contact";
 import Sidebar from "../components/Sidebar";
@@ -11,17 +11,39 @@ import { usePagination } from "../hooks/usePagination";
 const Contacts = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [contacts, setContacts] = useState<Contact[]>([]);
-    const [filteredContacts, setFilteredContacts] = useState<Contact[]>([]);
     const [activeTier, setActiveTier] = useState("TIER_1");
     const itemsPerPage = 9;
+    const tiers = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG", "ALL"];
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    const navigate = useNavigate();
+
+    const filteredContacts = useMemo(() => {
+        let filtered = contacts;
+
+        if (activeTier !== "ALL") {
+            filtered = filtered.filter((contact) => {
+              return contact.company.tier === activeTier;  
+            });
+        }
+
+        if (searchQuery !== "") {
+            filtered = filtered.filter((contact) => {
+                const normalizedTier = contact.company.tier.toLowerCase().replace("_", " ");
+                return contact.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    contact.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    contact.role?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    contact.company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    normalizedTier.includes(searchQuery.toLowerCase());
+            });
+        }
+
+        return filtered;
+    }, [contacts, searchQuery, activeTier]);
+
     const { currentPage, setCurrentPage, totalPages, paginatedItems: paginatedContacts, handlePageChange } = usePagination<Contact>({
         items: filteredContacts,
         itemsPerPage,
     });
-    const tiers = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG", "ALL"];
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-    const navigate = useNavigate();
 
     const handleAddContact = () => {
         navigate("/contacts/new");
@@ -55,29 +77,6 @@ const Contacts = () => {
 
         fetchContacts();
     }, []);
-
-    useEffect(() => {
-        let filtered = contacts;
-
-        if (activeTier !== "ALL") {
-            filtered = filtered.filter((contact) => {
-              return contact.company.tier === activeTier;  
-            });
-        }
-
-        if (searchQuery !== "") {
-            filtered = filtered.filter((contact) => {
-                const normalizedTier = contact.company.tier.toLowerCase().replace("_", " ");
-                return contact.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    contact.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    contact.role?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    contact.company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    normalizedTier.includes(searchQuery.toLowerCase());
-            });
-        }
-
-        setFilteredContacts(filtered);
-    }, [contacts, searchQuery, activeTier]);
 
     return (
         <div className="bg-gray-50 flex">
