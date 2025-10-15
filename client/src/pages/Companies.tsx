@@ -6,14 +6,18 @@ import PageHeader from "../components/PageHeader";
 import TierTabs from "../components/TierTabs";
 import CompanyCard from "../components/CompanyCard";
 import Pagination from "../components/Pagination";
+import { usePagination } from "../hooks/usePagination";
 
 const Companies = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [companies, setCompanies] = useState<Company[]>([]);
     const [filteredCompanies, setFilteredCompanies] = useState<Company[]>([]);
     const [activeTier, setActiveTier] = useState("TIER_1");
-    const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 9;
+    const { currentPage, setCurrentPage, totalPages, paginatedItems: paginatedCompanies, handlePageChange } = usePagination<Company>({
+        items: filteredCompanies,
+        itemsPerPage,
+    });
     const tiers = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG", "ALL"];
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -31,10 +35,6 @@ const Companies = () => {
     const handleTierChange = (tier: string) => {
         setActiveTier(tier);
         setCurrentPage(1);
-    };
-
-    const handlePageChange = (page: number) => {
-        setCurrentPage(page);
     };
 
     useEffect(() => {
@@ -76,11 +76,6 @@ const Companies = () => {
         
         setFilteredCompanies(filtered);
     }, [companies, searchQuery, activeTier]);
-
-    const totalPages = Math.ceil(filteredCompanies.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const paginatedCompanies = filteredCompanies.slice(startIndex, endIndex);
 
     return (
         <div className="bg-gray-50 flex">

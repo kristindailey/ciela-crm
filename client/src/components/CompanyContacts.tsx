@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import type { Contact } from "../types/contact";
 import ContactCard from "./ContactCard";
 import Pagination from "./Pagination";
+import { usePagination } from "../hooks/usePagination";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 interface CompanyContactsProps {
@@ -12,13 +13,12 @@ const CompanyContacts = ({ companyId }: CompanyContactsProps) => {
 	const [contacts, setContacts] = useState<Contact[]>([]);
 	const [filteredContacts, setFilteredContacts] = useState<Contact[]>([]);
 	const [searchQuery, setSearchQuery] = useState("");
-	const [currentPage, setCurrentPage] = useState(1);
 	const itemsPerPage = 9;
+	const { currentPage, setCurrentPage, totalPages, paginatedItems: paginatedContacts, handlePageChange } = usePagination<Contact>({
+		items: filteredContacts,
+		itemsPerPage,
+	});
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-	const handlePageChange = (page: number) => {
-		setCurrentPage(page);
-	};
 
 	useEffect(() => {
 		const fetchContacts = async () => {
@@ -55,11 +55,6 @@ const CompanyContacts = ({ companyId }: CompanyContactsProps) => {
 
         setFilteredContacts(filtered);
     }, [contacts, searchQuery]);
-
-	const totalPages = Math.ceil(filteredContacts.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const paginatedContacts = filteredContacts.slice(startIndex, endIndex);
 
 	return (
 		<div className="px-5 mt-5">

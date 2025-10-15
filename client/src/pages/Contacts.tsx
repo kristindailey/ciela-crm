@@ -6,14 +6,18 @@ import PageHeader from "../components/PageHeader";
 import TierTabs from "../components/TierTabs";
 import ContactCard from "../components/ContactCard";
 import Pagination from "../components/Pagination";
+import { usePagination } from "../hooks/usePagination";
 
 const Contacts = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [contacts, setContacts] = useState<Contact[]>([]);
     const [filteredContacts, setFilteredContacts] = useState<Contact[]>([]);
     const [activeTier, setActiveTier] = useState("TIER_1");
-    const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 9;
+    const { currentPage, setCurrentPage, totalPages, paginatedItems: paginatedContacts, handlePageChange } = usePagination<Contact>({
+        items: filteredContacts,
+        itemsPerPage,
+    });
     const tiers = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG", "ALL"];
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -31,10 +35,6 @@ const Contacts = () => {
     const handleTierChange = (tier: string) => {
         setActiveTier(tier);
         setCurrentPage(1);
-    };
-
-    const handlePageChange = (page: number) => {
-        setCurrentPage(page);
     };
 
     useEffect(() => {
@@ -78,11 +78,6 @@ const Contacts = () => {
 
         setFilteredContacts(filtered);
     }, [contacts, searchQuery, activeTier]);
-
-    const totalPages = Math.ceil(filteredContacts.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const paginatedContacts = filteredContacts.slice(startIndex, endIndex);
 
     return (
         <div className="bg-gray-50 flex">
