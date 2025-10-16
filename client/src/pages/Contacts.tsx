@@ -10,6 +10,7 @@ import { usePagination } from "../hooks/usePagination";
 
 const Contacts = () => {
     const [searchQuery, setSearchQuery] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
     const [contacts, setContacts] = useState<Contact[]>([]);
     const [activeTier, setActiveTier] = useState("TIER_1");
     const itemsPerPage = 9;
@@ -72,6 +73,8 @@ const Contacts = () => {
                 } 
             } catch (error) {
                 console.error("Error fetching contacts:", error);
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -109,9 +112,21 @@ const Contacts = () => {
                         onPageChange={handlePageChange}
                     />
 
-                    {filteredContacts.length === 0 && (
+                    {isLoading && (
                         <div className="text-center text-gray-500 mt-8">
-                            {searchQuery ? "No contacts found matching your search." : "Ready to add your first contact? Click the + button to get started."}
+                            Loading contacts...
+                        </div>
+                    )}
+
+                    {!isLoading && contacts.length === 0 && (
+                        <div className="text-center tex-gray-500 mt-8">
+                            Ready to add your first contact? Click the + button to get started.
+                        </div>
+                    )}
+
+                    {!isLoading && contacts.length > 0 && filteredContacts.length === 0 && searchQuery && (
+                        <div className="text-center text-gray-500 mt-8">
+                            No contacts found matching your search.
                         </div>
                     )}
                 </div>

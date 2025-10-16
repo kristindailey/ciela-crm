@@ -10,6 +10,7 @@ import { usePagination } from "../hooks/usePagination";
 
 const Companies = () => {
     const [searchQuery, setSearchQuery] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
     const [companies, setCompanies] = useState<Company[]>([]);
     const [activeTier, setActiveTier] = useState("TIER_1");
     const itemsPerPage = 9;
@@ -70,6 +71,8 @@ const Companies = () => {
                 } 
             } catch (error) {
                 console.error("Error fetching companies:", error);
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -107,9 +110,21 @@ const Companies = () => {
                         onPageChange={handlePageChange}
                     />
 
-                    {filteredCompanies.length === 0 && (
+                    {isLoading && (
                         <div className="text-center text-gray-500 mt-8">
-                            {searchQuery ? "No companies found matching your search." : "Ready to add your first company? Click the + button to get started."}
+                            Loading companies...
+                        </div>
+                    )}
+
+                    {!isLoading && companies.length === 0 && (
+                        <div className="text-center text-gray-500 mt-8">
+                            Ready to add your first company? Click the + button to get started.
+                        </div>
+                    )}
+
+                    {!isLoading && companies.length > 0 && filteredCompanies.length === 0 && searchQuery && (
+                        <div className="text-center text-gray-500 mt-8">
+                            No companies found matching your search.
                         </div>
                     )}
                 </div>

@@ -12,6 +12,7 @@ interface CompanyContactsProps {
 const CompanyContacts = ({ companyId }: CompanyContactsProps) => {
 	const [contacts, setContacts] = useState<Contact[]>([]);
 	const [searchQuery, setSearchQuery] = useState("");
+	const [isLoading, setIsLoading] = useState(true);
 	const itemsPerPage = 9;
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -48,6 +49,8 @@ const CompanyContacts = ({ companyId }: CompanyContactsProps) => {
 				}
 			} catch (error) {
 				console.error("Error fetching contacts:", error);
+			} finally {
+				setIsLoading(false);
 			}
 		};
 
@@ -87,9 +90,21 @@ const CompanyContacts = ({ companyId }: CompanyContactsProps) => {
 				onPageChange={handlePageChange}
 			/>
 
-			{filteredContacts.length === 0 && (
+			{isLoading && (
 				<div className="text-center text-gray-500 mt-8">
-					{searchQuery ? "No contacts found matching your search." : "No contacts yet for this company."}
+					Loading contacts...
+				</div>
+			)}
+
+			{!isLoading && contacts.length === 0 && (
+				<div className="text-center text-gray-500 mt-8">
+					No contacts yet for this company.
+				</div>
+			)}
+
+			{!isLoading && contacts.length > 0 && filteredContacts.length === 0 && (
+				<div className="text-center text-gray-500 mt-8">
+					No contacts found matching your search.
 				</div>
 			)}
 		</div>
