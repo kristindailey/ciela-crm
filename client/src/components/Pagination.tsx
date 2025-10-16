@@ -16,7 +16,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
 				<button
 					key={page}
 					onClick={() => onPageChange(page)}
-					className={`px-4 py-2 rounded-lg font-semibold font-inter transition-all ${
+					className={`px-4 py-2 rounded-lg font-semibold font-inter min-w-[44px] transition-all ${
 						currentPage === page
 							? "bg-[var(--royal-blue)] text-[var(--soft-lavender)] shadow-sm border border-[var(--royal-blue)]"
 							: "bg-white text-[var(--royal-blue)] shadow-sm cursor-pointer border border-[var(--royal-blue)] hover:shadow-md hover:bg-[var(--royal-blue)]/20 hover:border-[var(--royal-blue)]/30"
