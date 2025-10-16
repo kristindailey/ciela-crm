@@ -10,6 +10,7 @@ import CompanyContacts from "../components/CompanyContacts";
 const CompanyDetail = () => {
     const { id } = useParams<{ id: string }>();
     const [company, setCompany] = useState<Company | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
     const activeTab = searchParams.get("tab") || "overview";
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -236,13 +237,28 @@ const CompanyDetail = () => {
                 }
             } catch (error) {
                 console.error("Error fetching company:", error);
-            } 
+            } finally {
+                setIsLoading(false);
+            }
         };
 
         if (id) {
             fetchCompany();
         }
     }, [id, API_BASE_URL]);
+
+    if (isLoading) {
+        return (
+            <div className="bg-gray-50 flex min-h-screen">
+                <Sidebar />
+                <div className="flex-1 flex items-center justify-center">
+                    <div className="text-center text-gray-500">
+                        Loading company...
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     if (!company) return null;
 

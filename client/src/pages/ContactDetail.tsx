@@ -10,6 +10,7 @@ import OutreachHistory from "../components/OutreachHistory";
 const ContactDetail = () => {
     const { id } = useParams<{ id: string }>();
     const [contact, setContact] = useState<Contact | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const formatDate = (dateString: string) => {
@@ -154,6 +155,8 @@ const ContactDetail = () => {
                 }
             } catch (error) {
                 console.error("Error fetching contact:", error);
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -162,9 +165,20 @@ const ContactDetail = () => {
         }
     }, [id, API_BASE_URL]);
 
-    if (!contact) {
-        return null;
+    if (isLoading) {
+        return (
+            <div className="bg-gray-50 flex min-h-screen">
+                <Sidebar />
+                <div className="flex-1 flex items-center justify-center">
+                    <div className="text-center text-gray-500">
+                        Loading contact...
+                    </div>
+                </div>
+            </div>
+        );
     }
+
+    if (!contact) return null;
 
     return (
         <div className="bg-gray-50 flex">
