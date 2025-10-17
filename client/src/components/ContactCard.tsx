@@ -51,7 +51,7 @@ const ContactCard = ({ contact }: ContactCardProps) => {
                     href={`mailto:${contact.email}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800 text-sm mb-2 block"
+                    className="text-blue-600 hover:text-blue-800 text-sm mb-2 self-start"
                     onClick={(e) => e.stopPropagation()}
                 >
                     {contact.email}
