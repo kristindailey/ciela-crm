@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { dmmfToRuntimeDataModel, PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { prisma } from "../lib/prisma";
 
 const router = Router();
@@ -143,6 +143,29 @@ router.post("/", async (req, res) => {
         }
 
         res.status(500).json({ error: "Failed to create company." });
+    }
+});
+
+router.delete("/:id", async (req, res) => {
+    try {
+        const userId = (req.user as any).id;
+        const { id } = req.params;
+
+        const company = await prisma.company.deleteMany({
+            where: {
+                id,
+                userId,
+            },
+        });
+
+        if (!company) {
+            return res.status(404).json({ error: "Company not found." });
+        }
+
+        res.status(204).send();
+    } catch (error) {
+        console.error("Error deleting company:", error);
+        res.status(500).json({ error: "Failed to delete company." });
     }
 });
 
