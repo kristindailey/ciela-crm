@@ -121,7 +121,7 @@ const Contacts = () => {
                     )}
 
                     {!isLoading && contacts.length === 0 && (
-                        <div className="text-center tex-gray-500 mt-8">
+                        <div className="text-center text-gray-500 mt-8">
                             Ready to add your first contact? Click the + button to get started.
                         </div>
                     )}
