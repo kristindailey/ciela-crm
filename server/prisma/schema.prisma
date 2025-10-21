@@ -47,6 +47,7 @@ model Company {
   careersPage         String?
   website             String?
   glassdoor           String?
+  blind               String?
   github              String?
   linkedin            String?
   bluesky             String?

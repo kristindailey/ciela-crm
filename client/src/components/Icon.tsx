@@ -2,14 +2,14 @@ import { useState } from "react";
 import type { IconType } from "react-icons";
 import { FiEdit2 } from "react-icons/fi";
 
-interface SocialIconProps {
+interface IconProps {
     url: string | undefined;
     icon: IconType;
     label: string;
     onSave: (newValue: string) => Promise<void>;
 }
 
-const SocialIcon = ({ url, icon: Icon, label, onSave }: SocialIconProps) => {
+const Icon = ({ url, icon: Icon, label, onSave }: IconProps) => {
     const [isEditing, setIsEditing] = useState(false);
     const [value, setValue] = useState(url || "");
 
@@ -21,6 +21,7 @@ const SocialIcon = ({ url, icon: Icon, label, onSave }: SocialIconProps) => {
         website: "Website",
         careersPage: "Careers Page",
         glassdoor: "Glassdoor",
+        blind: "Blind",
     };
 
     const handleSave = async () => {
@@ -78,4 +79,4 @@ const SocialIcon = ({ url, icon: Icon, label, onSave }: SocialIconProps) => {
     );
 };
 
-export default SocialIcon;
+export default Icon;

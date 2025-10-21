@@ -207,7 +207,7 @@ const CompanyDetail = () => {
         }
     };
 
-    const handleSaveSocialField = async (field: string, newValue: string) => {
+    const handleSaveIconField = async (field: string, newValue: string) => {
         if (!company) return;
 
         setCompany((prev) => prev ? {...prev, [field]: newValue } : null);
@@ -266,7 +266,7 @@ const CompanyDetail = () => {
         <div className="bg-gray-50 flex">
             <Sidebar />
             <div className="flex-1">
-                <CompanyHeader company={company} onCompanyUpdate={handleCompanyUpdate} onSaveField={handleSaveSocialField}/>
+                <CompanyHeader company={company} onCompanyUpdate={handleCompanyUpdate} onSaveField={handleSaveIconField}/>
 
                 <TabBar
                     tabs={[

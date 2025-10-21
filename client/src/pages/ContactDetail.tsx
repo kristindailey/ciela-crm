@@ -125,7 +125,7 @@ const ContactDetail = () => {
         }
     }; 
 
-    const handleSaveSocialField = async (field: string, newValue: string) => {
+    const handleSaveIconField = async (field: string, newValue: string) => {
         if (!contact) return;
 
         setContact((prev) => prev ? { ...prev, [field]: newValue } : null);
@@ -187,7 +187,7 @@ const ContactDetail = () => {
                 <ContactHeader 
                     contact={contact} 
                     onContactUpdate={handleContactUpdate}
-                    onSaveField={handleSaveSocialField}
+                    onSaveField={handleSaveIconField}
                 />
 
                 <div className="grid grid-cols-4 gap-4 px-5 mt-5">

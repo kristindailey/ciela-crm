@@ -7,7 +7,8 @@ import { CiLinkedin, CiStar } from "react-icons/ci";
 import { IoIosLink } from "react-icons/io";
 import { IoImageOutline } from "react-icons/io5";
 import { FiEdit2 } from "react-icons/fi";
-import SocialIcon from "./SocialIcon";
+import Icon from "./Icon";
+import BlindIcon from "../icons/BlindIcon";
 
 interface CompanyHeaderProps {
     company: Company;
@@ -22,10 +23,11 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
     const [isEditingName, setIsEditingName] = useState(false);
     const [isEditingTier, setIsEditingTier] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const socialLinks = [
+    const iconLinks = [
         { url: company.careersPage, icon: BsBriefcase, label: "careersPage" },
         { url: company.website, icon: IoIosLink, label: "website" },
         { url: company.glassdoor, icon: CiStar, label: "glassdoor" },
+        { url: company.blind, icon: BlindIcon, label: "blind" },
         { url: company.github, icon: FiGithub, label: "github" },
         { url: company.linkedin, icon: CiLinkedin, label: "linkedin" },
         { url: company.bluesky, icon: RiBlueskyLine, label: "bluesky" },
@@ -240,8 +242,8 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
             </div>
 
             <div className="flex items-center gap-4 text-2xl text-[var(--royal-blue)] ml-auto">
-                {socialLinks.map(({ url, icon, label }) => (
-                    <SocialIcon 
+                {iconLinks.map(({ url, icon, label }) => (
+                    <Icon 
                         key={label}
                         url={url}
                         icon={icon}

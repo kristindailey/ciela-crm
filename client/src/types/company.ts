@@ -4,6 +4,7 @@ export interface Company {
     website?: string;
     careersPage?: string;
     glassdoor?: string;
+    blind?: string;
     linkedin?: string;
     bluesky?: string;
     github?: string;

@@ -4,7 +4,7 @@ import { RiBlueskyLine } from "react-icons/ri";
 import { FiGithub, FiEdit2 } from "react-icons/fi";
 import { CiLinkedin } from "react-icons/ci";
 import { IoIosLink, IoIosMail } from "react-icons/io";
-import SocialIcon from "./SocialIcon";
+import Icon from "./Icon";
 
 interface ContactHeaderProps {
     contact: Contact;
@@ -15,7 +15,7 @@ interface ContactHeaderProps {
 const ContactHeader = ({ contact, onContactUpdate, onSaveField }: ContactHeaderProps) => {
     const [nameValue, setNameValue] = useState(`${contact.firstName} ${contact.lastName}`);
     const [isEditingName, setIsEditingName] = useState(false);
-    const socialLinks = [
+    const iconLinks = [
         { url: contact.email, icon: IoIosMail, label: "email" },
         { url: contact.bluesky, icon: RiBlueskyLine, label: "bluesky" },
         { url: contact.github, icon: FiGithub, label: "github" },
@@ -102,8 +102,8 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField }: ContactHeaderP
                 </div>
 
                 <div className="flex items-center gap-4 text-2xl text-[var(--royal-blue)] ml-auto">
-                    {socialLinks.map(({ url, icon, label }) => (
-                        <SocialIcon 
+                    {iconLinks.map(({ url, icon, label }) => (
+                        <Icon 
                             key={label}
                             url={url}
                             icon={icon}
