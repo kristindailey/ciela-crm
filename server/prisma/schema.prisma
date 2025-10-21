@@ -58,8 +58,8 @@ model Company {
   officePolicy        OfficePolicy?
   techStack           String?
   notes               String?
-  glassdoorRating     Decimal?      @db.Decimal(2, 1)
-  glassdoorSweRating  Decimal?      @db.Decimal(2, 1)
+  glassdoorRating     Decimal?      @db.Decimal(2, 1)     
+  blindRating         Decimal?      @db.Decimal(2, 1)
   tier                CompanyTier   @default(BACKLOG)
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @updatedAt

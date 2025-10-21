@@ -127,23 +127,23 @@ const CompanyDetail = () => {
         }
     };
 
-    const handleSaveGlassdoorSweRating = async (newRating: number) => {
+    const handleSaveBlindRating = async (newRating: number) => {
         if (!company) return;
 
         setCompany((prev) => prev ? { 
             ...prev, 
-            glassdoorSweRating: newRating,
+            blindRating: newRating,
         } : null);
 
         try {
             await fetch(`${API_BASE_URL}/companies/${id}`, {
                 method: "PATCH", 
                 headers: { "Content-Type": "application/json" }, 
-                body: JSON.stringify({ glassdoorSweRating: newRating }),
+                body: JSON.stringify({ blindRating: newRating }),
                 credentials: "include",
             })
         } catch (error) {
-            console.error("Failed to save Glassdoor SWE rating:", error);
+            console.error("Failed to save Blind rating:", error);
         }
     };
 
@@ -286,7 +286,7 @@ const CompanyDetail = () => {
                         onSaveDate={handleSaveDate}
                         onSaveLocalLocation={handleSaveLocalLocation}
                         onSaveGlassdoorRating={handleSaveGlassdoorRating}
-                        onSaveGlassdoorSweRating={handleSaveGlassdoorSweRating}
+                        onSaveBlindRating={handleSaveBlindRating}
                         onSaveOfficePolicy={handleSaveOfficePolicy}
                         onSaveTechStack={handleSaveTechStack}
                         onSaveCompanyNotes={handleSaveCompanyNotes}

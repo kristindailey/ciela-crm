@@ -17,7 +17,7 @@ export interface Company {
     techStack?: string;
     notes?: string;
     glassdoorRating?: number;
-    glassdoorSweRating?: number;
+    blindRating?: number;
     tier: string;
     createdAt: string;
     updatedAt: string;

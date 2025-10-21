@@ -11,7 +11,7 @@ interface CompanyOverviewProps {
 	onSaveDate: (value: string) => void;
 	onSaveLocalLocation: (value: string) => void;
 	onSaveGlassdoorRating: (value: number) => void;
-	onSaveGlassdoorSweRating: (value: number) => void;
+    onSaveBlindRating: (value: number) => void;
 	onSaveOfficePolicy: (value: string) => void;
 	onSaveTechStack: (value: string) => void;
 	onSaveCompanyNotes: (value: string) => void;
@@ -25,7 +25,7 @@ const CompanyOverview = ({
 	onSaveDate,
 	onSaveLocalLocation,
 	onSaveGlassdoorRating,
-	onSaveGlassdoorSweRating,
+	onSaveBlindRating,
 	onSaveOfficePolicy,
 	onSaveTechStack,
 	onSaveCompanyNotes,
@@ -98,13 +98,13 @@ const CompanyOverview = ({
                     />
 
                     <InfoPill
-                        label="Glassdoor SWE Rating"
-                        value={company.glassdoorSweRating?.toString()}
+                        label="Blind Rating"
+                        value={company.blindRating?.toString()}
                         placeholder="Add rating"
                         onSave={(newValue) => {
                             const rating = parseFloat(newValue);
                             if (!isNaN(rating) && rating >= 0 && rating <= 5) {
-                                onSaveGlassdoorSweRating(rating);
+                                onSaveBlindRating(rating);
                             }
                             }}
                     />
