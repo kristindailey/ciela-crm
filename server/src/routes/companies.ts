@@ -151,14 +151,14 @@ router.delete("/:id", async (req, res) => {
         const userId = (req.user as any).id;
         const { id } = req.params;
 
-        const company = await prisma.company.deleteMany({
+        const result = await prisma.company.deleteMany({
             where: {
                 id,
                 userId,
             },
         });
 
-        if (!company) {
+        if (result.count === 0) {
             return res.status(404).json({ error: "Company not found." });
         }
 
