@@ -63,7 +63,7 @@ const Icon = ({ url, icon: Icon, label, onSave }: IconProps) => {
                 rel={url ? "noopener noreferrer" : undefined}
                 className={`flex items-center justify-center w-9 h-9 rounded-full bg-[var(--soft-lavender)] hover:bg-[var(--royal-blue)] shadow-md transition-colors ${url ? "text-[var(--royal-blue)] hover:text-[var(--soft-lavender)]" : "text-gray-400 pointer-events-none"}`}
             >
-                <Icon />
+                <Icon size={22} />
             </a>
             <button
                 onClick={(e) => {

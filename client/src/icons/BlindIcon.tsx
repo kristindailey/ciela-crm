@@ -3,7 +3,7 @@ interface BlindIconProps {
 	size?: number | string;
 }
 
-const BlindIcon = ({ className, size = 24 }: BlindIconProps) => {
+const BlindIcon = ({ className, size }: BlindIconProps) => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -21,6 +21,6 @@ const BlindIcon = ({ className, size = 24 }: BlindIconProps) => {
 			/>
 		</svg>
 	);
-}
+};
 
 export default BlindIcon;

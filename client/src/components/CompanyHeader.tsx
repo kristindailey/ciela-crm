@@ -3,12 +3,13 @@ import type { Company } from "../types/company";
 import { BsBriefcase } from "react-icons/bs";
 import { RiBlueskyLine } from "react-icons/ri";
 import { FiGithub } from "react-icons/fi";
-import { CiLinkedin, CiStar } from "react-icons/ci";
+import { CiLinkedin } from "react-icons/ci";
 import { IoIosLink } from "react-icons/io";
 import { IoImageOutline } from "react-icons/io5";
 import { FiEdit2 } from "react-icons/fi";
 import Icon from "./Icon";
 import BlindIcon from "../icons/BlindIcon";
+import GlassdoorIcon from "../icons/GlassdoorIcon";
 
 interface CompanyHeaderProps {
     company: Company;
@@ -26,7 +27,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
     const iconLinks = [
         { url: company.careersPage, icon: BsBriefcase, label: "careersPage" },
         { url: company.website, icon: IoIosLink, label: "website" },
-        { url: company.glassdoor, icon: CiStar, label: "glassdoor" },
+        { url: company.glassdoor, icon: GlassdoorIcon, label: "glassdoor" },
         { url: company.blind, icon: BlindIcon, label: "blind" },
         { url: company.github, icon: FiGithub, label: "github" },
         { url: company.linkedin, icon: CiLinkedin, label: "linkedin" },
