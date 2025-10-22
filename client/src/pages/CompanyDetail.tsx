@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useSearchParams } from "react-router";
+import { useParams, useSearchParams, useNavigate } from "react-router";
 import type { Company } from "../types/company";
 import Sidebar from "../components/Sidebar";
 import CompanyHeader from "../components/CompanyHeader";
@@ -13,6 +13,7 @@ const CompanyDetail = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
     const activeTab = searchParams.get("tab") || "overview";
+    const navigate = useNavigate();
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     
     const handleTabChange = (tab: string) => {
@@ -223,6 +224,25 @@ const CompanyDetail = () => {
             console.error(`Failed to save ${field} URL:`, error);
         }
     };
+
+    const handleDeleteCompany = async () => {
+        if (!company) return null;
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/companies/${id}`, {
+                method: "DELETE",
+                credentials: "include",
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to delete company.");
+            }
+
+            navigate("/companies");
+        } catch (error) {
+            console.error("Failed to delete company:", error);
+        }
+    }; 
 
     useEffect(() => {
         const fetchCompany = async () => {
