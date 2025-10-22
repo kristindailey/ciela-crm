@@ -16,6 +16,7 @@ interface ContactHeaderProps {
 const ContactHeader = ({ contact, onContactUpdate, onSaveField }: ContactHeaderProps) => {
     const [nameValue, setNameValue] = useState(`${contact.firstName} ${contact.lastName}`);
     const [isEditingName, setIsEditingName] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const iconLinks = [
         { url: contact.email, icon: IoIosMail, label: "email" },
         { url: contact.bluesky, icon: RiBlueskyLine, label: "bluesky" },

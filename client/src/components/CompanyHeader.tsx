@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import type { Company } from "../types/company";
 import { BsBriefcase, BsThreeDotsVertical } from "react-icons/bs";
 import { RiBlueskyLine } from "react-icons/ri";
@@ -9,20 +9,24 @@ import { IoImageOutline } from "react-icons/io5";
 import Icon from "./Icon";
 import BlindIcon from "../icons/BlindIcon";
 import GlassdoorIcon from "../icons/GlassdoorIcon";
+import DropdownMenu from "./DropdownMenu";
 
 interface CompanyHeaderProps {
     company: Company;
     onCompanyUpdate: (updatedCompany: Company) => void;
     onSaveField: (field: string, newValue: string) => Promise<void>;
+    onDelete: () => void;
 }
 
-const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderProps) => {
+const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: CompanyHeaderProps) => {
     const [_selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [nameValue, setNameValue] = useState(company.name);
     const [isEditingName, setIsEditingName] = useState(false);
     const [isEditingTier, setIsEditingTier] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
     const iconLinks = [
         { url: company.careersPage, icon: BsBriefcase, label: "careersPage" },
         { url: company.website, icon: IoIosLink, label: "website" },
@@ -138,6 +142,30 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
         setIsEditingName(false);
     };
 
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsDropdownOpen(false);
+            }
+        };
+
+        const handleEscape = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                setIsDropdownOpen(false);
+            }
+        };
+
+        if (isDropdownOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+            document.addEventListener("keydown", handleEscape);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("keydown", handleEscape);
+        };
+    }, [isDropdownOpen]);
+
     return (
         <div className="flex items-end w-full mt-20 px-5">
             <div className="flex items-end gap-6 font-inter">
@@ -252,11 +280,18 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
                     />
                 ))}
             </div>
+            
+            <div className="relative" ref={dropdownRef}>
+                <div 
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-500 hover:text-gray-50 shadow-md transition-colors ml-10"
+                >
+                    <BsThreeDotsVertical
+                        size={22}               
+                    />
+                </div>
 
-            <div className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-500 hover:text-gray-50 shadow-md transition-colors ml-10">
-                <BsThreeDotsVertical
-                    size={22}               
-                />
+                {isDropdownOpen && <DropdownMenu onDelete={onDelete}/>}
             </div>
         </div>
     );

@@ -286,7 +286,12 @@ const CompanyDetail = () => {
         <div className="bg-gray-50 flex">
             <Sidebar />
             <div className="flex-1">
-                <CompanyHeader company={company} onCompanyUpdate={handleCompanyUpdate} onSaveField={handleSaveIconField}/>
+                <CompanyHeader 
+                    company={company} 
+                    onCompanyUpdate={handleCompanyUpdate} 
+                    onSaveField={handleSaveIconField} 
+                    onDelete={handleDeleteCompany}
+                />
 
                 <TabBar
                     tabs={[
