@@ -1,12 +1,11 @@
 import { useState, useRef, useCallback } from "react";
 import type { Company } from "../types/company";
-import { BsBriefcase } from "react-icons/bs";
+import { BsBriefcase, BsThreeDotsVertical } from "react-icons/bs";
 import { RiBlueskyLine } from "react-icons/ri";
-import { FiGithub } from "react-icons/fi";
+import { FiGithub, FiEdit2 } from "react-icons/fi";
 import { CiLinkedin } from "react-icons/ci";
 import { IoIosLink } from "react-icons/io";
 import { IoImageOutline } from "react-icons/io5";
-import { FiEdit2 } from "react-icons/fi";
 import Icon from "./Icon";
 import BlindIcon from "../icons/BlindIcon";
 import GlassdoorIcon from "../icons/GlassdoorIcon";
@@ -252,6 +251,12 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField }: CompanyHeaderP
                         onSave={(newValue) => onSaveField(label, newValue)}
                     />
                 ))}
+            </div>
+
+            <div className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-500 hover:text-gray-50 shadow-md transition-colors ml-10">
+                <BsThreeDotsVertical
+                    size={22}               
+                />
             </div>
         </div>
     );
