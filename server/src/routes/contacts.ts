@@ -142,4 +142,27 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.delete("/:id", async (req, res) => {
+    try {
+        const userId = (req.user as any).id;
+        const { id } = req.params;
+
+        const result = await prisma.contact.deleteMany({
+            where: {
+                id, 
+                userId,
+            },
+        });
+
+        if (result.count === 0) {
+            return res.status(404).json({ error: "Contact not found." });
+        }
+
+        res.status(204).send();
+    } catch (error) {
+        console.error("Error deleting contact:", error);
+        res.status(500).json({ error: "Failed to delete contact." });
+    }
+});
+
 export default router;
