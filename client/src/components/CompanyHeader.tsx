@@ -27,6 +27,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const iconLinks = [
         { url: company.careersPage, icon: BsBriefcase, label: "careersPage" },
         { url: company.website, icon: IoIosLink, label: "website" },
@@ -76,7 +77,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
 
             if (cloudinaryUrl) {
                 try {
-                    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${company.id}`, {
+                    const response = await fetch(`${API_BASE_URL}/companies/${company.id}`, {
                         method: "PATCH",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ logoUrl: cloudinaryUrl }),
@@ -102,7 +103,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
 
     const handleSaveTier = async (newTier: string) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${company.id}`, {
+            const response = await fetch(`${API_BASE_URL}/companies/${company.id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ tier: newTier }),
@@ -123,7 +124,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
     const handleSaveName = async () => {
         if (nameValue !== company.name) {
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/companies/${company.id}`, {
+                const response = await fetch(`${API_BASE_URL}/companies/${company.id}`, {
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ name: nameValue }),
@@ -286,12 +287,10 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                     className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-500 hover:text-gray-50 shadow-md transition-colors ml-10"
                 >
-                    <BsThreeDotsVertical
-                        size={22}               
-                    />
+                    <BsThreeDotsVertical size={22} />
                 </div>
 
-                {isDropdownOpen && <DropdownMenu onDelete={onDelete}/>}
+                {isDropdownOpen && <DropdownMenu label="Company" onDelete={onDelete}/>}
             </div>
         </div>
     );

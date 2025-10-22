@@ -11,6 +11,7 @@ const Login = () => {
     const [error, setError] = useState("");
     const { login, isLoading } = useAuth();
     const navigate = useNavigate();
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -25,11 +26,11 @@ const Login = () => {
     };
 
     const handleGoogleLogin = () => {
-        window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/google`;
+        window.location.href = `${API_BASE_URL}/auth/google`;
     };
 
     const handleGithubLogin = () => {
-        window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/github`;
+        window.location.href = `${API_BASE_URL}/auth/github`;
     }; 
 
     return (

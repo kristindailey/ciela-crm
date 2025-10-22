@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { Contact } from "../types/contact";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { RiBlueskyLine } from "react-icons/ri";
@@ -6,17 +6,20 @@ import { FiGithub, FiEdit2 } from "react-icons/fi";
 import { CiLinkedin } from "react-icons/ci";
 import { IoIosLink, IoIosMail } from "react-icons/io";
 import Icon from "./Icon";
+import DropdownMenu from "./DropdownMenu";
 
 interface ContactHeaderProps {
     contact: Contact;
     onContactUpdate: (updatedContact: Contact) => void;
     onSaveField: (field: string, value: string) => Promise<void>;
+    onDelete: () => void;
 }
 
-const ContactHeader = ({ contact, onContactUpdate, onSaveField }: ContactHeaderProps) => {
+const ContactHeader = ({ contact, onContactUpdate, onSaveField, onDelete }: ContactHeaderProps) => {
     const [nameValue, setNameValue] = useState(`${contact.firstName} ${contact.lastName}`);
     const [isEditingName, setIsEditingName] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
     const iconLinks = [
         { url: contact.email, icon: IoIosMail, label: "email" },
         { url: contact.bluesky, icon: RiBlueskyLine, label: "bluesky" },
@@ -53,6 +56,25 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField }: ContactHeaderP
 
         setIsEditingName(false);
     };
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsDropdownOpen(false);
+            }
+        };
+
+        const handleEscape = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                setIsDropdownOpen(false);
+            }
+        };
+
+        if (isDropdownOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+            document.addEventListener("keydown", handleEscape);
+        }
+    }, [isDropdownOpen]);
 
     return (
         <div className="mb-4">
@@ -115,10 +137,15 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField }: ContactHeaderP
                     ))}
                 </div>
 
-                <div className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-500 hover:text-gray-50 shadow-md transition-colors ml-10">
-                    <BsThreeDotsVertical
-                        size={22}               
-                    />
+                <div className="relative" ref={dropdownRef}>
+                    <div 
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-500 hover:text-gray-50 shadow-md transition-colors ml-10"
+                    >
+                        <BsThreeDotsVertical size={22} />
+                    </div>
+
+                    {isDropdownOpen && <DropdownMenu label="Contact" onDelete={onDelete}/>}
                 </div>
             </div>
 

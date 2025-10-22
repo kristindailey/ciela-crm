@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import type { Contact } from "../types/contact";
 import Sidebar from "../components/Sidebar";
 import ContactHeader from "../components/ContactHeader";
@@ -11,6 +11,7 @@ const ContactDetail = () => {
     const { id } = useParams<{ id: string }>();
     const [contact, setContact] = useState<Contact | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const formatDate = (dateString: string) => {
@@ -27,9 +28,7 @@ const ContactDetail = () => {
     };
 
     const handleSaveRole = async (newRole: string) => {
-        if (!contact) {
-            return;
-        }
+        if (!contact) return;
 
         setContact((prev) => prev ? { 
             ...prev, 
@@ -37,7 +36,7 @@ const ContactDetail = () => {
         } : null);
 
         try { 
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/contacts/${id}`, {
+            await fetch(`${API_BASE_URL}/contacts/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ role: newRole }),
@@ -56,9 +55,7 @@ const ContactDetail = () => {
     };
 
     const handleSaveLocation = async (newLocation: string) => {
-        if (!contact) {
-            return;
-        }
+        if (!contact) return;
         
         setContact((prev) => prev ? { 
             ...prev, 
@@ -66,7 +63,7 @@ const ContactDetail = () => {
         } : null);
 
         try { 
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/contacts/${id}`, {
+            await fetch(`${API_BASE_URL}/contacts/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ location: newLocation }),
@@ -82,9 +79,7 @@ const ContactDetail = () => {
     };
 
     const handleSaveContactNotes = async (newNotes: string) => {
-        if (!contact) {
-            return;
-        }
+        if (!contact) return;
 
         setContact((prev) => prev ? { 
             ...prev, 
@@ -92,7 +87,7 @@ const ContactDetail = () => {
         } : null);
 
         try { 
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/contacts/${id}`, {
+            await fetch(`${API_BASE_URL}/contacts/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ notes: newNotes }),
@@ -104,9 +99,7 @@ const ContactDetail = () => {
     };
 
     const handleSaveOutreachNotes = async (newNotes: string) => {
-        if (!contact) {
-            return;
-        }
+        if (!contact) return;
 
         setContact((prev) => prev ? { 
             ...prev, 
@@ -114,7 +107,7 @@ const ContactDetail = () => {
         } : null);
 
         try { 
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/contacts/${id}`, {
+            await fetch(`${API_BASE_URL}/contacts/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ outreachNotes: newNotes }),
@@ -131,7 +124,7 @@ const ContactDetail = () => {
         setContact((prev) => prev ? { ...prev, [field]: newValue } : null);
 
         try {
-            await fetch(`${import.meta.env.VITE_API_BASE_URL}/contacts/${id}`, {
+            await fetch(`${API_BASE_URL}/contacts/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ [field]: newValue }),
@@ -139,6 +132,25 @@ const ContactDetail = () => {
             });
         } catch (error) {
             console.error(`Failed to save ${field} URL:`, error);
+        }
+    };
+
+    const handleDeleteContact = async () => {
+        if (!contact) return null;
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/contacts/${id}`, {
+                method: "DELETE",
+                credentials: "include",
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to delete contact.");
+            }
+
+            navigate("/contacts");
+        } catch (error) {
+            console.error("Failed to delete contact:", error);
         }
     };
 
@@ -188,6 +200,7 @@ const ContactDetail = () => {
                     contact={contact} 
                     onContactUpdate={handleContactUpdate}
                     onSaveField={handleSaveIconField}
+                    onDelete={handleDeleteContact}
                 />
 
                 <div className="grid grid-cols-4 gap-4 px-5 mt-5">
