@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Contact } from "../types/contact";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { RiBlueskyLine } from "react-icons/ri";
 import { FiGithub, FiEdit2 } from "react-icons/fi";
 import { CiLinkedin } from "react-icons/ci";
@@ -111,6 +112,12 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField }: ContactHeaderP
                             onSave={(newValue) => onSaveField(label, newValue)}
                         />
                     ))}
+                </div>
+
+                <div className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-500 hover:text-gray-50 shadow-md transition-colors ml-10">
+                    <BsThreeDotsVertical
+                        size={22}               
+                    />
                 </div>
             </div>
 
