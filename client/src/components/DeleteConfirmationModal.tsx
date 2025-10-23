@@ -18,14 +18,22 @@ const DeleteConfirmationModal = ({ isOpen, itemName, itemType, onClose, onConfir
 			}
 		};
 
+		const handleEnter = (event: KeyboardEvent) => {
+			if (event.key === "Enter") {
+				onConfirm();
+			}
+		}
+
 		if (isOpen) {
 			document.addEventListener("keydown", handleEscape);
+			document.addEventListener("keydown", handleEnter);
 		}
 
 		return () => {
 			document.removeEventListener("keydown", handleEscape);
+			document.removeEventListener("keydown", handleEnter);
 		};
-	}, [isOpen, onClose]);
+	}, [isOpen, onClose, onConfirm]);
 	
 	return (
 		<div 
