@@ -9,8 +9,6 @@ interface DeleteConfirmationModalProps {
 }
 
 const DeleteConfirmationModal = ({ isOpen, itemName, itemType, onClose, onConfirm }: DeleteConfirmationModalProps) => {
-	if (!isOpen) return null;
-
 	useEffect(() => {
 		const handleEscape = (event: KeyboardEvent) => {
 			if (event.key === "Escape") {
@@ -34,10 +32,15 @@ const DeleteConfirmationModal = ({ isOpen, itemName, itemType, onClose, onConfir
 			document.removeEventListener("keydown", handleEnter);
 		};
 	}, [isOpen, onClose, onConfirm]);
+
+	if (!isOpen) return null;
 	
 	return (
 		<div 
-			onClick={onClose}
+			onClick={(e) => {
+				e.stopPropagation();
+				onClose();
+			}}
 			className="fixed inset-0 flex items-center justify-center z-50"
 		>
 			<div

@@ -58,6 +58,25 @@ const Companies = () => {
         setCurrentPage(1);
     };
 
+    const handleDeleteCompany = async (companyId: string) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/companies/${companyId}`, {
+                method: "DELETE",
+                credentials: "include",
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to delete company.");
+            }
+
+            setCompanies((prevCompanies) => 
+                prevCompanies.filter((company) => company.id !== companyId)
+            );
+        } catch (error) {
+            console.error("Failed to delete company:", error);
+        }
+    }; 
+
     useEffect(() => {
         const fetchCompanies = async () => {
             try {
@@ -102,7 +121,11 @@ const Companies = () => {
                         paginatedCompanies.length > 0 ? "lg:min-h-[400px]" : ""
                     }`}>
                         {paginatedCompanies.map((company) => (
-                            <CompanyCard key={company.id} company={company} />
+                            <CompanyCard 
+                                key={company.id} 
+                                company={company} 
+                                onDelete={() => handleDeleteCompany(company.id)}
+                            />
                         ))}
                     </div>
 
