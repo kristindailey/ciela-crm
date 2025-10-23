@@ -30,11 +30,11 @@ const DeleteConfirmationModal = ({ isOpen, itemName, itemType, onClose, onConfir
 	return (
 		<div 
 			onClick={onClose}
-			className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+			className="fixed inset-0 flex items-center justify-center z-50"
 		>
 			<div
 				onClick={(e) => e.stopPropagation()} 
-				className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl"
+				className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl font-inter border-3 border-gray-300"
 			>
 				<h2 className="text-xl font-bold text-gray-900 mb-2">
 					Delete {itemType}

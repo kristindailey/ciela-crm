@@ -152,7 +152,7 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField, onDelete }: Cont
                             itemType="Contact" 
                             onDeleteClick={() => {
                                 setIsDeleteModalOpen(true);
-                                setIsEditingName(false);
+                                setIsDropdownOpen(false);
                             }}
                         />
                     }
