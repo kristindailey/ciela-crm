@@ -145,7 +145,7 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField, onDelete }: Cont
                         <BsThreeDotsVertical size={22} />
                     </div>
 
-                    {isDropdownOpen && <DropdownMenu label="Contact" onDelete={onDelete}/>}
+                    {isDropdownOpen && <DropdownMenu itemType="Contact" onDelete={onDelete}/>}
                 </div>
             </div>
 

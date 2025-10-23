@@ -10,6 +10,7 @@ import Icon from "./Icon";
 import BlindIcon from "../icons/BlindIcon";
 import GlassdoorIcon from "../icons/GlassdoorIcon";
 import DropdownMenu from "./DropdownMenu";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 
 interface CompanyHeaderProps {
     company: Company;
@@ -25,6 +26,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
     const [isEditingName, setIsEditingName] = useState(false);
     const [isEditingTier, setIsEditingTier] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -290,8 +292,27 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
                     <BsThreeDotsVertical size={22} />
                 </div>
 
-                {isDropdownOpen && <DropdownMenu label="Company" onDelete={onDelete}/>}
+                {isDropdownOpen && 
+                    <DropdownMenu 
+                        itemType="Company" 
+                        onDeleteClick={() => {
+                            setIsDeleteModalOpen(true);
+                            setIsDropdownOpen(false);
+                        }} 
+                    />
+                }
             </div>
+
+            <DeleteConfirmationModal 
+                isOpen={isDeleteModalOpen}
+                itemName={company.name}
+                itemType="Company"
+                onClose={() => setIsDeleteModalOpen(false)}
+                onConfirm={() => {
+                    onDelete();
+                    setIsDeleteModalOpen(false);
+                }}
+            />
         </div>
     );
 };
