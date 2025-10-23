@@ -162,7 +162,7 @@ router.delete("/:id", async (req, res) => {
             return res.status(404).json({ error: "Company not found." });
         }
 
-        res.status(204).send();
+        res.sendStatus(204);
     } catch (error) {
         console.error("Error deleting company:", error);
         res.status(500).json({ error: "Failed to delete company." });
