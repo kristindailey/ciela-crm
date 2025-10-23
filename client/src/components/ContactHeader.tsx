@@ -7,6 +7,7 @@ import { CiLinkedin } from "react-icons/ci";
 import { IoIosLink, IoIosMail } from "react-icons/io";
 import Icon from "./Icon";
 import DropdownMenu from "./DropdownMenu";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 
 interface ContactHeaderProps {
     contact: Contact;
@@ -19,6 +20,7 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField, onDelete }: Cont
     const [nameValue, setNameValue] = useState(`${contact.firstName} ${contact.lastName}`);
     const [isEditingName, setIsEditingName] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const iconLinks = [
         { url: contact.email, icon: IoIosMail, label: "email" },
@@ -145,8 +147,27 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField, onDelete }: Cont
                         <BsThreeDotsVertical size={22} />
                     </div>
 
-                    {isDropdownOpen && <DropdownMenu itemType="Contact" onDelete={onDelete}/>}
+                    {isDropdownOpen && 
+                        <DropdownMenu 
+                            itemType="Contact" 
+                            onDeleteClick={() => {
+                                setIsDeleteModalOpen(true);
+                                setIsEditingName(false);
+                            }}
+                        />
+                    }
                 </div>
+
+                <DeleteConfirmationModal 
+                    isOpen={isDeleteModalOpen}
+                    itemName={`${contact.firstName} ${contact.lastName}`}
+                    itemType="Contact"
+                    onClose={() => setIsDeleteModalOpen(false)}
+                    onConfirm={() => {
+                        onDelete();
+                        setIsDeleteModalOpen(false);
+                    }}
+                />
             </div>
 
             <div className="h-11 bg-[var(--royal-blue)] mt-2 mx-5"></div>
