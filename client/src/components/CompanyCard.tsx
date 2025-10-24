@@ -65,7 +65,7 @@ const CompanyCard = ({ company, onDelete }: CompanyCardProps) => {
 					<img 
 						src={company.logoUrl} 
 						alt={`${company.name} logo`}
-						className="h-10 max-w-16 object-contain"
+						className="h-10 max-w-16 object-contain mr-5"
 					/>
 				)}
       		</div>
@@ -78,9 +78,9 @@ const CompanyCard = ({ company, onDelete }: CompanyCardProps) => {
 						e.stopPropagation();
 						setIsDropdownOpen(!isDropdownOpen);
 					}}
-                    className="flex items-center justify-center w-7 h-7 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-500 hover:text-gray-50 shadow-md transition-colors ml-10"
+                    className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-500 hover:text-gray-50 shadow-md transition-colors ml-10"
                 >
-                    <BsThreeDotsVertical size={20} />
+                    <BsThreeDotsVertical size={18} />
                 </div>
 
                 {isDropdownOpen && 
