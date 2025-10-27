@@ -36,6 +36,25 @@ const CompanyContacts = ({ companyId }: CompanyContactsProps) => {
 		itemsPerPage,
 	});
 
+	const handleDeleteContact = async (contactId: string) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/contacts/${contactId}`, {
+                method: "DELETE",
+                credentials: "include",
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to delete contact.");
+            }
+
+            setContacts((prevContacts) => 
+                prevContacts.filter((contact) => contact.id !== contactId)
+            );
+        } catch (error) {
+            console.error("Failed to delete contact:", error);
+        }
+    };
+
 	useEffect(() => {
 		const fetchContacts = async () => {
 			try {
@@ -82,7 +101,11 @@ const CompanyContacts = ({ companyId }: CompanyContactsProps) => {
 				paginatedContacts.length > 0 ? "lg:min-h-[490px]" : ""
 			}`}>
 				{paginatedContacts.map((contact) => (
-					<ContactCard key={contact.id} contact={contact}/>
+					<ContactCard 
+						key={contact.id} 
+						contact={contact}
+						onDelete={() => handleDeleteContact(contact.id)}
+					/>
 				))}
 			</div>
 
