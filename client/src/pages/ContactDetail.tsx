@@ -135,6 +135,10 @@ const ContactDetail = () => {
         }
     };
 
+    const handleAddInteraction = async () => {
+        
+    };
+
     const handleDeleteContact = async () => {
         if (!contact) return null;
 
@@ -252,7 +256,7 @@ const ContactDetail = () => {
                     <div className="col-span-4">
                         <OutreachHistory 
                             label="Outreach History"
-                            placeholder="Add outreach history"
+                            onAddClick={handleAddInteraction}
                         />
                     </div>
                 </div>

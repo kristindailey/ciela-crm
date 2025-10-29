@@ -15,6 +15,7 @@ interface CompanyOverviewProps {
 	onSaveOfficePolicy: (value: string) => void;
 	onSaveTechStack: (value: string) => void;
 	onSaveCompanyNotes: (value: string) => void;
+    onAddInteraction: () => void;
 }
 
 const CompanyOverview = ({ 
@@ -29,6 +30,7 @@ const CompanyOverview = ({
 	onSaveOfficePolicy,
 	onSaveTechStack,
 	onSaveCompanyNotes,
+    onAddInteraction,
 }: CompanyOverviewProps) => {
 	const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -153,7 +155,7 @@ const CompanyOverview = ({
             	<div className="col-span-2">
                 	<OutreachHistory 
                     	label="Outreach History"
-                    	placeholder="Add outreach history"
+                        onAddClick={onAddInteraction}
                 	/>
             	</div>
         	</div>
