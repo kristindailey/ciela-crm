@@ -136,6 +136,8 @@ const ContactDetail = () => {
     };
 
     const handleAddInteraction = async () => {
+        if (!contact) return null;
+
         
     };
 
