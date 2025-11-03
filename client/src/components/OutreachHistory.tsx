@@ -3,10 +3,11 @@ import { FaPlus } from "react-icons/fa6";
 import AddInteractionModal from "./AddInteractionModal";
 
 interface OutreachHistoryProps {
+    label: string;
     onAddClick: () => void;
 }
 
-const OutreachHistory = ({ onAddClick }: OutreachHistoryProps) => {
+const OutreachHistory = ({ label, onAddClick }: OutreachHistoryProps) => {
     const [isAddModalOpen, setAddModalOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -31,6 +32,8 @@ const OutreachHistory = ({ onAddClick }: OutreachHistoryProps) => {
 
     return (
         <div>
+            <label className="font-inter text-sm text-gray-600 block">{label}</label>
+
             <div className="flex items-start justify-end bg-white rounded-xl shadow-md cursor-pointer transition-all text-md font-medium text-[var(--royal-blue)] h-70 w-full">
                 <button 
                     onClick={onAddClick}
