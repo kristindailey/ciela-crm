@@ -155,7 +155,6 @@ const CompanyOverview = ({
             	<div className="col-span-2">
                 	<OutreachHistory 
                     	label="Outreach History"
-                        onAddClick={onAddInteraction}
                 	/>
             	</div>
         	</div>

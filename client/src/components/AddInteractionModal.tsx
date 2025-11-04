@@ -1,4 +1,7 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Button, Calendar, CalendarCell, CalendarGrid, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Popover } from "react-aria-components";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import type { Interaction } from "../types/interaction";
 
 interface AddInteractionModalProps {
 	isOpen: boolean;
@@ -7,6 +10,24 @@ interface AddInteractionModalProps {
 }
 
 const AddInteractionModal = ({ isOpen, onClose, onConfirm }: AddInteractionModalProps) => {
+	const [error, setError] = useState<string>("");
+	const [selectedInteractionType, setSelectedInteractionType] = useState<Interaction["type"] | "">("");
+	const [subject, setSubject] = useState<string>("");
+	const [message, setMessage] = useState<string>("");
+	const [interactionDate, setInteractionDate] = useState<string>("");
+	const interactionTypes: Interaction["type"][] = ["EMAIL", "PHONE", "MEETING", "MEETUP", "LINKEDIN", "BLUESKY", "OTHER"] as const;
+
+	const formatInteractionType = (type: string | undefined) => {
+        if (!type) return undefined;
+        const formatted = type.toLowerCase();
+        return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+    };
+
+	const handleInteractionTypeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		const value = e.target.value as Interaction["type"] | "";
+		setSelectedInteractionType(value);
+	};
+
 	useEffect(() => {
 		const handleEscape = (event: KeyboardEvent) => {
 			if (event.key === "Escape") {
@@ -43,15 +64,139 @@ const AddInteractionModal = ({ isOpen, onClose, onConfirm }: AddInteractionModal
 		>
 			<div
 				onClick={(e) => e.stopPropagation()} 
-				className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl font-inter border-3 border-gray-300"
+				className="bg-white rounded-lg p-6 max-w-lg w-full shadow-xl font-inter border-3 border-gray-300 text-black"
 			>
-				<h2 className="text-xl font-bold text-gray-900 mb-2">
-					Delete
+				<h2 className="text-xl font-bold mb-2">
+					Add Interaction
 				</h2>
 
-				<p className="text-gray-600 mb-6">
-					Are you sure you want to delete? This action cannot be undone.
-				</p>
+				{error && (
+					<div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+						{error}
+					</div>
+				)}
+
+				<form onSubmit={onConfirm}>
+					<div className="flex gap-5 mt-5 mb-5">
+						<select 
+							name="type" 
+							id="type"
+							value={selectedInteractionType}
+							onChange={handleInteractionTypeSelect}
+							className="w-full px-2 py-2 border border-2 border-[var(--royal-blue)] rounded-md" 
+						>
+							<option value="">Choose an interaction type...</option>
+							{interactionTypes.map((type) => (
+								<option key={type} value={type}>
+									{formatInteractionType(type)}
+								</option>
+							))}
+						</select>
+					</div>
+
+					<div className="mb-5">
+						<label htmlFor="subject" className="block text-sm font-medium mb-1">
+							Subject (Optional)
+						</label>
+
+						<input 
+							type="text"
+							id="subject"
+							value={subject}
+							onChange={(e) => setSubject(e.target.value)}
+							className="w-full px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md" 
+						/>
+					</div>
+
+					<div className="mb-5">
+						<label htmlFor="message" className="block text-sm font-medium mb-1">
+							Message/Notes
+						</label>
+
+						<textarea 
+							id="message"
+							name="message"
+							rows={4}
+							value={message}
+							onChange={(e) => setMessage(e.target.value)}
+							className="w-full px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md resize-vertical" 
+							required
+						>
+						</textarea>
+					</div>
+
+					<div className="flex justify-between mb-10">
+						<div>
+							<label htmlFor="date" className="block text-sm font-medium mb-1">
+								Date of Interaction
+							</label>
+
+							<DatePicker>
+								<Group className="flex w-fit items-center border-2 border-[var(--royal-blue)] rounded-md px-2 py-2">
+									<DateInput className="py-1 pr-10 pl-2">
+										{(segment) => <DateSegment segment={segment} />}
+									</DateInput>
+									<Button className="bg-[var(--royal-blue)] text-white rounded ml-3">
+										<ChevronDown size={20} />
+									</Button>
+								</Group>
+								<Popover className="max-w-none bg-white shadow-lg rounded-lg border border-2 border-[var(--royal-blue)] p-4 text-black">
+									<Dialog>
+										<Calendar>
+											<header className="flex justify-center mb-3">
+												<Button slot="previous" className="bg-[var(--royal-blue)] text-white rounded ml-3 mr-3">
+													<ChevronLeft size={20} />
+												</Button>
+												<Heading />
+												<Button slot="next" className="bg-[var(--royal-blue)] text-white rounded ml-3">
+													<ChevronRight size={20} />
+												</Button>
+											</header>
+											<CalendarGrid>
+												{(date) => <CalendarCell date={date} className="flex justify-center mt-2 ml-2 mr-2 hover:bg-[var(--soft-lavender)]" />}
+											</CalendarGrid>
+										</Calendar>
+									</Dialog>
+								</Popover>
+							</DatePicker>
+						</div>
+
+						<div>
+							<label htmlFor="followupDate" className="block text-sm font-medium mb-1">
+								Follow-Up Date (Optional)
+							</label>
+
+							<DatePicker>
+								<Group className="flex w-fit items-center border-2 border-[var(--royal-blue)] rounded-md px-2 py-2">
+									<DateInput className="py-1 pr-10 pl-2">
+										{(segment) => <DateSegment segment={segment} />}
+									</DateInput>
+									<Button className="bg-[var(--royal-blue)] text-white rounded ml-3">
+										<ChevronDown size={20} />
+									</Button>
+								</Group>
+								<Popover className="max-w-none bg-white shadow-lg rounded-lg border border-2 border-[var(--royal-blue)] p-4 text-black">
+									<Dialog>
+										<Calendar>
+											<header className="flex justify-center mb-3">
+												<Button slot="previous" className="bg-[var(--royal-blue)] text-white rounded ml-3 mr-3">
+													<ChevronLeft size={20} />
+												</Button>
+												<Heading />
+												<Button slot="next" className="bg-[var(--royal-blue)] text-white rounded ml-3">
+													<ChevronRight size={20} />
+												</Button>
+											</header>
+											<CalendarGrid>
+												{(date) => <CalendarCell date={date} className="flex justify-center mt-2 ml-2 mr-2 hover:bg-[var(--soft-lavender)]" />}
+											</CalendarGrid>
+										</Calendar>
+									</Dialog>
+								</Popover>
+							</DatePicker>
+						</div>
+					</div>
+				</form>
 
 				<div className="flex justify-end gap-3">
 					<button
@@ -63,9 +208,9 @@ const AddInteractionModal = ({ isOpen, onClose, onConfirm }: AddInteractionModal
 
 					<button
 						onClick={onConfirm}
-						className="px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors"
+						className="px-4 py-2 text-white bg-[var(--royal-blue)] rounded-lg hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors"
 					>
-						Delete
+						Add
 					</button>
 				</div>
 			</div>
