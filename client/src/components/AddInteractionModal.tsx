@@ -94,6 +94,78 @@ const AddInteractionModal = ({ isOpen, onClose, onConfirm }: AddInteractionModal
 						</select>
 					</div>
 
+					<div className="flex justify-between mb-5">
+						<div>
+							<label htmlFor="date" className="block text-sm font-medium mb-1">
+								Date of Interaction
+							</label>
+
+							<DatePicker>
+								<Group className="flex w-fit items-center border-2 border-[var(--royal-blue)] rounded-md px-2 py-2">
+									<DateInput className="py-1 pr-10 pl-2">
+										{(segment) => <DateSegment segment={segment} />}
+									</DateInput>
+									<Button className="bg-[var(--royal-blue)] text-white rounded ml-3 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors">
+										<ChevronDown size={20} />
+									</Button>
+								</Group>
+								<Popover className="max-w-none bg-white shadow-lg rounded-lg border border-2 border-[var(--royal-blue)] p-4 text-black">
+									<Dialog>
+										<Calendar>
+											<header className="flex justify-center mb-5">
+												<Button slot="previous" className="bg-[var(--royal-blue)] text-white rounded ml-3 mr-3 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors">
+													<ChevronLeft size={20} />
+												</Button>
+												<Heading />
+												<Button slot="next" className="bg-[var(--royal-blue)] text-white rounded ml-3 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors">
+													<ChevronRight size={20} />
+												</Button>
+											</header>
+											<CalendarGrid>
+												{(date) => <CalendarCell date={date} className="flex justify-center mt-3 ml-3 mr-2 hover:bg-[var(--royal-blue)] hover:text-white" />}
+											</CalendarGrid>
+										</Calendar>
+									</Dialog>
+								</Popover>
+							</DatePicker>
+						</div>
+
+						<div>
+							<label htmlFor="followupDate" className="block text-sm font-medium mb-1">
+								Follow-Up Date (Optional)
+							</label>
+
+							<DatePicker>
+								<Group className="flex w-fit items-center border-2 border-[var(--royal-blue)] rounded-md px-2 py-2">
+									<DateInput className="py-1 pr-10 pl-2">
+										{(segment) => <DateSegment segment={segment} />}
+									</DateInput>
+									<Button className="bg-[var(--royal-blue)] text-white rounded ml-3 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors">
+										<ChevronDown size={20} />
+									</Button>
+								</Group>
+								<Popover className="max-w-none bg-white shadow-lg rounded-lg border border-2 border-[var(--royal-blue)] p-4 text-black">
+									<Dialog>
+										<Calendar>
+											<header className="flex justify-center mb-5">
+												<Button slot="previous" className="bg-[var(--royal-blue)] text-white rounded ml-3 mr-3 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors">
+													<ChevronLeft size={20} />
+												</Button>
+												<Heading />
+												<Button slot="next" className="bg-[var(--royal-blue)] text-white rounded ml-3 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors">
+													<ChevronRight size={20} />
+												</Button>
+											</header>
+											<CalendarGrid>
+												{(date) => <CalendarCell date={date} className="flex justify-center mt-3 ml-3 mr-2 hover:bg-[var(--royal-blue)] hover:text-white" />}
+											</CalendarGrid>
+										</Calendar>
+									</Dialog>
+								</Popover>
+							</DatePicker>
+						</div>
+					</div>
+
 					<div className="mb-5">
 						<label htmlFor="subject" className="block text-sm font-medium mb-1">
 							Subject (Optional)
@@ -123,78 +195,6 @@ const AddInteractionModal = ({ isOpen, onClose, onConfirm }: AddInteractionModal
 							required
 						>
 						</textarea>
-					</div>
-
-					<div className="flex justify-between mb-10">
-						<div>
-							<label htmlFor="date" className="block text-sm font-medium mb-1">
-								Date of Interaction
-							</label>
-
-							<DatePicker>
-								<Group className="flex w-fit items-center border-2 border-[var(--royal-blue)] rounded-md px-2 py-2">
-									<DateInput className="py-1 pr-10 pl-2">
-										{(segment) => <DateSegment segment={segment} />}
-									</DateInput>
-									<Button className="bg-[var(--royal-blue)] text-white rounded ml-3">
-										<ChevronDown size={20} />
-									</Button>
-								</Group>
-								<Popover className="max-w-none bg-white shadow-lg rounded-lg border border-2 border-[var(--royal-blue)] p-4 text-black">
-									<Dialog>
-										<Calendar>
-											<header className="flex justify-center mb-3">
-												<Button slot="previous" className="bg-[var(--royal-blue)] text-white rounded ml-3 mr-3">
-													<ChevronLeft size={20} />
-												</Button>
-												<Heading />
-												<Button slot="next" className="bg-[var(--royal-blue)] text-white rounded ml-3">
-													<ChevronRight size={20} />
-												</Button>
-											</header>
-											<CalendarGrid>
-												{(date) => <CalendarCell date={date} className="flex justify-center mt-2 ml-2 mr-2 hover:bg-[var(--soft-lavender)]" />}
-											</CalendarGrid>
-										</Calendar>
-									</Dialog>
-								</Popover>
-							</DatePicker>
-						</div>
-
-						<div>
-							<label htmlFor="followupDate" className="block text-sm font-medium mb-1">
-								Follow-Up Date (Optional)
-							</label>
-
-							<DatePicker>
-								<Group className="flex w-fit items-center border-2 border-[var(--royal-blue)] rounded-md px-2 py-2">
-									<DateInput className="py-1 pr-10 pl-2">
-										{(segment) => <DateSegment segment={segment} />}
-									</DateInput>
-									<Button className="bg-[var(--royal-blue)] text-white rounded ml-3">
-										<ChevronDown size={20} />
-									</Button>
-								</Group>
-								<Popover className="max-w-none bg-white shadow-lg rounded-lg border border-2 border-[var(--royal-blue)] p-4 text-black">
-									<Dialog>
-										<Calendar>
-											<header className="flex justify-center mb-3">
-												<Button slot="previous" className="bg-[var(--royal-blue)] text-white rounded ml-3 mr-3">
-													<ChevronLeft size={20} />
-												</Button>
-												<Heading />
-												<Button slot="next" className="bg-[var(--royal-blue)] text-white rounded ml-3">
-													<ChevronRight size={20} />
-												</Button>
-											</header>
-											<CalendarGrid>
-												{(date) => <CalendarCell date={date} className="flex justify-center mt-2 ml-2 mr-2 hover:bg-[var(--soft-lavender)]" />}
-											</CalendarGrid>
-										</Calendar>
-									</Dialog>
-								</Popover>
-							</DatePicker>
-						</div>
 					</div>
 				</form>
 
