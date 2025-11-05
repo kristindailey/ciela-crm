@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button, Calendar, CalendarCell, CalendarGrid, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Popover } from "react-aria-components";
-import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, SpaceIcon } from "lucide-react";
 import type { Interaction } from "../types/interaction";
 
 interface AddInteractionModalProps {
@@ -122,7 +122,13 @@ const AddInteractionModal = ({ isOpen, onClose, onConfirm }: AddInteractionModal
 												</Button>
 											</header>
 											<CalendarGrid>
-												{(date) => <CalendarCell date={date} className="flex justify-center mt-3 ml-3 mr-2 hover:bg-[var(--royal-blue)] hover:text-white" />}
+												{(date) => 
+													<CalendarCell date={date} className="flex justify-center mt-3 ml-3 mr-2">
+														{({ isOutsideMonth }) => (
+															<span className={isOutsideMonth ? "text-gray-400" : "hover:bg-[var(--royal-blue)] hover:text-white"}>{date.day}</span>
+														)}
+													</CalendarCell>
+												}
 											</CalendarGrid>
 										</Calendar>
 									</Dialog>
@@ -157,7 +163,13 @@ const AddInteractionModal = ({ isOpen, onClose, onConfirm }: AddInteractionModal
 												</Button>
 											</header>
 											<CalendarGrid>
-												{(date) => <CalendarCell date={date} className="flex justify-center mt-3 ml-3 mr-2 hover:bg-[var(--royal-blue)] hover:text-white" />}
+												{(date) => 
+													<CalendarCell date={date} className="flex justify-center mt-3 ml-3 mr-2">
+														{({ isOutsideMonth }) => (
+															<span className={isOutsideMonth ? "text-gray-400" : "hover:bg-[var(--royal-blue)] hover:text-white"}>{date.day}</span>
+														)}
+													</CalendarCell>
+												}
 											</CalendarGrid>
 										</Calendar>
 									</Dialog>
