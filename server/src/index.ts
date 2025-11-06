@@ -9,6 +9,7 @@ import "./config/auth";
 import authRoutes from "./routes/auth";
 import contactRoutes from "./routes/contacts";
 import companyRoutes from "./routes/companies";
+import interactionRoutes from "./routes/interactions";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -46,6 +47,7 @@ app.use(passport.session());
 app.use("/auth", authRoutes);
 app.use("/contacts", requireAuth, contactRoutes);
 app.use("/companies", requireAuth, companyRoutes);
+app.use("/interactions", requireAuth, interactionRoutes);
 
 app.get("/api/test", (req, res) => {
     res.json({ 
