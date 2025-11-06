@@ -19,6 +19,11 @@ const AddInteractionModal = ({ isOpen, onClose, onConfirm }: AddInteractionModal
 
 	const formatInteractionType = (type: string | undefined) => {
         if (!type) return undefined;
+
+		if (type === "linkedin" || type === "LINKEDIN") {
+			return "LinkedIn";
+		}
+
         const formatted = type.toLowerCase();
         return formatted.charAt(0).toUpperCase() + formatted.slice(1);
     };
