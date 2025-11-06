@@ -123,9 +123,9 @@ const AddInteractionModal = ({ isOpen, onClose, onConfirm }: AddInteractionModal
 											</header>
 											<CalendarGrid>
 												{(date) => 
-													<CalendarCell date={date} className="flex justify-center mt-3 ml-3 mr-2">
+													<CalendarCell date={date} className="flex justify-center">
 														{({ isOutsideMonth }) => (
-															<span className={isOutsideMonth ? "text-gray-400" : "hover:bg-[var(--royal-blue)] hover:text-white"}>{date.day}</span>
+															<span className={isOutsideMonth ? "text-gray-400" : "p-2 rounded-md hover:bg-[var(--royal-blue)] hover:text-white transition-colors duration-150"}>{date.day}</span>
 														)}
 													</CalendarCell>
 												}
@@ -164,9 +164,9 @@ const AddInteractionModal = ({ isOpen, onClose, onConfirm }: AddInteractionModal
 											</header>
 											<CalendarGrid>
 												{(date) => 
-													<CalendarCell date={date} className="flex justify-center mt-3 ml-3 mr-2">
+													<CalendarCell date={date} className="flex justify-center">
 														{({ isOutsideMonth }) => (
-															<span className={isOutsideMonth ? "text-gray-400" : "hover:bg-[var(--royal-blue)] hover:text-white"}>{date.day}</span>
+															<span className={isOutsideMonth ? "text-gray-400" : "p-2 rounded-md hover:bg-[var(--royal-blue)] hover:text-white transition-colors duration-150"}>{date.day}</span>
 														)}
 													</CalendarCell>
 												}
