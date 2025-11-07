@@ -116,7 +116,7 @@ const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInter
 					</div>
 				)}
 
-				<form onSubmit={onConfirm}>
+				<form onSubmit={handleSubmit}>
 					<div className="flex gap-5 mt-5 mb-5">
 						<select 
 							name="type" 
@@ -259,7 +259,7 @@ const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInter
 					</button>
 
 					<button
-						onClick={onConfirm}
+						type="submit"
 						className="px-4 py-2 text-white bg-[var(--royal-blue)] rounded-lg hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors"
 					>
 						Add
