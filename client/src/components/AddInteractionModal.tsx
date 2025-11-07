@@ -15,7 +15,8 @@ const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInter
 	const [selectedInteractionType, setSelectedInteractionType] = useState<Interaction["type"] | "">("");
 	const [subject, setSubject] = useState<string>("");
 	const [message, setMessage] = useState<string>("");
-	const [interactionDate, setInteractionDate] = useState<string>("");
+	const [interactionDate, setInteractionDate] = useState<Date | null>(null);
+	const [followUpDate, setFollowUpDate] = useState<Date | null>(null);
 	const interactionTypes: Interaction["type"][] = ["EMAIL", "PHONE", "MEETING", "MEETUP", "LINKEDIN", "BLUESKY", "OTHER"] as const;
 
 	const formatInteractionType = (type: string | undefined) => {
