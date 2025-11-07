@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button, Calendar, CalendarCell, CalendarGrid, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Popover } from "react-aria-components";
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { CalendarDate } from "@internationalized/date";
 import type { Interaction } from "../types/interaction";
 
 interface AddInteractionModalProps {
@@ -15,8 +16,8 @@ const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInter
 	const [selectedInteractionType, setSelectedInteractionType] = useState<Interaction["type"] | "">("");
 	const [subject, setSubject] = useState<string>("");
 	const [message, setMessage] = useState<string>("");
-	const [interactionDate, setInteractionDate] = useState<Date | null>(null);
-	const [followUpDate, setFollowUpDate] = useState<Date | null>(null);
+	const [interactionDate, setInteractionDate] = useState<CalendarDate | null>(null);
+	const [followUpDate, setFollowUpDate] = useState<CalendarDate | null>(null);
 	const interactionTypes: Interaction["type"][] = ["EMAIL", "PHONE", "MEETING", "MEETUP", "LINKEDIN", "BLUESKY", "OTHER"] as const;
 
 	const formatInteractionType = (type: string | undefined) => {
@@ -107,7 +108,7 @@ const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInter
 								Date of Interaction
 							</label>
 
-							<DatePicker>
+							<DatePicker value={interactionDate} onChange={setInteractionDate}>
 								<Group className="flex w-fit items-center border-2 border-[var(--royal-blue)] rounded-md px-2 py-2">
 									<DateInput className="py-1 pr-10 pl-2">
 										{(segment) => <DateSegment segment={segment} />}
@@ -148,7 +149,7 @@ const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInter
 								Follow-Up Date (Optional)
 							</label>
 
-							<DatePicker>
+							<DatePicker value={followUpDate} onChange={setFollowUpDate}>
 								<Group className="flex w-fit items-center border-2 border-[var(--royal-blue)] rounded-md px-2 py-2">
 									<DateInput className="py-1 pr-10 pl-2">
 										{(segment) => <DateSegment segment={segment} />}
