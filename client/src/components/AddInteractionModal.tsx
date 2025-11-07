@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { Button, Calendar, CalendarCell, CalendarGrid, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Popover } from "react-aria-components";
-import { ChevronDown, ChevronLeft, ChevronRight, SpaceIcon } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Interaction } from "../types/interaction";
 
 interface AddInteractionModalProps {
 	isOpen: boolean;
+	contactId: string;
 	onClose: () => void;
 	onConfirm: () => void;
 }
 
-const AddInteractionModal = ({ isOpen, onClose, onConfirm }: AddInteractionModalProps) => {
+const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInteractionModalProps) => {
 	const [error, setError] = useState<string>("");
 	const [selectedInteractionType, setSelectedInteractionType] = useState<Interaction["type"] | "">("");
 	const [subject, setSubject] = useState<string>("");
