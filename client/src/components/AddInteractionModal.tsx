@@ -19,6 +19,7 @@ const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInter
 	const [interactionDate, setInteractionDate] = useState<CalendarDate | null>(null);
 	const [followUpDate, setFollowUpDate] = useState<CalendarDate | null>(null);
 	const interactionTypes: Interaction["type"][] = ["EMAIL", "PHONE", "MEETING", "MEETUP", "LINKEDIN", "BLUESKY", "OTHER"] as const;
+	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 	const formatInteractionType = (type: string | undefined) => {
         if (!type) return undefined;
@@ -34,6 +35,38 @@ const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInter
 	const handleInteractionTypeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const value = e.target.value as Interaction["type"] | "";
 		setSelectedInteractionType(value);
+	};
+
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+
+		if (!selectedInteractionType) {
+			setError("Please set an interaction type.");
+			return;
+		}
+
+		if (!message.trim()) {
+			setError("Please enter a message.");
+			return;
+		}
+
+		try {
+			const response = await fetch(`${API_BASE_URL}/interactions`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				credentials: "include",
+				body: JSON.stringify({
+					type: selectedInteractionType,
+					subject: subject || null,
+					message,
+					followUpDate: followUpDate ? followUpDate.toString() : null,
+					contactId,
+				}),
+			});
+		} catch (error) {
+			console.error("Error creating interaction:", error);
+			setError("Failed to create interaction. Please try again.");
+		}
 	};
 
 	useEffect(() => {
