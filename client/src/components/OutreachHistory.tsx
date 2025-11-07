@@ -5,9 +5,10 @@ import AddInteractionModal from "./AddInteractionModal";
 interface OutreachHistoryProps {
     label: string;
     contactId: string;
+    onInteractionAdded?: (interaction: any) => void;
 }
 
-const OutreachHistory = ({ label, contactId }: OutreachHistoryProps) => {
+const OutreachHistory = ({ label, contactId, onInteractionAdded }: OutreachHistoryProps) => {
     const [isAddModalOpen, setAddModalOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -46,9 +47,12 @@ const OutreachHistory = ({ label, contactId }: OutreachHistoryProps) => {
             {isAddModalOpen &&
                 <AddInteractionModal 
                     isOpen={isAddModalOpen}
-                    onClose={() => setAddModalOpen(false)}
-                    onConfirm={() => setAddModalOpen(false)}
                     contactId={contactId}
+                    onClose={() => setAddModalOpen(false)}
+                    onConfirm={(newInteraction) => {
+                        setAddModalOpen(false);
+                        onInteractionAdded?.(newInteraction);
+                    }}
                 />
             }
         </div>

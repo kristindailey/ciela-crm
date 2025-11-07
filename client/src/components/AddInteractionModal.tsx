@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button, Calendar, CalendarCell, CalendarGrid, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Popover } from "react-aria-components";
-import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, NewspaperIcon } from "lucide-react";
 import { CalendarDate } from "@internationalized/date";
 import type { Interaction } from "../types/interaction";
 
@@ -8,7 +8,7 @@ interface AddInteractionModalProps {
 	isOpen: boolean;
 	contactId: string;
 	onClose: () => void;
-	onConfirm: () => void;
+	onConfirm: (interaction: any) => void;
 }
 
 const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInteractionModalProps) => {
@@ -63,6 +63,13 @@ const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInter
 					contactId,
 				}),
 			});
+
+			if (!response.ok) {
+				throw new Error("Failed to create interaction.");
+			}
+
+			const newInteraction = await response.json();
+			onConfirm(newInteraction);
 		} catch (error) {
 			console.error("Error creating interaction:", error);
 			setError("Failed to create interaction. Please try again.");
@@ -76,20 +83,12 @@ const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInter
 			}
 		};
 
-		const handleEnter = (event: KeyboardEvent) => {
-			if (event.key === "Enter") {
-				onConfirm();
-			}
-		}
-
 		if (isOpen) {
 			document.addEventListener("keydown", handleEscape);
-			document.addEventListener("keydown", handleEnter);
 		}
 
 		return () => {
 			document.removeEventListener("keydown", handleEscape);
-			document.removeEventListener("keydown", handleEnter);
 		};
 	}, [isOpen, onClose, onConfirm]);
 
