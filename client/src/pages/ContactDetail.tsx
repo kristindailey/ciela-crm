@@ -135,6 +135,15 @@ const ContactDetail = () => {
         }
     };
 
+    const handleAddInteraction = (newInteraction: any) => {
+        console.log("New interaction added:", newInteraction);
+
+        setContact((prev) => prev ? {
+            ...prev,
+            updatedAt: new Date().toISOString(),
+        }: null);
+    };
+
     const handleDeleteContact = async () => {
         if (!contact) return null;
 
@@ -253,6 +262,7 @@ const ContactDetail = () => {
                         <OutreachHistory 
                             label="Outreach History"
                             contactId={contact.id}
+                            onInteractionAdded={handleAddInteraction}
                         />
                     </div>
                 </div>

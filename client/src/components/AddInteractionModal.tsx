@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button, Calendar, CalendarCell, CalendarGrid, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Popover } from "react-aria-components";
-import { ChevronDown, ChevronLeft, ChevronRight, NewspaperIcon } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { CalendarDate } from "@internationalized/date";
 import type { Interaction } from "../types/interaction";
 
@@ -140,7 +140,7 @@ const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInter
 								Date of Interaction
 							</label>
 
-							<DatePicker value={interactionDate} onChange={setInteractionDate}>
+							<DatePicker value={interactionDate} onChange={setInteractionDate} aria-label="Date of Interaction">
 								<Group className="flex w-fit items-center border-2 border-[var(--royal-blue)] rounded-md px-2 py-2">
 									<DateInput className="py-1 pr-10 pl-2">
 										{(segment) => <DateSegment segment={segment} />}
@@ -181,7 +181,7 @@ const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInter
 								Follow-Up Date (Optional)
 							</label>
 
-							<DatePicker value={followUpDate} onChange={setFollowUpDate}>
+							<DatePicker value={followUpDate} onChange={setFollowUpDate} aria-label="Follow-Up Date">
 								<Group className="flex w-fit items-center border-2 border-[var(--royal-blue)] rounded-md px-2 py-2">
 									<DateInput className="py-1 pr-10 pl-2">
 										{(segment) => <DateSegment segment={segment} />}
@@ -248,23 +248,23 @@ const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInter
 						>
 						</textarea>
 					</div>
+
+					<div className="flex justify-end gap-3">
+						<button
+							onClick={onClose}
+							className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+						>
+							Cancel
+						</button>
+
+						<button
+							type="submit"
+							className="px-4 py-2 text-white bg-[var(--royal-blue)] rounded-lg hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors"
+						>
+							Add
+						</button>
+					</div>
 				</form>
-
-				<div className="flex justify-end gap-3">
-					<button
-						onClick={onClose}
-						className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
-					>
-						Cancel
-					</button>
-
-					<button
-						type="submit"
-						className="px-4 py-2 text-white bg-[var(--royal-blue)] rounded-lg hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors"
-					>
-						Add
-					</button>
-				</div>
 			</div>
 		</div>
 	);
