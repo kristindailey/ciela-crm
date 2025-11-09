@@ -251,6 +251,7 @@ const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInter
 
 					<div className="flex justify-end gap-3">
 						<button
+							type="button"
 							onClick={onClose}
 							className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
 						>
