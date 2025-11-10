@@ -175,14 +175,15 @@ enum InteractionType {
 }
 
 model Interaction {
-  id            String            @id @default(cuid())
-  type          InteractionType
-  subject       String?
-  message       String 
-  followUpDate  DateTime?
-  completed     Boolean           @default(false)
-  createdAt     DateTime          @default(now())
-  updatedAt     DateTime          @updatedAt
+  id              String            @id @default(cuid())
+  type            InteractionType
+  subject         String?
+  message         String
+  interactionDate DateTime          
+  followUpDate    DateTime?
+  completed       Boolean           @default(false)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
 
   // Relations
   userId        String

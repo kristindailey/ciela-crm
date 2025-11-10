@@ -3,6 +3,7 @@ export interface Interaction {
     type: "EMAIL" | "PHONE" | "MEETING" | "MEETUP" | "LINKEDIN" | "BLUESKY" | "OTHER";
     subject?: string;
     message: string;
+    interactionDate: string;
     followUpDate?: string | null;
     completed: boolean;
     createdAt: string;

@@ -6,10 +6,10 @@ const router = Router();
 router.post("/", async (req, res) => {
     try {
         const userId = (req.user as any).id;
-        const { type, subject, message, followUpDate, contactId } = req.body;
+        const { type, subject, message, interactionDate, followUpDate, contactId } = req.body;
 
-        if (!type || !message || !contactId) {
-            return res.status(400).json({ error: "Type, message, and contactId are required." });
+        if (!type || !message || !contactId || !interactionDate) {
+            return res.status(400).json({ error: "Type, message, contactId, and interactionDate are required." });
         }
 
         const contact = await prisma.contact.findFirst({
@@ -28,6 +28,7 @@ router.post("/", async (req, res) => {
                 type,
                 subject,
                 message,
+                interactionDate: new Date(interactionDate),
                 followUpDate: followUpDate ? new Date(followUpDate) : null,
                 userId,
                 contactId,

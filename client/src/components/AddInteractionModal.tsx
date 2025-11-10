@@ -50,6 +50,11 @@ const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInter
 			return;
 		}
 
+		if (!interactionDate) {
+			setError("Please select an interaction date.");
+			return;
+		}
+
 		try {
 			const response = await fetch(`${API_BASE_URL}/interactions`, {
 				method: "POST",
@@ -59,6 +64,7 @@ const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInter
 					type: selectedInteractionType,
 					subject: subject || null,
 					message,
+					interactionDate: interactionDate ? interactionDate.toString() : null,
 					followUpDate: followUpDate ? followUpDate.toString() : null,
 					contactId,
 				}),
