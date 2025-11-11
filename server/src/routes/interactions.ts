@@ -3,6 +3,39 @@ import { prisma } from "../lib/prisma";
 
 const router = Router();
 
+router.get("/:contactId", async (req, res) => {
+    try {
+        const userId = (req.user as any).id;
+        const { contactId } = req.params;
+
+        const contact = await prisma.contact.findFirst({
+            where: { 
+                id: contactId,
+                userId, 
+            },
+        });
+
+        if (!contact) {
+            return res.status(404).json({ error: "Contact not found." });
+        }
+
+        const interactions = await prisma.interaction.findMany({
+            where: {
+                contactId,
+                userId,
+            },
+            orderBy: {
+                interactionDate: "desc",
+            },
+        });
+
+        res.json(interactions);
+    } catch (error) {
+        console.error("Error fetching interactions:", error);
+        res.status(500).json({ error: "Failed to fetch interactions." });
+    }
+});
+
 router.post("/", async (req, res) => {
     try {
         const userId = (req.user as any).id;
