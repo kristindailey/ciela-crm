@@ -15,6 +15,7 @@ const OutreachHistory = ({ label, contactId, onInteractionAdded }: OutreachHisto
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string>("");
     const [isAddModalOpen, setAddModalOpen] = useState(false);
+    const [editingInteraction, setEditingInteration] = useState<Interaction | null>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -89,21 +90,25 @@ const OutreachHistory = ({ label, contactId, onInteractionAdded }: OutreachHisto
                             key={interaction.id} 
                             interaction={interaction} 
                             onEdit={(interaction) => {
-                                console.log("Edit clicked for:", interaction);
+                                setEditingInteration(interaction);
                             }}
                         />
                     ))
                 )}
             </div>
 
-            {isAddModalOpen &&
+            {(isAddModalOpen || editingInteraction) &&
                 <AddInteractionModal 
-                    isOpen={isAddModalOpen}
+                    isOpen={isAddModalOpen || !!editingInteraction}
                     contactId={contactId}
-                    onClose={() => setAddModalOpen(false)}
+                    onClose={() => {
+                        setAddModalOpen(false);
+                        setEditingInteration(null);
+                    }}
                     onConfirm={(newInteraction) => {
                         setInteractions((prev) => [newInteraction, ...prev]);
                         setAddModalOpen(false);
+                        setEditingInteration(null);
                         onInteractionAdded?.(newInteraction);
                     }}
                 />
