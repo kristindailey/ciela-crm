@@ -79,6 +79,7 @@ const OutreachHistory = ({ label, contactId, onInteractionAdded }: OutreachHisto
                     contactId={contactId}
                     onClose={() => setAddModalOpen(false)}
                     onConfirm={(newInteraction) => {
+                        setInteractions((prev) => [newInteraction, ...prev]);
                         setAddModalOpen(false);
                         onInteractionAdded?.(newInteraction);
                     }}
