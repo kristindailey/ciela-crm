@@ -36,6 +36,43 @@ router.get("/:contactId", async (req, res) => {
     }
 });
 
+router.patch("/:interactionId", async (req, res) => {
+    try {
+        const userId = (req.user as any).id;
+        const { interactionId } = req.params;
+        const { type, subject, message, interactionDate, followUpDate } = req.body;
+
+        const existingInteraction = await prisma.interaction.findFirst({
+            where: {
+                id: interactionId,
+                userId,
+            },
+        });
+
+        if (!existingInteraction) {
+            return res.status(404).json({ error: "Interaction not found." });
+        }
+
+        const updatedInteraction = await prisma.interaction.update({
+            where: {
+                id: interactionId,
+            },
+            data: {
+                ...(type && { type }),
+                ...(subject !== undefined && { subject }),
+                ...(message && { message }),
+                ...(interactionDate && { interactionDate: new Date(interactionDate) }),
+                ...(followUpDate !== undefined && { followUpDate: followUpDate ? new Date(followUpDate) : null }),
+            },
+        });
+
+        res.json(updatedInteraction);
+    } catch (error) {
+        console.error("Error updating interaction:", error);
+        res.status(500).json({ error: "Failed to update interaction." });
+    }
+});
+
 router.post("/", async (req, res) => {
     try {
         const userId = (req.user as any).id;
