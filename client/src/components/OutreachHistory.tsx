@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { FaPlus } from "react-icons/fa6";
 import type { Interaction } from "../types/interaction";
 import AddInteractionModal from "./AddInteractionModal";
+import InteractionCard from "./InteractionCard";
 
 interface OutreachHistoryProps {
     label: string;
@@ -64,13 +65,29 @@ const OutreachHistory = ({ label, contactId, onInteractionAdded }: OutreachHisto
         <div>
             <label className="font-inter text-sm text-gray-600 block">{label}</label>
 
-            <div className="flex items-start justify-end bg-white rounded-xl shadow-md cursor-pointer transition-all text-md font-medium text-[var(--royal-blue)] h-70 w-full">
-                <button 
-                    onClick={() => setAddModalOpen(!isAddModalOpen)}
-                    className="inline-flex h-6 w-6 mt-2 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] drop-shadow-sm transition-colors duration-150 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] mr-2"
-                >
-                    <FaPlus size={14} />
-                </button>
+            <div className="bg-white rounded-xl shadow-md p-4 h-70 w-full overflow-y-auto">
+                <div className="flex justify-end mb-3">
+                    <button 
+                        onClick={() => setAddModalOpen(!isAddModalOpen)}
+                        className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] drop-shadow-sm transition-colors duration-150 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)]"
+                    >
+                        <FaPlus size={14} />
+                    </button>
+                </div>
+
+                {error && (
+                    <div className="text-red-600 text-sm mb-2">{error}</div>
+                )}
+
+                {isLoading ? (
+                    <div className="flex justify-center text-gray-500 text-sm">Loading...</div>
+                ) : interactions.length === 0 ? (
+                    <div className="flex justify-center text-gray-500 text-sm">No interactions yet.</div>
+                ) : (
+                    interactions.map((interaction) => (
+                        <InteractionCard key={interaction.id} interaction={interaction} />
+                    ))
+                )}
             </div>
 
             {isAddModalOpen &&
