@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button, Calendar, CalendarCell, CalendarGrid, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Popover } from "react-aria-components";
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
-import { CalendarDate } from "@internationalized/date";
+import { CalendarDate, parseDate } from "@internationalized/date";
 import type { Interaction } from "../types/interaction";
 
 interface AddInteractionModalProps {
@@ -99,6 +99,22 @@ const AddInteractionModal = ({ isOpen, contactId, editingInteraction, onClose, o
 		};
 	}, [isOpen, onClose, onConfirm]);
 
+	useEffect(() => {
+		if (editingInteraction) {
+			setSelectedInteractionType(editingInteraction.type);
+			setSubject(editingInteraction.subject || "");
+			setMessage(editingInteraction.message);
+			setInteractionDate(parseDate(editingInteraction.interactionDate.split("T")[0]));
+			setFollowUpDate(editingInteraction.followUpDate ? parseDate(editingInteraction.followUpDate.split("T")[0]) : null);
+		} else {
+			setSelectedInteractionType("");
+			setSubject("");
+			setMessage("");
+			setInteractionDate(null);
+			setFollowUpDate(null);
+		}
+	}, [editingInteraction]);
+
 	if (!isOpen) return null;
 
 	return (
@@ -114,7 +130,7 @@ const AddInteractionModal = ({ isOpen, contactId, editingInteraction, onClose, o
 				className="bg-white rounded-lg p-6 max-w-lg w-full shadow-xl font-inter border-3 border-gray-300 text-black"
 			>
 				<h2 className="text-xl font-bold mb-2">
-					Add Interaction
+					{editingInteraction ? "Edit Interaction" : "Add Interaction"}
 				</h2>
 
 				{error && (
@@ -269,7 +285,7 @@ const AddInteractionModal = ({ isOpen, contactId, editingInteraction, onClose, o
 							type="submit"
 							className="px-4 py-2 text-white bg-[var(--royal-blue)] rounded-lg hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors"
 						>
-							Add
+							{editingInteraction ? "Update" : "Add"}
 						</button>
 					</div>
 				</form>
