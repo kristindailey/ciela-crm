@@ -101,6 +101,7 @@ const OutreachHistory = ({ label, contactId, onInteractionAdded }: OutreachHisto
                 <AddInteractionModal 
                     isOpen={isAddModalOpen || !!editingInteraction}
                     contactId={contactId}
+                    editingInteraction={editingInteraction}
                     onClose={() => {
                         setAddModalOpen(false);
                         setEditingInteration(null);

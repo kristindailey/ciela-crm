@@ -7,11 +7,12 @@ import type { Interaction } from "../types/interaction";
 interface AddInteractionModalProps {
 	isOpen: boolean;
 	contactId: string;
+	editingInteraction?: Interaction | null;
 	onClose: () => void;
 	onConfirm: (interaction: any) => void;
 }
 
-const AddInteractionModal = ({ isOpen, contactId, onClose, onConfirm }: AddInteractionModalProps) => {
+const AddInteractionModal = ({ isOpen, contactId, editingInteraction, onClose, onConfirm }: AddInteractionModalProps) => {
 	const [error, setError] = useState<string>("");
 	const [selectedInteractionType, setSelectedInteractionType] = useState<Interaction["type"] | "">("");
 	const [subject, setSubject] = useState<string>("");
