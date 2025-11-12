@@ -85,7 +85,13 @@ const OutreachHistory = ({ label, contactId, onInteractionAdded }: OutreachHisto
                     <div className="flex justify-center text-gray-500 text-sm">No interactions yet.</div>
                 ) : (
                     interactions.map((interaction) => (
-                        <InteractionCard key={interaction.id} interaction={interaction} />
+                        <InteractionCard 
+                            key={interaction.id} 
+                            interaction={interaction} 
+                            onEdit={(interaction) => {
+                                console.log("Edit clicked for:", interaction);
+                            }}
+                        />
                     ))
                 )}
             </div>

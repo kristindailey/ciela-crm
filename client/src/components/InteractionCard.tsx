@@ -1,10 +1,12 @@
 import type { Interaction } from "../types/interaction";
+import { FiEdit2 } from "react-icons/fi";
 
 interface InteractionCardProps {
 	interaction: Interaction;
+	onEdit: (interaction: Interaction) => void;
 }
 
-const InteractionCard = ({ interaction }: InteractionCardProps) => {
+const InteractionCard = ({ interaction, onEdit }: InteractionCardProps) => {
 	const formatDate = (dateString: string) => {
 		const date = new Date(dateString);
 		return date.toLocaleDateString("en-US", {
@@ -24,6 +26,14 @@ const InteractionCard = ({ interaction }: InteractionCardProps) => {
 				<span className="text-xs text-gray-500">
 					{formatDate(interaction.interactionDate)}
 				</span>
+
+				<button
+					className="text-gray-400 hover:text-[var(--royal-blue)] transition-colors"
+					aria-label="Edit interaction"
+					onClick={() => onEdit(interaction)}
+				>
+					<FiEdit2 size={14} />
+				</button>
 			</div>
 
 			{interaction.subject && (
