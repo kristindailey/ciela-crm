@@ -16,8 +16,8 @@ const InteractionCard = ({ interaction }: InteractionCardProps) => {
 
     return (
         <div className="bg-gray-50 rounded-lg p-3 mb-3 border border-gray-200">
-			<div className="flex justify-between items-start mb-2">
-				<span className="text-xs font-semibold text-[var(--royal-blue)] uppercase">
+			<div className="flex justify-between items-start font-inter mb-2">
+				<span className="text-xs font-bold text-[var(--royal-blue)] uppercase">
 					{interaction.type}
 				</span>
 
@@ -26,8 +26,14 @@ const InteractionCard = ({ interaction }: InteractionCardProps) => {
 				</span>
 			</div>
 
+			{interaction.subject && (
+				<div className="text-sm text-black mb-1">
+					{interaction.subject}
+				</div>
+			)}
+
 			{interaction.message && (
-				<div className="font-sm text-sm text-gray-800 mb-1">
+				<div className="text-sm text-black mb-1">
 					{interaction.message}
 				</div>
 			)}
