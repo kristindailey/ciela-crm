@@ -179,8 +179,8 @@ model Interaction {
   type            InteractionType
   subject         String?
   message         String
-  interactionDate DateTime          
-  followUpDate    DateTime?
+  interactionDate DateTime          @db.Date
+  followUpDate    DateTime?         @db.Date
   completed       Boolean           @default(false)
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt

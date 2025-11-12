@@ -61,8 +61,8 @@ router.patch("/:interactionId", async (req, res) => {
                 ...(type && { type }),
                 ...(subject !== undefined && { subject }),
                 ...(message && { message }),
-                ...(interactionDate && { interactionDate: new Date(interactionDate) }),
-                ...(followUpDate !== undefined && { followUpDate: followUpDate ? new Date(followUpDate) : null }),
+                ...(interactionDate && { interactionDate: new Date(interactionDate + "T00:00:00Z") }),
+                ...(followUpDate !== undefined && { followUpDate: followUpDate ? new Date(followUpDate + "T00:00:00Z") : null }),
             },
         });
 
@@ -98,8 +98,8 @@ router.post("/", async (req, res) => {
                 type,
                 subject,
                 message,
-                interactionDate: new Date(interactionDate),
-                followUpDate: followUpDate ? new Date(followUpDate) : null,
+                interactionDate: new Date(interactionDate + "T00:00:00Z"),
+                followUpDate: followUpDate ? new Date(followUpDate + "T00:00:00Z") : null,
                 userId,
                 contactId,
             },
