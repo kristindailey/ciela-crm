@@ -57,8 +57,14 @@ const AddInteractionModal = ({ isOpen, contactId, editingInteraction, onClose, o
 		}
 
 		try {
-			const response = await fetch(`${API_BASE_URL}/interactions`, {
-				method: "POST",
+			const url = editingInteraction
+				? `${API_BASE_URL}/interactions/${editingInteraction.id}`
+				: `${API_BASE_URL}/interactions`;
+			
+			const method = editingInteraction ? "PATCH" : "POST";
+
+			const response = await fetch(url, {
+				method,
 				headers: { "Content-Type": "application/json" },
 				credentials: "include",
 				body: JSON.stringify({
@@ -72,14 +78,14 @@ const AddInteractionModal = ({ isOpen, contactId, editingInteraction, onClose, o
 			});
 
 			if (!response.ok) {
-				throw new Error("Failed to create interaction.");
+				throw new Error(editingInteraction ? "Failed up to update interaction." : "Failed to create interaction.");
 			}
 
-			const newInteraction = await response.json();
-			onConfirm(newInteraction);
+			const updatedInteraction = await response.json();
+			onConfirm(updatedInteraction);
 		} catch (error) {
-			console.error("Error creating interaction:", error);
-			setError("Failed to create interaction. Please try again.");
+			console.error("Error saving interaction:", error);
+			setError(editingInteraction ? "Failed to update interaction. Please try again." : "Failed to create interaction. Please try again.");
 		}
 	};
 
