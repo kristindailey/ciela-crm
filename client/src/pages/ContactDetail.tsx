@@ -134,9 +134,9 @@ const ContactDetail = () => {
         }
     };
 
-    const handleAddInteraction = (newInteraction: any) => {
+    const handleAddInteraction = async (newInteraction: any) => {
         if (newInteraction.deleted) {
-            fetchLastInteraction();
+            await fetchLastInteraction();
             return;
         }
 

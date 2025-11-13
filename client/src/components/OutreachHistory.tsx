@@ -109,6 +109,7 @@ const OutreachHistory = ({ label, contactId, onInteractionAdded }: OutreachHisto
                     onConfirm={(updatedInteraction) => {
                         if (updatedInteraction.deleted) {
                             setInteractions((prev) => prev.filter((interaction) => interaction.id !== updatedInteraction.id));
+                            onInteractionAdded?.(updatedInteraction);
                         } else {
                             setInteractions((prev) => {
                             const filtered = editingInteraction
