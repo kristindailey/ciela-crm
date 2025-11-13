@@ -16,7 +16,9 @@ const ContactDetail = () => {
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
+        const [year, month, day] = dateString.split("T")[0].split("-");
+		const date = new Date(Number(year), Number(month) - 1, Number(day));
+
         return date.toLocaleDateString("en-US", {
             month: "2-digit",
             day: "2-digit",
