@@ -91,6 +91,27 @@ const AddInteractionModal = ({ isOpen, contactId, editingInteraction, onClose, o
 		}
 	};
 
+	const handleDelete = async () => {
+		if (!editingInteraction) return;
+
+		try {
+			const response = await fetch(`${API_BASE_URL}/interactions/${editingInteraction.id}`, {
+				method: "DELETE",
+				credentials: "include",
+			});
+
+			if (!response.ok) {
+				throw new Error("Failed to delete interaction.");
+			}
+
+			setIsDeleteModalOpen(false);
+			onConfirm({ deleted: true, id: editingInteraction.id });
+		} catch (error) {
+			console.error("Error deleting interaction:", error);
+			setError("Failed to delete interaction. Please try again.");
+		}
+	};
+
 	useEffect(() => {
 		const handleEscape = (event: KeyboardEvent) => {
 			if (event.key === "Escape") {
