@@ -137,12 +137,13 @@ const ContactDetail = () => {
     };
 
     const handleAddInteraction = (newInteraction: any) => {
-        console.log("New interaction added:", newInteraction);
+        if (newInteraction.deleted) {
+            return;
+        }
 
-        setContact((prev) => prev ? {
-            ...prev,
-            updatedAt: new Date().toISOString(),
-        }: null);
+        if (!lastContactedDate || new Date(newInteraction.interactionDate) > new Date(lastContactedDate)) {
+            setLastContactedDate(newInteraction.interactionDate);
+        }
     };
 
     const handleDeleteContact = async () => {
