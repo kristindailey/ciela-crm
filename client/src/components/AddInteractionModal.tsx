@@ -3,6 +3,7 @@ import { Button, Calendar, CalendarCell, CalendarGrid, DateInput, DatePicker, Da
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { CalendarDate, parseDate } from "@internationalized/date";
 import type { Interaction } from "../types/interaction";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 
 interface AddInteractionModalProps {
 	isOpen: boolean;
@@ -283,7 +284,7 @@ const AddInteractionModal = ({ isOpen, contactId, editingInteraction, onClose, o
 						{editingInteraction && (
 							<button
 								type="button"
-								onClick={() => {}}
+								onClick={() => setIsDeleteModalOpen(true)}
 								className="px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors"
 							>
 								Delete
@@ -309,6 +310,14 @@ const AddInteractionModal = ({ isOpen, contactId, editingInteraction, onClose, o
 					</div>
 				</form>
 			</div>
+
+			<DeleteConfirmationModal
+				isOpen={isDeleteModalOpen}
+				itemName={editingInteraction?.subject || "this interaction"}
+				itemType="Interaction"
+				onClose={() => setIsDeleteModalOpen(false)}
+				onConfirm={() => {}}
+			/>
 		</div>
 	);
 };
