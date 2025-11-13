@@ -289,7 +289,7 @@ const AddInteractionModal = ({ isOpen, contactId, editingInteraction, onClose, o
 							</button>
 						)}
 
-						<div className="flex gap-3">
+						<div className="flex gap-3 ml-auto">
 							<button
 								type="button"
 								onClick={onClose}
