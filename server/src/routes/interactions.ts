@@ -112,4 +112,27 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.delete("/:interactionId", async (req, res) => {
+    try {
+        const userId = (req.user as any).id;
+        const { interactionId } = req.params;
+
+        const result = await prisma.interaction.deleteMany({
+            where: {
+                id: interactionId,
+                userId,
+            },
+        });
+
+        if (result.count === 0) {
+            return res.status(404).json({ error: "Interaction not found." });
+        }
+
+        res.sendStatus(204);
+    } catch (error) {
+        console.error("Error deleting interaction:", error);
+        res.status(500).json({ error: "Failed to delete interaction." });
+    }
+});
+
 export default router;
