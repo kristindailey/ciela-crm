@@ -278,21 +278,33 @@ const AddInteractionModal = ({ isOpen, contactId, editingInteraction, onClose, o
 						</textarea>
 					</div>
 
-					<div className="flex justify-end gap-3">
-						<button
-							type="button"
-							onClick={onClose}
-							className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
-						>
-							Cancel
-						</button>
+					<div className="flex justify-between gap-3">
+						{editingInteraction && (
+							<button
+								type="button"
+								onClick={() => {}}
+								className="px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors"
+							>
+								Delete
+							</button>
+						)}
 
-						<button
-							type="submit"
-							className="px-4 py-2 text-white bg-[var(--royal-blue)] rounded-lg hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors"
-						>
-							{editingInteraction ? "Update" : "Add"}
-						</button>
+						<div className="flex gap-3">
+							<button
+								type="button"
+								onClick={onClose}
+								className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+							>
+								Cancel
+							</button>
+
+							<button
+								type="submit"
+								className="px-4 py-2 text-white bg-[var(--royal-blue)] rounded-lg hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors"
+							>
+								{editingInteraction ? "Update" : "Add"}
+							</button>
+						</div>
 					</div>
 				</form>
 			</div>
