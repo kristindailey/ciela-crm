@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FaPlus } from "react-icons/fa6";
 import type { Interaction } from "../types/interaction";
-import AddInteractionModal from "./AddInteractionModal";
+import InteractionModal from "./InteractionModal";
 import InteractionCard from "./InteractionCard";
 
 interface OutreachHistoryProps {
@@ -98,7 +98,7 @@ const OutreachHistory = ({ label, contactId, onInteractionAdded }: OutreachHisto
             </div>
 
             {(isAddModalOpen || editingInteraction) &&
-                <AddInteractionModal 
+                <InteractionModal 
                     isOpen={isAddModalOpen || !!editingInteraction}
                     contactId={contactId}
                     editingInteraction={editingInteraction}

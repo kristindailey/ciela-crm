@@ -5,7 +5,7 @@ import { CalendarDate, parseDate } from "@internationalized/date";
 import type { Interaction } from "../types/interaction";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 
-interface AddInteractionModalProps {
+interface InteractionModalProps {
 	isOpen: boolean;
 	contactId: string;
 	editingInteraction?: Interaction | null;
@@ -13,7 +13,7 @@ interface AddInteractionModalProps {
 	onConfirm: (interaction: any) => void;
 }
 
-const AddInteractionModal = ({ isOpen, contactId, editingInteraction, onClose, onConfirm }: AddInteractionModalProps) => {
+const InteractionModal = ({ isOpen, contactId, editingInteraction, onClose, onConfirm }: InteractionModalProps) => {
 	const [error, setError] = useState<string>("");
 	const [selectedInteractionType, setSelectedInteractionType] = useState<Interaction["type"] | "">("");
 	const [subject, setSubject] = useState<string>("");
@@ -344,4 +344,4 @@ const AddInteractionModal = ({ isOpen, contactId, editingInteraction, onClose, o
 	);
 };
 
-export default AddInteractionModal;
+export default InteractionModal;
