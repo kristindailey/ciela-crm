@@ -182,8 +182,26 @@ const ContactDetail = () => {
             }
         };
 
+        const fetchLastInteraction = async () => {
+            try { 
+                const response = await fetch(`${API_BASE_URL}/interactions/${id}`, {
+                    credentials: "include",
+                });
+
+                if (response.ok) {
+                    const interactions = await response.json();
+                    if (interactions.length > 0) {
+                        setLastContactedDate(interactions[0].interactionDate);
+                    }
+                }
+            } catch (error) {
+                console.error("Error fetching last interaction date:", error);
+            }
+        };
+
         if (id) {
             fetchContact();
+            fetchLastInteraction();
         }
     }, [id, API_BASE_URL]);
 
