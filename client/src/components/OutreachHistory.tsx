@@ -109,7 +109,6 @@ const OutreachHistory = ({ label, contactId, onInteractionAdded }: OutreachHisto
                     onConfirm={(updatedInteraction) => {
                         if (updatedInteraction.deleted) {
                             setInteractions((prev) => prev.filter((interaction) => interaction.id !== updatedInteraction.id));
-                            onInteractionAdded?.(updatedInteraction);
                         } else {
                             setInteractions((prev) => {
                             const filtered = editingInteraction
@@ -119,8 +118,8 @@ const OutreachHistory = ({ label, contactId, onInteractionAdded }: OutreachHisto
                             return [...filtered, updatedInteraction]
                                 .sort((a, b) => new Date(b.interactionDate).getTime() - new Date(a.interactionDate).getTime());
                             });
-                            onInteractionAdded?.(updatedInteraction);
                         }
+                        onInteractionAdded?.(updatedInteraction);
                         setAddModalOpen(false);
                         setEditingInteration(null);
                     }}
