@@ -253,7 +253,7 @@ const ContactDetail = () => {
                     />
                     <InfoPill 
                         label="Last Contacted"
-                        value={contact.updatedAt ? formatDate(contact.updatedAt) : undefined}
+                        value={lastContactedDate ? formatDate(lastContactedDate) : undefined}
                         placeholder="Not yet contacted"
                         onSave={(newValue) => handleSaveDate(newValue)}
                     />
