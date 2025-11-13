@@ -142,6 +142,7 @@ const AddInteractionModal = ({ isOpen, contactId, editingInteraction, onClose, o
 			setInteractionDate(null);
 			setFollowUpDate(null);
 		}
+		setIsDeleteModalOpen(false);
 	}, [editingInteraction]);
 
 	if (!isOpen) return null;
