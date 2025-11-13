@@ -75,10 +75,6 @@ const ContactDetail = () => {
         }
     };
 
-    const handleSaveDate = async (newDate: string) => {
-        console.log("Date save not implemented yet:", newDate);
-    };
-
     const handleSaveContactNotes = async (newNotes: string) => {
         if (!contact) return;
 
@@ -275,7 +271,7 @@ const ContactDetail = () => {
                         label="Last Contacted"
                         value={lastContactedDate ? formatDate(lastContactedDate) : undefined}
                         placeholder="Not yet contacted"
-                        onSave={(newValue) => handleSaveDate(newValue)}
+                        onSave={() => {}}
                     />
                 </div>
 
