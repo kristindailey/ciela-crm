@@ -19,6 +19,7 @@ const AddInteractionModal = ({ isOpen, contactId, editingInteraction, onClose, o
 	const [message, setMessage] = useState<string>("");
 	const [interactionDate, setInteractionDate] = useState<CalendarDate | null>(null);
 	const [followUpDate, setFollowUpDate] = useState<CalendarDate | null>(null);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const interactionTypes: Interaction["type"][] = ["EMAIL", "PHONE", "MEETING", "MEETUP", "LINKEDIN", "BLUESKY", "OTHER"] as const;
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
