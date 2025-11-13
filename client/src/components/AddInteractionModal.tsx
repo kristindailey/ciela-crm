@@ -337,7 +337,7 @@ const AddInteractionModal = ({ isOpen, contactId, editingInteraction, onClose, o
 				itemName={editingInteraction?.subject || "this interaction"}
 				itemType="Interaction"
 				onClose={() => setIsDeleteModalOpen(false)}
-				onConfirm={() => {}}
+				onConfirm={handleDelete}
 			/>
 		</div>
 	);
