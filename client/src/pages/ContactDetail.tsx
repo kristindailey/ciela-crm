@@ -11,6 +11,7 @@ const ContactDetail = () => {
     const { id } = useParams<{ id: string }>();
     const [contact, setContact] = useState<Contact | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [lastContactedDate, setLastContactedDate] = useState<string | null>(null);
     const navigate = useNavigate();
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
