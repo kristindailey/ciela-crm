@@ -134,25 +134,6 @@ const ContactDetail = () => {
 
     const handleAddInteraction = (newInteraction: any) => {
         if (newInteraction.deleted) {
-            const fetchLastInteraction = async () => {
-                try {
-                    const response = await fetch(`${API_BASE_URL}/interactions/${id}`, {
-                        credentials: "include",
-                    });
-
-                    if (response.ok) {
-                        const interactions = await response.json();
-                        if (interactions.length > 0) {
-                            setLastContactedDate(interactions[0].interactionDate);
-                        } else {
-                            setLastContactedDate(null);
-                        }
-                    }
-                } catch (error) {
-                    console.error("Error fetching last interaction:", error);
-                }
-            };
-
             fetchLastInteraction();
             return;
         }
@@ -181,6 +162,23 @@ const ContactDetail = () => {
         }
     };
 
+    const fetchLastInteraction = async () => {
+        try { 
+            const response = await fetch(`${API_BASE_URL}/interactions/${id}`, {
+                credentials: "include",
+            });
+
+            if (response.ok) {
+                const interactions = await response.json();
+                if (interactions.length > 0) {
+                    setLastContactedDate(interactions[0].interactionDate);
+                }
+            }
+        } catch (error) {
+            console.error("Error fetching last interaction date:", error);
+        }
+    };
+
     useEffect(() => {
         const fetchContact = async () => {
             try {
@@ -196,23 +194,6 @@ const ContactDetail = () => {
                 console.error("Error fetching contact:", error);
             } finally {
                 setIsLoading(false);
-            }
-        };
-
-        const fetchLastInteraction = async () => {
-            try { 
-                const response = await fetch(`${API_BASE_URL}/interactions/${id}`, {
-                    credentials: "include",
-                });
-
-                if (response.ok) {
-                    const interactions = await response.json();
-                    if (interactions.length > 0) {
-                        setLastContactedDate(interactions[0].interactionDate);
-                    }
-                }
-            } catch (error) {
-                console.error("Error fetching last interaction date:", error);
             }
         };
 
