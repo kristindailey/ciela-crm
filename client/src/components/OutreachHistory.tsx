@@ -86,24 +86,24 @@ const OutreachHistory = ({ label, contactId, searchValue, searchPlaceholder, onS
             <label className="font-inter text-sm text-gray-600 block">{label}</label>
 
             <div className="bg-white rounded-xl shadow-md p-4 h-70 w-full overflow-y-auto">
-                <div className="relative mt-1">
-                    <input 
-                        type="text"
-                        value={searchValue}
-                        onChange={(e) => onSearchChange(e.target.value)}
-                        placeholder={searchPlaceholder} 
-                        className="pl-9 py-1 w-75 border border-2 border-[var(--royal-blue)] rounded-full text-black"
-                    />
+                <div className="flex items-center gap-3 mt-1 mb-4">
+                    <div className="relative flex-1">
+                        <input 
+                            type="text"
+                            value={searchValue}
+                            onChange={(e) => onSearchChange(e.target.value)}
+                            placeholder={searchPlaceholder} 
+                            className="pl-9 py-1 w-full border border-2 border-[var(--royal-blue)] rounded-full text-black"
+                        />
                 
-                    <div className="absolute left-3 top-1/2 translate -translate-y-1/2">
-                        <FaMagnifyingGlass className="text-[var(--royal-blue)]"/>
+                        <div className="absolute left-3 top-1/2 translate -translate-y-1/2">
+                            <FaMagnifyingGlass className="text-[var(--royal-blue)]"/>
+                        </div>
                     </div>
-                </div>
 
-                <div className="flex justify-end mb-3">
                     <button 
                         onClick={() => setAddModalOpen(!isAddModalOpen)}
-                        className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] drop-shadow-sm transition-colors duration-150 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)]"
+                        className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] drop-shadow-sm transition-colors duration-150 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] ml-auto"
                     >
                         <FaPlus size={14} />
                     </button>
