@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from "react";
-import { FaPlus } from "react-icons/fa6";
+import { useState, useRef, useEffect,  useMemo } from "react";
+import { FaMagnifyingGlass, FaPlus } from "react-icons/fa6";
 import type { Interaction } from "../types/interaction";
 import InteractionModal from "./InteractionModal";
 import InteractionCard from "./InteractionCard";
@@ -7,10 +7,13 @@ import InteractionCard from "./InteractionCard";
 interface OutreachHistoryProps {
     label: string;
     contactId: string;
+    searchValue: string;
+    searchPlaceholder: string;
+    onSearchChange: (value: string) => void;
     onInteractionAdded?: (interaction: any) => void;
 }
 
-const OutreachHistory = ({ label, contactId, onInteractionAdded }: OutreachHistoryProps) => {
+const OutreachHistory = ({ label, contactId, searchValue, searchPlaceholder, onSearchChange, onInteractionAdded }: OutreachHistoryProps) => {
     const [interactions, setInteractions] = useState<Interaction[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string>("");
@@ -18,6 +21,22 @@ const OutreachHistory = ({ label, contactId, onInteractionAdded }: OutreachHisto
     const [editingInteraction, setEditingInteration] = useState<Interaction | null>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+    const filteredInteractions = useMemo(() => {
+        if (searchValue === "") {
+            return interactions;
+        }
+    
+        return interactions.filter((interaction) => {
+            const searchLower = searchValue.toLowerCase();
+
+            return (
+                interaction.type.toLowerCase().includes(searchLower) ||
+                interaction.subject?.toLowerCase().includes(searchLower) ||
+                interaction.message.toLowerCase().includes(searchLower)
+            );
+        });
+    }, [interactions, searchValue]);
 
     useEffect(() => {
         const fetchInteractions = async () => {
@@ -67,6 +86,20 @@ const OutreachHistory = ({ label, contactId, onInteractionAdded }: OutreachHisto
             <label className="font-inter text-sm text-gray-600 block">{label}</label>
 
             <div className="bg-white rounded-xl shadow-md p-4 h-70 w-full overflow-y-auto">
+                <div className="relative mt-1">
+                    <input 
+                        type="text"
+                        value={searchValue}
+                        onChange={(e) => onSearchChange(e.target.value)}
+                        placeholder={searchPlaceholder} 
+                        className="pl-9 py-1 w-75 border border-2 border-[var(--royal-blue)] rounded-full text-black"
+                    />
+                
+                    <div className="absolute left-3 top-1/2 translate -translate-y-1/2">
+                        <FaMagnifyingGlass className="text-[var(--royal-blue)]"/>
+                    </div>
+                </div>
+
                 <div className="flex justify-end mb-3">
                     <button 
                         onClick={() => setAddModalOpen(!isAddModalOpen)}
@@ -82,10 +115,12 @@ const OutreachHistory = ({ label, contactId, onInteractionAdded }: OutreachHisto
 
                 {isLoading ? (
                     <div className="flex justify-center text-gray-500 text-sm">Loading...</div>
-                ) : interactions.length === 0 ? (
-                    <div className="flex justify-center text-gray-500 text-sm">No interactions yet.</div>
+                ) : filteredInteractions.length === 0 ? (
+                    <div className="flex justify-center text-gray-500 text-sm">
+                        {searchValue ? "No interactions found matching your search." : "No interactions yet."}
+                    </div>
                 ) : (
-                    interactions.map((interaction) => (
+                    filteredInteractions.map((interaction) => (
                         <InteractionCard 
                             key={interaction.id} 
                             interaction={interaction} 

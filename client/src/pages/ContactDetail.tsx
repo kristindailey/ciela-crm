@@ -9,6 +9,7 @@ import OutreachHistory from "../components/OutreachHistory";
 
 const ContactDetail = () => {
     const { id } = useParams<{ id: string }>();
+    const [searchQuery, setSearchQuery] = useState("");
     const [contact, setContact] = useState<Contact | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [lastContactedDate, setLastContactedDate] = useState<string | null>(null);
@@ -143,6 +144,10 @@ const ContactDetail = () => {
         if (!lastContactedDate || new Date(newInteraction.interactionDate) > new Date(lastContactedDate)) {
             setLastContactedDate(newInteraction.interactionDate);
         }
+    };
+
+    const handleSearchInteractions = (value: string) => {
+        setSearchQuery(value);
     };
 
     const handleDeleteContact = async () => {
@@ -282,6 +287,9 @@ const ContactDetail = () => {
                         <OutreachHistory 
                             label="Outreach History"
                             contactId={contact.id}
+                            searchValue={searchQuery}
+                            searchPlaceholder="Search interactions..."
+                            onSearchChange={handleSearchInteractions}
                             onInteractionAdded={handleAddInteraction}
                         />
                     </div>
