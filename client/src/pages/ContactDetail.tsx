@@ -255,6 +255,7 @@ const ContactDetail = () => {
                         value={lastContactedDate ? formatDate(lastContactedDate) : undefined}
                         placeholder="Not yet contacted"
                         onSave={() => {}}
+                        readOnly={true}
                     />
                 </div>
 

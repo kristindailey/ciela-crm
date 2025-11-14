@@ -5,15 +5,17 @@ interface InfoPillProps {
     value: string | undefined;
     placeholder: string;
     dropdownOptions?: string[];
+    readOnly?: boolean;
     onSave: (newValue: string) => void;
 }
 
 
-const InfoPill = ({ label, value, placeholder, dropdownOptions, onSave }: InfoPillProps) => {
+const InfoPill = ({ label, value, placeholder, dropdownOptions, readOnly = false, onSave }: InfoPillProps) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editValue, setEditValue] = useState(value || "");
 
     const handleClick = () => {
+        if (readOnly) return;
         setIsEditing(true);
         setEditValue(value || (dropdownOptions?.[0] || ""));
     };  
@@ -31,7 +33,7 @@ const InfoPill = ({ label, value, placeholder, dropdownOptions, onSave }: InfoPi
             <label className="font-inter text-sm text-gray-600 mb-1 block">{label}</label>
             <div 
                 onClick={handleClick}
-                className="bg-white rounded-xl shadow-md cursor-pointer transition-all text-medium font-semibold text-[var(--royal-blue)] overflow-hidden flex items-center justify-center h-25 w-full"
+                className={`bg-white rounded-xl shadow-md transition-all text-medium font-semibold text-[var(--royal-blue)] overflow-hidden flex items-center justify-center h-25 w-full ${readOnly ? "" : "cursor-pointer"}`}
             >
                 {isEditing ? (
                     dropdownOptions ? (
