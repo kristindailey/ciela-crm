@@ -29,6 +29,12 @@ const InteractionCard = ({ interaction, onEdit }: InteractionCardProps) => {
 					{formatDate(interaction.interactionDate)}
 				</span>
 
+				{interaction.contact && (
+					<span className="text-xs text-gray-600">
+						{interaction.contact.firstName} {interaction.contact.lastName}
+					</span>
+				)}
+
 				<button
 					className="text-gray-400 hover:text-[var(--royal-blue)] transition-colors"
 					aria-label="Edit interaction"

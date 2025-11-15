@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Company } from "../types/company";
 import InfoPill from "../components/InfoPill";
 import NotesSection from "../components/NotesSection";
@@ -30,6 +31,8 @@ const CompanyOverview = ({
 	onSaveTechStack,
 	onSaveCompanyNotes
 }: CompanyOverviewProps) => {
+    const [searchQuery, setSearchQuery] = useState("");
+
 	const formatDate = (dateString: string) => {
         const date = new Date(dateString);
         return date.toLocaleDateString("en-US", {
@@ -153,6 +156,11 @@ const CompanyOverview = ({
             	<div className="col-span-2">
                 	<OutreachHistory 
                     	label="Outreach History"
+                        contactId={company.id}
+                        companyId={company.id}
+                        searchValue={searchQuery}
+                        searchPlaceholder="Search interactions..."
+                        onSearchChange={setSearchQuery}
                 	/>
             	</div>
         	</div>

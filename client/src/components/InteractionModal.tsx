@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Button, Calendar, CalendarCell, CalendarGrid, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Popover } from "react-aria-components";
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { CalendarDate, parseDate } from "@internationalized/date";
@@ -8,12 +8,13 @@ import DeleteConfirmationModal from "./DeleteConfirmationModal";
 interface InteractionModalProps {
 	isOpen: boolean;
 	contactId: string;
+	companyId?: string;
 	editingInteraction?: Interaction | null;
 	onClose: () => void;
 	onConfirm: (interaction: any) => void;
 }
 
-const InteractionModal = ({ isOpen, contactId, editingInteraction, onClose, onConfirm }: InteractionModalProps) => {
+const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, onClose, onConfirm }: InteractionModalProps) => {
 	const [error, setError] = useState<string>("");
 	const [selectedInteractionType, setSelectedInteractionType] = useState<Interaction["type"] | "">("");
 	const [subject, setSubject] = useState<string>("");
@@ -21,6 +22,10 @@ const InteractionModal = ({ isOpen, contactId, editingInteraction, onClose, onCo
 	const [interactionDate, setInteractionDate] = useState<CalendarDate | null>(null);
 	const [followUpDate, setFollowUpDate] = useState<CalendarDate | null>(null);
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+	const [contacts, setContacts] = useState<Array<{id: string, name: string}>>([]);
+	const [selectedContactId, setSelectedContactId] = useState<string>("");
+	const [isLoadingContacts, setIsLoadingContacts] = useState(false);
+	const [contactSearchQuery, setContactSearchQuery] = useState("");
 	const interactionTypes: Interaction["type"][] = ["EMAIL", "PHONE", "MEETING", "MEETUP", "LINKEDIN", "BLUESKY", "OTHER"] as const;
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -58,6 +63,11 @@ const InteractionModal = ({ isOpen, contactId, editingInteraction, onClose, onCo
 			return;
 		}
 
+		if (companyId && !selectedContactId) {
+			setError("Please select a contact.");
+			return;
+		}
+
 		try {
 			const url = editingInteraction
 				? `${API_BASE_URL}/interactions/${editingInteraction.id}`
@@ -75,7 +85,7 @@ const InteractionModal = ({ isOpen, contactId, editingInteraction, onClose, onCo
 					message,
 					interactionDate: interactionDate ? interactionDate.toString() : null,
 					followUpDate: followUpDate ? followUpDate.toString() : null,
-					contactId,
+					contactId: companyId ? selectedContactId : contactId,
 				}),
 			});
 
@@ -112,6 +122,14 @@ const InteractionModal = ({ isOpen, contactId, editingInteraction, onClose, onCo
 		}
 	};
 
+	const filteredContacts = useMemo(() => {
+		if (!contactSearchQuery) return contacts;
+
+		return contacts.filter((contact) => {
+			contact.name.toLowerCase().includes(contactSearchQuery.toLowerCase());
+		});
+	}, [contacts, contactSearchQuery]);
+
 	useEffect(() => {
 		const handleEscape = (event: KeyboardEvent) => {
 			if (event.key === "Escape") {
@@ -139,11 +157,41 @@ const InteractionModal = ({ isOpen, contactId, editingInteraction, onClose, onCo
 			setSelectedInteractionType("");
 			setSubject("");
 			setMessage("");
+			setSelectedContactId("");
+			setContactSearchQuery("");
 			setInteractionDate(null);
 			setFollowUpDate(null);
 		}
 		setIsDeleteModalOpen(false);
 	}, [editingInteraction]);
+
+	useEffect(() => {
+		if (!companyId || !isOpen) return;
+
+		const fetchContacts = async () => {
+			setIsLoadingContacts(true);
+
+			try {
+				const response = await fetch(`${API_BASE_URL}/companies/${companyId}/contacts`, {
+					credentials: "include",
+				});
+
+				if (response.ok) {
+					const contactsData = await response.json();
+					setContacts(contactsData.map((contact: any) => ({ 
+						id: contact.id, 
+						name: `${contact.firstName} ${contact.lastName}`.trim(),
+					})));
+				}
+			} catch (error) {
+				console.error("Error fetching contacts:", error);
+			} finally {
+				setIsLoadingContacts(false);
+			}
+		};
+
+		fetchContacts();
+	}, [companyId, isOpen, API_BASE_URL]);
 
 	if (!isOpen) return null;
 
@@ -186,6 +234,42 @@ const InteractionModal = ({ isOpen, contactId, editingInteraction, onClose, onCo
 							))}
 						</select>
 					</div>
+
+					{companyId && (
+						<div className="mb-5">
+							<label htmlFor="contact" className="block text-sm font-medium mb-1">
+								Contact
+							</label>
+
+							{isLoadingContacts ? (
+								<div className="text-gray-500 text-sm">Loading contacts...</div>
+							) : (
+								<>
+									<input 
+										type="text" 
+										id="contact"
+										value={contactSearchQuery}
+										onChange={(e) => setContactSearchQuery(e.target.value)}
+										placeholder="Search contacts..."
+										className="w-full px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md mb-2"
+									/>
+
+									<select
+										value={selectedContactId}
+										onChange={(e) => setSelectedContactId(e.target.value)}
+										className="w-full px-2 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+									>
+										<option value="">Choose a contact...</option>
+										{filteredContacts.map((contact) => (
+											<option key={contact.id} value={contact.id}>
+												{contact.name}
+											</option>
+										))}
+									</select>
+								</>
+							)}
+						</div>
+					)}
 
 					<div className="flex justify-between mb-5">
 						<div>

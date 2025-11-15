@@ -7,13 +7,14 @@ import InteractionCard from "./InteractionCard";
 interface OutreachHistoryProps {
     label: string;
     contactId: string;
+    companyId?: string;
     searchValue: string;
     searchPlaceholder: string;
     onSearchChange: (value: string) => void;
     onInteractionAdded?: (interaction: any) => void;
 }
 
-const OutreachHistory = ({ label, contactId, searchValue, searchPlaceholder, onSearchChange, onInteractionAdded }: OutreachHistoryProps) => {
+const OutreachHistory = ({ label, contactId, companyId, searchValue, searchPlaceholder, onSearchChange, onInteractionAdded }: OutreachHistoryProps) => {
     const [interactions, setInteractions] = useState<Interaction[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string>("");
@@ -41,7 +42,11 @@ const OutreachHistory = ({ label, contactId, searchValue, searchPlaceholder, onS
     useEffect(() => {
         const fetchInteractions = async () => {
             try {
-                const response = await fetch(`${API_BASE_URL}/interactions/${contactId}`, {
+                const endpoint = companyId
+                    ? `${API_BASE_URL}/companies/${companyId}/interactions`
+                    : `${API_BASE_URL}/interactions/${contactId}`;
+
+                const response = await fetch(endpoint, {
                     credentials: "include",
                 });
 
@@ -136,6 +141,7 @@ const OutreachHistory = ({ label, contactId, searchValue, searchPlaceholder, onS
                 <InteractionModal 
                     isOpen={isAddModalOpen || !!editingInteraction}
                     contactId={contactId}
+                    companyId={companyId}
                     editingInteraction={editingInteraction}
                     onClose={() => {
                         setAddModalOpen(false);

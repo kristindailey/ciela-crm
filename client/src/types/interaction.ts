@@ -5,6 +5,11 @@ export interface Interaction {
     message: string;
     interactionDate: string;
     followUpDate?: string | null;
+    contact?: {
+        id: string;
+        firstName: string;
+        lastName: string;
+    };
     completed: boolean;
     createdAt: string;
     updatedAt: string;

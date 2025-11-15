@@ -87,6 +87,50 @@ router.get("/:id/contacts", async (req, res) => {
     }
 });
 
+router.get("/:id/interactions", async (req, res) => {
+    try {
+        const userId = (req.user as any).id;
+        const { id } = req.params;
+
+        const company = await prisma.company.findFirst({
+            where: {
+                id,
+                userId,
+            },
+        });
+
+        if (!company) {
+            return res.status(404).json({ error: "Company not found." });
+        }
+
+        const interactions = await prisma.interaction.findMany({
+            where: {
+                userId, 
+                contact: {
+                    companyId: id,
+                },
+            },
+            include: {
+                contact: {
+                    select: {
+                        id: true,
+                        firstName: true,
+                        lastName: true,
+                    },
+                },
+            },
+            orderBy: {
+                interactionDate: "desc",
+            },
+        });
+
+        res.json(interactions);
+    } catch (error) {
+        console.error("Error fetching company interactions:", error);
+        res.status(500).json({ error: "Failed to fetch company interactions." });
+    }
+});
+
 router.patch("/:id", async (req, res) => {
     try {
         const userId = (req.user as any).id;
