@@ -15,7 +15,6 @@ interface CompanyOverviewProps {
 	onSaveOfficePolicy: (value: string) => void;
 	onSaveTechStack: (value: string) => void;
 	onSaveCompanyNotes: (value: string) => void;
-    onAddInteraction: () => void;
 }
 
 const CompanyOverview = ({ 
@@ -29,8 +28,7 @@ const CompanyOverview = ({
 	onSaveBlindRating,
 	onSaveOfficePolicy,
 	onSaveTechStack,
-	onSaveCompanyNotes,
-    onAddInteraction,
+	onSaveCompanyNotes
 }: CompanyOverviewProps) => {
 	const formatDate = (dateString: string) => {
         const date = new Date(dateString);

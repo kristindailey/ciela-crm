@@ -103,9 +103,9 @@ const OutreachHistory = ({ label, contactId, searchValue, searchPlaceholder, onS
 
                     <button 
                         onClick={() => setAddModalOpen(!isAddModalOpen)}
-                        className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] drop-shadow-sm transition-colors duration-150 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] ml-auto"
+                        className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] drop-shadow-sm transition-colors duration-150 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] ml-auto"
                     >
-                        <FaPlus size={14} />
+                        <FaPlus size={16} />
                     </button>
                 </div>
 
