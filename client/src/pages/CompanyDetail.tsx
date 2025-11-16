@@ -11,6 +11,7 @@ const CompanyDetail = () => {
     const { id } = useParams<{ id: string }>();
     const [company, setCompany] = useState<Company | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [lastContactedDate, setLastContactedDate] = useState<string | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
     const activeTab = searchParams.get("tab") || "overview";
     const navigate = useNavigate();
@@ -82,10 +83,6 @@ const CompanyDetail = () => {
         } catch (error) {
             console.error("Failed to save employee count:", error);
         }
-    };
-
-    const handleSaveDate = async (newDate: string) => {
-        console.log("Date save not implemented yet:", newDate);
     };
 
     const handleSaveLocalLocation = async (newLocalLocation: string) => {
@@ -242,7 +239,35 @@ const CompanyDetail = () => {
         } catch (error) {
             console.error("Failed to delete company:", error);
         }
-    }; 
+    };
+
+    const handleAddInteraction = async (newInteraction: any) => {
+        if (newInteraction.deleted) {
+            await fetchLastInteraction();
+            return;
+        }
+
+        if (!lastContactedDate || new Date(newInteraction.interactionDate) > new Date(lastContactedDate)) {
+            setLastContactedDate(newInteraction.interactionDate);
+        }
+    };
+
+    const fetchLastInteraction = async () => {
+        try { 
+            const response = await fetch(`${API_BASE_URL}/companies/${id}/interactions/`, {
+                credentials: "include",
+            });
+
+            if (response.ok) {
+                const interactions = await response.json();
+                if (interactions.length > 0) {
+                    setLastContactedDate(interactions[0].interactionDate);
+                }
+            }
+        } catch (error) {
+            console.error("Error fetching last interaction date:", error);
+        }
+    };
 
     useEffect(() => {
         const fetchCompany = async () => {
@@ -264,6 +289,7 @@ const CompanyDetail = () => {
 
         if (id) {
             fetchCompany();
+            fetchLastInteraction();
         }
     }, [id, API_BASE_URL]);
 
@@ -305,16 +331,17 @@ const CompanyDetail = () => {
                 {activeTab === "overview" && (
                     <CompanyOverview
                         company={company}
+                        lastContactedDate={lastContactedDate}
                         onSaveDescription={handleSaveDescription}
                         onSaveHQLocation={handleSaveHQLocation}
                         onSaveEmployeeCount={handleSaveEmployeeCount}
-                        onSaveDate={handleSaveDate}
                         onSaveLocalLocation={handleSaveLocalLocation}
                         onSaveGlassdoorRating={handleSaveGlassdoorRating}
                         onSaveBlindRating={handleSaveBlindRating}
                         onSaveOfficePolicy={handleSaveOfficePolicy}
                         onSaveTechStack={handleSaveTechStack}
                         onSaveCompanyNotes={handleSaveCompanyNotes}
+                        onInteractionAdded={handleAddInteraction}
                     />
                 )}
 

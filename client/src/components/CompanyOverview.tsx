@@ -6,35 +6,39 @@ import OutreachHistory from "../components/OutreachHistory";
 
 interface CompanyOverviewProps {
 	company: Company;
+    lastContactedDate: string | null;
 	onSaveDescription: (value: string) => void;
 	onSaveHQLocation: (value: string) => void;
 	onSaveEmployeeCount: (value: number) => void;
-	onSaveDate: (value: string) => void;
 	onSaveLocalLocation: (value: string) => void;
 	onSaveGlassdoorRating: (value: number) => void;
     onSaveBlindRating: (value: number) => void;
 	onSaveOfficePolicy: (value: string) => void;
 	onSaveTechStack: (value: string) => void;
 	onSaveCompanyNotes: (value: string) => void;
+    onInteractionAdded?: (interaction: any) => void;
 }
 
 const CompanyOverview = ({ 
 	company,
+    lastContactedDate,
 	onSaveDescription,
 	onSaveHQLocation,
 	onSaveEmployeeCount,
-	onSaveDate,
 	onSaveLocalLocation,
 	onSaveGlassdoorRating,
 	onSaveBlindRating,
 	onSaveOfficePolicy,
 	onSaveTechStack,
-	onSaveCompanyNotes
+	onSaveCompanyNotes,
+    onInteractionAdded
 }: CompanyOverviewProps) => {
     const [searchQuery, setSearchQuery] = useState("");
 
 	const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
+        const [year, month, day] = dateString.split("T")[0].split("-");
+        const date = new Date(Number(year), Number(month) - 1, Number(day));
+
         return date.toLocaleDateString("en-US", {
             month: "2-digit",
             day: "2-digit",
@@ -80,9 +84,10 @@ const CompanyOverview = ({
                 />
                 <InfoPill 
                     label="Last Contacted"
-                    value={company.updatedAt ? formatDate(company.updatedAt) : undefined}
+                    value={lastContactedDate ? formatDate(lastContactedDate) : undefined}
                     placeholder="Not yet contacted"
-                    onSave={onSaveDate}
+                    onSave={() => {}}
+                    readOnly={true}
                 />
             </div>
 
@@ -161,6 +166,7 @@ const CompanyOverview = ({
                         searchValue={searchQuery}
                         searchPlaceholder="Search interactions..."
                         onSearchChange={setSearchQuery}
+                        onInteractionAdded={onInteractionAdded}
                 	/>
             	</div>
         	</div>
