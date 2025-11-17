@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Button, Calendar, CalendarCell, CalendarGrid, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Popover } from "react-aria-components";
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { CalendarDate, parseDate } from "@internationalized/date";
@@ -25,7 +25,6 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
 	const [contacts, setContacts] = useState<Array<{id: string, name: string}>>([]);
 	const [selectedContactId, setSelectedContactId] = useState<string>("");
 	const [isLoadingContacts, setIsLoadingContacts] = useState(false);
-	const [contactSearchQuery, setContactSearchQuery] = useState("");
 	const interactionTypes: Interaction["type"][] = ["EMAIL", "PHONE", "MEETING", "MEETUP", "LINKEDIN", "BLUESKY", "OTHER"] as const;
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -136,14 +135,6 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
 		}
 	};
 
-	const filteredContacts = useMemo(() => {
-		if (!contactSearchQuery) return contacts;
-
-		return contacts.filter((contact) => {
-			contact.name.toLowerCase().includes(contactSearchQuery.toLowerCase());
-		});
-	}, [contacts, contactSearchQuery]);
-
 	useEffect(() => {
 		const handleEscape = (event: KeyboardEvent) => {
 			if (event.key === "Escape") {
@@ -173,7 +164,6 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
 			setSubject("");
 			setMessage("");
 			setSelectedContactId("");
-			setContactSearchQuery("");
 			setInteractionDate(null);
 			setFollowUpDate(null);
 		}
@@ -259,29 +249,18 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
 							{isLoadingContacts ? (
 								<div className="text-gray-500 text-sm">Loading contacts...</div>
 							) : (
-								<>
-									<input 
-										type="text" 
-										id="contact"
-										value={contactSearchQuery}
-										onChange={(e) => setContactSearchQuery(e.target.value)}
-										placeholder="Search contacts..."
-										className="w-full px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md mb-2"
-									/>
-
-									<select
-										value={selectedContactId}
-										onChange={(e) => setSelectedContactId(e.target.value)}
-										className="w-full px-2 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-									>
-										<option value="">Choose a contact...</option>
-										{filteredContacts.map((contact) => (
-											<option key={contact.id} value={contact.id}>
-												{contact.name}
-											</option>
-										))}
-									</select>
-								</>
+								<select
+									value={selectedContactId}
+									onChange={(e) => setSelectedContactId(e.target.value)}
+									className="w-full px-2 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+								>
+									<option value="">Choose a contact...</option>
+									{contacts.map((contact) => (
+										<option key={contact.id} value={contact.id}>
+											{contact.name}
+										</option>
+									))}
+								</select>
 							)}
 						</div>
 					)}
