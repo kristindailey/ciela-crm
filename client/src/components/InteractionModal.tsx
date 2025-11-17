@@ -94,6 +94,20 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
 			}
 
 			const updatedInteraction = await response.json();
+
+			if (companyId && selectedContactId) {
+				const selectedContact = contacts.find((contact) => contact.id === selectedContactId);
+
+				if (selectedContact) {
+					const [firstName, ...lastNameParts] = selectedContact.name.split(" ");
+					updatedInteraction.contact = {
+						id: selectedContactId,
+						firstName,
+						lastName: lastNameParts.join(" "),
+					};
+				}
+			}
+
 			onConfirm(updatedInteraction);
 		} catch (error) {
 			console.error("Error saving interaction:", error);
