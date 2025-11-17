@@ -4,6 +4,7 @@ import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { CalendarDate, parseDate } from "@internationalized/date";
 import type { Interaction } from "../types/interaction";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import { edit } from "@cloudinary/url-gen/actions/animated";
 
 interface InteractionModalProps {
 	isOpen: boolean;
@@ -165,6 +166,7 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
 			setSelectedInteractionType(editingInteraction.type);
 			setSubject(editingInteraction.subject || "");
 			setMessage(editingInteraction.message);
+			setSelectedContactId(editingInteraction.contactId);
 			setInteractionDate(parseDate(editingInteraction.interactionDate.split("T")[0]));
 			setFollowUpDate(editingInteraction.followUpDate ? parseDate(editingInteraction.followUpDate.split("T")[0]) : null);
 		} else {
