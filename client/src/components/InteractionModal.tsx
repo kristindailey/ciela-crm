@@ -223,7 +223,11 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
 				)}
 
 				<form onSubmit={handleSubmit}>
-					<div className="flex gap-5 mt-5 mb-5">
+					<div className="mt-5 mb-5">
+						<label htmlFor="type" className="block text-sm font-medium mb-1">
+							Type
+						</label>
+
 						<select 
 							name="type" 
 							id="type"
