@@ -20,7 +20,7 @@ const InteractionCard = ({ interaction, onEdit }: InteractionCardProps) => {
 
     return (
         <div className="bg-gray-50 rounded-lg p-3 mb-3 border border-gray-200">
-			<div className="grid grid-cols-[2fr_2fr_2fr_auto] items-center gap-4 font-inter mb-2">
+			<div className={`grid ${interaction.contact ? "grid-cols-[2fr_2fr_2fr_auto]" : "grid-cols-[2fr_2fr_0fr_auto]"} items-center gap-4 font-inter mb-2`}>
 				<span className="text-xs font-bold text-[var(--royal-blue)] uppercase">
 					{interaction.type}
 				</span>
