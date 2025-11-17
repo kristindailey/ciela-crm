@@ -4,7 +4,6 @@ import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { CalendarDate, parseDate } from "@internationalized/date";
 import type { Interaction } from "../types/interaction";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
-import { edit } from "@cloudinary/url-gen/actions/animated";
 
 interface InteractionModalProps {
 	isOpen: boolean;

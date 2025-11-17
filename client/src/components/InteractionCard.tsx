@@ -20,7 +20,7 @@ const InteractionCard = ({ interaction, onEdit }: InteractionCardProps) => {
 
     return (
         <div className="bg-gray-50 rounded-lg p-3 mb-3 border border-gray-200">
-			<div className="flex justify-between items-start font-inter mb-2">
+			<div className="grid grid-cols-[2fr_2fr_2fr_auto] items-center gap-4 font-inter mb-2">
 				<span className="text-xs font-bold text-[var(--royal-blue)] uppercase">
 					{interaction.type}
 				</span>
@@ -29,11 +29,13 @@ const InteractionCard = ({ interaction, onEdit }: InteractionCardProps) => {
 					{formatDate(interaction.interactionDate)}
 				</span>
 
-				{interaction.contact && (
-					<span className="text-xs text-gray-600">
-						{interaction.contact.firstName} {interaction.contact.lastName}
-					</span>
-				)}
+				{interaction.contact ? (
+        			<span className="text-xs text-gray-600">
+            			{interaction.contact.firstName} {interaction.contact.lastName}
+        			</span>
+    			) : (
+        			<span></span>
+    			)}
 
 				<button
 					className="text-gray-400 hover:text-[var(--royal-blue)] transition-colors"
