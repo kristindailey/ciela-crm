@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 interface UploadModalProps {
 	isOpen: boolean;
 	uploadType: string;
@@ -6,6 +8,16 @@ interface UploadModalProps {
 }
 
 const UploadModal = ({ isOpen, uploadType, onClose, onDownloadTemplate }: UploadModalProps) => {
+	const fileInputRef = useRef<HTMLInputElement>(null);
+
+	const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+
+		if (file) {
+			console.log("File selected:", file.name);
+		}
+	};
+
 	if (!isOpen) return null;
 
     return (
@@ -18,6 +30,21 @@ const UploadModal = ({ isOpen, uploadType, onClose, onDownloadTemplate }: Upload
 					className="w-full mb-4 px-4 py-2 text-white bg-[var(--royal-blue)] rounded hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-color"
 				>
 					Download CSV Template
+				</button>
+
+				<input
+					ref={fileInputRef}
+					type="file"
+					accept=".csv"
+					onChange={handleFileSelect}
+					className="hidden"
+				/>
+
+				<button
+					onClick={() => fileInputRef.current?.click()}
+					className="w-full mb-4 px-4 py-2 text-white bg-[var(--royal-blue)] rounded hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-color"
+				>
+					Select CSV File
 				</button>
 
 				<button 
