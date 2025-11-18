@@ -1,4 +1,5 @@
 import { FaMagnifyingGlass, FaPlus } from "react-icons/fa6";
+import { TbUpload } from "react-icons/tb";
 
 interface PageHeaderProps {
     title: string;
@@ -20,6 +21,12 @@ const PageHeader = ({ title, searchValue, searchPlaceholder, onSearchChange, onA
                     className="inline-flex h-10 w-10 mt-2 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] drop-shadow-sm transition-colors duration-150 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)]"
                 >
                     <FaPlus className="text-xl"/>
+                </button>
+
+                <button 
+                    className="inline-flex h-10 w-10 mt-2 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] drop-shadow-sm transition-colors duration-150 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)]"
+                >
+                    <TbUpload className="text-xl" />
                 </button>
             </div>
 
