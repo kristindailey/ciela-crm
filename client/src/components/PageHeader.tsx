@@ -7,9 +7,10 @@ interface PageHeaderProps {
     searchPlaceholder: string;
     onSearchChange: (value: string) => void;
     onAddClick: () => void;
+    onUploadClick: () => void;
 }
 
-const PageHeader = ({ title, searchValue, searchPlaceholder, onSearchChange, onAddClick }: PageHeaderProps) => {
+const PageHeader = ({ title, searchValue, searchPlaceholder, onSearchChange, onAddClick, onUploadClick }: PageHeaderProps) => {
   return (
     <div className="flex items-center justify-between mb-4">
         <div className="flex items-center justify-between w-full mt-20 ml-5 mr-5">
@@ -24,6 +25,7 @@ const PageHeader = ({ title, searchValue, searchPlaceholder, onSearchChange, onA
                 </button>
 
                 <button 
+                    onClick={onUploadClick}
                     className="inline-flex h-10 w-10 mt-2 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] drop-shadow-sm transition-colors duration-150 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)]"
                 >
                     <TbUpload className="text-xl" />
