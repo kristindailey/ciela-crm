@@ -4,17 +4,18 @@ interface UploadModalProps {
 	isOpen: boolean;
 	uploadType: string;
 	onClose: () => void;
-	onDownloadTemplate: () => void;
+	onDownloadTemplate: () => void
+	onUpload: (fie: File) => void;
 }
 
-const UploadModal = ({ isOpen, uploadType, onClose, onDownloadTemplate }: UploadModalProps) => {
+const UploadModal = ({ isOpen, uploadType, onClose, onDownloadTemplate, onUpload }: UploadModalProps) => {
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 
 		if (file) {
-			console.log("File selected:", file.name);
+			onUpload(file);
 		}
 	};
 

@@ -194,6 +194,7 @@ const Contacts = () => {
                 uploadType="Contacts"
                 onClose={() => setIsModalOpen(false)}
                 onDownloadTemplate={handleDownloadTemplate}
+                onUpload={(file) => console.log("Processing:", file.name)}
             />
         </div>
     );
