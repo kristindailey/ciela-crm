@@ -6,6 +6,7 @@ import PageHeader from "../components/PageHeader";
 import TierTabs from "../components/TierTabs";
 import ContactCard from "../components/ContactCard";
 import Pagination from "../components/Pagination";
+import UploadModal from "../components/UploadModal";
 import { usePagination } from "../hooks/usePagination";
 
 const Contacts = () => {
@@ -13,6 +14,7 @@ const Contacts = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [contacts, setContacts] = useState<Contact[]>([]);
     const [activeTier, setActiveTier] = useState("TIER_1");
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const itemsPerPage = 9;
     const tiers = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG", "ALL"];
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -56,7 +58,7 @@ const Contacts = () => {
     };
 
     const handleUploadContacts = () => {
-
+        setIsModalOpen(true);
     };
 
     const handleDownloadTemplate = () => {
@@ -186,6 +188,13 @@ const Contacts = () => {
                     )}
                 </div>
             </div>
+
+            <UploadModal
+                isOpen={isModalOpen}
+                uploadType="Contacts"
+                onClose={() => setIsModalOpen(false)}
+                onDownloadTemplate={handleDownloadTemplate}
+            />
         </div>
     );
 };
