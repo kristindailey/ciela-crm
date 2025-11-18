@@ -59,6 +59,31 @@ const Contacts = () => {
 
     };
 
+    const handleDownloadTemplate = () => {
+        const headers = [
+            "firstName",
+            "lastName",
+            "email",
+            "role",
+            "linkedin",
+            "bluesky",
+            "github",
+            "website",
+            "location",
+            "notes",
+            "companyName",
+        ];
+
+        const csvContent = headers.join(",");
+        const blob = new Blob([csvContent], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "contacts_template.csv";
+        link.click();
+        window.URL.revokeObjectURL(url);
+    };
+
     const handleTierChange = (tier: string) => {
         setActiveTier(tier);
         setCurrentPage(1);
