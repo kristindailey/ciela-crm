@@ -55,6 +55,10 @@ const Contacts = () => {
         setCurrentPage(1);
     };
 
+    const handleUploadContacts = () => {
+
+    };
+
     const handleTierChange = (tier: string) => {
         setActiveTier(tier);
         setCurrentPage(1);
@@ -110,6 +114,7 @@ const Contacts = () => {
                     searchPlaceholder="Search contacts..."
                     onSearchChange={handleSearchContacts}
                     onAddClick={handleAddContact}
+                    onUploadClick={handleUploadContacts}
                 />
 
                 <TierTabs 
