@@ -9,7 +9,6 @@ import ContactCard from "../components/ContactCard";
 import Pagination from "../components/Pagination";
 import UploadModal from "../components/UploadModal";
 import { usePagination } from "../hooks/usePagination";
-import { AiFillPoundCircle } from "react-icons/ai";
 
 const Contacts = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -17,6 +16,12 @@ const Contacts = () => {
     const [contacts, setContacts] = useState<Contact[]>([]);
     const [activeTier, setActiveTier] = useState("TIER_1");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [uploadStatus, setUploadStatus] = useState<{
+        isProcessing: boolean;
+        imported: number;
+        skipped: number;
+        errors: number;
+    } | null>(null);
     const itemsPerPage = 9;
     const tiers = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG", "ALL"];
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -89,6 +94,8 @@ const Contacts = () => {
     };
 
     const handleUploadCSV = async (file: File) => {
+        setUploadStatus({ isProcessing: true, imported: 0, skipped: 0, errors: 0 });
+
         Papa.parse(file, {
             header: true,
             skipEmptyLines: true,
@@ -169,7 +176,7 @@ const Contacts = () => {
                     }
                 }
 
-                console.log(`Imported: ${imported}, Skipped: ${skipped}, Errors: ${errors}`);
+                setUploadStatus({ isProcessing: false, imported, skipped, errors });
             },
             error: (error) => {
                 console.error("Parse error:", error);
@@ -286,6 +293,7 @@ const Contacts = () => {
                 onClose={() => setIsModalOpen(false)}
                 onDownloadTemplate={handleDownloadTemplate}
                 onUpload={handleUploadCSV}
+                uploadStatus={uploadStatus}
             />
         </div>
     );
