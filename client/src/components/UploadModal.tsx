@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 interface UploadModalProps {
 	isOpen: boolean;
@@ -17,19 +17,41 @@ interface UploadModalProps {
 const UploadModal = ({ isOpen, uploadType, uploadStatus, onClose, onDownloadTemplate, onUpload }: UploadModalProps) => {
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
-	const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const file = e.target.files?.[0];
+	const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const file = event.target.files?.[0];
 
 		if (file) {
 			onUpload(file);
 		}
 	};
 
+	useEffect(() => {
+		const handleEscape = (event: KeyboardEvent) => {
+			if (event.key === "Escape") {
+				onClose();
+			}
+		};
+
+		if (isOpen) {
+			document.addEventListener("keydown", handleEscape);
+		}
+
+		return () => {
+			document.removeEventListener("keydown", handleEscape);
+		};
+	}, [isOpen, onClose]);
+
 	if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-			<div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl font-inter border-3 border-gray-300">
+        <div 
+			onClick={onClose}
+			className="fixed inset-0 flex items-center justify-center z-50"
+		>
+			<div 
+				onClick={(e) => e.stopPropagation()}
+				className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl font-inter border-3 border-gray-300"
+			>
 				<h2 className="text-xl font-bold text-gray-900 mb-4">Upload {uploadType}</h2>
 
 				{uploadStatus && (
