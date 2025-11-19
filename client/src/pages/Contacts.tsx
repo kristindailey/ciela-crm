@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router";
+import Papa from "papaparse";
 import type { Contact } from "../types/contact";
 import Sidebar from "../components/Sidebar";
 import PageHeader from "../components/PageHeader";
@@ -84,6 +85,19 @@ const Contacts = () => {
         link.download = "contacts_template.csv";
         link.click();
         window.URL.revokeObjectURL(url);
+    };
+
+    const handleUploadCSV = async (file: File) => {
+        Papa.parse(file, {
+            header: true,
+            skipEmptyLines: true,
+            complete: async (results) => {
+                console.log("Parsed data:", results.data);
+            },
+            error: (error) => {
+                console.error("Parse error:", error);
+            },
+        });
     };
 
     const handleTierChange = (tier: string) => {
@@ -194,7 +208,7 @@ const Contacts = () => {
                 uploadType="Contacts"
                 onClose={() => setIsModalOpen(false)}
                 onDownloadTemplate={handleDownloadTemplate}
-                onUpload={(file) => console.log("Processing:", file.name)}
+                onUpload={handleUploadCSV}
             />
         </div>
     );
