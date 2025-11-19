@@ -65,6 +65,7 @@ const Contacts = () => {
     };
 
     const handleUploadContacts = () => {
+        setUploadStatus(null);
         setIsModalOpen(true);
     };
 
@@ -290,7 +291,10 @@ const Contacts = () => {
             <UploadModal
                 isOpen={isModalOpen}
                 uploadType="Contacts"
-                onClose={() => setIsModalOpen(false)}
+                onClose={() => {
+                    setIsModalOpen(false);
+                    setUploadStatus(null);
+                }}
                 onDownloadTemplate={handleDownloadTemplate}
                 onUpload={handleUploadCSV}
                 uploadStatus={uploadStatus}
