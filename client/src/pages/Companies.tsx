@@ -63,6 +63,7 @@ const Companies = () => {
     };
 
     const handleUploadCompanies = () => {
+        setUploadStatus(null);
         setIsModalOpen(true);
     };
 
@@ -286,6 +287,7 @@ const Companies = () => {
                 uploadType="Companies"
                 onClose={() => {
                     setIsModalOpen(false);
+                    setUploadStatus(null);
                 }}
                 onDownloadTemplate={handleDownloadTemplate}
                 onUpload={handleUploadCSV}
