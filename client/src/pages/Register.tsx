@@ -13,8 +13,8 @@ const Register = () => {
     const { register, isLoading } = useAuth();
     const navigate = useNavigate();
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
         setError("");
 
         try {

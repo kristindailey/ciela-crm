@@ -18,15 +18,15 @@ const NotesSection = ({ label, value, placeholder, onSave }: NotesSectionProps) 
         setEditValue(value || "");
     };
 
-    const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setEditValue(e.target.value);
+    const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setEditValue(event.target.value);
 
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
 
         timeoutRef.current = setTimeout(() => {
-            const newValue = e.target.value;
+            const newValue = event.target.value;
 
             if (newValue !== (value || "")) {
                 onSave(newValue);

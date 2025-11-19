@@ -66,8 +66,8 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
         fileInputRef.current?.click();
     };
 
-    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
         
         if (file) {
             setSelectedFile(file);

@@ -17,8 +17,8 @@ const AddCompanyPage = () => {
 
     const navigate = useNavigate();
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value } = event.target;
 
         setFormData(prev => ({
             ...prev,
@@ -26,8 +26,8 @@ const AddCompanyPage = () => {
         }));
     };
 
-    const handleSave = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleSave = async (event: React.FormEvent) => {
+        event.preventDefault();
 
         try {
             const response = await fetch(`${API_BASE_URL}/companies`, {

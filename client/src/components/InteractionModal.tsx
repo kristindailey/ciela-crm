@@ -39,13 +39,13 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
         return formatted.charAt(0).toUpperCase() + formatted.slice(1);
     };
 
-	const handleInteractionTypeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		const value = e.target.value as Interaction["type"] | "";
+	const handleInteractionTypeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const value = event.target.value as Interaction["type"] | "";
 		setSelectedInteractionType(value);
 	};
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
+	const handleSubmit = async (event: React.FormEvent) => {
+		event.preventDefault();
 
 		if (!selectedInteractionType) {
 			setError("Please set an interaction type.");

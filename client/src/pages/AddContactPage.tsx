@@ -30,8 +30,8 @@ const AddContactPage = () => {
     
     const navigate = useNavigate();
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = event.target;
 
         setFormData(prev => ({
             ...prev,
@@ -39,8 +39,8 @@ const AddContactPage = () => {
         }));
     };
 
-    const handleCompanySelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const value = e.target.value;
+    const handleCompanySelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
 
         if (value === "create-new") {
             setShowNewCompany(true);
@@ -51,8 +51,8 @@ const AddContactPage = () => {
         }
     };
 
-    const handleNewCompanyChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
+    const handleNewCompanyChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = event.target;
         setNewCompanyData((prev) => ({
             ...prev,
             [name]: value,
@@ -63,8 +63,8 @@ const AddContactPage = () => {
         }
     };
 
-    const handleSave = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleSave = async (event: React.FormEvent) => {
+        event.preventDefault();
 
         try { 
             let companyId = selectedCompany;
