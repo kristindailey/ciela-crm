@@ -33,11 +33,11 @@ const UploadModal = ({ isOpen, uploadType, uploadStatus, onClose, onDownloadTemp
 				<h2 className="text-xl font-bold text-gray-900 mb-4">Upload {uploadType}</h2>
 
 				{uploadStatus && (
-					<div className="mb-4 p-4 bg-gray-50 rounded">
+					<div className="mb-4 p-4 bg-gray-100 rounded">
 						{uploadStatus.isProcessing? (
 							<p className="text-gray-600">Processing...</p>
 						) : (
-							<div className="text-sm">
+							<div className="text-sm font-semibold">
 								<p className="text-green-600">Imported: {uploadStatus.imported}</p>
 								<p className="text-yellow-600">Skipped: {uploadStatus.skipped}</p>
 								<p className="text-red-600">Errors: {uploadStatus.errors}</p>
