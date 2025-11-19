@@ -79,7 +79,7 @@ const Companies = () => {
 
         const guidanceRow = [
             "(Required)",
-            "'(Required, Valid options: TIER_1, TIER_2, TIER_3, or BACKLOG)'",
+            '"(Required, Valid options: TIER_1, TIER_2, TIER_3, or BACKLOG)"',
             "",
             "",
             "",
@@ -111,6 +111,10 @@ const Companies = () => {
     
                     for (const row of rows) {
                         try {
+                            if (row.companyName?.includes("Required") || row.companyName.startsWith("(")) {
+                                continue;
+                            }
+
                             if (!row.companyName || !row.tier) {
                                 errors++;
                                 continue;
