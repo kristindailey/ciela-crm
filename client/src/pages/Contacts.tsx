@@ -117,7 +117,7 @@ const Contacts = () => {
                             continue;
                         }
 
-                        const companyResponse = await fetch(`${API_BASE_URL}/companies/import`, {
+                        const companyResponse = await fetch(`${API_BASE_URL}/companies/upload`, {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             credentials: "include",

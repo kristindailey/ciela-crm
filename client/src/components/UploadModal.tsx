@@ -3,12 +3,18 @@ import { useRef } from "react";
 interface UploadModalProps {
 	isOpen: boolean;
 	uploadType: string;
+	uploadStatus?: {
+		isProcessing: boolean;
+		imported: number;
+		skipped: number;
+		errors: number;
+	} | null;
 	onClose: () => void;
 	onDownloadTemplate: () => void
 	onUpload: (fie: File) => void;
 }
 
-const UploadModal = ({ isOpen, uploadType, onClose, onDownloadTemplate, onUpload }: UploadModalProps) => {
+const UploadModal = ({ isOpen, uploadType, uploadStatus, onClose, onDownloadTemplate, onUpload }: UploadModalProps) => {
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,6 +31,20 @@ const UploadModal = ({ isOpen, uploadType, onClose, onDownloadTemplate, onUpload
         <div className="fixed inset-0 flex items-center justify-center z-50">
 			<div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl font-inter border-3 border-gray-300">
 				<h2 className="text-xl font-bold text-gray-900 mb-4">Upload {uploadType}</h2>
+
+				{uploadStatus && (
+					<div className="mb-4 p-4 bg-gray-50 rounded">
+						{uploadStatus.isProcessing? (
+							<p className="text-gray-600">Processing...</p>
+						) : (
+							<div className="text-sm">
+								<p className="text-green-600">Imported: {uploadStatus.imported}</p>
+								<p className="text-yellow-600">Skipped: {uploadStatus.skipped}</p>
+								<p className="text-red-600">Errors: {uploadStatus.errors}</p>
+							</div>
+						)}
+					</div>
+				)}
 
 				<button
 					onClick={onDownloadTemplate}
