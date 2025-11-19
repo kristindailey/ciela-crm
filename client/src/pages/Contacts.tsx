@@ -9,6 +9,7 @@ import ContactCard from "../components/ContactCard";
 import Pagination from "../components/Pagination";
 import UploadModal from "../components/UploadModal";
 import { usePagination } from "../hooks/usePagination";
+import { AiFillPoundCircle } from "react-icons/ai";
 
 const Contacts = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -115,6 +116,52 @@ const Contacts = () => {
                             skipped++;
                             continue;
                         }
+
+                        const companyResponse = await fetch(`${API_BASE_URL}/companies/import`, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            credentials: "include",
+                            body: JSON.stringify({
+                                name: row.companyName,
+                                tier: "BACKLOG",
+                            }),
+                        });
+
+                        if (!companyResponse.ok) {
+                            errors++;
+                            imported--;
+                            continue;
+                        }
+
+                        const company = await companyResponse.json();
+
+                        const contactResponse = await fetch(`${API_BASE_URL}/contacts`, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            credentials: "include",
+                            body: JSON.stringify({
+                                firstName: row.firstName,
+                                lastName: row.lastName,
+                                email: row.email || null,
+                                role: row.role || null,
+                                linkedin: row.linkedin || null,
+                                bluesky: row.bluesky || null,
+                                github: row.github || null,
+                                website: row.website || null,
+                                location: row.location || null,
+                                notes: row.notes || null,
+                                companyId: company.id,
+                            }),
+                        });
+
+                        if (!contactResponse.ok) {
+                            errors++;
+                            imported--;
+                            continue;
+                        }
+
+                        const newContact = await contactResponse.json();
+                        setContacts((prev) => [...prev, newContact]);
 
                         imported++;
                     } catch (error) {
