@@ -85,9 +85,10 @@ const UploadModal = ({ isOpen, uploadType, uploadStatus, onClose, onDownloadTemp
 
 				<button
 					onClick={() => fileInputRef.current?.click()}
-					className="w-full mb-4 px-4 py-2 text-white bg-[var(--royal-blue)] rounded hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-color"
+					disabled={uploadStatus?.isProcessing}
+					className="w-full mb-4 px-4 py-2 text-white bg-[var(--royal-blue)] rounded hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-color disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[var(--royal-blue)] disabled:hover:text-white"
 				>
-					Select CSV File
+					{uploadStatus?.isProcessing ? "Processing..." : "Select CSV File"}
 				</button>
 
 				<button 
