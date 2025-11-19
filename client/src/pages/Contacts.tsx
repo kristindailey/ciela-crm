@@ -84,7 +84,21 @@ const Contacts = () => {
             "companyName",
         ];
 
-        const csvContent = headers.join(",");
+        const guidanceRow = [
+            "(Required)",
+            "(Required)",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "(Required)",
+        ];
+
+        const csvContent = headers.join(",") + "\n" + guidanceRow.join(",");
         const blob = new Blob([csvContent], { type: "text/csv" });
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement("a");
@@ -109,6 +123,10 @@ const Contacts = () => {
 
                     for (const row of rows) {
                         try {
+                            if (row.firstName?.includes("Required") || row.firstName.startsWith("(")) {
+                                continue;
+                            }
+
                             if (!row.firstName || !row.lastName || !row.companyName) {
                                 errors++;
                                 continue;
