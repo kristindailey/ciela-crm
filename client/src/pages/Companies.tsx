@@ -6,6 +6,7 @@ import PageHeader from "../components/PageHeader";
 import TierTabs from "../components/TierTabs";
 import CompanyCard from "../components/CompanyCard";
 import Pagination from "../components/Pagination";
+import UploadModal from "../components/UploadModal";
 import { usePagination } from "../hooks/usePagination";
 
 const Companies = () => {
@@ -13,6 +14,7 @@ const Companies = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [companies, setCompanies] = useState<Company[]>([]);
     const [activeTier, setActiveTier] = useState("TIER_1");
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const itemsPerPage = 9;
     const tiers = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG", "ALL"];
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -54,6 +56,7 @@ const Companies = () => {
     };
 
     const handleUploadCompanies = () => {
+        setIsModalOpen(true);
     };
 
     const handleDownloadTemplate = () => {
@@ -190,6 +193,16 @@ const Companies = () => {
                     )}
                 </div>
             </div>
+
+            <UploadModal
+                isOpen={isModalOpen}
+                uploadType="Companies"
+                onClose={() => {
+                    setIsModalOpen(false);
+                }}
+                onDownloadTemplate={handleDownloadTemplate}
+                onUpload={() => {}}
+            />
         </div>
     );
 };
