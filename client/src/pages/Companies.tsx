@@ -53,6 +53,9 @@ const Companies = () => {
         setCurrentPage(1);
     };
 
+    const handleUploadCompanies = () => {
+    };
+
     const handleTierChange = (tier: string) => {
         setActiveTier(tier);
         setCurrentPage(1);
@@ -108,6 +111,7 @@ const Companies = () => {
                     searchPlaceholder="Search companies..."
                     onSearchChange={handleSearchCompanies}
                     onAddClick={handleAddCompany}
+                    onUploadClick={handleUploadCompanies}
                 />
 
                 <TierTabs 
