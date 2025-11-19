@@ -72,24 +72,21 @@ const Companies = () => {
             "companyName",
             "tier",
             "website",
-            "careersPage",
-            "glassdoor",
-            "blind",
-            "github",
-            "linkedin",
-            "bluesky",
-            "description",
             "hqLocation",
             "localLocation",
-            "employeeCount",
-            "officePolicy",
-            "techStack",
-            "glassdoorRating",
-            "blindRating",
-            "notes",
+            "description",
         ];
 
-        const csvContent = headers.join(",");
+        const guidanceRow = [
+            "(Required)",
+            "(Required, Valid options: TIER_1, TIER_2, TIER_3, or BACKLOG)",
+            "",
+            "",
+            "",
+            "",
+        ];
+
+        const csvContent = headers.join(",") + "\n" + guidanceRow.join(",");
         const blob = new Blob([csvContent], { type: "text/csv" });
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement("a");
@@ -118,6 +115,12 @@ const Companies = () => {
                                 errors++;
                                 continue;
                             }
+
+                            const validTiers = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG"];
+                            if (!validTiers.includes(row.tier)) {
+                                errors++;
+                                continue;
+                            }
     
                             const isDuplicate = companies.some((company) => company.name.toLowerCase() === row.companyName.toLowerCase());
     
@@ -126,7 +129,7 @@ const Companies = () => {
                                 continue;
                             }
     
-                            const companyResponse = await fetch(`${API_BASE_URL}/companies/upload`, {
+                            const companyResponse = await fetch(`${API_BASE_URL}/companies`, {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
                                 credentials: "include",
@@ -134,27 +137,14 @@ const Companies = () => {
                                     name: row.companyName,
                                     tier: row.tier,
                                     website: row.website || null,
-                                    careersPage: row.careersPage || null,
-                                    glassdoor: row.glassdoor || null,
-                                    blind: row.blind || null,
-                                    github: row.github || null,
-                                    linkedin: row.linkedin || null,
-                                    bluesky: row.bluesky || null,
-                                    description: row.description || null,
                                     hqLocation: row.hqLocation || null,
                                     localLocation: row.localLocation || null,
-                                    employeeCount: row.employeeCount || null,
-                                    officePolicy: row.officePolicy || null,
-                                    techStack: row.techStack || null,
-                                    glassdoorRating: row.glassdoorRating || null,
-                                    blindRating: row.blindRating || null,
-                                    notes: row.notes || null,
+                                    description: row.description || null,
                                 }),
                             });
     
                             if (!companyResponse.ok) {
                                 errors++;
-                                imported--;
                                 continue;
                             }
     

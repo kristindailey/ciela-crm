@@ -138,7 +138,6 @@ const Contacts = () => {
 
                             if (!companyResponse.ok) {
                                 errors++;
-                                imported--;
                                 continue;
                             }
 
@@ -165,7 +164,6 @@ const Contacts = () => {
 
                             if (!contactResponse.ok) {
                                 errors++;
-                                imported--;
                                 continue;
                             }
 
