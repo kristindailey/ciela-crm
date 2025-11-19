@@ -92,7 +92,37 @@ const Contacts = () => {
             header: true,
             skipEmptyLines: true,
             complete: async (results) => {
-                console.log("Parsed data:", results.data);
+                const rows = results.data as any[];
+                let imported = 0;
+                let skipped = 0;
+                let errors = 0;
+
+                for (const row of rows) {
+                    try {
+                        if (!row.firstName || !row.lastName || !row.companyName) {
+                            errors++;
+                            continue;
+                        }
+
+                        const isDuplicate = contacts.some(
+                            (contact) =>
+                                contact.firstName.toLowerCase() === row.firstName.toLowerCase() &&
+                                contact.lastName.toLowerCase() === row.lastName.toLowerCase() &&
+                                contact.company.name.toLowerCase() === row.companyName.toLowerCase()
+                        );
+
+                        if (isDuplicate) {
+                            skipped++;
+                            continue;
+                        }
+
+                        imported++;
+                    } catch (error) {
+                        errors++;
+                    }
+                }
+
+                console.log(`Imported: ${imported}, Skipped: ${skipped}, Errors: ${errors}`);
             },
             error: (error) => {
                 console.error("Parse error:", error);
