@@ -56,6 +56,38 @@ const Companies = () => {
     const handleUploadCompanies = () => {
     };
 
+    const handleDownloadTemplate = () => {
+        const headers = [
+            "companyName",
+            "tier",
+            "website",
+            "careersPage",
+            "glassdoor",
+            "blind",
+            "github",
+            "linkedin",
+            "bluesky",
+            "description",
+            "hqLocation",
+            "localLocation",
+            "employeeCount",
+            "officePolicy",
+            "techStack",
+            "glassdoorRating",
+            "blindRating",
+            "notes",
+        ];
+
+        const csvContent = headers.join(",");
+        const blob = new Blob([csvContent], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "companies_template.csv";
+        link.click();
+        window.URL.revokeObjectURL(url);
+    };
+
     const handleTierChange = (tier: string) => {
         setActiveTier(tier);
         setCurrentPage(1);
