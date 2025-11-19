@@ -79,7 +79,7 @@ const Companies = () => {
 
         const guidanceRow = [
             "(Required)",
-            "(Required, Valid options: TIER_1, TIER_2, TIER_3, or BACKLOG)",
+            "'(Required, Valid options: TIER_1, TIER_2, TIER_3, or BACKLOG)'",
             "",
             "",
             "",
