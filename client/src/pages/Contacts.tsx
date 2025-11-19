@@ -97,92 +97,98 @@ const Contacts = () => {
     const handleUploadCSV = async (file: File) => {
         setUploadStatus({ isProcessing: true, imported: 0, skipped: 0, errors: 0 });
 
-        Papa.parse(file, {
-            header: true,
-            skipEmptyLines: true,
-            complete: async (results) => {
-                const rows = results.data as any[];
-                let imported = 0;
-                let skipped = 0;
-                let errors = 0;
+        try {
+            Papa.parse(file, {
+                header: true,
+                skipEmptyLines: true,
+                complete: async (results) => {
+                    const rows = results.data as any[];
+                    let imported = 0;
+                    let skipped = 0;
+                    let errors = 0;
 
-                for (const row of rows) {
-                    try {
-                        if (!row.firstName || !row.lastName || !row.companyName) {
+                    for (const row of rows) {
+                        try {
+                            if (!row.firstName || !row.lastName || !row.companyName) {
+                                errors++;
+                                continue;
+                            }
+
+                            const isDuplicate = contacts.some(
+                                (contact) =>
+                                    contact.firstName.toLowerCase() === row.firstName.toLowerCase() &&
+                                    contact.lastName.toLowerCase() === row.lastName.toLowerCase() &&
+                                    contact.company.name.toLowerCase() === row.companyName.toLowerCase()
+                            );
+
+                            if (isDuplicate) {
+                                skipped++;
+                                continue;
+                            }
+
+                            const companyResponse = await fetch(`${API_BASE_URL}/companies/upload`, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                credentials: "include",
+                                body: JSON.stringify({
+                                    name: row.companyName,
+                                    tier: "BACKLOG",
+                                }),
+                            });
+
+                            if (!companyResponse.ok) {
+                                errors++;
+                                imported--;
+                                continue;
+                            }
+
+                            const company = await companyResponse.json();
+
+                            const contactResponse = await fetch(`${API_BASE_URL}/contacts`, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                credentials: "include",
+                                body: JSON.stringify({
+                                    firstName: row.firstName,
+                                    lastName: row.lastName,
+                                    email: row.email || null,
+                                    role: row.role || null,
+                                    linkedin: row.linkedin || null,
+                                    bluesky: row.bluesky || null,
+                                    github: row.github || null,
+                                    website: row.website || null,
+                                    location: row.location || null,
+                                    notes: row.notes || null,
+                                    companyId: company.id,
+                                }),
+                            });
+
+                            if (!contactResponse.ok) {
+                                errors++;
+                                imported--;
+                                continue;
+                            }
+
+                            const newContact = await contactResponse.json();
+                            setContacts((prev) => [...prev, newContact]);
+
+                            imported++;
+                        } catch (error) {
                             errors++;
-                            continue;
                         }
-
-                        const isDuplicate = contacts.some(
-                            (contact) =>
-                                contact.firstName.toLowerCase() === row.firstName.toLowerCase() &&
-                                contact.lastName.toLowerCase() === row.lastName.toLowerCase() &&
-                                contact.company.name.toLowerCase() === row.companyName.toLowerCase()
-                        );
-
-                        if (isDuplicate) {
-                            skipped++;
-                            continue;
-                        }
-
-                        const companyResponse = await fetch(`${API_BASE_URL}/companies/upload`, {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            credentials: "include",
-                            body: JSON.stringify({
-                                name: row.companyName,
-                                tier: "BACKLOG",
-                            }),
-                        });
-
-                        if (!companyResponse.ok) {
-                            errors++;
-                            imported--;
-                            continue;
-                        }
-
-                        const company = await companyResponse.json();
-
-                        const contactResponse = await fetch(`${API_BASE_URL}/contacts`, {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            credentials: "include",
-                            body: JSON.stringify({
-                                firstName: row.firstName,
-                                lastName: row.lastName,
-                                email: row.email || null,
-                                role: row.role || null,
-                                linkedin: row.linkedin || null,
-                                bluesky: row.bluesky || null,
-                                github: row.github || null,
-                                website: row.website || null,
-                                location: row.location || null,
-                                notes: row.notes || null,
-                                companyId: company.id,
-                            }),
-                        });
-
-                        if (!contactResponse.ok) {
-                            errors++;
-                            imported--;
-                            continue;
-                        }
-
-                        const newContact = await contactResponse.json();
-                        setContacts((prev) => [...prev, newContact]);
-
-                        imported++;
-                    } catch (error) {
-                        errors++;
                     }
-                }
 
-                setUploadStatus({ isProcessing: false, imported, skipped, errors });
-            },
-            error: (error) => {
-                console.error("Parse error:", error);
-            },
-        });
+                    setUploadStatus({ isProcessing: false, imported, skipped, errors });
+                },
+                error: (error) => {
+                    console.error("Parse error:", error);
+                    setUploadStatus({ isProcessing: false, imported: 0, skipped: 0, errors: 1 });
+                },
+            });
+        } catch (error) {
+            console.error("Failed to upload CSV:", error);
+            setUploadStatus({ isProcessing: false, imported: 0, skipped: 0, errors: 1 });
+        }
     };
 
     const handleTierChange = (tier: string) => {
