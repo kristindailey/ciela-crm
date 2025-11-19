@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router";
+import Papa from "papaparse";
 import type { Company } from "../types/company";
 import Sidebar from "../components/Sidebar";
 import PageHeader from "../components/PageHeader";
@@ -15,6 +16,12 @@ const Companies = () => {
     const [companies, setCompanies] = useState<Company[]>([]);
     const [activeTier, setActiveTier] = useState("TIER_1");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [uploadStatus, setUploadStatus] = useState<{
+        isProcessing: boolean;
+        imported: number;
+        skipped: number;
+        errors: number;
+    } | null>(null);
     const itemsPerPage = 9;
     const tiers = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG", "ALL"];
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -89,6 +96,86 @@ const Companies = () => {
         link.download = "companies_template.csv";
         link.click();
         window.URL.revokeObjectURL(url);
+    };
+
+    const handleUploadCSV = async (file: File) => {
+        setUploadStatus({ isProcessing: true, imported: 0, skipped: 0, errors: 0 });
+    
+        try {
+            Papa.parse(file, {
+                header: true,
+                skipEmptyLines: true,
+                complete: async (results) => {
+                    const rows = results.data as any[];
+                    let imported = 0;
+                    let skipped = 0;
+                    let errors = 0;
+    
+                    for (const row of rows) {
+                        try {
+                            if (!row.companyName || !row.tier) {
+                                errors++;
+                                continue;
+                            }
+    
+                            const isDuplicate = companies.some((company) => company.name.toLowerCase() === row.companyName.toLowerCase());
+    
+                            if (isDuplicate) {
+                                skipped++;
+                                continue;
+                            }
+    
+                            const companyResponse = await fetch(`${API_BASE_URL}/companies/upload`, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                credentials: "include",
+                                body: JSON.stringify({
+                                    name: row.companyName,
+                                    tier: row.tier,
+                                    website: row.website || null,
+                                    careersPage: row.careersPage || null,
+                                    glassdoor: row.glassdoor || null,
+                                    blind: row.blind || null,
+                                    github: row.github || null,
+                                    linkedin: row.linkedin || null,
+                                    bluesky: row.bluesky || null,
+                                    description: row.description || null,
+                                    hqLocation: row.hqLocation || null,
+                                    localLocation: row.localLocation || null,
+                                    employeeCount: row.employeeCount || null,
+                                    officePolicy: row.officePolicy || null,
+                                    techStack: row.techStack || null,
+                                    glassdoorRating: row.glassdoorRating || null,
+                                    blindRating: row.blindRating || null,
+                                    notes: row.notes || null,
+                                }),
+                            });
+    
+                            if (!companyResponse.ok) {
+                                errors++;
+                                imported--;
+                                continue;
+                            }
+    
+                            const newCompany = await companyResponse.json();
+                            setCompanies((prev) => [...prev, newCompany]);
+                            imported++;
+                        } catch (error) {
+                            errors++;
+                        }
+                    }
+    
+                    setUploadStatus({ isProcessing: false, imported, skipped, errors });
+                },
+                error: (error) => {
+                    console.error("Parse error:", error);
+                    setUploadStatus({ isProcessing: false, imported: 0, skipped: 0, errors: 1 });
+                },
+            });
+        } catch (error) {
+            console.error("Failed to upload CSV:", error);
+            setUploadStatus({ isProcessing: false, imported: 0, skipped: 0, errors: 1 });
+        }
     };
 
     const handleTierChange = (tier: string) => {
@@ -201,7 +288,8 @@ const Companies = () => {
                     setIsModalOpen(false);
                 }}
                 onDownloadTemplate={handleDownloadTemplate}
-                onUpload={() => {}}
+                onUpload={handleUploadCSV}
+                uploadStatus={uploadStatus}
             />
         </div>
     );
