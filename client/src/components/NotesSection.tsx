@@ -10,7 +10,7 @@ interface NotesSectionProps {
 const NotesSection = ({ label, value, placeholder, onSave }: NotesSectionProps) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editValue, setEditValue] = useState(value || "");
-    const timeoutRef = useRef<number | null>(null);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const handleClick = () => {
