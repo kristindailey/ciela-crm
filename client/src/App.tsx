@@ -10,7 +10,7 @@ import ContactDetail from "./pages/ContactDetail";
 import Companies from "./pages/Companies";
 import CompanyDetail from "./pages/CompanyDetail";
 import Applications from "./pages/Applications";
-import Settings from "./pages/Settings";
+import Reminders from "./pages/Reminders";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 const router = createBrowserRouter([
@@ -55,8 +55,8 @@ const router = createBrowserRouter([
     element: <ProtectedRoute><Applications /></ProtectedRoute>,
   },
   {
-    path: "/settings",
-    element: <ProtectedRoute><Settings /></ProtectedRoute>,
+    path: "/reminders",
+    element: <ProtectedRoute><Reminders /></ProtectedRoute>,
   },
 ]);
 

@@ -1,6 +1,6 @@
 import Sidebar from "../components/Sidebar";
 
-const Settings = () => {
+const Reminders = () => {
     return (
         <>
             <div className="bg-gray-50">
@@ -10,4 +10,4 @@ const Settings = () => {
     );
 };
 
-export default Settings;
+export default Reminders;

@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { FaHouse, FaUserLarge } from "react-icons/fa6";
 import { BsBuildingsFill } from "react-icons/bs";
 import { GrDocumentText } from "react-icons/gr";
-import { IoMdSettings } from "react-icons/io";
+import { FaBell } from "react-icons/fa";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import logo from "../assets/ciela-logo.png"; 
 import mobileLogo from "../assets/ciela-text.png";
@@ -38,9 +38,9 @@ const Sidebar = () => {
                     <GrDocumentText className="text-xl mr-0 sm:mr-2"/>
                     <span className="hidden sm:block md:block">Applications</span>
                 </Link>
-                <Link to="/settings" className="flex items-center hover:text-white">
-                    <IoMdSettings className="text-xl mr-0 sm:mr-2"/>
-                    <span className="hidden sm:block md:block">Settings</span>
+                <Link to="/reminders" className="flex items-center hover:text-white">
+                    <FaBell className="text-xl mr-0 sm:mr-2"/>
+                    <span className="hidden sm:block md:block">Reminders</span>
                 </Link>
                 <button 
                     onClick={handleLogout}
