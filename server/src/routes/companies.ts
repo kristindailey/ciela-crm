@@ -190,6 +190,35 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.post("/upload", async (req, res) => {
+    try {
+        const userId = (req.user as any).id;
+        const { name, tier } = req.body;
+
+        let company = await prisma.company.findFirst({
+            where: {
+                name, 
+                userId,
+            }
+        });
+
+        if (!company) {
+            company = await prisma.company.create({
+                data: {
+                    name, 
+                    tier, 
+                    userId,
+                },
+            });
+        }
+
+        res.status(201).json(company);
+    } catch (error) {
+        console.error("Error uploading company:", error);
+        res.status(500).json({ error: "Failed to upload company." });
+    }
+});
+
 router.delete("/:id", async (req, res) => {
     try {
         const userId = (req.user as any).id;
