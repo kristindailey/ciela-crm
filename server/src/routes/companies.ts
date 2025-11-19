@@ -167,9 +167,9 @@ router.post("/", async (req, res) => {
 
         const company = await prisma.company.create({
             data: {
-                name, 
-                website, 
+                name,  
                 tier,
+                website,
                 employeeCount, 
                 hqLocation, 
                 localLocation,
