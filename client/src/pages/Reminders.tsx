@@ -9,6 +9,10 @@ const Reminders = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const activeTab = searchParams.get("tab") || "overdue";
 
+    const handleSearchReminders = (value: string) => {
+        setSearchQuery(value);
+    };
+
     const handleTabChange = (tab: string) => {
         setSearchParams({ tab });
     };
@@ -22,7 +26,7 @@ const Reminders = () => {
                         title="reminders"
                         searchValue={searchQuery}
                         searchPlaceholder="Search reminders..."
-                        onSearchChange={() => {}} 
+                        onSearchChange={handleSearchReminders} 
                     />
 
                     <TabBar
