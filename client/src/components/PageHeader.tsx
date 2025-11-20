@@ -6,8 +6,8 @@ interface PageHeaderProps {
     searchValue: string;
     searchPlaceholder: string;
     onSearchChange: (value: string) => void;
-    onAddClick: () => void;
-    onUploadClick: () => void;
+    onAddClick?: () => void;
+    onUploadClick?: () => void;
 }
 
 const PageHeader = ({ title, searchValue, searchPlaceholder, onSearchChange, onAddClick, onUploadClick }: PageHeaderProps) => {
@@ -17,19 +17,23 @@ const PageHeader = ({ title, searchValue, searchPlaceholder, onSearchChange, onA
             <div className="flex items-center gap-4">
                 <h1 className="text-[var(--royal-blue)] font-pacifico text-5xl">{title}</h1>
 
-                <button 
-                    onClick={onAddClick}
-                    className="inline-flex h-8 w-8 mt-3 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] drop-shadow-sm transition-colors duration-150 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)]"
-                >
-                    <FaPlus className=""/>
-                </button>
-
-                <button 
-                    onClick={onUploadClick}
-                    className="inline-flex h-8 w-8 mt-3 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] drop-shadow-sm transition-colors duration-150 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)]"
-                >
-                    <TbUpload className="" />
-                </button>
+                {onAddClick && (
+                    <button 
+                        onClick={onAddClick}
+                        className="inline-flex h-8 w-8 mt-3 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] drop-shadow-sm transition-colors duration-150 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)]"
+                    >
+                        <FaPlus className=""/>
+                    </button>
+                )}
+                
+                {onUploadClick && (
+                    <button 
+                        onClick={onUploadClick}
+                        className="inline-flex h-8 w-8 mt-3 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] drop-shadow-sm transition-colors duration-150 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)]"
+                    >
+                        <TbUpload className="" />
+                    </button>
+                )}
             </div>
 
             <div className="relative mt-2 mr-5">
