@@ -129,6 +129,8 @@ const Reminders = () => {
         fetchReminders();
     }, []);
 
+	const { overdue, dueToday, upcoming } = categorizeReminders();
+
     return (
         <>
             <div className="bg-gray-50 flex">
@@ -153,7 +155,25 @@ const Reminders = () => {
 
                     <div className="p-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start">
-                            {reminders.map((reminder) => (
+                            {activeTab === "overdue" && overdue.map((reminder) => (
+                                <ReminderCard
+                                    key={reminder.id}
+                                    reminder={reminder}
+                                    onClear={handleClearReminder}
+                                    onSnooze={handleSnoozeReminder}
+                                />
+                            ))}
+
+							{activeTab === "due today" && dueToday.map((reminder) => (
+                                <ReminderCard
+                                    key={reminder.id}
+                                    reminder={reminder}
+                                    onClear={handleClearReminder}
+                                    onSnooze={handleSnoozeReminder}
+                                />
+                            ))}
+
+							{activeTab === "upcoming" && upcoming.map((reminder) => (
                                 <ReminderCard
                                     key={reminder.id}
                                     reminder={reminder}
