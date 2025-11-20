@@ -14,6 +14,34 @@ const Reminders = () => {
     const activeTab = searchParams.get("tab") || "overdue";
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const navigate = useNavigate();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const categorizeReminders = () => {
+        const overdue: Interaction[] = [];
+        const dueToday: Interaction[] = [];
+        const upcoming: Interaction[] = [];
+
+        reminders.forEach((reminder) => {
+            if (!reminder.followUpDate) return;
+
+            const followUpDate = new Date(reminder.followUpDate);
+            followUpDate.setHours(0, 0, 0, 0);
+
+            const diffTime = followUpDate.getTime() - today.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            if (diffDays < 0) {
+                overdue.push(reminder);
+            } else if (diffDays === 0) {
+                dueToday.push(reminder);
+            } else if (diffDays <= 7) {
+                upcoming.push(reminder);
+            }
+        });
+
+        return { overdue, dueToday, upcoming };
+    };
 
     const handleSearchReminders = (value: string) => {
         setSearchQuery(value);
