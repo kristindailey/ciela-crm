@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router";
+import { useSearchParams, useNavigate } from "react-router";
 import type { Interaction } from "../types/interaction";
 import Sidebar from "../components/Sidebar";
 import PageHeader from "../components/PageHeader";
 import TabBar from "../components/TabBar";
-import ReminderCard from "../components/ReminderCard";
 
 const Reminders = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -13,6 +12,7 @@ const Reminders = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const activeTab = searchParams.get("tab") || "overdue";
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    const navigate = useNavigate();
 
     const handleSearchReminders = (value: string) => {
         setSearchQuery(value);
@@ -20,6 +20,38 @@ const Reminders = () => {
 
     const handleTabChange = (tab: string) => {
         setSearchParams({ tab });
+    };
+
+    const handleClear = async (interactionId: string, contactId: string) => {
+        try {
+            await fetch(`${API_BASE_URL}/interactions${interactionId}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ followUpDate: null }),
+                credentials: "include",
+            });
+
+            navigate(`/contacts/${contactId}`);
+        } catch (error) {
+            console.error("Error clearing reminder:", error);
+        }
+    };
+    
+    const handleSnooze = async (interactionId: string) => {
+        try {
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowStr = tomorrow.toISOString().split("T")[0];
+
+            await fetch(`${API_BASE_URL}/interactions/${interactionId}`, {
+               method: "PATCH",
+               headers: { "Content-Type": "application/json" },
+               body: JSON.stringify({ followUpDate: tomorrowStr }),
+               credentials: "include", 
+            });
+        } catch (error) {
+            console.error("Error snoozing reminder:", error);
+        }
     };
 
     useEffect(() => {
