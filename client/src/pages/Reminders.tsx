@@ -51,35 +51,60 @@ const Reminders = () => {
         setSearchParams({ tab });
     };
 
-    const handleClear = async (interactionId: string, contactId: string) => {
+    const handleClearReminder = async (interactionId: string) => {
         try {
-            await fetch(`${API_BASE_URL}/interactions${interactionId}`, {
+            const response = await fetch(`${API_BASE_URL}/interactions${interactionId}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ followUpDate: null }),
+                body: JSON.stringify({ 
+					followUpDate: null 
+				}),
                 credentials: "include",
             });
 
-            navigate(`/contacts/${contactId}`);
+            if (!response.ok) {
+                throw new Error("Failed to clear reminder.");
+            }
+
+            const clearedReminder = reminders.find((reminder) => reminder.id === interactionId);
+            if (clearedReminder?.contact) {
+                navigate(`/contacts/${clearedReminder.contact.id}`);
+            }
         } catch (error) {
-            console.error("Error clearing reminder:", error);
+            console.error("Failed to clear reminder:", error);
         }
     };
     
-    const handleSnooze = async (interactionId: string) => {
+    const handleSnoozeReminder = async (interactionId: string) => {
         try {
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            const tomorrowStr = tomorrow.toISOString().split("T")[0];
+            const reminder = reminders.find((reminder) => reminder.id === interactionId);
+            if (!reminder?.followUpDate) return;
 
-            await fetch(`${API_BASE_URL}/interactions/${interactionId}`, {
-               method: "PATCH",
-               headers: { "Content-Type": "application/json" },
-               body: JSON.stringify({ followUpDate: tomorrowStr }),
-               credentials: "include", 
+            const currentFollowUpDate = new Date(reminder.followUpDate);
+            const newFollowUpDate = new Date(currentFollowUpDate);
+            newFollowUpDate.setDate(newFollowUpDate.getDate() + 1);
+
+            const formattedDate = newFollowUpDate.toISOString().split("T")[0];
+
+            const response = await fetch(`${API_BASE_URL}/interactions/${interactionId}`, {
+            	method: "PATCH",
+               	headers: { "Content-Type": "application/json" },
+               	body: JSON.stringify({ 
+                	followUpDate: formattedDate,
+				}),
+               	credentials: "include", 
             });
+
+            if (!response.ok) {
+                throw new Error("Failed to snooze reminder.");
+            }
+
+			const updatedReminder = await response.json();
+			setReminders((prev) => (
+				prev.map((reminder) => reminder.id === interactionId ? updatedReminder : reminder)
+			));
         } catch (error) {
-            console.error("Error snoozing reminder:", error);
+            console.error("Failed to snooze reminder:", error);
         }
     };
 
@@ -131,9 +156,9 @@ const Reminders = () => {
                             {reminders.map((reminder) => (
                                 <ReminderCard
                                     key={reminder.id}
-                                    interaction={reminder}
-                                    onClear={handleClear}
-                                    onSnooze={handleSnooze}
+                                    reminder={reminder}
+                                    onClear={handleClearReminder}
+                                    onSnooze={handleSnoozeReminder}
                                 />
                             ))}
                         </div>
