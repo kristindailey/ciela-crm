@@ -6,33 +6,12 @@ const router = Router();
 router.get("/", async (req, res) => {
     try {
         const userId = (req.user as any).id;
-        const { reminders, urgency } = req.query;
-
-        if (reminders !== "true") {
-            return res.status(404).json({ error: "Reminders not found." });
-        }
-
-        const today = new Date();
-        today.setUTCHours(0, 0, 0, 0);
-
-        let dateFilter = {};
-
-        if (urgency === "overdue") {
-            dateFilter = { lt: today };
-        } else if (urgency === "today") {
-            dateFilter = { equals: today }; 
-        } else if (urgency === "upcoming") {
-            const nextWeek = new Date(today);
-            nextWeek.setDate(today.getDate() + 7);
-            dateFilter = { gt: today, lte: nextWeek };
-        }
 
         const interactions = await prisma.interaction.findMany({
             where: {
                 userId,
                 followUpDate: {
                     not: null,
-                    ...dateFilter,
                 }
             },
             include: {
@@ -45,6 +24,7 @@ router.get("/", async (req, res) => {
                             select: {
                                 id: true,
                                 name: true,
+                                tier: true,
                             },
                         },
                     },
