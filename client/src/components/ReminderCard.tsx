@@ -1,14 +1,31 @@
+import { useNavigate } from "react-router";
 import type { Interaction } from "../types/interaction";
 
 interface ReminderCardProps {
-	interaction: Interaction;
-	onClear: (interactionId: string, contactId: string) => void;
-	onSnooze: (interactionId: string) => void;
+	reminder: Interaction;
+	onClear: (id: string) => void;
+	onSnooze: (id: string) => void;
 }
 
-const ReminderCard = ({ interaction, onClear, onSnooze }: ReminderCardProps) => {
-	const contactName = `${interaction.contact?.firstName} ${interaction.contact?.lastName}`;
-	const companyName = interaction.contact?.company?.name || "No company";
+const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
+	const navigate = useNavigate();
+
+	const formatDate = (dateString: string) => {
+		const [year, month, day] = dateString.split("T")[0].split("-");
+		const date = new Date(Number(year), Number(month) - 1, Number(day));
+
+		return date.toLocaleDateString("en-US", {
+			month: "short",
+			day: "numeric",
+			year: "numeric",
+		});
+	};
+
+	const handleContactClick = () => {
+		if (reminder.contact) {
+			navigate(`/contacts/${reminder.contact.id}`);
+		}
+	};
 
     return (
         <div
@@ -16,33 +33,40 @@ const ReminderCard = ({ interaction, onClear, onSnooze }: ReminderCardProps) => 
         >
             <div className="flex items-center justify-between">
 				<div className="flex-1">
-					<h3 className="text-lg font-semibold text-[var(--royal-blue)]">
-                    	{contactName} · {companyName}
+					<h3 
+						onClick={handleContactClick}
+						className="text-lg font-semibold text-[var(--royal-blue)]"
+					>
+                    	{reminder.contact?.firstName} {reminder.contact?.lastName}
                 	</h3>
 
-					<p className="text-sm text-gray-600 font-medium">
-						{interaction.type} {interaction.subject && `. ${interaction.subject}`}
-					</p>
+					<span className="text-sm text-gray-600 font-medium">
+						{reminder.contact?.company?.name} · {reminder.contact?.company?.tier}
+					</span>
+
+					<span className="text-sm text-gray-600 font-medium">
+						{reminder.type}
+					</span>
 
 					<p className="text-sm text-gray-600 font-medium">
-						{interaction.message}
+						{reminder.subject || reminder.message}
 					</p>
 
 					<div className="flex gap-4 mt-3 text-xs text-gray-500">
-						<span>Interaction: {new Date(interaction.interactionDate).toLocaleDateString()}</span>
-						<span>Follow-up: {new Date(interaction.followUpDate!).toLocaleDateString()}</span>
+						<span>Interaction: {formatDate(reminder.interactionDate)}</span>
+						<span>Follow-up: {reminder.followUpDate && formatDate(reminder.followUpDate)}</span>
 					</div>
 				</div>
                 
 				<div className="flex gap-2 ml-4">
 					<button
-						onClick={() => onClear(interaction.id, interaction.contactId)}
+						onClick={() => onClear(reminder.id)}
 						className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
 					>
 						Clear
 					</button>
 					<button
-						onClick={() => onSnooze(interaction.id)}
+						onClick={() => onSnooze(reminder.id)}
 						className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50"
 					>
 						Snooze
