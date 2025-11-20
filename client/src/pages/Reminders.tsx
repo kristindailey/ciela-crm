@@ -4,6 +4,7 @@ import type { Interaction } from "../types/interaction";
 import Sidebar from "../components/Sidebar";
 import PageHeader from "../components/PageHeader";
 import TabBar from "../components/TabBar";
+import ReminderCard from "../components/ReminderCard";
 
 const Reminders = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -96,6 +97,31 @@ const Reminders = () => {
                         activeTab={activeTab}
                         onTabChange={handleTabChange}
                     />
+
+                    <div className="p-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start">
+                            {reminders.map((reminder) => (
+                                <ReminderCard
+                                    key={reminder.id}
+                                    interaction={reminder}
+                                    onClear={handleClear}
+                                    onSnooze={handleSnooze}
+                                />
+                            ))}
+                        </div>
+
+                        {isLoading && (
+                            <div className="text-center text-gray-500 mt-8">
+                                Loading reminders...
+                            </div>
+                        )}
+
+                        {!isLoading && reminders.length === 0 && (
+                            <div className="text-center text-gray-500 mt-8">
+                                No reminders yet. Get started by adding follow-up dates to your interactions.
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </>
