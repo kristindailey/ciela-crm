@@ -58,13 +58,13 @@ const Reminders = () => {
     useEffect(() => {
         const fetchReminders = async () => {
             try {
-                const response = await fetch(`${API_BASE_URL}/interactions?reminders=true&urgency=${activeTab}`, {
+                const response = await fetch(`${API_BASE_URL}/interactions`, {
                     credentials: "include", 
                 });
 
                 if (response.ok) {
-                    const data = await response.json();
-                    setReminders(data);
+                    const remindersData = await response.json();
+                    setReminders(remindersData);
                 }
             } catch (error) {
                 console.error("Error fetching reminders:", error);
@@ -74,7 +74,7 @@ const Reminders = () => {
         };
 
         fetchReminders();
-    }, [activeTab]);
+    }, []);
 
     return (
         <>
