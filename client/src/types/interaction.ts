@@ -12,6 +12,7 @@ export interface Interaction {
         company?: {
             id: string;
             name: string;
+            tier: string;
         };
     };
     createdAt: string;
