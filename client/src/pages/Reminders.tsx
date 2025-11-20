@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router";
+import type { Interaction } from "../types/interaction";
 import Sidebar from "../components/Sidebar";
 import PageHeader from "../components/PageHeader";
 import TabBar from "../components/TabBar";
+import ReminderCard from "../components/ReminderCard";
 
 const Reminders = () => {
     const [searchQuery, setSearchQuery] = useState("");
+    const [reminders, setReminders] = useState<Interaction[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
     const activeTab = searchParams.get("tab") || "overdue";
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const handleSearchReminders = (value: string) => {
         setSearchQuery(value);
@@ -16,6 +21,27 @@ const Reminders = () => {
     const handleTabChange = (tab: string) => {
         setSearchParams({ tab });
     };
+
+    useEffect(() => {
+        const fetchReminders = async () => {
+            try {
+                const response = await fetch(`${API_BASE_URL}/interactions?reminders=true&urgency=${activeTab}`, {
+                    credentials: "include", 
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    setReminders(data);
+                }
+            } catch (error) {
+                console.error("Error fetching reminders:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchReminders();
+    }, [activeTab]);
 
     return (
         <>

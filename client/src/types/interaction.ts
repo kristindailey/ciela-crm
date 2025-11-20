@@ -9,6 +9,10 @@ export interface Interaction {
         id: string;
         firstName: string;
         lastName: string;
+        company?: {
+            id: string;
+            name: string;
+        };
     };
     createdAt: string;
     updatedAt: string;
