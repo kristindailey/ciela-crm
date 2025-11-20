@@ -181,7 +181,6 @@ model Interaction {
   message         String
   interactionDate DateTime          @db.Date
   followUpDate    DateTime?         @db.Date
-  completed       Boolean           @default(false)
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
 

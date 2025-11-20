@@ -10,7 +10,6 @@ export interface Interaction {
         firstName: string;
         lastName: string;
     };
-    completed: boolean;
     createdAt: string;
     updatedAt: string;
     
