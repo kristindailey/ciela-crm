@@ -22,9 +22,7 @@ const Reminders = () => {
                         title="reminders"
                         searchValue={searchQuery}
                         searchPlaceholder="Search reminders..."
-                        onSearchChange={() => {}}
-                        onAddClick={() => {}}
-                        onUploadClick={() => {}} 
+                        onSearchChange={() => {}} 
                     />
 
                     <TabBar
