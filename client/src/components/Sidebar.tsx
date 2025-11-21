@@ -60,22 +60,36 @@ const Sidebar = () => {
                     <FaHouse className="text-xl mr-0 sm:mr-2"/>
                     <span className="hidden sm:block md:block">Home</span>
                 </Link>
+
                 <Link to="/contacts" className="flex items-center hover:text-white">
                     <FaUserLarge className="text-xl mr-0 sm:mr-2"/>
                     <span className="hidden sm:block md:block">Contacts</span>
                 </Link>
+
                 <Link to="/companies" className="flex items-center hover:text-white">
                     <BsBuildingsFill className="text-xl mr-0 sm:mr-2"/>
                     <span className="hidden sm:block md:block">Companies</span>
                 </Link>
+
                 <Link to="/applications" className="flex items-center hover:text-white">
                     <GrDocumentText className="text-xl mr-0 sm:mr-2"/>
                     <span className="hidden sm:block md:block">Applications</span>
                 </Link>
+
                 <Link to="/reminders" className="flex items-center hover:text-white">
-                    <FaBell className="text-xl mr-0 sm:mr-2"/>
+					<div className="relative">
+						<FaBell className="text-xl mr-0 sm:mr-2"/>
+
+						{reminderCount > 0 && (
+							<span className="absolute -top-2 -right-0 bg-red-500 text-white text-xs font-bold rounded-lg px-1">
+								{reminderCount}
+							</span>
+						)}
+					</div>
+
                     <span className="hidden sm:block md:block">Reminders</span>
                 </Link>
+
                 <button 
                     onClick={handleLogout}
                     className="flex items-center pt-7 hover:text-white"
