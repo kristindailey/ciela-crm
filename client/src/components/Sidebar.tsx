@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { FaHouse, FaUserLarge } from "react-icons/fa6";
 import { BsBuildingsFill } from "react-icons/bs";
@@ -12,6 +12,7 @@ import mobileLogo from "../assets/ciela-text.png";
 const Sidebar = () => {
 	const [reminderCount, setReminderCount] = useState(0);
     const { logout } = useAuth();
+	const location = useLocation();
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     
     const handleLogout = async () => {
@@ -54,29 +55,64 @@ const Sidebar = () => {
 	}, []);
 
     return (
-        <div className="min-h-screen w-20 sm:w-35 md:w-48 bg-[var(--royal-blue)] shadow-sm border-r flex flex-col">
-            <div className="flex-1 flex flex-col items-start self-center justify-center px-2 sm:px-4 md:px-6 text-[var(--soft-lavender)] space-y-4 sm:space-y-6 md:space-y-8 pt-20 sm:pt-24 md:pt-30 text-sm sm:text-base md:text-lg">
-                <Link to="/" className="flex items-center hover:text-white">
+        <div className="min-h-screen w-20 sm:w-35 md:w-48 bg-[var(--royal-blue)] shadow-sm border-r flex flex-col font-inter">
+            <div className="flex-1 flex flex-col items-start self-center justify-center px-2 sm:px-4 md:px-6 space-y-4 sm:space-y-6 md:space-y-8 pt-20 sm:pt-24 md:pt-30 text-sm sm:text-base md:text-lg">
+                <Link 
+					to="/" 
+					className={`flex items-center ${
+						location.pathname === "/"
+						? "text-white hover:text-[var(--soft-lavender)]"
+						: "text-[var(--soft-lavender)] hover:text-white"
+					}`}
+				>
                     <FaHouse className="text-xl mr-0 sm:mr-2"/>
                     <span className="hidden sm:block md:block">Home</span>
                 </Link>
 
-                <Link to="/contacts" className="flex items-center hover:text-white">
+                <Link 
+					to="/contacts" 
+					className={`flex items-center ${
+						location.pathname === "/contacts"
+							? "text-white hover:text-[var(--soft-lavender)]"
+							: "text-[var(--soft-lavender)] hover:text-white"
+					}`}
+				>
                     <FaUserLarge className="text-xl mr-0 sm:mr-2"/>
                     <span className="hidden sm:block md:block">Contacts</span>
                 </Link>
 
-                <Link to="/companies" className="flex items-center hover:text-white">
+                <Link 
+					to="/companies" 
+					className={`flex items-center ${
+						location.pathname === "/companies"
+							? "text-white hover:text-[var(--soft-lavender)]"
+							: "text-[var(--soft-lavender)] hover:text-white"
+					}`}
+				>
                     <BsBuildingsFill className="text-xl mr-0 sm:mr-2"/>
                     <span className="hidden sm:block md:block">Companies</span>
                 </Link>
 
-                <Link to="/applications" className="flex items-center hover:text-white">
+                <Link 
+					to="/applications" 
+					className={`flex items-center ${
+						location.pathname === "/applications"
+							? "text-white hover:text-[var(--soft-lavender)]"
+							: "text-[var(--soft-lavender)] hover:text-white"
+					}`}
+				>
                     <GrDocumentText className="text-xl mr-0 sm:mr-2"/>
                     <span className="hidden sm:block md:block">Applications</span>
                 </Link>
 
-                <Link to="/reminders" className="flex items-center hover:text-white">
+                <Link 
+					to="/reminders" 
+					className={`flex items-center ${
+						location.pathname === "/reminders"
+							? "text-white hover:text-[var(--soft-lavender)]"
+							: "text-[var(--soft-lavender)] hover:text-white"
+					}`}
+				>
 					<div className="relative">
 						<FaBell className="text-xl mr-0 sm:mr-2"/>
 
