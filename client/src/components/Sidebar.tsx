@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { FaHouse, FaUserLarge } from "react-icons/fa6";
@@ -8,12 +7,12 @@ import { FaBell } from "react-icons/fa";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import logo from "../assets/ciela-logo.png"; 
 import mobileLogo from "../assets/ciela-text.png";
+import { useReminders } from "../context/RemindersContext";
 
 const Sidebar = () => {
-	const [reminderCount, setReminderCount] = useState(0);
     const { logout } = useAuth();
 	const location = useLocation();
-	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+	const { reminderCount } = useReminders();
     
     const handleLogout = async () => {
         try { 
@@ -22,37 +21,6 @@ const Sidebar = () => {
             console.error("Logout failed:", error);
         }
     };
-
-	useEffect(() => {
-		const fetchReminderCount = async () => {
-			try {
-				const response = await fetch(`${API_BASE_URL}/interactions`, {
-					credentials: "include",
-				});
-
-				if (response.ok) {
-					const reminders = await response.json();
-					const today = new Date();
-					today.setHours(0, 0, 0, 0);
-
-					const activeCount = reminders.filter((reminder: any) => {
-						if (!reminder.followUpDate) return false;
-
-						const followUpDate = new Date(reminder.followUpDate);
-						followUpDate.setHours(0, 0, 0, 0);
-
-						return followUpDate.getTime() <= today.getTime();
-					}).length;
-
-					setReminderCount(activeCount);
-				}
-			} catch (error) {
-				console.error("Error fetching reminder count:", error);
-			}
-		};
-
-		fetchReminderCount();
-	}, []);
 
     return (
         <div className="min-h-screen w-20 sm:w-35 md:w-48 bg-[var(--royal-blue)] shadow-sm border-r flex flex-col font-inter">
