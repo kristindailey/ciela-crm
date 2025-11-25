@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import type { Contact } from "../types/contact";
-import Sidebar from "../components/Sidebar";
 import ContactHeader from "../components/ContactHeader";
 import InfoPill from "../components/InfoPill";
 import NotesSection from "../components/NotesSection";
@@ -212,12 +211,9 @@ const ContactDetail = () => {
 
     if (isLoading) {
         return (
-            <div className="bg-gray-50 flex min-h-screen">
-                <Sidebar />
-                <div className="flex-1 flex items-center justify-center">
-                    <div className="text-center text-gray-500">
-                        Loading contact...
-                    </div>
+            <div className="flex-1 flex items-center justify-center">
+                <div className="text-center text-gray-500">
+                    Loading contact...
                 </div>
             </div>
         );
@@ -226,76 +222,76 @@ const ContactDetail = () => {
     if (!contact) return null;
 
     return (
-        <div className="bg-gray-50 flex">
-            <Sidebar />
-             <div className="flex-1">
-                <ContactHeader 
-                    contact={contact} 
-                    onContactUpdate={handleContactUpdate}
-                    onSaveField={handleSaveIconField}
-                    onDelete={handleDeleteContact}
+        <>
+            <ContactHeader 
+                contact={contact} 
+                onContactUpdate={handleContactUpdate}
+                onSaveField={handleSaveIconField}
+                onDelete={handleDeleteContact}
+            />
+
+            <div className="grid grid-cols-4 gap-4 px-5 mt-5">
+                <InfoPill 
+                    label="Role"
+                    value={contact.role}
+                    placeholder="Add role"
+                    onSave={(newValue) => handleSaveRole(newValue)}
                 />
 
-                <div className="grid grid-cols-4 gap-4 px-5 mt-5">
-                    <InfoPill 
-                        label="Role"
-                        value={contact.role}
-                        placeholder="Add role"
-                        onSave={(newValue) => handleSaveRole(newValue)}
-                    />
-                    <InfoPill 
-                        label="Company"
-                        value={contact.company.name}
-                        placeholder="Add company"
-                        onSave={(newValue) => handleSaveCompany(newValue)}
-                    />
-                    <InfoPill
-                        label="Location"
-                        value={contact.location}
-                        placeholder="Add location"
-                        onSave={(newValue) => handleSaveLocation(newValue)}
-                    />
-                    <InfoPill 
-                        label="Last Contacted"
-                        value={lastContactedDate ? formatDate(lastContactedDate) : undefined}
-                        placeholder="Not yet contacted"
-                        onSave={() => {}}
-                        readOnly={true}
+                <InfoPill 
+                    label="Company"
+                    value={contact.company.name}
+                    placeholder="Add company"
+                    onSave={(newValue) => handleSaveCompany(newValue)}
+                />
+                
+				<InfoPill
+                    label="Location"
+                    value={contact.location}
+                    placeholder="Add location"
+                    onSave={(newValue) => handleSaveLocation(newValue)}
+                />
+
+            	<InfoPill 
+                    label="Last Contacted"
+                    value={lastContactedDate ? formatDate(lastContactedDate) : undefined}
+                    placeholder="Not yet contacted"
+                    onSave={() => {}}
+                    readOnly={true}
+                />
+            </div>
+
+            <div className="grid grid-cols-12 gap-4 px-5 mt-5">
+                <div className="col-span-4">
+                    <NotesSection 
+                        label="Contact Notes"
+                        value={contact.notes}
+                        placeholder="Add contact notes"
+                        onSave={(newValue) => handleSaveContactNotes(newValue)}
                     />
                 </div>
-
-                <div className="grid grid-cols-12 gap-4 px-5 mt-5">
-                    <div className="col-span-4">
-                        <NotesSection 
-                            label="Contact Notes"
-                            value={contact.notes}
-                            placeholder="Add contact notes"
-                            onSave={(newValue) => handleSaveContactNotes(newValue)}
-                        />
-                    </div>
                     
-                    <div className="col-span-4">
-                        <NotesSection 
-                            label="Outreach Notes"
-                            value={contact.outreachNotes}
-                            placeholder="Add outreach notes"
-                            onSave={(newValue) => handleSaveOutreachNotes(newValue)}
-                        />
-                    </div>
+                <div className="col-span-4">
+                    <NotesSection 
+                        label="Outreach Notes"
+                        value={contact.outreachNotes}
+                        placeholder="Add outreach notes"
+                        onSave={(newValue) => handleSaveOutreachNotes(newValue)}
+                    />
+                </div>
                     
-                    <div className="col-span-4">
-                        <OutreachHistory 
-                            label="Outreach History"
-                            contactId={contact.id}
-                            searchValue={searchQuery}
-                            searchPlaceholder="Search interactions..."
-                            onSearchChange={handleSearchInteractions}
-                            onInteractionAdded={handleAddInteraction}
-                        />
-                    </div>
+                <div className="col-span-4">
+                    <OutreachHistory 
+                        label="Outreach History"
+                        contactId={contact.id}
+                        searchValue={searchQuery}
+                        searchPlaceholder="Search interactions..."
+                        onSearchChange={handleSearchInteractions}
+                        onInteractionAdded={handleAddInteraction}
+                    />
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
