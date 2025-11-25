@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Sidebar from "../components/Sidebar";
 import PageHeader from "../components/PageHeader";
 import TierTabs from "../components/TierTabs";
 
@@ -14,25 +13,20 @@ const Applications = () => {
 
     return (
         <>
-            <div className="bg-gray-50 flex">
-                <Sidebar />
-                <div className="flex-1">
-                    <PageHeader 
-                        title="applications"
-                        searchValue={searchQuery}
-                        searchPlaceholder="Search applications..."
-                        onSearchChange={() => {}}
-                        onAddClick={() => {}}
-                        onUploadClick={() => {}}
-                    />
+			<PageHeader 
+            	title="applications"
+            	searchValue={searchQuery}
+            	searchPlaceholder="Search applications..."
+            	onSearchChange={() => {}}
+            	onAddClick={() => {}}
+            	onUploadClick={() => {}}
+        	/>
 
-                    <TierTabs 
-                        tiers={tiers}
-                        activeTier={activeTier}
-                        onTierChange={handleTierChange}
-                    />
-                </div>
-            </div>
+        	<TierTabs 
+            	tiers={tiers}
+            	activeTier={activeTier}
+            	onTierChange={handleTierChange}
+        	/>
         </>
     );
 };
