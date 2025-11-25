@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { AuthProvider } from "./context/AuthContext";
+import { RemindersProvider } from "./context/RemindersContext";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -69,7 +70,9 @@ const router = createBrowserRouter([
 const App = () => {
 	return (
 		<AuthProvider>
-		<RouterProvider router={router} />
+			<RemindersProvider>
+				<RouterProvider router={router} />
+			</RemindersProvider>
 		</AuthProvider>
 	);
 };
