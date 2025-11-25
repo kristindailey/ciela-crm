@@ -2,7 +2,6 @@ import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router";
 import Papa from "papaparse";
 import type { Company } from "../types/company";
-import Sidebar from "../components/Sidebar";
 import PageHeader from "../components/PageHeader";
 import TierTabs from "../components/TierTabs";
 import CompanyCard from "../components/CompanyCard";
@@ -219,61 +218,58 @@ const Companies = () => {
     }, []);
 
     return (
-        <div className="bg-gray-50 flex">
-            <Sidebar />
-            <div className="flex-1">
-                <PageHeader 
-                    title="companies"
-                    searchValue={searchQuery}
-                    searchPlaceholder="Search companies..."
-                    onSearchChange={handleSearchCompanies}
-                    onAddClick={handleAddCompany}
-                    onUploadClick={handleUploadCompanies}
-                />
+        <>
+            <PageHeader 
+                title="companies"
+                searchValue={searchQuery}
+                searchPlaceholder="Search companies..."
+                onSearchChange={handleSearchCompanies}
+                onAddClick={handleAddCompany}
+                onUploadClick={handleUploadCompanies}
+            />
 
-                <TierTabs 
-                    tiers={tiers}
-                    activeTier={activeTier}
-                    onTierChange={handleTierChange}
-                />
+            <TierTabs 
+                tiers={tiers}
+                activeTier={activeTier}
+                onTierChange={handleTierChange}
+            />
 
-                <div className="p-6">
-                    <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start ${
-                        paginatedCompanies.length > 0 ? "lg:min-h-[400px]" : ""
-                    }`}>
-                        {paginatedCompanies.map((company) => (
-                            <CompanyCard 
-                                key={company.id} 
-                                company={company} 
-                                onDelete={() => handleDeleteCompany(company.id)}
-                            />
-                        ))}
-                    </div>
-
-                    <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={handlePageChange}
-                    />
-
-                    {isLoading && (
-                        <div className="text-center text-gray-500 mt-8">
-                            Loading companies...
-                        </div>
-                    )}
-
-                    {!isLoading && companies.length === 0 && (
-                        <div className="text-center text-gray-500 mt-8">
-                            Ready to add your first company? Click the + button to get started.
-                        </div>
-                    )}
-
-                    {!isLoading && companies.length > 0 && filteredCompanies.length === 0 && searchQuery && (
-                        <div className="text-center text-gray-500 mt-8">
-                            No companies found matching your search.
-                        </div>
-                    )}
+            <div className="p-6">
+                <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start ${
+                    paginatedCompanies.length > 0 ? "lg:min-h-[400px]" : ""
+                }`}>
+                    {paginatedCompanies.map((company) => (
+                        <CompanyCard 
+                            key={company.id} 
+                            company={company} 
+                            onDelete={() => handleDeleteCompany(company.id)}
+                        />
+                    ))}
                 </div>
+
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                />
+
+                {isLoading && (
+                    <div className="text-center text-gray-500 mt-8">
+                        Loading companies...
+                    </div>
+                )}
+
+                {!isLoading && companies.length === 0 && (
+                    <div className="text-center text-gray-500 mt-8">
+                        Ready to add your first company? Click the + button to get started.
+                    </div>
+                )}
+
+                {!isLoading && companies.length > 0 && filteredCompanies.length === 0 && searchQuery && (
+                    <div className="text-center text-gray-500 mt-8">
+                        No companies found matching your search.
+                    </div>
+                )}
             </div>
 
             <UploadModal
@@ -287,7 +283,7 @@ const Companies = () => {
                 onUpload={handleUploadCSV}
                 uploadStatus={uploadStatus}
             />
-        </div>
+        </>
     );
 };
 
