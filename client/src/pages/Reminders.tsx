@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router";
 import type { Interaction } from "../types/interaction";
-import Sidebar from "../components/Sidebar";
 import PageHeader from "../components/PageHeader";
 import TabBar from "../components/TabBar";
 import ReminderCard from "../components/ReminderCard";
@@ -133,69 +132,64 @@ const Reminders = () => {
 
     return (
         <>
-            <div className="bg-gray-50 flex">
-                <Sidebar />
-                <div className="flex-1">
-                    <PageHeader
-                        title="reminders"
-                        searchValue={searchQuery}
-                        searchPlaceholder="Search reminders..."
-                        onSearchChange={handleSearchReminders} 
-                    />
+            <PageHeader
+                title="reminders"
+                searchValue={searchQuery}
+                searchPlaceholder="Search reminders..."
+                onSearchChange={handleSearchReminders} 
+            />
 
-                    <TabBar
-                        tabs={[
-                            { value: "overdue", label: "overdue" },
-                            { value: "due today", label: "due today" },
-                            { value: "upcoming", label: "upcoming" },
-                        ]}
-                        activeTab={activeTab}
-                        onTabChange={handleTabChange}
-                    />
+            <TabBar
+                tabs={[
+                    { value: "overdue", label: "overdue" },
+                    { value: "due today", label: "due today" },
+                    { value: "upcoming", label: "upcoming" },
+                ]}
+                    activeTab={activeTab}
+                    onTabChange={handleTabChange}
+            />
 
-                    <div className="p-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start">
-                            {activeTab === "overdue" && overdue.map((reminder) => (
-                                <ReminderCard
-                                    key={reminder.id}
-                                    reminder={reminder}
-                                    onClear={handleClearReminder}
-                                    onSnooze={handleSnoozeReminder}
-                                />
-                            ))}
+            <div className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start">
+                    {activeTab === "overdue" && overdue.map((reminder) => (
+                        <ReminderCard
+                            key={reminder.id}
+                            reminder={reminder}
+                            onClear={handleClearReminder}
+                            onSnooze={handleSnoozeReminder}
+                        />
+                    ))}
 
-							{activeTab === "due today" && dueToday.map((reminder) => (
-                                <ReminderCard
-                                    key={reminder.id}
-                                    reminder={reminder}
-                                    onClear={handleClearReminder}
-                                    onSnooze={handleSnoozeReminder}
-                                />
-                            ))}
+					{activeTab === "due today" && dueToday.map((reminder) => (
+                        <ReminderCard
+                        	key={reminder.id}
+                            reminder={reminder}
+                            onClear={handleClearReminder}
+                            onSnooze={handleSnoozeReminder}
+                        />
+                    ))}
 
-							{activeTab === "upcoming" && upcoming.map((reminder) => (
-                                <ReminderCard
-                                    key={reminder.id}
-                                    reminder={reminder}
-                                    onClear={handleClearReminder}
-                                    onSnooze={handleSnoozeReminder}
-                                />
-                            ))}
-                        </div>
-
-                        {isLoading && (
-                            <div className="text-center text-gray-500 mt-8">
-                                Loading reminders...
-                            </div>
-                        )}
-
-                        {!isLoading && reminders.length === 0 && (
-                            <div className="text-center text-gray-500 mt-8">
-                                No reminders yet. Get started by adding follow-up dates to your interactions.
-                            </div>
-                        )}
-                    </div>
+					{activeTab === "upcoming" && upcoming.map((reminder) => (
+                        <ReminderCard
+                            key={reminder.id}
+                            reminder={reminder}
+                            onClear={handleClearReminder}
+                            onSnooze={handleSnoozeReminder}
+                        />
+                    ))}
                 </div>
+
+                {isLoading && (
+                    <div className="text-center text-gray-500 mt-8">
+                        Loading reminders...
+                    </div>
+                )}
+
+                {!isLoading && reminders.length === 0 && (
+                    <div className="text-center text-gray-500 mt-8">
+                        No reminders yet. Get started by adding follow-up dates to your interactions.
+                    </div>
+                )}
             </div>
         </>
     );
