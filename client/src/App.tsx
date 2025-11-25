@@ -11,61 +11,67 @@ import Companies from "./pages/Companies";
 import CompanyDetail from "./pages/CompanyDetail";
 import Applications from "./pages/Applications";
 import Reminders from "./pages/Reminders";
+import Layout from "./components/Layout";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />
-  },
-  {
-    path: "/login",
-    element: <Login />
-  },
-  {
-    path: "/register",
-    element: <Register />
-  },
-  {
-    path: "/contacts",
-    element: <ProtectedRoute><Contacts /></ProtectedRoute>,
-  },
-  {
-    path: "/contacts/new",
-    element: <ProtectedRoute><AddContactPage /></ProtectedRoute>,
-  },
-  {
-    path: "/contacts/:id",
-    element: <ProtectedRoute><ContactDetail /></ProtectedRoute>,
-  },
-  {
-    path: "/companies/new",
-    element: <ProtectedRoute><AddCompanyPage /></ProtectedRoute>,
-  },
-  {
-    path: "/companies/:id",
-    element: <ProtectedRoute><CompanyDetail /></ProtectedRoute>,
-  },
-  {
-    path: "/companies",
-    element: <ProtectedRoute><Companies /></ProtectedRoute>,
-  },
-  {
-    path: "/applications",
-    element: <ProtectedRoute><Applications /></ProtectedRoute>,
-  },
-  {
-    path: "/reminders",
-    element: <ProtectedRoute><Reminders /></ProtectedRoute>,
-  },
+	{
+		path: "/",
+		element: <Home />
+	},
+	{
+		path: "/login",
+		element: <Login />
+	},
+	{
+		path: "/register",
+		element: <Register />
+	},
+	{
+		element: <ProtectedRoute><Layout /></ProtectedRoute>,
+		children: [
+			{
+				path: "/contacts",
+				element: <Contacts />,
+			},
+			{
+				path: "/contacts/new",
+				element: <AddContactPage />,
+			},
+			{
+				path: "/contacts/:id",
+				element: <ContactDetail />,
+			},
+			{
+				path: "/companies",
+				element: <Companies />,
+			},
+			{
+				path: "/companies/new",
+				element: <AddCompanyPage />,
+			},
+			{
+				path: "/companies/:id",
+				element: <CompanyDetail />,
+			},
+			{
+				path: "/applications",
+				element: <Applications />,
+			},
+			{	
+				path: "/reminders",
+				element: <Reminders />,
+			},
+		],
+	},
 ]);
 
 const App = () => {
-  return (
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-  );
+	return (
+		<AuthProvider>
+		<RouterProvider router={router} />
+		</AuthProvider>
+	);
 };
 
 export default App;
