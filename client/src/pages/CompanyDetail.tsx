@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useSearchParams, useNavigate } from "react-router";
 import type { Company } from "../types/company";
-import Sidebar from "../components/Sidebar";
 import CompanyHeader from "../components/CompanyHeader";
 import TabBar from "../components/TabBar";
 import CompanyOverview from "../components/CompanyOverview";
@@ -295,12 +294,9 @@ const CompanyDetail = () => {
 
     if (isLoading) {
         return (
-            <div className="bg-gray-50 flex min-h-screen">
-                <Sidebar />
-                <div className="flex-1 flex items-center justify-center">
-                    <div className="text-center text-gray-500">
-                        Loading company...
-                    </div>
+            <div className="flex items-center justify-center">
+                <div className="text-center text-gray-500">
+                    Loading company...
                 </div>
             </div>
         );
@@ -309,47 +305,44 @@ const CompanyDetail = () => {
     if (!company) return null;
 
     return (
-        <div className="bg-gray-50 flex">
-            <Sidebar />
-            <div className="flex-1">
-                <CompanyHeader 
-                    company={company} 
-                    onCompanyUpdate={handleCompanyUpdate} 
-                    onSaveField={handleSaveIconField} 
-                    onDelete={handleDeleteCompany}
+        <>
+            <CompanyHeader 
+                company={company} 
+                onCompanyUpdate={handleCompanyUpdate} 
+                onSaveField={handleSaveIconField} 
+                onDelete={handleDeleteCompany}
+            />
+
+            <TabBar
+                tabs={[
+                    { value: "overview", label: "overview" },
+                    { value: "contacts", label: "contacts" },
+                ]}
+                activeTab={activeTab}
+                onTabChange={handleTabChange}
+            />
+
+            {activeTab === "overview" && (
+                <CompanyOverview
+                    company={company}
+                    lastContactedDate={lastContactedDate}
+                    onSaveDescription={handleSaveDescription}
+                    onSaveHQLocation={handleSaveHQLocation}
+                    onSaveEmployeeCount={handleSaveEmployeeCount}
+                    onSaveLocalLocation={handleSaveLocalLocation}
+                    onSaveGlassdoorRating={handleSaveGlassdoorRating}
+                    onSaveBlindRating={handleSaveBlindRating}
+                    onSaveOfficePolicy={handleSaveOfficePolicy}
+                    onSaveTechStack={handleSaveTechStack}
+                    onSaveCompanyNotes={handleSaveCompanyNotes}
+                    onInteractionAdded={handleAddInteraction}
                 />
+            )}
 
-                <TabBar
-                    tabs={[
-                        { value: "overview", label: "overview" },
-                        { value: "contacts", label: "contacts" },
-                    ]}
-                    activeTab={activeTab}
-                    onTabChange={handleTabChange}
-                />
-
-                {activeTab === "overview" && (
-                    <CompanyOverview
-                        company={company}
-                        lastContactedDate={lastContactedDate}
-                        onSaveDescription={handleSaveDescription}
-                        onSaveHQLocation={handleSaveHQLocation}
-                        onSaveEmployeeCount={handleSaveEmployeeCount}
-                        onSaveLocalLocation={handleSaveLocalLocation}
-                        onSaveGlassdoorRating={handleSaveGlassdoorRating}
-                        onSaveBlindRating={handleSaveBlindRating}
-                        onSaveOfficePolicy={handleSaveOfficePolicy}
-                        onSaveTechStack={handleSaveTechStack}
-                        onSaveCompanyNotes={handleSaveCompanyNotes}
-                        onInteractionAdded={handleAddInteraction}
-                    />
-                )}
-
-                {activeTab === "contacts" && (
-                    <CompanyContacts companyId={id!} />
-                )}
-            </div>
-        </div>
+            {activeTab === "contacts" && (
+                <CompanyContacts companyId={id!} />
+            )}
+        </>
     );
 };
 
