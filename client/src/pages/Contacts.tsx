@@ -2,7 +2,6 @@ import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router";
 import Papa from "papaparse";
 import type { Contact } from "../types/contact";
-import Sidebar from "../components/Sidebar";
 import PageHeader from "../components/PageHeader";
 import TierTabs from "../components/TierTabs";
 import ContactCard from "../components/ContactCard";
@@ -253,61 +252,58 @@ const Contacts = () => {
     }, []);
 
     return (
-        <div className="bg-gray-50 flex">
-            <Sidebar />
-            <div className="flex-1">
-                <PageHeader 
-                    title="contacts"
-                    searchValue={searchQuery}
-                    searchPlaceholder="Search contacts..."
-                    onSearchChange={handleSearchContacts}
-                    onAddClick={handleAddContact}
-                    onUploadClick={handleUploadContacts}
-                />
+        <>
+            <PageHeader 
+                title="contacts"
+                searchValue={searchQuery}
+                searchPlaceholder="Search contacts..."
+                onSearchChange={handleSearchContacts}
+                onAddClick={handleAddContact}
+                onUploadClick={handleUploadContacts}
+            />
 
-                <TierTabs 
-                    tiers={tiers}
-                    activeTier={activeTier}
-                    onTierChange={handleTierChange}
-                />
+        	<TierTabs 
+                tiers={tiers}
+                activeTier={activeTier}
+                onTierChange={handleTierChange}
+            />
 
-                <div className="p-6">
-                    <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start ${
-                        paginatedContacts.length > 0 ? "lg:min-h-[490px]" : ""
-                    }`}>
-                            {paginatedContacts.map((contact) => (
-                                <ContactCard 
-                                    key={contact.id} 
-                                    contact={contact} 
-                                    onDelete={() => handleDeleteContact(contact.id)}
-                                />
-                            ))}
-                    </div>
-
-                    <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={handlePageChange}
-                    />
-
-                    {isLoading && (
-                        <div className="text-center text-gray-500 mt-8">
-                            Loading contacts...
-                        </div>
-                    )}
-
-                    {!isLoading && contacts.length === 0 && (
-                        <div className="text-center text-gray-500 mt-8">
-                            Ready to add your first contact? Click the + button to get started.
-                        </div>
-                    )}
-
-                    {!isLoading && contacts.length > 0 && filteredContacts.length === 0 && searchQuery && (
-                        <div className="text-center text-gray-500 mt-8">
-                            No contacts found matching your search.
-                        </div>
-                    )}
+            <div className="p-6">
+                <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start ${
+                    paginatedContacts.length > 0 ? "lg:min-h-[490px]" : ""
+                }`}>
+                        {paginatedContacts.map((contact) => (
+                            <ContactCard 
+                                key={contact.id} 
+                                contact={contact} 
+                                onDelete={() => handleDeleteContact(contact.id)}
+                            />
+                        ))}
                 </div>
+
+                <Pagination
+                    currentPage={currentPage}
+                       totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                />
+
+                {isLoading && (
+                    <div className="text-center text-gray-500 mt-8">
+                        Loading contacts...
+                    </div>
+                )}
+
+                {!isLoading && contacts.length === 0 && (
+                    <div className="text-center text-gray-500 mt-8">
+                           Ready to add your first contact? Click the + button to get started.
+                    </div>
+                )}
+
+                {!isLoading && contacts.length > 0 && filteredContacts.length === 0 && searchQuery && (
+                    <div className="text-center text-gray-500 mt-8">
+                        No contacts found matching your search.
+                    </div>
+                )}
             </div>
 
             <UploadModal
@@ -321,7 +317,7 @@ const Contacts = () => {
                 onUpload={handleUploadCSV}
                 uploadStatus={uploadStatus}
             />
-        </div>
+        </>
     );
 };
 
