@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router";
 import type { Interaction } from "../types/interaction";
+import { useReminders } from "../context/RemindersContext";
 import PageHeader from "../components/PageHeader";
 import TabBar from "../components/TabBar";
 import ReminderCard from "../components/ReminderCard";
@@ -9,10 +10,11 @@ const Reminders = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [reminders, setReminders] = useState<Interaction[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+	const { refreshReminderCount } = useReminders();
     const [searchParams, setSearchParams] = useSearchParams();
+	const navigate = useNavigate();
     const activeTab = searchParams.get("tab") || "overdue";
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-    const navigate = useNavigate();
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -52,7 +54,7 @@ const Reminders = () => {
 
     const handleClearReminder = async (interactionId: string) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/interactions${interactionId}`, {
+            const response = await fetch(`${API_BASE_URL}/interactions/${interactionId}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 
@@ -65,7 +67,10 @@ const Reminders = () => {
                 throw new Error("Failed to clear reminder.");
             }
 
+			await refreshReminderCount();
+
             const clearedReminder = reminders.find((reminder) => reminder.id === interactionId);
+			
             if (clearedReminder?.contact) {
                 navigate(`/contacts/${clearedReminder.contact.id}`);
             }
@@ -102,6 +107,8 @@ const Reminders = () => {
 			setReminders((prev) => (
 				prev.map((reminder) => reminder.id === interactionId ? updatedReminder : reminder)
 			));
+
+			await refreshReminderCount();
         } catch (error) {
             console.error("Failed to snooze reminder:", error);
         }
