@@ -21,6 +21,17 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
 		});
 	};
 
+	const formatInteractionType = (type: string | undefined) => {
+		if (!type) return undefined;
+
+		if (type === "linkedin" || type === "LINKEDIN") {
+			return "LinkedIn";
+		}
+
+        const formatted = type.toLowerCase();
+        return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+	};
+
 	const handleContactClick = () => {
 		if (reminder.contact) {
 			navigate(`/contacts/${reminder.contact.id}`);
@@ -55,7 +66,7 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
 			</div>
 			
 			<span className="text-xs text-gray-500 font-medium">
-				{reminder.type}
+				{formatInteractionType(reminder.type)}
 			</span>
 
 			<span className="text-xs text-gray-500 font-medium">
