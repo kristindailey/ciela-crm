@@ -32,6 +32,15 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
         return formatted.charAt(0).toUpperCase() + formatted.slice(1);
 	};
 
+	const formatTier = (tier: string | undefined) => {
+		if (!tier) return undefined;
+
+    	return tier
+      	.toLowerCase()
+      	.replace(/_/g, " ")
+      	.replace(/^\w/, c => c.toUpperCase());
+  	};
+
 	const handleContactClick = () => {
 		if (reminder.contact) {
 			navigate(`/contacts/${reminder.contact.id}`);
@@ -79,7 +88,7 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
 
 			<div className="flex items-center justify-between">
 				<span className="text-sm text-gray-600 font-medium">
-					{reminder.contact?.company?.tier}
+					{formatTier(reminder.contact?.company?.tier)}
 				</span>
 
 				<div className="flex justify-end gap-2">
