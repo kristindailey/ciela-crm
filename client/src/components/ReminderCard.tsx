@@ -29,42 +29,56 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
 
     return (
         <div
-            className="flex flex-col relative bg-white p-4 rounded-lg border shadow-sm cursor-pointer hover:shadow-md hover:bg-[var(--royal-blue)]/20 hover:border-[var(--royal-blue)]/30 transition-all h-[162px]"
+            className="flex flex-col relative bg-white p-4 rounded-lg border shadow-sm cursor-pointer hover:shadow-md hover:bg-[var(--royal-blue)]/20 hover:border-[var(--royal-blue)]/30 transition-all h-[180px]"
         >
             <div className="flex items-center justify-between">
-				<div className="flex-1">
-					<h3 
-						onClick={handleContactClick}
-						className="text-lg font-semibold text-[var(--royal-blue)]"
-					>
-                    	{reminder.contact?.firstName} {reminder.contact?.lastName}
-                	</h3>
+				<h3 
+					onClick={handleContactClick}
+					className="text-lg font-semibold text-[var(--royal-blue)]"
+				>
+                    {reminder.contact?.firstName} {reminder.contact?.lastName}
+                </h3>
 
-					<span className="text-sm text-gray-600 font-medium">
-						{reminder.contact?.company?.name} · {reminder.contact?.company?.tier}
-					</span>
+				<span className="text-xs text-gray-500">
+					Interaction: {formatDate(reminder.interactionDate)}
+				</span>
+			</div>
 
-					<span className="text-sm text-gray-600 font-medium">
-						{reminder.type}
-					</span>
+			<div className="flex items-center justify-between">
+				<span className="text-sm text-gray-600 font-medium">
+					{reminder.contact?.company?.name}
+				</span>
 
-					<p className="text-sm text-gray-600 font-medium">
-						{reminder.subject || reminder.message}
-					</p>
+				<span className="text-xs text-gray-500">
+					Follow-up: {reminder.followUpDate && formatDate(reminder.followUpDate)}
+				</span>
+			</div>
+			
+			<span className="text-xs text-gray-500 font-medium">
+				{reminder.type}
+			</span>
 
-					<div className="flex gap-4 mt-3 text-xs text-gray-500">
-						<span>Interaction: {formatDate(reminder.interactionDate)}</span>
-						<span>Follow-up: {reminder.followUpDate && formatDate(reminder.followUpDate)}</span>
-					</div>
-				</div>
-                
-				<div className="flex gap-2 ml-4">
+			<span className="text-xs text-gray-500 font-medium">
+				{reminder?.subject}
+			</span>
+
+			<span className="text-xs text-gray-500 font-medium mb-3">
+				{reminder.message}
+			</span>
+
+			<div className="flex items-center justify-between">
+				<span className="text-sm text-gray-600 font-medium">
+					{reminder.contact?.company?.tier}
+				</span>
+
+				<div className="flex justify-end gap-2">
 					<button
 						onClick={() => onClear(reminder.id)}
 						className="px-3 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
 					>
 						Clear
 					</button>
+
 					<button
 						onClick={() => onSnooze(reminder.id)}
 						className="px-3 py-2 text-white bg-[var(--royal-blue)] rounded-lg hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors"
@@ -72,7 +86,7 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
 						Snooze
 					</button>
 				</div>
-            </div>
+			</div>	
         </div>
     );
 };
