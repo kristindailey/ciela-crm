@@ -29,7 +29,7 @@ const Sidebar = () => {
 					to="/" 
 					className={`flex items-center ${
 						location.pathname === "/"
-						? "text-white hover:text-[var(--soft-lavender)]"
+						? "text-white"
 						: "text-[var(--soft-lavender)] hover:text-white"
 					}`}
 				>
@@ -41,7 +41,7 @@ const Sidebar = () => {
 					to="/contacts" 
 					className={`flex items-center ${
 						location.pathname === "/contacts"
-							? "text-white hover:text-[var(--soft-lavender)]"
+							? "text-white"
 							: "text-[var(--soft-lavender)] hover:text-white"
 					}`}
 				>
@@ -53,7 +53,7 @@ const Sidebar = () => {
 					to="/companies" 
 					className={`flex items-center ${
 						location.pathname === "/companies"
-							? "text-white hover:text-[var(--soft-lavender)]"
+							? "text-white"
 							: "text-[var(--soft-lavender)] hover:text-white"
 					}`}
 				>
@@ -65,7 +65,7 @@ const Sidebar = () => {
 					to="/applications" 
 					className={`flex items-center ${
 						location.pathname === "/applications"
-							? "text-white hover:text-[var(--soft-lavender)]"
+							? "text-white"
 							: "text-[var(--soft-lavender)] hover:text-white"
 					}`}
 				>
@@ -77,7 +77,7 @@ const Sidebar = () => {
 					to="/reminders" 
 					className={`flex items-center ${
 						location.pathname === "/reminders"
-							? "text-white hover:text-[var(--soft-lavender)]"
+							? "text-white"
 							: "text-[var(--soft-lavender)] hover:text-white"
 					}`}
 				>
@@ -96,7 +96,7 @@ const Sidebar = () => {
 
                 <button 
                     onClick={handleLogout}
-                    className="flex items-center pt-7 hover:text-white"
+                    className="flex items-center pt-7 text-[var(--soft-lavender)] hover:text-white"
                 >
                     <RiLogoutBoxLine className="text-xl mr-0 sm:mr-2"/>
                     <span className="hidden sm:block md:block">Logout</span>
