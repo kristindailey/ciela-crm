@@ -47,6 +47,12 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
 		}
 	};
 
+	const handleCompanyClick = () => {
+		if (reminder.contact?.company) {
+			navigate(`/companies/${reminder.contact.company.id}`);
+		}
+	};
+
     return (
         <div
             className="flex flex-col relative bg-white p-4 rounded-lg border shadow-sm cursor-pointer h-[200px] font-inter"
@@ -65,7 +71,10 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
 			</div>
 
 			<div className="flex items-center justify-between">
-				<span className="text-sm font-medium text-gray-600 hover:text-[var(--soft-lavender)]">
+				<span 
+					onClick={handleCompanyClick}
+					className="text-sm font-medium text-gray-600 hover:text-[var(--soft-lavender)]"
+				>
 					{reminder.contact?.company?.name}
 				</span>
 
