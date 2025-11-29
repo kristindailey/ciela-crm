@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router";
+import { useParams, useNavigate, useSearchParams } from "react-router";
 import type { Contact } from "../types/contact";
 import ContactHeader from "../components/ContactHeader";
 import InfoPill from "../components/InfoPill";
@@ -8,6 +8,7 @@ import OutreachHistory from "../components/OutreachHistory";
 
 const ContactDetail = () => {
     const { id } = useParams<{ id: string }>();
+	const [searchParams, setSearchParams] = useSearchParams();
     const [searchQuery, setSearchQuery] = useState("");
     const [contact, setContact] = useState<Contact | null>(null);
     const [isLoading, setIsLoading] = useState(true);
