@@ -10,11 +10,12 @@ interface OutreachHistoryProps {
     companyId?: string;
     searchValue: string;
     searchPlaceholder: string;
+	shouldOpenModal?: boolean;
     onSearchChange: (value: string) => void;
     onInteractionAdded?: (interaction: any) => void;
 }
 
-const OutreachHistory = ({ label, contactId, companyId, searchValue, searchPlaceholder, onSearchChange, onInteractionAdded }: OutreachHistoryProps) => {
+const OutreachHistory = ({ label, contactId, companyId, searchValue, searchPlaceholder, shouldOpenModal, onSearchChange, onInteractionAdded }: OutreachHistoryProps) => {
     const [interactions, setInteractions] = useState<Interaction[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string>("");
