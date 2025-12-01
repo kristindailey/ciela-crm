@@ -287,6 +287,7 @@ const ContactDetail = () => {
                         contactId={contact.id}
                         searchValue={searchQuery}
                         searchPlaceholder="Search interactions..."
+						shouldOpenModal={searchParams.get("openModal") === "true"}
                         onSearchChange={handleSearchInteractions}
                         onInteractionAdded={handleAddInteraction}
                     />
