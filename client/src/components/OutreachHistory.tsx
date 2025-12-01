@@ -87,6 +87,12 @@ const OutreachHistory = ({ label, contactId, companyId, searchValue, searchPlace
         }
     }, [isAddModalOpen]);
 
+	useEffect(() => {
+		if (shouldOpenModal) {
+			setAddModalOpen(true);
+		}
+	}, [shouldOpenModal]);
+
     return (
         <div>
             <label className="font-inter text-sm text-gray-600 block">{label}</label>
