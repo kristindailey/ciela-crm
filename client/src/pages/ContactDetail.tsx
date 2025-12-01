@@ -210,12 +210,6 @@ const ContactDetail = () => {
         }
     }, [id, API_BASE_URL]);
 
-	useEffect(() => {
-		if (searchParams.get("openModal") === "true") {
-			setSearchParams({});
-		}
-	}, [searchParams, setSearchParams]);
-
     if (isLoading) {
         return (
             <div className="flex-1 flex items-center justify-center">
@@ -294,6 +288,7 @@ const ContactDetail = () => {
                         searchValue={searchQuery}
                         searchPlaceholder="Search interactions..."
 						shouldOpenModal={searchParams.get("openModal") === "true"}
+						onModalClosed={() => setSearchParams({})}
                         onSearchChange={handleSearchInteractions}
                         onInteractionAdded={handleAddInteraction}
                     />

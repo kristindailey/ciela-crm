@@ -11,11 +11,12 @@ interface OutreachHistoryProps {
     searchValue: string;
     searchPlaceholder: string;
 	shouldOpenModal?: boolean;
+	onModalClosed?: () => void;
     onSearchChange: (value: string) => void;
     onInteractionAdded?: (interaction: any) => void;
 }
 
-const OutreachHistory = ({ label, contactId, companyId, searchValue, searchPlaceholder, shouldOpenModal, onSearchChange, onInteractionAdded }: OutreachHistoryProps) => {
+const OutreachHistory = ({ label, contactId, companyId, searchValue, searchPlaceholder, shouldOpenModal, onModalClosed, onSearchChange, onInteractionAdded }: OutreachHistoryProps) => {
     const [interactions, setInteractions] = useState<Interaction[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string>("");
@@ -153,6 +154,7 @@ const OutreachHistory = ({ label, contactId, companyId, searchValue, searchPlace
                     onClose={() => {
                         setAddModalOpen(false);
                         setEditingInteration(null);
+						onModalClosed?.();
                     }}
                     onConfirm={(updatedInteraction) => {
                         if (updatedInteraction.deleted) {
