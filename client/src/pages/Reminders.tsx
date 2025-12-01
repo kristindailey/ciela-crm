@@ -72,7 +72,7 @@ const Reminders = () => {
             const clearedReminder = reminders.find((reminder) => reminder.id === interactionId);
 			
             if (clearedReminder?.contact) {
-                navigate(`/contacts/${clearedReminder.contact.id}`);
+                navigate(`/contacts/${clearedReminder.contact.id}?openModal=true`);
             }
         } catch (error) {
             console.error("Failed to clear reminder:", error);
