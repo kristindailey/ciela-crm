@@ -16,7 +16,7 @@ const Reminders = () => {
     const activeTab = searchParams.get("tab") || "overdue";
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const todayUTC = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
 
     const categorizeReminders = () => {
         const overdue: Interaction[] = [];
@@ -27,9 +27,9 @@ const Reminders = () => {
             if (!reminder.followUpDate) return;
 
             const followUpDate = new Date(reminder.followUpDate);
-            followUpDate.setHours(0, 0, 0, 0);
+            const followUpDateUTC = Date.UTC(followUpDate.getUTCFullYear(), followUpDate.getUTCMonth(), followUpDate.getUTCDate());
 
-            const diffTime = followUpDate.getTime() - today.getTime();
+            const diffTime = followUpDateUTC - todayUTC;
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
             if (diffDays < 0) {
