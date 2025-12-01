@@ -103,6 +103,22 @@ router.patch("/:interactionId", async (req, res) => {
                 ...(interactionDate && { interactionDate: new Date(interactionDate + "T00:00:00Z") }),
                 ...(followUpDate !== undefined && { followUpDate: followUpDate ? new Date(followUpDate + "T00:00:00Z") : null }),
             },
+			include: {
+                contact: {
+                    select: {
+                        id: true,
+                        firstName: true,
+                        lastName: true,
+                        company: {
+                            select: {
+                                id: true,
+                                name: true,
+                                tier: true,
+                            },
+                        },
+                    },
+                },
+            },
         });
 
         res.json(updatedInteraction);
