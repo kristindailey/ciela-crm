@@ -210,6 +210,12 @@ const ContactDetail = () => {
         }
     }, [id, API_BASE_URL]);
 
+	useEffect(() => {
+		if (searchParams.get("openModal") === "true") {
+			setSearchParams({});
+		}
+	}, [searchParams, setSearchParams]);
+
     if (isLoading) {
         return (
             <div className="flex-1 flex items-center justify-center">
