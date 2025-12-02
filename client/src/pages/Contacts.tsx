@@ -50,7 +50,7 @@ const Contacts = () => {
 
     const { currentPage, setCurrentPage, totalPages, paginatedItems: paginatedContacts, handlePageChange } = usePagination<Contact>({
         items: filteredContacts,
-        itemsPerPage: 9,
+        itemsPerPage: 6,
     });
 
     const handleAddContact = () => {
@@ -268,17 +268,17 @@ const Contacts = () => {
             />
 
             <div className="p-6">
-                <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start ${
-                    paginatedContacts.length > 0 ? "lg:min-h-[490px]" : ""
-                }`}>
-                        {paginatedContacts.map((contact) => (
-                            <ContactCard 
-                                key={contact.id} 
-                                contact={contact} 
-                                onDelete={() => handleDeleteContact(contact.id)}
-                            />
-                        ))}
-                </div>
+				<div className="flex flex-col min-h-[calc(100vh-380px)]">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start">
+							{paginatedContacts.map((contact) => (
+								<ContactCard 
+									key={contact.id} 
+									contact={contact} 
+									onDelete={() => handleDeleteContact(contact.id)}
+								/>
+							))}
+					</div>
+				</div>
 
                 <Pagination
                     currentPage={currentPage}
