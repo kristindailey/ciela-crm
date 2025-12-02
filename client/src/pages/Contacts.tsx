@@ -2,12 +2,12 @@ import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router";
 import Papa from "papaparse";
 import type { Contact } from "../types/contact";
+import { usePagination } from "../hooks/usePagination";
 import PageHeader from "../components/PageHeader";
 import TierTabs from "../components/TierTabs";
 import ContactCard from "../components/ContactCard";
 import Pagination from "../components/Pagination";
 import UploadModal from "../components/UploadModal";
-import { usePagination } from "../hooks/usePagination";
 
 const Contacts = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -283,7 +283,7 @@ const Contacts = () => {
 
                 <Pagination
                     currentPage={currentPage}
-                       totalPages={totalPages}
+                    totalPages={totalPages}
                     onPageChange={handlePageChange}
                 />
 

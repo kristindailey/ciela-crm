@@ -15,7 +15,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
 			{Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
 				<button
 					key={page}
-					aria-label={`${currentPage === page ? "Page:": ""} ${page}`}
+					aria-label={`${currentPage === page ? "Page:" : ""} ${page}`}
 					aria-current={currentPage === page ? "page" : undefined}
 					disabled={currentPage === page}
 					onClick={() => onPageChange(page)}
