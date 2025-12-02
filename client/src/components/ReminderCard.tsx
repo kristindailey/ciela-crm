@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import type { Interaction } from "../types/interaction";
 
@@ -8,6 +9,7 @@ interface ReminderCardProps {
 }
 
 const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
+	const [isExpanded, setIsExpanded] = useState(false);
 	const navigate = useNavigate();
 
 	const formatDate = (dateString: string) => {
@@ -99,7 +101,10 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
 				{reminder?.subject}
 			</span>
 
-			<span className="text-xs text-gray-500 font-medium mt-1 line-clamp-1">
+			<span 
+				onClick={() => setIsExpanded(!isExpanded)}
+				className={`text-xs text-gray-500 font-medium mt-1 cursor-pointer hover:text-gray-700 ${isExpanded ? "" : "line-clamp-1"}`}
+			>
 				{reminder.message}
 			</span>
 
