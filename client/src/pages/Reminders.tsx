@@ -183,18 +183,18 @@ const Reminders = () => {
             />
 
             <div className="p-6">
-                <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start ${
-                    paginatedReminders.length > 0 ? "lg:min-h-[490px]" : ""}`}
-				>
-                    {paginatedReminders.map((reminder) => (
-                        <ReminderCard
-                            key={reminder.id}
-                            reminder={reminder}
-                            onClear={handleClearReminder}
-                            onSnooze={handleSnoozeReminder}
-                        />
-                    ))}
-                </div>
+				<div className="flex flex-col min-h-[calc(100vh-280px)]">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start flex-grow">
+						{paginatedReminders.map((reminder) => (
+							<ReminderCard
+								key={reminder.id}
+								reminder={reminder}
+								onClear={handleClearReminder}
+								onSnooze={handleSnoozeReminder}
+							/>
+						))}
+					</div>
+				</div>
 
 				<Pagination 
 					currentPage={currentPage}
@@ -204,14 +204,14 @@ const Reminders = () => {
 
 				{isLoading && (
 					<div className="text-center text-gray-500 mt-8">
-                        Loading reminders...
-                    </div>
+						Loading reminders...
+					</div>
 				)}
 
 				{!isLoading && reminders.length === 0 && (
 					<div className="text-center text-gray-500 mt-8">
-                        No reminders yet. Get started by adding follow-up dates to your interactions.
-                    </div>
+						No reminders yet. Get started by adding follow-up dates to your interactions.
+					</div>
 				)}
 
 				{!isLoading && reminders.length > 0 && displayReminders.length === 0 && searchQuery && (
@@ -219,7 +219,7 @@ const Reminders = () => {
 						No reminders found matching your search criteria.
 					</div>
 				)}
-            </div>
+			</div>
         </>
     );
 };
