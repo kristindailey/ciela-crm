@@ -21,7 +21,6 @@ const Companies = () => {
         skipped: number;
         errors: number;
     } | null>(null);
-    const itemsPerPage = 9;
     const tiers = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG", "ALL"];
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const navigate = useNavigate();
@@ -49,7 +48,7 @@ const Companies = () => {
 
     const { currentPage, setCurrentPage, totalPages, paginatedItems: paginatedCompanies, handlePageChange } = usePagination<Company>({
         items: filteredCompanies,
-        itemsPerPage,
+        itemsPerPage: 9,
     });
 
     const handleAddCompany = () => {
@@ -235,17 +234,17 @@ const Companies = () => {
             />
 
             <div className="p-6">
-                <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start ${
-                    paginatedCompanies.length > 0 ? "lg:min-h-[400px]" : ""
-                }`}>
-                    {paginatedCompanies.map((company) => (
-                        <CompanyCard 
-                            key={company.id} 
-                            company={company} 
-                            onDelete={() => handleDeleteCompany(company.id)}
-                        />
-                    ))}
-                </div>
+				<div className="flex flex-col min-h-[calc(100vh-360px)]">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start flex-grow">
+						{paginatedCompanies.map((company) => (
+							<CompanyCard 
+								key={company.id} 
+								company={company} 
+								onDelete={() => handleDeleteCompany(company.id)}
+							/>
+						))}
+					</div>
+				</div>
 
                 <Pagination
                     currentPage={currentPage}

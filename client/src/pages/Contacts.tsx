@@ -269,7 +269,7 @@ const Contacts = () => {
 
             <div className="p-6">
 				<div className="flex flex-col min-h-[calc(100vh-380px)]">
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start flex-grow">
 							{paginatedContacts.map((contact) => (
 								<ContactCard 
 									key={contact.id} 
