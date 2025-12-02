@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSearchParams, useNavigate } from "react-router";
 import type { Interaction } from "../types/interaction";
 import { useReminders } from "../context/RemindersContext";
@@ -18,12 +18,32 @@ const Reminders = () => {
     const today = new Date();
     const todayUTC = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
 
-    const categorizeReminders = () => {
+	const filteredReminders = useMemo(() => {
+		if (searchQuery === "") {
+			return reminders;
+		}
+		
+		return reminders.filter((reminder) => {
+			const searchLower = searchQuery.toLowerCase();
+	
+			return (
+				reminder.contact?.firstName.toLowerCase().includes(searchLower) ||
+				reminder.contact?.lastName.toLowerCase().includes(searchLower) ||
+				reminder.contact?.company?.name.toLowerCase().includes(searchLower) ||
+				reminder.contact?.company?.tier.toLowerCase().includes(searchLower) ||
+				reminder.type.toLowerCase().includes(searchLower) ||
+				reminder.subject?.toLowerCase().includes(searchLower) ||
+				reminder.message.toLowerCase().includes(searchLower)
+			);
+		});
+	}, [reminders, searchQuery]);
+
+    const categorizeReminders = (remindersToCategorize: Interaction[]) => {
         const overdue: Interaction[] = [];
         const dueToday: Interaction[] = [];
         const upcoming: Interaction[] = [];
 
-        reminders.forEach((reminder) => {
+        remindersToCategorize.forEach((reminder) => {
             if (!reminder.followUpDate) return;
 
             const followUpDate = new Date(reminder.followUpDate);
@@ -135,7 +155,7 @@ const Reminders = () => {
         fetchReminders();
     }, []);
 
-	const { overdue, dueToday, upcoming } = categorizeReminders();
+	const { overdue, dueToday, upcoming } = categorizeReminders(filteredReminders);
 
     return (
         <>
@@ -186,17 +206,23 @@ const Reminders = () => {
                     ))}
                 </div>
 
-                {isLoading && (
-                    <div className="text-center text-gray-500 mt-8">
+				{isLoading && (
+					<div className="text-center text-gray-500 mt-8">
                         Loading reminders...
                     </div>
-                )}
+				)}
 
-                {!isLoading && reminders.length === 0 && (
-                    <div className="text-center text-gray-500 mt-8">
+				{!isLoading && reminders.length === 0 && (
+					<div className="text-center text-gray-500 mt-8">
                         No reminders yet. Get started by adding follow-up dates to your interactions.
                     </div>
-                )}
+				)}
+
+				{!isLoading && reminders.length > 0 && filteredReminders.length === 0 && searchQuery && (
+					<div className="text-center text-gray-500 mt-">
+						No reminders found matching your search criteria.
+					</div>
+				)}
             </div>
         </>
     );

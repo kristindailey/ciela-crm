@@ -122,7 +122,7 @@ const OutreachHistory = ({ label, contactId, companyId, searchValue, searchPlace
                     </button>
                 </div>
 
-                {error && (
+				{error && (
                     <div className="text-red-600 text-sm mb-2">{error}</div>
                 )}
 
