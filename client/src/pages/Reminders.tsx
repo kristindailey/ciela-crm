@@ -2,9 +2,11 @@ import { useState, useEffect, useMemo } from "react";
 import { useSearchParams, useNavigate } from "react-router";
 import type { Interaction } from "../types/interaction";
 import { useReminders } from "../context/RemindersContext";
+import { usePagination } from "../hooks/usePagination";
 import PageHeader from "../components/PageHeader";
 import TabBar from "../components/TabBar";
 import ReminderCard from "../components/ReminderCard";
+import Pagination from "../components/Pagination";
 
 const Reminders = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -38,31 +40,26 @@ const Reminders = () => {
 		});
 	}, [reminders, searchQuery]);
 
-    const categorizeReminders = (remindersToCategorize: Interaction[]) => {
-        const overdue: Interaction[] = [];
-        const dueToday: Interaction[] = [];
-        const upcoming: Interaction[] = [];
+    const filterRemindersByTab = (remindersToFilter: Interaction[], tab: string) => {
+		return remindersToFilter.filter((reminder) => {
+			if (!reminder.followUpDate) return false;
 
-        remindersToCategorize.forEach((reminder) => {
-            if (!reminder.followUpDate) return;
+			const followUpDate = new Date(reminder.followUpDate);
+			const followUpDateUTC = Date.UTC(followUpDate.getUTCFullYear(), followUpDate.getUTCMonth(), followUpDate.getUTCDate());
+			const diffTime = followUpDateUTC - todayUTC;
+			const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-            const followUpDate = new Date(reminder.followUpDate);
-            const followUpDateUTC = Date.UTC(followUpDate.getUTCFullYear(), followUpDate.getUTCMonth(), followUpDate.getUTCDate());
+			if (tab === "overdue") {
+				return diffDays < 0;
+			} else if (tab === "due today") {
+				return diffDays === 0;
+			} else if (tab === "upcoming") {
+				return diffDays > 0 && diffDays <= 7;
+			}
 
-            const diffTime = followUpDateUTC - todayUTC;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-            if (diffDays < 0) {
-                overdue.push(reminder);
-            } else if (diffDays === 0) {
-                dueToday.push(reminder);
-            } else if (diffDays <= 7) {
-                upcoming.push(reminder);
-            }
-        });
-
-        return { overdue, dueToday, upcoming };
-    };
+			return false;
+		});
+	};
 
     const handleSearchReminders = (value: string) => {
         setSearchQuery(value);
@@ -134,6 +131,10 @@ const Reminders = () => {
         }
     };
 
+	const displayReminders = useMemo(() => {
+		return filterRemindersByTab(filteredReminders, activeTab);
+	}, [filteredReminders, activeTab]);
+
     useEffect(() => {
         const fetchReminders = async () => {
             try {
@@ -154,8 +155,6 @@ const Reminders = () => {
 
         fetchReminders();
     }, []);
-
-	const { overdue, dueToday, upcoming } = categorizeReminders(filteredReminders);
 
     return (
         <>
@@ -178,25 +177,7 @@ const Reminders = () => {
 
             <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start">
-                    {activeTab === "overdue" && overdue.map((reminder) => (
-                        <ReminderCard
-                            key={reminder.id}
-                            reminder={reminder}
-                            onClear={handleClearReminder}
-                            onSnooze={handleSnoozeReminder}
-                        />
-                    ))}
-
-					{activeTab === "due today" && dueToday.map((reminder) => (
-                        <ReminderCard
-                        	key={reminder.id}
-                            reminder={reminder}
-                            onClear={handleClearReminder}
-                            onSnooze={handleSnoozeReminder}
-                        />
-                    ))}
-
-					{activeTab === "upcoming" && upcoming.map((reminder) => (
+                    {displayReminders.map((reminder) => (
                         <ReminderCard
                             key={reminder.id}
                             reminder={reminder}
@@ -218,8 +199,8 @@ const Reminders = () => {
                     </div>
 				)}
 
-				{!isLoading && reminders.length > 0 && filteredReminders.length === 0 && searchQuery && (
-					<div className="text-center text-gray-500 mt-">
+				{!isLoading && reminders.length > 0 && displayReminders.length === 0 && searchQuery && (
+					<div className="text-center text-gray-500 mt-8">
 						No reminders found matching your search criteria.
 					</div>
 				)}
