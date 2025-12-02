@@ -21,7 +21,6 @@ const Contacts = () => {
         skipped: number;
         errors: number;
     } | null>(null);
-    const itemsPerPage = 9;
     const tiers = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG", "ALL"];
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const navigate = useNavigate();
@@ -51,7 +50,7 @@ const Contacts = () => {
 
     const { currentPage, setCurrentPage, totalPages, paginatedItems: paginatedContacts, handlePageChange } = usePagination<Contact>({
         items: filteredContacts,
-        itemsPerPage,
+        itemsPerPage: 9,
     });
 
     const handleAddContact = () => {
