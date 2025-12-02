@@ -55,7 +55,7 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
 
     return (
         <div
-            className="flex flex-col relative bg-white p-4 rounded-lg border shadow-sm cursor-pointer h-[200px] font-inter"
+            className="flex flex-col relative bg-white p-4 rounded-lg border shadow-sm cursor-pointer font-inter"
         >
             <div className="flex items-center justify-between">
 				<h3 
@@ -95,11 +95,11 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
 				</span> 
 			</div>
 			
-			<span className="text-xs text-gray-500 font-medium">
+			<span className="text-xs text-gray-500 font-medium mt-1">
 				{reminder?.subject}
 			</span>
 
-			<span className="text-xs text-gray-500 font-medium">
+			<span className="text-xs text-gray-500 font-medium mt-1 line-clamp-1">
 				{reminder.message}
 			</span>
 
