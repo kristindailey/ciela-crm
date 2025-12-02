@@ -235,7 +235,7 @@ const Companies = () => {
 
             <div className="p-6">
 				<div className="flex flex-col min-h-[calc(100vh-360px)]">
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start flex-grow">
+					<div className={`${paginatedCompanies.length > 0 ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start" : ""} flex-grow`}>
 						{paginatedCompanies.map((company) => (
 							<CompanyCard 
 								key={company.id} 
@@ -243,6 +243,24 @@ const Companies = () => {
 								onDelete={() => handleDeleteCompany(company.id)}
 							/>
 						))}
+
+						{isLoading && (
+							<div className="text-center text-gray-500 mt-8">
+								Loading companies...
+							</div>
+                		)}
+
+						{!isLoading && companies.length === 0 && (
+							<div className="text-center text-gray-500 mt-8">
+								Ready to add your first company? Click the + button to get started.
+							</div>
+						)}
+
+						{!isLoading && companies.length > 0 && filteredCompanies.length === 0 && searchQuery && (
+							<div className="text-center text-gray-500 mt-8">
+								No companies found matching your search.
+							</div>
+						)}
 					</div>
 				</div>
 
@@ -251,24 +269,6 @@ const Companies = () => {
                     totalPages={totalPages}
                     onPageChange={handlePageChange}
                 />
-
-                {isLoading && (
-                    <div className="text-center text-gray-500 mt-8">
-                        Loading companies...
-                    </div>
-                )}
-
-                {!isLoading && companies.length === 0 && (
-                    <div className="text-center text-gray-500 mt-8">
-                        Ready to add your first company? Click the + button to get started.
-                    </div>
-                )}
-
-                {!isLoading && companies.length > 0 && filteredCompanies.length === 0 && searchQuery && (
-                    <div className="text-center text-gray-500 mt-8">
-                        No companies found matching your search.
-                    </div>
-                )}
             </div>
 
             <UploadModal

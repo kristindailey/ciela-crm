@@ -269,14 +269,32 @@ const Contacts = () => {
 
             <div className="p-6">
 				<div className="flex flex-col min-h-[calc(100vh-380px)]">
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start flex-grow">
-							{paginatedContacts.map((contact) => (
-								<ContactCard 
-									key={contact.id} 
-									contact={contact} 
-									onDelete={() => handleDeleteContact(contact.id)}
-								/>
-							))}
+					<div className={`${paginatedContacts.length > 0 ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start" : ""} flex-grow`}>
+						{paginatedContacts.map((contact) => (
+							<ContactCard 
+								key={contact.id} 
+								contact={contact} 
+								onDelete={() => handleDeleteContact(contact.id)}
+							/>
+						))}
+
+						{isLoading && (
+                    		<div className="text-center text-gray-500 mt-8">
+                        		Loading contacts...
+                    		</div>
+                		)}
+
+                		{!isLoading && contacts.length === 0 && (
+                    		<div className="text-center text-gray-500 mt-8">
+                           		Ready to add your first contact? Click the + button to get started.
+                    		</div>
+                		)}
+
+                		{!isLoading && contacts.length > 0 && filteredContacts.length === 0 && searchQuery && (
+                    		<div className="text-center text-gray-500 mt-8">
+                        		No contacts found matching your search.
+                    		</div>
+                		)}
 					</div>
 				</div>
 
@@ -285,24 +303,6 @@ const Contacts = () => {
                     totalPages={totalPages}
                     onPageChange={handlePageChange}
                 />
-
-                {isLoading && (
-                    <div className="text-center text-gray-500 mt-8">
-                        Loading contacts...
-                    </div>
-                )}
-
-                {!isLoading && contacts.length === 0 && (
-                    <div className="text-center text-gray-500 mt-8">
-                           Ready to add your first contact? Click the + button to get started.
-                    </div>
-                )}
-
-                {!isLoading && contacts.length > 0 && filteredContacts.length === 0 && searchQuery && (
-                    <div className="text-center text-gray-500 mt-8">
-                        No contacts found matching your search.
-                    </div>
-                )}
             </div>
 
             <UploadModal
