@@ -97,13 +97,13 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
 				</span> 
 			</div>
 			
-			<span className="text-xs text-gray-500 font-medium mt-1">
+			<span className="text-xs text-gray-500 font-medium mt-1 min-h-[1.25rem]">
 				{reminder?.subject}
 			</span>
 
 			<span 
-				onClick={() => setIsExpanded(!isExpanded)}
-				className={`text-xs text-gray-500 font-medium mt-1 cursor-pointer hover:text-gray-700 ${isExpanded ? "" : "line-clamp-1"}`}
+				onClick={reminder.message && reminder.message.length > 75 ? () => setIsExpanded(!isExpanded) : undefined}
+				className={`text-xs text-gray-500 font-medium mt-1 ${reminder.message && reminder.message.length > 75 ? "cursor-pointer hover:text-gray-700" : ""}  ${isExpanded ? "" : "line-clamp-1"}`}
 			>
 				{reminder.message}
 			</span>
