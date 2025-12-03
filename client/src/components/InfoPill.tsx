@@ -9,7 +9,6 @@ interface InfoPillProps {
     onSave: (newValue: string) => void;
 }
 
-
 const InfoPill = ({ label, value, placeholder, dropdownOptions, readOnly = false, onSave }: InfoPillProps) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editValue, setEditValue] = useState(value || "");

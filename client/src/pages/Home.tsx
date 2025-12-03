@@ -1,5 +1,6 @@
-import Sidebar from "../components/Sidebar";
 import { useAuth } from "../context/AuthContext";
+import Sidebar from "../components/Sidebar";
+import InfoPill from "../components/InfoPill";
 
 const Home = () => {
     const { user, isLoading } = useAuth();
@@ -19,9 +20,33 @@ const Home = () => {
         return (
             <div className="bg-gray-50 flex">
                 <Sidebar />
-                <div className="flex-1">
-                    <h1 className="text-[var(--royal-blue)] font-pacifico text-5xl mt-20 ml-5 mb-4">home</h1>
-                </div>
+				<h1 className="text-[var(--royal-blue)] font-pacifico text-5xl mt-20 ml-5 mb-4">home</h1>
+                
+				<div className="grid grid-cols-3 gap-6 px-5 mt-5">
+					<InfoPill
+						label="Tier 1 Interactions"
+                    	value={undefined}
+                    	placeholder="No data yet"
+                    	onSave={() => {}}
+                    	readOnly={true}
+					/>
+
+					<InfoPill
+						label="Total Interactions"
+                    	value={undefined}
+                    	placeholder="No data yet"
+                    	onSave={() => {}}
+                    	readOnly={true}
+					/>
+
+					<InfoPill
+						label="Week-Over-Week Comparison"
+                    	value={undefined}
+                    	placeholder="No data yet"
+                    	onSave={() => {}}
+                    	readOnly={true}
+					/>
+				</div>
             </div>
         );
     }
