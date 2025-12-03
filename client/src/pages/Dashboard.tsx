@@ -1,8 +1,13 @@
+import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import InfoPill from "../components/InfoPill";
 
 const Dashboard = () => {
+	const [tier1Count, setTier1Count] = useState<number | undefined>(undefined);
+	const [totalCount, setTotalCount] = useState<number | undefined>(undefined);
+	const [weekOverWeek, setWeekOverWeek] = useState<number | undefined>(undefined);
 	const { isLoading } = useAuth();
+	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     if (isLoading) {
         return (
