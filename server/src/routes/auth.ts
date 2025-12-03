@@ -90,7 +90,8 @@ router.post("/register", async (req, res) => {
                 user,
             });
         });
-    } catch (err) {
+    } catch (error) {
+		console.error("Registration failed:", error);
         res.status(500).json({ error: "Registration failed." });
     }
 });
