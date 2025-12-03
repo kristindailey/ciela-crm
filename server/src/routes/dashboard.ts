@@ -56,4 +56,20 @@ router.get("/metrics", async (req, res) => {
 	}
 });
 
+router.get("/priorities", async (req, res) => {
+	try {
+		const userId = (req.user as any).id;
+		
+		const priorities = await prisma.priority.findMany({
+			where: { userId },
+			orderBy: { order: "asc" },
+		});
+
+		res.json(priorities);
+	} catch (error) {
+		console.error("Error fetching priorities:", error);
+		res.status(500).json({ error: "Failed to fetch priorities." });
+	}
+});
+
 export default router;
