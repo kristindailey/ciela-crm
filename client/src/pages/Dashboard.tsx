@@ -84,9 +84,11 @@ const Dashboard = () => {
  
 	return (
 		<>
-			<h1 className="text-[var(--royal-blue)] font-pacifico text-5xl mt-20 ml-5 mb-4">home</h1>
+			<h1 className="text-[var(--royal-blue)] font-pacifico text-4xl mt-20 ml-5 mb-2">this week</h1>
+
+			<hr className="border-[var(--royal-blue)] border-2 ml-5 mr-5"/>
                 
-			<div className="grid grid-cols-3 gap-6 px-5 mt-5">
+			<div className="grid grid-cols-3 gap-6 px-5 mt-5 text-center font-inter font-medium text-lg">
 				<InfoPill
 					label="Tier 1 Interactions"
                     value={tier1Count?.toString()}
