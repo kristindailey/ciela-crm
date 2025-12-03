@@ -86,7 +86,7 @@ const Dashboard = () => {
 			<div className="grid grid-cols-3 gap-6 px-5 mt-5">
 				<InfoPill
 					label="Tier 1 Interactions"
-                    value={undefined}
+                    value={tier1Count?.toString()}
                     placeholder="No data yet"
                     onSave={() => {}}
                     readOnly={true}
@@ -94,7 +94,7 @@ const Dashboard = () => {
 
 				<InfoPill
 					label="Total Interactions"
-                    value={undefined}
+                    value={totalCount?.toString()}
                     placeholder="No data yet"
                     onSave={() => {}}
                     readOnly={true}
@@ -102,7 +102,7 @@ const Dashboard = () => {
 
 				<InfoPill
 					label="Week-Over-Week Comparison"
-                    value={undefined}
+                    value={weekOverWeek}
                     placeholder="No data yet"
                     onSave={() => {}}
                     readOnly={true}
