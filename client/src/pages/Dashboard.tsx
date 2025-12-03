@@ -20,6 +20,34 @@ const Dashboard = () => {
         );
     }
 
+	const getCurrentWeekRange = () => {
+		const now = new Date();
+		const dayOfWeek = now.getUTCDay();
+		const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+
+		const monday = new Date(now);
+		monday.setUTCDate(now.getUTCDate() + diffToMonday);
+		monday.setUTCHours(0, 0, 0, 0);
+
+		const sunday = new Date(monday);
+		sunday.setUTCDate(monday.getUTCDate() + 6);
+		sunday.setUTCHours(23, 59, 59, 999);
+
+		return { start: monday, end: sunday };
+	};
+
+	const getPreviousWeekRange = () => {
+		const { start } = getCurrentWeekRange();
+		const prevMonday = new Date(start);
+		prevMonday.setUTCDate(start.getUTCDate() - 7);
+
+		const prevSunday = new Date(prevMonday);
+		prevSunday.setUTCDate(prevMonday.getUTCDate() + 6);
+		prevSunday.setUTCHours(23, 59, 59, 999);
+
+		return { start: prevMonday, end: prevSunday };
+	};
+ 
 	return (
 		<>
 			<h1 className="text-[var(--royal-blue)] font-pacifico text-5xl mt-20 ml-5 mb-4">home</h1>
