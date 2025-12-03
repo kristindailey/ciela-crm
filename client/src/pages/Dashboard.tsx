@@ -55,7 +55,7 @@ const Dashboard = () => {
 			const previousWeek = getPreviousWeekRange();
 
 			const response = await fetch(
-				`${API_BASE_URL}/dashboard?` +
+				`${API_BASE_URL}/dashboard/metrics?` +
 				`currentStart=${currentWeek.start.toISOString()}&` +
 				`currentEnd=${currentWeek.end.toISOString()}&` +
 				`previousStart=${previousWeek.start.toISOString()}&` +

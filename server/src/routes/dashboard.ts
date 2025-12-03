@@ -3,7 +3,7 @@ import { prisma } from "../lib/prisma";
 
 const router = Router();
 
-router.get("/", async (req, res) => {
+router.get("/metrics", async (req, res) => {
 	try {
 		const userId = (req.user as any).id;
 		const { currentStart, currentEnd, previousStart, previousEnd } = req.query;
