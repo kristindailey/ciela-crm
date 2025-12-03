@@ -7,6 +7,7 @@ import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import { prisma } from "./lib/prisma";
 import "./config/auth";
 import authRoutes from "./routes/auth";
+import dashboardRoutes from "./routes/dashboard";
 import contactRoutes from "./routes/contacts";
 import companyRoutes from "./routes/companies";
 import interactionRoutes from "./routes/interactions";
@@ -45,6 +46,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/auth", authRoutes);
+app.use("/dashboard", requireAuth, dashboardRoutes);
 app.use("/contacts", requireAuth, contactRoutes);
 app.use("/companies", requireAuth, companyRoutes);
 app.use("/interactions", requireAuth, interactionRoutes);
