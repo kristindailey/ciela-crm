@@ -6,6 +6,7 @@ const Dashboard = () => {
 	const [tier1Count, setTier1Count] = useState<number | undefined>(undefined);
 	const [totalCount, setTotalCount] = useState<number | undefined>(undefined);
 	const [weekOverWeek, setWeekOverWeek] = useState<string | undefined>(undefined);
+	const [isLoadingMetrics, setIsLoadingMetrics] = useState(true);
 	const { isLoading } = useAuth();
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -72,6 +73,8 @@ const Dashboard = () => {
 			}
 		} catch (error) {
 			console.error("Error fetching dashboard metrics:", error);
+		} finally {
+			setIsLoadingMetrics(false);
 		}
 	};
 	
@@ -87,7 +90,7 @@ const Dashboard = () => {
 				<InfoPill
 					label="Tier 1 Interactions"
                     value={tier1Count?.toString()}
-                    placeholder="No data yet"
+                    placeholder={isLoadingMetrics ? "Loading..." : "No data yet"}
                     onSave={() => {}}
                     readOnly={true}
 				/>
@@ -95,7 +98,7 @@ const Dashboard = () => {
 				<InfoPill
 					label="Total Interactions"
                     value={totalCount?.toString()}
-                    placeholder="No data yet"
+                    placeholder={isLoadingMetrics ? "Loading..." : "No data yet"}
                     onSave={() => {}}
                     readOnly={true}
 				/>
@@ -103,7 +106,7 @@ const Dashboard = () => {
 				<InfoPill
 					label="Week-Over-Week Comparison"
                     value={weekOverWeek}
-                    placeholder="No data yet"
+                    placeholder={isLoadingMetrics ? "Loading..." : "No data yet"}
                     onSave={() => {}}
                     readOnly={true}
 				/>
