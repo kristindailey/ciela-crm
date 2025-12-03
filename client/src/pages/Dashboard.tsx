@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import InfoPill from "../components/InfoPill";
 
@@ -74,6 +74,10 @@ const Dashboard = () => {
 			console.error("Error fetching dashboard metrics:", error);
 		}
 	};
+	
+	useEffect(() => {
+		fetchDashboardMetrics();
+	}, []);
  
 	return (
 		<>
