@@ -12,7 +12,7 @@ router.get("/google",
 router.get("/google/callback",
     passport.authenticate("google", { failureRedirect: `${process.env.FRONTEND_URL}/login` }),
     (req, res) => {
-        res.redirect(process.env.FRONTEND_URL!);
+        res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
     }
 );
 
@@ -23,7 +23,7 @@ router.get("/github",
 router.get("/github/callback", 
     passport.authenticate("github", { failureRedirect: `${process.env.FRONTEND_URL}/login` }),
     (req, res) => {
-        res.redirect(process.env.FRONTEND_URL!);
+        res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
     }
 );
 

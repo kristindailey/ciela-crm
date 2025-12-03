@@ -18,8 +18,11 @@ const Login = () => {
         setError("");
 
         try {
-            await login(email, password);
-            navigate("/");
+            const user = await login(email, password);
+
+			if (user) {
+				navigate("/dashboard");
+			}
         } catch (error) {
             setError(error instanceof Error ? error.message : "Login failed.");
         }

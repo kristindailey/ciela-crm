@@ -18,8 +18,11 @@ const Register = () => {
         setError("");
 
         try {
-            await register(email, password, name);
-            navigate("/"); 
+            const user = await register(email, password, name);
+
+			if (user) {
+				navigate("/dashboard");
+			} 
         } catch (error) {
             setError(error instanceof Error ? error.message : "Registration failed.");
         }

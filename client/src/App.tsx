@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { AuthProvider } from "./context/AuthContext";
 import { RemindersProvider } from "./context/RemindersContext";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -12,8 +13,8 @@ import Companies from "./pages/Companies";
 import CompanyDetail from "./pages/CompanyDetail";
 import Applications from "./pages/Applications";
 import Reminders from "./pages/Reminders";
+import Dashboard from "./pages/Dashboard";
 import Layout from "./components/Layout";
-import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 const router = createBrowserRouter([
 	{
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
 	{
 		element: <ProtectedRoute><Layout /></ProtectedRoute>,
 		children: [
+			{
+				path: "/dashboard",
+				element: <Dashboard />,
+			},
 			{
 				path: "/contacts",
 				element: <Contacts />,
