@@ -28,7 +28,7 @@ const Sidebar = () => {
                 <Link 
 					to="/dashboard" 
 					className={`flex items-center ${
-						location.pathname === "/"
+						location.pathname === "/dashboard"
 						? "text-white"
 						: "text-[var(--soft-lavender)] hover:text-white"
 					}`}
