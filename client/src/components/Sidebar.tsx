@@ -23,8 +23,8 @@ const Sidebar = () => {
     };
 
     return (
-        <div className="min-h-screen w-20 sm:w-35 md:w-48 bg-[var(--royal-blue)] shadow-sm border-r flex flex-col font-inter">
-            <div className="flex-1 flex flex-col items-start self-center justify-center px-2 sm:px-4 md:px-6 space-y-4 sm:space-y-6 md:space-y-8 pt-20 sm:pt-24 md:pt-30 text-sm sm:text-base md:text-lg">
+        <div className="h-screen w-20 sm:w-35 md:w-48 bg-[var(--royal-blue)] shadow-sm border-r flex flex-col font-inter sticky">
+            <div className="flex-1 flex flex-col items-start self-center justify-center px-2 sm:px-4 md:px-6 space-y-4 sm:space-y-6 md:space-y-8 sm:pt-24 md:pt-30 text-sm sm:text-base md:text-lg">
                 <Link 
 					to="/" 
 					className={`flex items-center ${
