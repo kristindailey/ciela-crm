@@ -32,7 +32,6 @@ model User {
 model Priority {
 	id			String		@id @default(cuid())
 	text		String
-	order		Int
 	createdAt	DateTime	@default(now())
 	updatedAt	DateTime	@updatedAt
 
@@ -40,7 +39,6 @@ model Priority {
 	userId		String
 	user		User		@relation(fields: [userId], references: [id], onDelete: Cascade)
 
-	@@unique([userId, order])
 	@@map("priorities")
 }
 
