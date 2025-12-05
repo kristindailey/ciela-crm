@@ -3,60 +3,7 @@ import { prisma } from "../lib/prisma";
 
 const router = Router();
 
-router.get("/metrics", async (req, res) => {
-	try {
-		const userId = (req.user as any).id;
-		const { currentStart, currentEnd, previousStart, previousEnd } = req.query;
-
-		const currentWeekInteractions = await prisma.interaction.findMany({
-			where: {
-				userId,
-				interactionDate: {
-					gte: new Date(currentStart as string),
-					lte: new Date(currentEnd as string),
-				},
-			},
-			include: {
-				contact: {
-					select: {
-						company: {
-							select: {
-								tier: true,
-							},
-						},
-					},
-				},
-			},
-		});
-
-		const previousWeekCount = await prisma.interaction.count({
-			where: {
-				userId,
-				interactionDate: {
-					gte: new Date(previousStart as string),
-					lte: new Date(previousEnd as string),
-				},
-			},
-		});
-
-		const tier1Count = currentWeekInteractions.filter(
-			(interaction) => interaction.contact.company.tier === "TIER_1"
-		).length;
-
-		const currentWeekTotal = currentWeekInteractions.length;
-
-		res.json({
-			tier1Count,
-			currentWeekTotal,
-			previousWeekTotal: previousWeekCount,
-		});
-	} catch (error) {
-		console.error("Error fetching dashboard metrics:", error);
-		res.status(500).json({ error: "Failed to fetch dashboard metrics." });	
-	}
-});
-
-router.get("/priorities", async (req, res) => {
+router.get("/", async (req, res) => {
 	try {
 		const userId = (req.user as any).id;
 		
@@ -72,22 +19,7 @@ router.get("/priorities", async (req, res) => {
 	}
 });
 
-router.get("/wins", async (req, res) => {
-	try {
-		const userId = (req.user as any).id;
-		
-		const wins = await prisma.win.findMany({
-			where: { userId },
-		});
-
-		res.json(wins);
-	} catch (error) {
-		console.error("Error fetching wins:", error);
-		res.status(500).json({ error: "Failed to fetch wins." });
-	}
-});
-
-router.patch("/priorities/:id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
 	try {
 		const userId = (req.user as any).id;
 		const { id } = req.params;
@@ -108,7 +40,7 @@ router.patch("/priorities/:id", async (req, res) => {
 	}
 });
 
-router.post("/priorities", async (req, res) => {
+router.post("/", async (req, res) => {
 	try {
 		const userId = (req.user as any).id;
 		const { text } = req.body;
@@ -135,7 +67,7 @@ router.post("/priorities", async (req, res) => {
 	}
 });	
 
-router.delete("/priorities/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
 	try {
 		const userId = (req.user as any).id;
 		const { id } = req.params;
@@ -158,7 +90,7 @@ router.delete("/priorities/:id", async (req, res) => {
 	}
 });
 
-router.delete("/priorities", async (req, res) => {
+router.delete("/", async (req, res) => {
 	try {
 		const userId = (req.user as any).id;
 

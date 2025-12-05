@@ -7,10 +7,12 @@ import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import { prisma } from "./lib/prisma";
 import "./config/auth";
 import authRoutes from "./routes/auth";
-import dashboardRoutes from "./routes/dashboard";
+import metricRoutes from "./routes/metrics";
 import contactRoutes from "./routes/contacts";
 import companyRoutes from "./routes/companies";
 import interactionRoutes from "./routes/interactions";
+import priorityRoutes from "./routes/priorities";
+import winRoutes from "./routes/wins";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -46,10 +48,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/auth", authRoutes);
-app.use("/dashboard", requireAuth, dashboardRoutes);
+app.use("/metrics", requireAuth, metricRoutes);
 app.use("/contacts", requireAuth, contactRoutes);
 app.use("/companies", requireAuth, companyRoutes);
 app.use("/interactions", requireAuth, interactionRoutes);
+app.use("/priorities", requireAuth, priorityRoutes);
+app.use("/wins", requireAuth, winRoutes);
 
 app.get("/api/test", (req, res) => {
     res.json({ 
