@@ -62,7 +62,7 @@ router.get("/priorities", async (req, res) => {
 		
 		const priorities = await prisma.priority.findMany({
 			where: { userId },
-			orderBy: { order: "asc" },
+			orderBy: { createdAt: "asc" },
 		});
 
 		res.json(priorities);
