@@ -87,4 +87,52 @@ router.get("/wins", async (req, res) => {
 	}
 });
 
+router.patch("/priorities/:id", async (req, res) => {
+	try {
+		const userId = (req.user as any).id;
+		const { id } = req.params;
+		const { text } = req.body;
+
+		const updatedPriority = await prisma.priority.update({
+			where: {
+				id,
+				userId,
+			},
+			data: { text },
+		});
+
+		res.json(updatedPriority);
+	} catch (error) {
+		console.error("Error updating priority:", error);
+		res.status(500).json({ error: "Failed to update priority." });
+	}
+});
+
+router.post("/priorities", async (req, res) => {
+	try {
+		const userId = (req.user as any).id;
+		const { text } = req.body;
+
+		const existingCount = await prisma.priority.count({
+			where: { userId },
+		});
+
+		if (existingCount >= 3) {
+			return res.status(400).json({ error: "Maximum of 3 priorities allowed." });
+		}
+
+		const priority = await prisma.priority.create({
+			data: {
+				userId,
+				text,
+			},
+		});
+
+		res.status(201).json(priority);
+	} catch (error) {
+		console.error("Error creating priority:", error);
+		res.status(500).json({ error: "Failed to create priority." });	
+	}
+});	
+
 export default router;
