@@ -135,4 +135,27 @@ router.post("/priorities", async (req, res) => {
 	}
 });	
 
+router.delete("/priorities/:id", async (req, res) => {
+	try {
+		const userId = (req.user as any).id;
+		const { id } = req.params;
+
+		const result = await prisma.priority.deleteMany({
+			where: {
+				id,
+				userId,
+			},
+		});
+
+		if (result.count === 0) {
+			return res.status(404).json({ error: "Priority not found." });
+		}
+
+		res.sendStatus(204);
+	} catch (error) {
+		console.error("Error deleting priority:", error);
+		res.status(500).json({ error: "Failed to delete priority." });
+	}
+});
+
 export default router;
