@@ -6,7 +6,11 @@ const Dashboard = () => {
 	const [tier1Count, setTier1Count] = useState<number | undefined>(undefined);
 	const [totalCount, setTotalCount] = useState<number | undefined>(undefined);
 	const [weekOverWeek, setWeekOverWeek] = useState<string | undefined>(undefined);
+	const [priorities, setPriorities] = useState<Array<{ id?: string; text: string }>>([]);
+	const [wins, setWins] = useState<Array<{ id?: string; text: string }>>([]);
 	const [isLoadingMetrics, setIsLoadingMetrics] = useState(true);
+	const [isLoadingPriorities, setIsLoadingPriorities] = useState(true);
+	const [isLoadingWins, setIsLoadingWins] = useState(true);
 	const { isLoading } = useAuth();
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -77,9 +81,45 @@ const Dashboard = () => {
 			setIsLoadingMetrics(false);
 		}
 	};
+
+	const fetchPriorities = async () => {
+		try {
+			const response = await fetch(`${API_BASE_URL}/priorities`, {
+				credentials: "include",
+			});
+
+			if (response.ok) {
+				const prioritiesData = await response.json();
+				setPriorities(prioritiesData);
+			}
+		} catch (error) {
+			console.error("Error fetching priorities:", error);
+		} finally {
+			setIsLoadingPriorities(false);
+		}
+	};
+
+	const fetchWins = async () => {
+		try {
+			const response = await fetch(`${API_BASE_URL}/wins`, {
+				credentials: "include",
+			});
+
+			if (response.ok) {
+				const winsData = await response.json();
+				setWins(winsData);
+			}
+		} catch (error) {
+			console.error("Error fetching wins:", error);
+		} finally {
+			setIsLoadingWins(false);
+		}
+	};
 	
 	useEffect(() => {
 		fetchDashboardMetrics();
+		fetchPriorities();
+		fetchWins();
 	}, []);
  
 	return (
