@@ -20,6 +20,14 @@ const ListItem = ({ id, value, placeholder, onUpdate, onDelete }: ListItemProps)
 				onChange={(e) => setText(e.target.value)}
 				className="flex-1 px-3 py-2 border border-gray-300 rounded-lg"
 			/>
+
+			<button
+				onClick={() => id && onDelete(id)}
+				className="text-gray-400 hover:text-red-600 transition-colors"
+				disabled={!id}
+			>
+				X
+			</button>
 		</div>
 	);
 };
