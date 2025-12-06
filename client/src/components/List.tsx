@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface ListItem {
 	id: string;
 	text: string;
@@ -15,6 +17,8 @@ interface ListProps {
 }
 
 const List = ({ title, items, maxItems, placeholder, onAdd, onUpdate, onDelete, onClearAll }: ListProps) => {
+	const [inputValue, setInputValue] = useState<{ [key: string]: string}>({});
+
 	return (
 		<div className="flex flex-col">
 			<div className="flex justify-between items-center mb-4 font-inter">
