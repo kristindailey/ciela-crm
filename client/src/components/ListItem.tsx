@@ -23,6 +23,14 @@ const ListItem = ({ id, value, placeholder, onUpdate, onDelete }: ListItemProps)
 						onUpdate(id, text);
 					}
 				}}
+				onKeyDown={(e) => {
+					if (e.key === "Enter") {
+						e.preventDefault();
+						if (text.trim() !== value) {
+							onUpdate(id, text.trim());
+						}
+					}
+				}}
 				className="flex-1 px-3 py-2 border border-gray-300 rounded-lg"
 			/>
 
