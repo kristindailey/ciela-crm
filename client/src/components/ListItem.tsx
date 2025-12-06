@@ -44,7 +44,7 @@ const ListItem = ({ id, value, placeholder, onCreate, onChange, onDelete }: List
 
 			<button
 				onClick={() => id && onDelete(id)}
-				className="text-medium font-medium text-[var(--royal-blue)] hover:text-red-600 transition-colors"
+				className="text-medium font-medium text-[var(--royal-blue)] hover:text-red-500 hover:font-normal transition-colors"
 				disabled={!id}
 			>
 				X
