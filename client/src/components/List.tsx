@@ -1,23 +1,8 @@
-import { useState } from "react";
-
 interface ListProps {
 	title: string;
-	items: ListItem[];
-	maxItems?: number;
-	placeholder?: string;
-	onAdd: (text: string) => Promise<void>;
-	onUpdate: (id: string, text: string) => Promise<void>;
-	onDelete: (id: string) => Promise<void>;
-	onClearAll: () => Promise<void>;
 }
 
-const List = ({ title, items, maxItems, placeholder, onAdd, onUpdate, onDelete, onClearAll }: ListProps) => {
-	const [inputValue, setInputValue] = useState<{ [key: string]: string}>({});
-	const minFields = 3;
-	const emptyFields = maxItems
-		? maxItems - items.length
-		: Math.max(1, minFields - items.length);
-
+const List = ({ title }: ListProps) => {
 	return (
 		<div className="flex flex-col">
 			<div className="flex justify-between items-center mb-4 font-inter">

@@ -1,9 +1,12 @@
 interface ListItemProps {
-	id: string;
-	text: string;
+	id?: string;
+	value: string;
+	placeholder?: string;
+	onUpdate: (id: string | undefined, newValue: string) => void;
+	onDelete: (id: string) => void;
 }
 
-const ListItem = ({ id, text }: ListItemProps) => {
+const ListItem = ({ id, value, placeholder, onUpdate, onDelete }: ListItemProps) => {
 	return (
 		<div>ListItem</div>
 	);
