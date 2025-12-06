@@ -18,6 +18,11 @@ const ListItem = ({ id, value, placeholder, onUpdate, onDelete }: ListItemProps)
 				value={text}
 				placeholder={placeholder}
 				onChange={(e) => setText(e.target.value)}
+				onBlur={() => {
+					if (text !== value) {
+						onUpdate(id, text);
+					}
+				}}
 				className="flex-1 px-3 py-2 border border-gray-300 rounded-lg"
 			/>
 
