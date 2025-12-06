@@ -115,6 +115,75 @@ const Dashboard = () => {
 			setIsLoadingWins(false);
 		}
 	};
+
+	const handleCreatePriority = async (text: string) => {
+		const tempId = `temp-${Date.now()}`;
+		setPriorities((prev) => [...prev, { id: tempId, text} ]);
+
+		try {
+			const response = await fetch(`${API_BASE_URL}/priorities`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ text }),
+				credentials: "include",
+			});
+
+			if (response.ok) {
+				const newPriority = await response.json();
+				setPriorities((prev) => prev.map((p) => p.id === tempId ? newPriority : p));
+			}
+		} catch (error) {
+			console.error("Error creating priority:", error);
+			setPriorities((prev) => prev.filter((p) => p.id !== tempId));
+		}
+	};
+
+	const handleUpdatePriority = async (id: string, text: string) => {
+		setPriorities((prev) => prev.map((p) => p.id === id ? { ...p, text } : p));
+
+		try {
+			await fetch(`${API_BASE_URL}/priorities/${id}`, {
+				method: "PATCH",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ text }),
+				credentials: "include",
+			});
+		} catch (error) {
+			console.error("Error updating priority:", error);
+		}
+	};
+
+	const handleDeletePriority = async (id: string) => {
+		try {
+			const response = await fetch(`${API_BASE_URL}/priorities/${id}`, {
+				method: "DELETE",
+				credentials: "include",
+			});
+
+			if (!response.ok) {
+                throw new Error("Failed to delete priority.");
+            }
+		} catch (error) {
+			console.error("Error deleting priority:", error);
+		}
+	};
+
+	const handleCreateWin = async (text: string) => {
+		try {
+			const response = await fetch(`${API_BASE_URL}/wins`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ text }),
+				credentials: "include",
+			});
+
+			if (response.ok) {
+				fetchWins();
+			}
+		} catch (error) {
+			console.error("Error creating win:", error);
+		}
+	};
 	
 	useEffect(() => {
 		fetchDashboardMetrics();

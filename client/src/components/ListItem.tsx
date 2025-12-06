@@ -4,11 +4,12 @@ interface ListItemProps {
 	id?: string;
 	value: string;
 	placeholder?: string;
-	onUpdate: (id: string | undefined, newValue: string) => void;
+	onChange: (id: string, newValue: string) => void;
+	onCreate: (newValue: string) => void;
 	onDelete: (id: string) => void;
 }
 
-const ListItem = ({ id, value, placeholder, onUpdate, onDelete }: ListItemProps) => {
+const ListItem = ({ id, value, placeholder, onChange, onCreate, onDelete }: ListItemProps) => {
 	const [text, setText] = useState(value);
 
 	useEffect(() => {
@@ -23,15 +24,18 @@ const ListItem = ({ id, value, placeholder, onUpdate, onDelete }: ListItemProps)
 				placeholder={placeholder}
 				onChange={(e) => setText(e.target.value)}
 				onBlur={() => {
-					if (text !== value) {
-						onUpdate(id, text);
+					if (id && text !== value) {
+						onChange(id, text);
 					}
 				}}
 				onKeyDown={(e) => {
 					if (e.key === "Enter") {
 						e.preventDefault();
-						if (text.trim() !== value) {
-							onUpdate(id, text.trim());
+						if (!id && text.trim()) {
+							onCreate(text.trim());
+							setText("");
+						} else if (id && text !== value) {
+							onChange(id, text);
 						}
 					}
 				}}
