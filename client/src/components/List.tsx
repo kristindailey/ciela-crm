@@ -1,8 +1,18 @@
-interface ListProps {
-	title: string;
+interface Item {
+	id?: string;
+	text: string;
 }
 
-const List = ({ title }: ListProps) => {
+interface ListProps {
+	title: string;
+	items: Item[];
+	maxItems?: number;
+	onUpdate: (id: string | undefined, newValue: string) => void;
+	onDelete: (id: string) => void;
+	onClearAll: () => void;
+}
+
+const List = ({ title, items, maxItems, onUpdate, onDelete, onClearAll }: ListProps) => {
 	return (
 		<div className="flex flex-col">
 			<div className="flex justify-between items-center mb-4 font-inter">
