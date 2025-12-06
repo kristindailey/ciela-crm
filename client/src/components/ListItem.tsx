@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface ListItemProps {
 	id?: string;
@@ -10,6 +10,10 @@ interface ListItemProps {
 
 const ListItem = ({ id, value, placeholder, onUpdate, onDelete }: ListItemProps) => {
 	const [text, setText] = useState(value);
+
+	useEffect(() => {
+		setText(value);
+	}, [value]);
 
 	return (
 		<div className="flex items-center gap-2 mb-2">
