@@ -1,10 +1,5 @@
 import { useState } from "react";
 
-interface ListItem {
-	id: string;
-	text: string;
-}
-
 interface ListProps {
 	title: string;
 	items: ListItem[];
@@ -18,6 +13,10 @@ interface ListProps {
 
 const List = ({ title, items, maxItems, placeholder, onAdd, onUpdate, onDelete, onClearAll }: ListProps) => {
 	const [inputValue, setInputValue] = useState<{ [key: string]: string}>({});
+	const minFields = 3;
+	const emptyFields = maxItems
+		? maxItems - items.length
+		: Math.max(1, minFields - items.length);
 
 	return (
 		<div className="flex flex-col">
