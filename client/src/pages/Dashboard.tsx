@@ -11,6 +11,8 @@ const Dashboard = () => {
 	const [isLoadingMetrics, setIsLoadingMetrics] = useState(true);
 	const [isLoadingPriorities, setIsLoadingPriorities] = useState(true);
 	const [isLoadingWins, setIsLoadingWins] = useState(true);
+	const [showClearModal, setShowClearModal] = useState(false);
+	const [clearTarget, setClearTarget] = useState<"priorities" | "wins" | null>(null);
 	const { isLoading } = useAuth();
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -155,7 +157,7 @@ const Dashboard = () => {
 
 	const handleDeletePriority = async (id: string) => {
 		setPriorities(prev => prev.filter(p => p.id !== id));
-		
+
 		try {
 			const response = await fetch(`${API_BASE_URL}/priorities/${id}`, {
 				method: "DELETE",
@@ -167,6 +169,25 @@ const Dashboard = () => {
             }
 		} catch (error) {
 			console.error("Error deleting priority:", error);
+		}
+	};
+
+	const handleClearAllPriorities = async () => {
+		try {
+			const response = await fetch(`${API_BASE_URL}/priorities`, {
+				method: "DELETE",
+				credentials: "include",
+			});
+
+			if (!response.ok) {
+				throw new Error("Failed to clear priorities.");
+			}
+
+			setPriorities([]);
+			setShowClearModal(false);
+			setClearTarget(null);
+		} catch (error) {
+			console.error("Error clearing priorities:", error);
 		}
 	};
 
@@ -221,6 +242,25 @@ const Dashboard = () => {
             }
 		} catch (error) {
 			console.error("Error deleting win:", error);
+		}
+	};
+
+	const handleClearAllWins = async () => {
+		try {
+			const response = await fetch(`${API_BASE_URL}/wins`, {
+				method: "DELETE",
+				credentials: "include",
+			});
+
+			if (!response.ok) {
+				throw new Error("Failed to clear wins.");
+			}
+
+			setWins([]);
+			setShowClearModal(false);
+			setClearTarget(null);
+		} catch (error) {
+			console.error("Error clearing wins:", error);
 		}
 	};
 	
