@@ -332,6 +332,7 @@ const Dashboard = () => {
 				<List
 					title="This Week's Wins"
 					items={wins}
+					minRows={3}
 					itemPlaceholder="Add new win..."
 					onCreate={handleCreateWin}
 					onChange={handleUpdateWin}

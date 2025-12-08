@@ -3,21 +3,30 @@ import ListItem from "./ListItem";
 interface Item {
 	id?: string;
 	text: string;
-	position: number;
+	position?: number;
 }
 
 interface ListProps {
 	title: string;
 	items: Item[];
-	itemPlaceholder?: string; 
+	minRows?: number; 
+	itemPlaceholder?: string;
 	onCreate: (text: string, positon: number) => void;
 	onChange: (id: string, newValue: string) => void;
 	onDelete: (id: string) => void;
 	onClearAll: () => void;
 }
 
-const List = ({ title, items, itemPlaceholder, onCreate, onChange, onDelete, onClearAll }: ListProps) => {
-	const displayItems = items;
+const List = ({ title, items, minRows, itemPlaceholder, onCreate, onChange, onDelete, onClearAll }: ListProps) => {
+	let displayItems = [...items];
+
+	if (minRows) {
+		while (displayItems.length < minRows) {
+			displayItems.push({ text: "" });
+		}
+	} else {
+		displayItems = items;
+	}
 
 	return (
 		<div className="flex flex-col bg-white rounded-xl shadow-md p-4">
