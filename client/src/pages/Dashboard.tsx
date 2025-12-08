@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import InfoPill from "../components/InfoPill";
+import List from "../components/List";
 
 const Dashboard = () => {
 	const [tier1Count, setTier1Count] = useState<number | undefined>(undefined);
@@ -299,6 +300,33 @@ const Dashboard = () => {
                     placeholder={isLoadingMetrics ? "Loading..." : "No data yet"}
                     onSave={() => {}}
                     readOnly={true}
+				/>
+			</div>
+
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-5 mt-5 font-inter">
+				<List
+					title="This Week's Priorities"
+					items={priorities}
+					maxItems={3}
+					onCreate={handleCreatePriority}
+					onChange={handleUpdatePriority}
+					onDelete={handleDeletePriority}
+					onClearAll={() => {
+						setClearTarget("priorities");
+						setShowClearModal(true);
+					}}
+				/>
+
+				<List
+					title="This Week's Wins"
+					items={wins}
+					onCreate={handleCreateWin}
+					onChange={handleUpdateWin}
+					onDelete={handleDeleteWin}
+					onClearAll={() => {
+						setClearTarget("wins");
+						setShowClearModal(true);
+					}}
 				/>
 			</div>
 		</>

@@ -4,12 +4,12 @@ interface ListItemProps {
 	id?: string;
 	value: string;
 	placeholder?: string;
-	onChange: (id: string, newValue: string) => void;
 	onCreate: (newValue: string) => void;
+	onChange: (id: string, newValue: string) => void;
 	onDelete: (id: string) => void;
 }
 
-const ListItem = ({ id, value, placeholder, onChange, onCreate, onDelete }: ListItemProps) => {
+const ListItem = ({ id, value, placeholder, onCreate, onChange, onDelete }: ListItemProps) => {
 	const [text, setText] = useState(value);
 
 	useEffect(() => {
@@ -39,12 +39,12 @@ const ListItem = ({ id, value, placeholder, onChange, onCreate, onDelete }: List
 						}
 					}
 				}}
-				className="flex-1 px-3 py-2 border border-gray-300 rounded-lg"
+				className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-black"
 			/>
 
 			<button
 				onClick={() => id && onDelete(id)}
-				className="text-gray-400 hover:text-red-600 transition-colors"
+				className="text-medium text-[var(--royal-blue)] hover:text-red-600 transition-colors"
 				disabled={!id}
 			>
 				X

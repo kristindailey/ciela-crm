@@ -9,12 +9,13 @@ interface ListProps {
 	title: string;
 	items: Item[];
 	maxItems?: number;
-	onUpdate: (id: string | undefined, newValue: string) => void;
+	onCreate: (text: string) => void;
+	onChange: (id: string, newValue: string) => void;
 	onDelete: (id: string) => void;
 	onClearAll: () => void;
 }
 
-const List = ({ title, items, maxItems, onUpdate, onDelete, onClearAll }: ListProps) => {
+const List = ({ title, items, maxItems, onCreate, onChange, onDelete, onClearAll }: ListProps) => {
 	const displayItems = [...items];
 
 	if (maxItems) {
@@ -27,13 +28,13 @@ const List = ({ title, items, maxItems, onUpdate, onDelete, onClearAll }: ListPr
 
 
 	return (
-		<div className="flex flex-col bg-white border border-gray-300 rounded-lg p-4">
+		<div className="flex flex-col bg-white rounded-xl shadow-md p-4">
 			<div className="flex justify-between items-center mb-4 font-inter">
-				<h2 className="text-xl font-semibold">{title}</h2>
+				<h2 className="text-medium font-semibold text-[var(--royal-blue)]">{title}</h2>
 
 				<button
 					onClick={onClearAll}
-					className="text-sm text-red-600 hover:text-red-700"
+					className="text-sm text-red-500 hover:text-red-700"
 				>
 					Clear All
 				</button>
@@ -46,7 +47,8 @@ const List = ({ title, items, maxItems, onUpdate, onDelete, onClearAll }: ListPr
 						id={item.id}
 						value={item.text}
 						placeholder={index === items.length ? "Add new item..." : undefined}
-						onUpdate={onUpdate}
+						onCreate={onCreate}
+						onChange={onChange}
 						onDelete={onDelete}
 					/>
 				))}
