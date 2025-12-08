@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
 		
 		const priorities = await prisma.priority.findMany({
 			where: { userId },
-			orderBy: { createdAt: "asc" },
+			orderBy: { position: "asc" },
 		});
 
 		res.json(priorities);
@@ -43,20 +43,39 @@ router.patch("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
 	try {
 		const userId = (req.user as any).id;
-		const { text } = req.body;
+		const { text, position } = req.body;
 
-		const existingCount = await prisma.priority.count({
-			where: { userId },
+		if (!position || position < 1 || position > 3) {
+			return res.status(400).json({ error: "Position must be 1, 2, or 3." });
+		}
+
+		const existing = await prisma.priority.findUnique({
+			where: {
+				userId_position: {
+					userId,
+					position,
+				}	
+			},
 		});
 
-		if (existingCount >= 3) {
-			return res.status(400).json({ error: "Maximum of 3 priorities allowed." });
+		if (existing) {
+			const priority = await prisma.priority.update({
+				where: {
+					userId_position: {
+						userId,
+						position,
+					},
+				},
+				data: { text },
+			});
+			return res.json(priority);
 		}
 
 		const priority = await prisma.priority.create({
 			data: {
 				userId,
 				text,
+				position,
 			},
 		});
 

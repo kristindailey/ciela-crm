@@ -4,17 +4,20 @@ interface ListItemProps {
 	id?: string;
 	value: string;
 	placeholder?: string;
-	onCreate: (newValue: string) => void;
+	position?: number;
+	onCreate: (newValue: string, position: number) => void;
 	onChange: (id: string, newValue: string) => void;
 	onDelete: (id: string) => void;
 }
 
-const ListItem = ({ id, value, placeholder, onCreate, onChange, onDelete }: ListItemProps) => {
+const ListItem = ({ id, value, placeholder, position, onCreate, onChange, onDelete }: ListItemProps) => {
 	const [text, setText] = useState(value);
 
 	const handleSave = () => {
 		if (!id && text.trim()) {
-			onCreate(text.trim());
+			if (position) {
+				onCreate(text.trim(), position);
+			}
 			setText("");
 		} else if (id && text !== value) {
 			onChange(id, text);

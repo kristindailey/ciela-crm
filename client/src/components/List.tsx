@@ -3,29 +3,20 @@ import ListItem from "./ListItem";
 interface Item {
 	id?: string;
 	text: string;
+	position: number;
 }
 
 interface ListProps {
 	title: string;
 	items: Item[];
-	maxItems?: number;
-	onCreate: (text: string) => void;
+	onCreate: (text: string, positon: number) => void;
 	onChange: (id: string, newValue: string) => void;
 	onDelete: (id: string) => void;
 	onClearAll: () => void;
 }
 
-const List = ({ title, items, maxItems, onCreate, onChange, onDelete, onClearAll }: ListProps) => {
-	const displayItems = [...items];
-
-	if (maxItems) {
-		while (displayItems.length < maxItems) {
-			displayItems.push({ text: "" });
-		}
-	} else {
-		displayItems.push({ text: "" });
-	}
-
+const List = ({ title, items, onCreate, onChange, onDelete, onClearAll }: ListProps) => {
+	const displayItems = items;
 
 	return (
 		<div className="flex flex-col bg-white rounded-xl shadow-md p-4">
@@ -46,7 +37,8 @@ const List = ({ title, items, maxItems, onCreate, onChange, onDelete, onClearAll
 						key={item.id || `empty-${index}`}
 						id={item.id}
 						value={item.text}
-						placeholder={index === items.length ? "Add new item..." : undefined}
+						position={item.position}
+						placeholder="Add new item..."
 						onCreate={onCreate}
 						onChange={onChange}
 						onDelete={onDelete}

@@ -8,7 +8,7 @@ const Dashboard = () => {
 	const [tier1Count, setTier1Count] = useState<number | undefined>(undefined);
 	const [totalCount, setTotalCount] = useState<number | undefined>(undefined);
 	const [weekOverWeek, setWeekOverWeek] = useState<string | undefined>(undefined);
-	const [priorities, setPriorities] = useState<Array<{ id?: string; text: string }>>([]);
+	const [priorities, setPriorities] = useState<Array<{ id?: string; text: string, position: number }>>([]);
 	const [wins, setWins] = useState<Array<{ id?: string; text: string }>>([]);
 	const [isLoadingMetrics, setIsLoadingMetrics] = useState(true);
 	const [isLoadingPriorities, setIsLoadingPriorities] = useState(true);
@@ -94,7 +94,11 @@ const Dashboard = () => {
 
 			if (response.ok) {
 				const prioritiesData = await response.json();
-				setPriorities(prioritiesData);
+				const positionedPriorities = [1, 2, 3].map((position) => {
+					const existing = prioritiesData.find((p: any) => p.position === position);
+					return existing || { position, text: "" };
+				});
+				setPriorities(positionedPriorities);
 			}
 		} catch (error) {
 			console.error("Error fetching priorities:", error);
@@ -120,25 +124,25 @@ const Dashboard = () => {
 		}
 	};
 
-	const handleCreatePriority = async (text: string) => {
+	const handleCreatePriority = async (text: string, position: number) => {
 		const tempId = `temp-${Date.now()}`;
-		setPriorities((prev) => [...prev, { id: tempId, text} ]);
+		setPriorities((prev) => prev.map((p) => p.position === position ? { ...p, id: tempId, text } : p));
 
 		try {
 			const response = await fetch(`${API_BASE_URL}/priorities`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ text }),
+				body: JSON.stringify({ text, position }),
 				credentials: "include",
 			});
 
 			if (response.ok) {
 				const newPriority = await response.json();
-				setPriorities((prev) => prev.map((p) => p.id === tempId ? newPriority : p));
+				setPriorities((prev) => prev.map((p) => p.position === position ? newPriority : p));
 			}
 		} catch (error) {
 			console.error("Error creating priority:", error);
-			setPriorities((prev) => prev.filter((p) => p.id !== tempId));
+			setPriorities((prev) => prev.map((p) => p.position === position ? { position, text: "" } : p));
 		}
 	};
 
@@ -158,7 +162,10 @@ const Dashboard = () => {
 	};
 
 	const handleDeletePriority = async (id: string) => {
-		setPriorities(prev => prev.filter(p => p.id !== id));
+		const priorityToDelete = priorities.find((p) => p.id === id);
+		if (!priorityToDelete) return;
+
+		setPriorities((prev) => prev.map((p) => p.id === id ? { position: priorityToDelete.position, text: "" } : p));
 
 		try {
 			const response = await fetch(`${API_BASE_URL}/priorities/${id}`, {
@@ -185,7 +192,11 @@ const Dashboard = () => {
 				throw new Error("Failed to clear priorities.");
 			}
 
-			setPriorities([]);
+			setPriorities([
+				{ position: 1, text: ""},
+				{ position: 2, text: ""},
+				{ position: 3, text: ""},
+			]);
 			setShowClearModal(false);
 			setClearTarget(null);
 		} catch (error) {
@@ -308,7 +319,6 @@ const Dashboard = () => {
 				<List
 					title="This Week's Priorities"
 					items={priorities}
-					maxItems={3}
 					onCreate={handleCreatePriority}
 					onChange={handleUpdatePriority}
 					onDelete={handleDeletePriority}
