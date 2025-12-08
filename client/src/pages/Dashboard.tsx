@@ -154,6 +154,8 @@ const Dashboard = () => {
 	};
 
 	const handleDeletePriority = async (id: string) => {
+		setPriorities(prev => prev.filter(p => p.id !== id));
+		
 		try {
 			const response = await fetch(`${API_BASE_URL}/priorities/${id}`, {
 				method: "DELETE",
@@ -169,6 +171,9 @@ const Dashboard = () => {
 	};
 
 	const handleCreateWin = async (text: string) => {
+		const tempId = `temp-${Date.now()}`;
+		setWins((prev) => [...prev, { id: tempId, text} ]);
+
 		try {
 			const response = await fetch(`${API_BASE_URL}/wins`, {
 				method: "POST",
@@ -178,10 +183,44 @@ const Dashboard = () => {
 			});
 
 			if (response.ok) {
-				fetchWins();
+				const newWin = await response.json();
+				setWins((prev) => prev.map((win) => win.id === tempId ? newWin : win));
 			}
 		} catch (error) {
 			console.error("Error creating win:", error);
+			setWins((prev) => prev.filter((win) => win.id !== tempId));
+		}
+	};
+
+	const handleUpdateWin = async (id: string, text: string) => {
+		setWins((prev) => prev.map((win) => win.id === id ? { ...win, text } : win));
+
+		try {
+			await fetch(`${API_BASE_URL}/wins/${id}`, {
+				method: "PATCH",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ text }),
+				credentials: "include",
+			});
+		} catch (error) {
+			console.error("Error updating win:", error);
+		}
+	};
+
+	const handleDeleteWin = async (id: string) => {
+		setWins(prev => prev.filter(w => w.id !== id));
+
+		try {
+			const response = await fetch(`${API_BASE_URL}/wins/${id}`, {
+				method: "DELETE",
+				credentials: "include",
+			});
+
+			if (!response.ok) {
+                throw new Error("Failed to delete win.");
+            }
+		} catch (error) {
+			console.error("Error deleting win:", error);
 		}
 	};
 	
