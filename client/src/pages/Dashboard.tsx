@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import InfoPill from "../components/InfoPill";
 import List from "../components/List";
+import DeleteConfirmationModal from "../components/DeleteConfirmationModal";
 
 const Dashboard = () => {
 	const [tier1Count, setTier1Count] = useState<number | undefined>(undefined);
@@ -329,6 +330,23 @@ const Dashboard = () => {
 					}}
 				/>
 			</div>
+
+			<DeleteConfirmationModal
+				isOpen={showClearModal}
+                itemName={clearTarget === "priorities" ? "all priorities" : "all wins"}
+                itemType={clearTarget === "priorities" ? "Priorities" : "Wins"}
+                onClose={() => {
+					setShowClearModal(false);
+					setClearTarget(null);
+				}}
+                onConfirm={() => {
+                    if (clearTarget === "priorities") {
+						handleClearAllPriorities();
+					} else if (clearTarget === "wins") {
+						handleClearAllWins();
+					}
+                }}
+			/>
 		</>
 	);
 };
