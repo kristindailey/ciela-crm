@@ -319,6 +319,7 @@ const Dashboard = () => {
 				<List
 					title="This Week's Priorities"
 					items={priorities}
+					itemPlaceholder="Add new priority..."
 					onCreate={handleCreatePriority}
 					onChange={handleUpdatePriority}
 					onDelete={handleDeletePriority}
@@ -331,6 +332,7 @@ const Dashboard = () => {
 				<List
 					title="This Week's Wins"
 					items={wins}
+					itemPlaceholder="Add new win..."
 					onCreate={handleCreateWin}
 					onChange={handleUpdateWin}
 					onDelete={handleDeleteWin}

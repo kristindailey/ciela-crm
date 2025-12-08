@@ -9,13 +9,14 @@ interface Item {
 interface ListProps {
 	title: string;
 	items: Item[];
+	itemPlaceholder?: string; 
 	onCreate: (text: string, positon: number) => void;
 	onChange: (id: string, newValue: string) => void;
 	onDelete: (id: string) => void;
 	onClearAll: () => void;
 }
 
-const List = ({ title, items, onCreate, onChange, onDelete, onClearAll }: ListProps) => {
+const List = ({ title, items, itemPlaceholder, onCreate, onChange, onDelete, onClearAll }: ListProps) => {
 	const displayItems = items;
 
 	return (
@@ -38,7 +39,7 @@ const List = ({ title, items, onCreate, onChange, onDelete, onClearAll }: ListPr
 						id={item.id}
 						value={item.text}
 						position={item.position}
-						placeholder="Add new item..."
+						placeholder={itemPlaceholder || "Add new item..."}
 						onCreate={onCreate}
 						onChange={onChange}
 						onDelete={onDelete}
