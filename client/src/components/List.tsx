@@ -11,7 +11,7 @@ interface ListProps {
 	items: Item[];
 	minRows?: number; 
 	itemPlaceholder?: string;
-	onCreate: (text: string, positon: number) => void;
+	onCreate: (text: string, position?: number) => void;
 	onChange: (id: string, newValue: string) => void;
 	onDelete: (id: string) => void;
 	onClearAll: () => void;

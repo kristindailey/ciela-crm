@@ -124,7 +124,7 @@ const Dashboard = () => {
 		}
 	};
 
-	const handleCreatePriority = async (text: string, position: number) => {
+	const handleCreatePriority = async (text: string, position?: number) => {
 		const tempId = `temp-${Date.now()}`;
 		setPriorities((prev) => prev.map((p) => p.position === position ? { ...p, id: tempId, text } : p));
 

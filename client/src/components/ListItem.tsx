@@ -15,9 +15,7 @@ const ListItem = ({ id, value, placeholder, position, onCreate, onChange, onDele
 
 	const handleSave = () => {
 		if (!id && text.trim()) {
-			if (position) {
-				onCreate(text.trim(), position);
-			}
+			onCreate(text.trim(), position!);
 			setText("");
 		} else if (id && text !== value) {
 			onChange(id, text);
