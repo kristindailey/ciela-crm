@@ -12,6 +12,15 @@ interface ListItemProps {
 const ListItem = ({ id, value, placeholder, onCreate, onChange, onDelete }: ListItemProps) => {
 	const [text, setText] = useState(value);
 
+	const handleSave = () => {
+		if (!id && text.trim()) {
+			onCreate(text.trim());
+			setText("");
+		} else if (id && text !== value) {
+			onChange(id, text);
+		}
+	};
+
 	useEffect(() => {
 		setText(value);
 	}, [value]);
@@ -23,20 +32,11 @@ const ListItem = ({ id, value, placeholder, onCreate, onChange, onDelete }: List
 				value={text}
 				placeholder={placeholder}
 				onChange={(e) => setText(e.target.value)}
-				onBlur={() => {
-					if (id && text !== value) {
-						onChange(id, text);
-					}
-				}}
+				onBlur={handleSave}
 				onKeyDown={(e) => {
 					if (e.key === "Enter") {
 						e.preventDefault();
-						if (!id && text.trim()) {
-							onCreate(text.trim());
-							setText("");
-						} else if (id && text !== value) {
-							onChange(id, text);
-						}
+						handleSave();
 					}
 				}}
 				className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-black"
