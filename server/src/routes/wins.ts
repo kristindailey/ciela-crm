@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
 		
 		const wins = await prisma.win.findMany({
 			where: { userId },
-			orderBy: { createdAt: "desc" },
+			orderBy: { createdAt: "asc" },
 		});
 
 		res.json(wins);
