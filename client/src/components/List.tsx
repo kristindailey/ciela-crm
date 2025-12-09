@@ -24,12 +24,16 @@ const List = ({ title, items, minRows, itemPlaceholder, onCreate, onChange, onDe
 		while (displayItems.length < minRows) {
 			displayItems.push({ text: "" });
 		}
+
+		if (displayItems.every((item) => item.id)) {
+			displayItems.push({ text: "" });
+		}
 	} else {
 		displayItems = items;
 	}
 
 	return (
-		<div className="flex flex-col bg-white rounded-xl shadow-md p-4">
+		<div className="flex flex-col bg-white rounded-xl shadow-md p-4 max-h-[30vh] overflow-y-auto">
 			<div className="flex justify-between items-center mb-4 font-inter">
 				<h2 className="text-medium font-semibold text-[var(--royal-blue)]">{title}</h2>
 
