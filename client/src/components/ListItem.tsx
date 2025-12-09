@@ -40,6 +40,7 @@ const ListItem = ({ id, value, placeholder, position, onCreate, onChange, onDele
 						handleSave();
 					}
 				}}
+				autoFocus={!id && !value}
 				className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-black"
 			/>
 
