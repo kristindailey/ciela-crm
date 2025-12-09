@@ -295,11 +295,24 @@ const Dashboard = () => {
 			console.error("Error clearing wins:", error);
 		}
 	};
+
+	const getChartData = () => {
+		const tierOrder = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG"];
+
+		return tierOrder.map((tier) => {
+			const found = companiesByTier.find((item) => item.tier === tier);
+			return {
+				tier: tier.replace("TIER_", "Tier ").replace("BACKLOG", "Blacklog"),
+				count: found?._count.tier || 0,
+			};
+		});
+	};
 	
 	useEffect(() => {
 		fetchDashboardMetrics();
 		fetchPriorities();
 		fetchWins();
+		fetchAnalytics();
 	}, []);
  
 	return (
