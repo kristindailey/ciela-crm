@@ -11,13 +11,14 @@ interface ListProps {
 	items: Item[];
 	minRows?: number; 
 	itemPlaceholder?: string;
+	isLoading?: boolean;
 	onCreate: (text: string, position?: number) => void;
 	onChange: (id: string, newValue: string) => void;
 	onDelete: (id: string) => void;
 	onClearAll: () => void;
 }
 
-const List = ({ title, items, minRows, itemPlaceholder, onCreate, onChange, onDelete, onClearAll }: ListProps) => {
+const List = ({ title, items, minRows, itemPlaceholder, isLoading, onCreate, onChange, onDelete, onClearAll }: ListProps) => {
 	let displayItems = [...items];
 
 	if (minRows) {
@@ -46,18 +47,22 @@ const List = ({ title, items, minRows, itemPlaceholder, onCreate, onChange, onDe
 			</div>
 
 			<div>
-				{displayItems.map((item, index) => (
-					<ListItem
-						key={item.id || `empty-${index}`}
-						id={item.id}
-						value={item.text}
-						position={item.position}
-						placeholder={itemPlaceholder || "Add new item..."}
-						onCreate={onCreate}
-						onChange={onChange}
-						onDelete={onDelete}
-					/>
-				))}
+				{isLoading ? (
+					<div className="flex justify-center text-gray-500 text-sm">Loading...</div>
+				) : (
+					displayItems.map((item, index) => (
+						<ListItem
+							key={item.id || `empty-${index}`}
+							id={item.id}
+							value={item.text}
+							position={item.position}
+							placeholder={itemPlaceholder || "Add new item..."}
+							onCreate={onCreate}
+							onChange={onChange}
+							onDelete={onDelete}
+						/>
+					))
+				)}
 			</div>
 		</div>
 	);

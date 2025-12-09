@@ -320,6 +320,7 @@ const Dashboard = () => {
 					title="This Week's Priorities"
 					items={priorities}
 					itemPlaceholder="Add new priority..."
+					isLoading={isLoadingPriorities}
 					onCreate={handleCreatePriority}
 					onChange={handleUpdatePriority}
 					onDelete={handleDeletePriority}
@@ -334,6 +335,7 @@ const Dashboard = () => {
 					items={wins}
 					minRows={3}
 					itemPlaceholder="Add new win..."
+					isLoading={isLoadingWins}
 					onCreate={handleCreateWin}
 					onChange={handleUpdateWin}
 					onDelete={handleDeleteWin}
