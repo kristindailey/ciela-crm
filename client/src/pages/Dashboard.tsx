@@ -10,9 +10,11 @@ const Dashboard = () => {
 	const [weekOverWeek, setWeekOverWeek] = useState<string | undefined>(undefined);
 	const [priorities, setPriorities] = useState<Array<{ id?: string; text: string, position: number }>>([]);
 	const [wins, setWins] = useState<Array<{ id?: string; text: string }>>([]);
+	const [companiesByTier, setCompaniesByTier] = useState<Array<{ tier: string, _count: { tier: number } }>>([]);
 	const [isLoadingMetrics, setIsLoadingMetrics] = useState(true);
 	const [isLoadingPriorities, setIsLoadingPriorities] = useState(true);
 	const [isLoadingWins, setIsLoadingWins] = useState(true);
+	const [isLoadingAnalytics, setIsLoadingAnalytics] = useState(true);
 	const [showClearModal, setShowClearModal] = useState(false);
 	const [clearTarget, setClearTarget] = useState<"priorities" | "wins" | null>(null);
 	const { isLoading } = useAuth();
@@ -121,6 +123,23 @@ const Dashboard = () => {
 			console.error("Error fetching wins:", error);
 		} finally {
 			setIsLoadingWins(false);
+		}
+	};
+
+	const fetchAnalytics = async () => {
+		try {
+			const response = await fetch(`${API_BASE_URL}/analytics`, {
+				credentials: "include",
+			});
+
+			if (response.ok) {
+				const data = await response.json();
+				setCompaniesByTier(data);
+			}
+		} catch (error) {
+			console.error("Error fetching analytics:", error);
+		} finally {
+			setIsLoadingAnalytics(false);
 		}
 	};
 
