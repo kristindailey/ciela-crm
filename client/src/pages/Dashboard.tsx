@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { useAuth } from "../context/AuthContext";
 import InfoPill from "../components/InfoPill";
 import List from "../components/List";
@@ -317,9 +318,9 @@ const Dashboard = () => {
  
 	return (
 		<>
-			<h1 className="text-[var(--royal-blue)] font-pacifico text-4xl mt-20 ml-5 mb-2">this week</h1>
+			<h1 className="text-[var(--royal-blue)] font-pacifico text-3xl mt-20 ml-5 mb-2">this week</h1>
 
-			<hr className="border-[var(--royal-blue)] border-2 ml-5 mr-5"/>
+			<hr className="border-[var(--royal-blue)] border-2 ml-5 mr-5" />
                 
 			<div className="grid grid-cols-3 gap-6 px-5 mt-5 text-center font-inter font-medium text-lg">
 				<InfoPill
@@ -376,6 +377,33 @@ const Dashboard = () => {
 						setShowClearModal(true);
 					}}
 				/>
+			</div>
+
+			<div className="mt-5">
+				<h2 className="text-[var(--royal-blue)] font-pacifico text-3xl ml-5 mb-4">analytics</h2>
+				<hr className="border-[var(--royal-blue)] border-2 ml-5 mr-5 mb-5" />
+
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-6 ml-5 font-inter">
+					<div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+						<h3 className="font-inter font-semibold text-lg mb-4 text-gray-500">Company Count by Tier</h3>
+
+						{isLoadingAnalytics ? (
+							<div className="h-64 flex items-center justify-center">
+								<p className="text-gray-500">Loading chart...</p>
+							</div>
+						) : (
+							<ResponsiveContainer width="100%" height={200}>
+								<BarChart data={getChartData()}>
+									<CartesianGrid strokeDasharray="3 3" />
+									<XAxis dataKey="tier" />
+									<YAxis allowDecimals={false} />
+									<Tooltip />
+									<Bar dataKey="count" fill="var(--royal-blue)" />
+								</BarChart>
+							</ResponsiveContainer>
+						)}
+					</div>
+				</div>
 			</div>
 
 			<DeleteConfirmationModal
