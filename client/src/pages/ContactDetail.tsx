@@ -237,6 +237,7 @@ const ContactDetail = () => {
                     value={contact.role}
                     placeholder="Add role"
                     onSave={(newValue) => handleSaveRole(newValue)}
+					bgColor="bg-[var(--soft-lavender)]"
                 />
 
                 <InfoPill 
@@ -244,6 +245,7 @@ const ContactDetail = () => {
                     value={contact.company.name}
                     placeholder="Add company"
                     onSave={(newValue) => handleSaveCompany(newValue)}
+					bgColor="bg-[var(--cream-moon)]"
                 />
                 
 				<InfoPill
@@ -251,6 +253,7 @@ const ContactDetail = () => {
                     value={contact.location}
                     placeholder="Add location"
                     onSave={(newValue) => handleSaveLocation(newValue)}
+					bgColor="bg-[var(--blush-pink)]"
                 />
 
             	<InfoPill 
@@ -259,6 +262,7 @@ const ContactDetail = () => {
                     placeholder="Not yet contacted"
                     onSave={() => {}}
                     readOnly={true}
+					bgColor="bg-[var(--soft-lavender)]"
                 />
             </div>
 
