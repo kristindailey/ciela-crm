@@ -349,6 +349,7 @@ const Dashboard = () => {
                     placeholder={isLoadingMetrics ? "Loading..." : "No data yet"}
                     onSave={() => {}}
                     readOnly={true}
+					bgColor="bg-[var(--soft-lavender)]"
 				/>
 
 				<InfoPill
@@ -357,6 +358,7 @@ const Dashboard = () => {
                     placeholder={isLoadingMetrics ? "Loading..." : "No data yet"}
                     onSave={() => {}}
                     readOnly={true}
+					bgColor="bg-[var(--cream-moon)]"
 				/>
 
 				<InfoPill
@@ -365,6 +367,7 @@ const Dashboard = () => {
                     placeholder={isLoadingMetrics ? "Loading..." : "No data yet"}
                     onSave={() => {}}
                     readOnly={true}
+					bgColor="bg-[var(--blush-pink)]"
 				/>
 			</div>
 
