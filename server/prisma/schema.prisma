@@ -156,13 +156,14 @@ model Application {
 	referralNotes  String?
 
 	// Relations 
-	userId         String
-	user           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-	jobId          String
-	job            Job               @relation(fields: [jobId], references: [id], onDelete: Cascade)
-	companyId      String 
-	company        Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
-	interviews     Interview[]
+	userId         	String
+	user           	User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+	jobId          	String?
+	job            	Job?              @relation(fields: [jobId], references: [id], onDelete: Cascade)
+	jobTitle		String?
+	companyId      	String 
+	company        	Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+	interviews     	Interview[]
 
 	@@unique([userId, jobId])
 	@@map("applications")
