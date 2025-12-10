@@ -9,12 +9,12 @@ const Applications = () => {
     const tiers = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG", "ALL"];
 	const navigate = useNavigate();
 
-    const handleTierChange = (tier: string) => {
-        setActiveTier(tier);
-    };
-
 	const handleAddApplication = () => {
         navigate("/applications/new");
+    };
+
+    const handleTierChange = (tier: string) => {
+        setActiveTier(tier);
     };
 
     return (

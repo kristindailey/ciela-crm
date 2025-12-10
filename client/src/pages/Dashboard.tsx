@@ -457,13 +457,11 @@ const Dashboard = () => {
 					<div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
 						<h3 className="font-inter font-semibold text-lg mb-4 text-gray-500">Top Companies by Interactions</h3>
 
-						{isLoadingAnalytics ? (
+						{isLoadingAnalytics || topContacts.length === 0 ? (
 							<div className="flex items-center justify-center">
-								<p className="text-gray-500">Loading chart...</p>
-							</div>
-						) : topCompanies.length === 0 ? (
-							<div className="flex items-center justify-center">
-								<p className="text-gray-500">No interaction data yet.</p>
+								<p className="text-gray-500">
+									{isLoadingAnalytics ? "Loading chart..." : "No interaction data yet."}
+								</p>
 							</div>
 						) : (
 							<ResponsiveContainer width="100%" height={200}>
@@ -496,13 +494,11 @@ const Dashboard = () => {
 					<div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
 						<h3 className="font-inter font-semibold text-lg mb-4 text-gray-500">Top Contacts by Interactions</h3>
 
-						{isLoadingAnalytics ? (
+						{isLoadingAnalytics || topContacts.length === 0 ? (
 							<div className="flex items-center justify-center">
-								<p className="text-gray-500">Loading chart...</p>
-							</div>
-						) : topContacts.length === 0 ? (
-							<div className="flex items-center justify-center">
-								<p className="text-gray-500">No interaction data yet.</p>
+								<p className="text-gray-500">
+									{isLoadingAnalytics ? "Loading chart..." : "No interaction data yet."}
+								</p>
 							</div>
 						) : (
 							<ResponsiveContainer width="100%" height={200}>
