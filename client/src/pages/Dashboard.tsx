@@ -12,6 +12,7 @@ const Dashboard = () => {
 	const [priorities, setPriorities] = useState<Array<{ id?: string; text: string, position: number }>>([]);
 	const [wins, setWins] = useState<Array<{ id?: string; text: string }>>([]);
 	const [companiesByTier, setCompaniesByTier] = useState<Array<{ tier: string, _count: { tier: number } }>>([]);
+	const [interactionsByTier, setInteractionsByTier] = useState<Record<string, number>>({});
 	const [isLoadingMetrics, setIsLoadingMetrics] = useState(true);
 	const [isLoadingPriorities, setIsLoadingPriorities] = useState(true);
 	const [isLoadingWins, setIsLoadingWins] = useState(true);
@@ -135,7 +136,8 @@ const Dashboard = () => {
 
 			if (response.ok) {
 				const data = await response.json();
-				setCompaniesByTier(data);
+				setCompaniesByTier(data.companiesByTier);
+				setInteractionsByTier(data.interactionsByTier);
 			}
 		} catch (error) {
 			console.error("Error fetching analytics:", error);
@@ -297,7 +299,7 @@ const Dashboard = () => {
 		}
 	};
 
-	const getChartData = () => {
+	const getTierChartData = () => {
 		const tierOrder = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG"];
 
 		return tierOrder.map((tier) => {
@@ -305,6 +307,17 @@ const Dashboard = () => {
 			return {
 				tier: tier.replace("TIER_", "Tier ").replace("BACKLOG", "Backlog"),
 				count: found?._count.tier || 0,
+			};
+		});
+	};
+
+	const getInteractionsChartData = () => {
+		const tierOrder = ["TIER_1", "TIER_2", "TIER_3", "BACKLOG"];
+
+		return tierOrder.map((tier) => {
+			return {
+				tier: tier.replace("TIER_", "Tier ").replace("BACKLOG", "Backlog"),
+				count: interactionsByTier[tier] || 0,
 			};
 		});
 	};
@@ -383,7 +396,7 @@ const Dashboard = () => {
 				<h2 className="text-[var(--royal-blue)] font-pacifico text-3xl ml-5 mb-4">analytics</h2>
 				<hr className="border-[var(--royal-blue)] border-2 ml-5 mr-5 mb-5" />
 
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-6 ml-5 font-inter">
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-6 ml-5 mr-5 font-inter">
 					<div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
 						<h3 className="font-inter font-semibold text-lg mb-4 text-gray-500">Company Count by Tier</h3>
 
@@ -393,7 +406,26 @@ const Dashboard = () => {
 							</div>
 						) : (
 							<ResponsiveContainer width="100%" height={200}>
-								<BarChart data={getChartData()}>
+								<BarChart data={getTierChartData()}>
+									<XAxis dataKey="tier" />
+									<YAxis allowDecimals={false} />
+									<Tooltip />
+									<Bar dataKey="count" fill="var(--royal-blue)" />
+								</BarChart>
+							</ResponsiveContainer>
+						)}
+					</div>
+
+					<div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+						<h3 className="font-inter font-semibold text-lg mb-4 text-gray-500">Interaction Count by Tier</h3>
+
+						{isLoadingAnalytics ? (
+							<div className="flex items-center justify-center">
+								<p className="text-gray-500">Loading chart...</p>
+							</div>
+						) : (
+							<ResponsiveContainer width="100%" height={200}>
+								<BarChart data={getInteractionsChartData()}>
 									<XAxis dataKey="tier" />
 									<YAxis allowDecimals={false} />
 									<Tooltip />
