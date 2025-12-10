@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell } from "recharts";
 import { useAuth } from "../context/AuthContext";
 import InfoPill from "../components/InfoPill";
 import List from "../components/List";
 import DeleteConfirmationModal from "../components/DeleteConfirmationModal";
+import StyledTooltip from "../components/StyledTooltip";
 
 const Dashboard = () => {
 	const [tier1Count, setTier1Count] = useState<number | undefined>(undefined);
@@ -419,7 +420,7 @@ const Dashboard = () => {
 								<BarChart data={getTierChartData()}>
 									<XAxis dataKey="tier" tickLine={false} />
 									<YAxis allowDecimals={false} tickLine={false} />
-									<Tooltip />
+									<StyledTooltip />
 									<Bar dataKey="count">
 										{getTierChartData().map((_, index) => (
 											<Cell key={`cell-${index}`} fill={colors[index % colors.length]}/>
@@ -442,7 +443,7 @@ const Dashboard = () => {
 								<BarChart data={getInteractionsChartData()}>
 									<XAxis dataKey="tier" tickLine={false} />
 									<YAxis allowDecimals={false} tickLine={false} />
-									<Tooltip />
+									<StyledTooltip />
 									<Bar dataKey="count">
 										{getInteractionsChartData().map((_, index) => (
 											<Cell key={`cell-${index}`} fill={colors[index % colors.length]}/>
@@ -481,7 +482,7 @@ const Dashboard = () => {
 											}
 										}}
 									/>
-									<Tooltip />
+									<StyledTooltip />
 									<Bar dataKey="interactionCount">
 										{topCompanies.map((_, index) => (
 											<Cell key={`cell-${index}`} fill={colors[index % colors.length]}/>
@@ -520,7 +521,7 @@ const Dashboard = () => {
 											}
 										}}
 									/>
-									<Tooltip />
+									<StyledTooltip />
 									<Bar dataKey="interactionCount">
 										{topContacts.map((_, index) => (
 											<Cell key={`cell-${index}`} fill={colors[index % colors.length]}/>
