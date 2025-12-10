@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useAuth } from "../context/AuthContext";
 import InfoPill from "../components/InfoPill";
@@ -13,6 +14,7 @@ const Dashboard = () => {
 	const [wins, setWins] = useState<Array<{ id?: string; text: string }>>([]);
 	const [companiesByTier, setCompaniesByTier] = useState<Array<{ tier: string, _count: { tier: number } }>>([]);
 	const [interactionsByTier, setInteractionsByTier] = useState<Record<string, number>>({});
+	const [topCompanies, setTopCompanies] = useState<Array<{ id: string; name: string; interactionCount: number; }>>([]);
 	const [isLoadingMetrics, setIsLoadingMetrics] = useState(true);
 	const [isLoadingPriorities, setIsLoadingPriorities] = useState(true);
 	const [isLoadingWins, setIsLoadingWins] = useState(true);
@@ -20,6 +22,7 @@ const Dashboard = () => {
 	const [showClearModal, setShowClearModal] = useState(false);
 	const [clearTarget, setClearTarget] = useState<"priorities" | "wins" | null>(null);
 	const { isLoading } = useAuth();
+	const navigate = useNavigate();
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     if (isLoading) {
@@ -138,6 +141,7 @@ const Dashboard = () => {
 				const data = await response.json();
 				setCompaniesByTier(data.companiesByTier);
 				setInteractionsByTier(data.interactionsByTier);
+				setTopCompanies(data.topCompanies);
 			}
 		} catch (error) {
 			console.error("Error fetching analytics:", error);
@@ -321,7 +325,7 @@ const Dashboard = () => {
 			};
 		});
 	};
-	
+
 	useEffect(() => {
 		fetchDashboardMetrics();
 		fetchPriorities();
@@ -430,6 +434,40 @@ const Dashboard = () => {
 									<YAxis allowDecimals={false} />
 									<Tooltip />
 									<Bar dataKey="count" fill="var(--royal-blue)" />
+								</BarChart>
+							</ResponsiveContainer>
+						)}
+					</div>
+				
+					<div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+						<h3 className="font-inter font-semibold text-lg mb-4 text-gray-500">Top Companies by Interactions</h3>
+
+						{isLoadingAnalytics ? (
+							<div className="flex items-center justify-center">
+								<p className="text-gray-500">Loading chart...</p>
+							</div>
+						) : topCompanies.length === 0 ? (
+							<div className="flex items-center justify-center">
+								<p className="text-gray-500">No interaction data yet.</p>
+							</div>
+						) : (
+							<ResponsiveContainer width="100%" height={200}>
+								<BarChart data={topCompanies} layout="vertical">
+									<XAxis type="number" allowDecimals={false} />
+									<YAxis 
+										type="category"
+										dataKey="name"
+										width={65}
+										tick={{ cursor: "pointer" }}
+										onClick={(data) => {
+											if (data && data.value) {
+												const company = topCompanies.find((company) => company.name === data.value);
+												if (company) navigate(`/companies/${company.id}`);
+											}
+										}}
+									/>
+									<Tooltip />
+									<Bar dataKey="interactionCount" fill="var(--royal-blue)" />
 								</BarChart>
 							</ResponsiveContainer>
 						)}
