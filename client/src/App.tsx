@@ -15,6 +15,7 @@ import Applications from "./pages/Applications";
 import Reminders from "./pages/Reminders";
 import Dashboard from "./pages/Dashboard";
 import Layout from "./components/Layout";
+import AddApplicationPage from "./pages/AddApplicationPage";
 
 const router = createBrowserRouter([
 	{
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
 			{
 				path: "/applications",
 				element: <Applications />,
+			},
+			{
+				path: "/applications/new",
+				element: <AddApplicationPage />,
 			},
 			{	
 				path: "/reminders",
