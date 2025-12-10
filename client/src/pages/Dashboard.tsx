@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { useAuth } from "../context/AuthContext";
 import InfoPill from "../components/InfoPill";
 import List from "../components/List";
@@ -25,6 +25,7 @@ const Dashboard = () => {
 	const { isLoading } = useAuth();
 	const navigate = useNavigate();
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+	const colors = ["var(--royal-blue)", "var(--soft-lavender)", "var(--cream-moon)", "var(--blush-pink)"];
 
     if (isLoading) {
         return (
@@ -416,7 +417,11 @@ const Dashboard = () => {
 									<XAxis dataKey="tier" />
 									<YAxis allowDecimals={false} />
 									<Tooltip />
-									<Bar dataKey="count" fill="var(--royal-blue)" />
+									<Bar dataKey="count">
+										{getTierChartData().map((_, index) => (
+											<Cell key={`cell-${index}`} fill={colors[index % colors.length]}/>
+										))}
+									</Bar>
 								</BarChart>
 							</ResponsiveContainer>
 						)}
@@ -435,7 +440,11 @@ const Dashboard = () => {
 									<XAxis dataKey="tier" />
 									<YAxis allowDecimals={false} />
 									<Tooltip />
-									<Bar dataKey="count" fill="var(--royal-blue)" />
+									<Bar dataKey="count">
+										{getInteractionsChartData().map((_, index) => (
+											<Cell key={`cell-${index}`} fill={colors[index % colors.length]}/>
+										))}
+									</Bar>
 								</BarChart>
 							</ResponsiveContainer>
 						)}
@@ -469,7 +478,11 @@ const Dashboard = () => {
 										}}
 									/>
 									<Tooltip />
-									<Bar dataKey="interactionCount" fill="var(--royal-blue)" />
+									<Bar dataKey="interactionCount">
+										{topCompanies.map((_, index) => (
+											<Cell key={`cell-${index}`} fill={colors[index % colors.length]}/>
+										))}
+									</Bar>
 								</BarChart>
 							</ResponsiveContainer>
 						)}
@@ -503,7 +516,11 @@ const Dashboard = () => {
 										}}
 									/>
 									<Tooltip />
-									<Bar dataKey="interactionCount" fill="var(--royal-blue)" />
+									<Bar dataKey="interactionCount">
+										{topContacts.map((_, index) => (
+											<Cell key={`cell-${index}`} fill={colors[index % colors.length]}/>
+										))}
+									</Bar>
 								</BarChart>
 							</ResponsiveContainer>
 						)}
