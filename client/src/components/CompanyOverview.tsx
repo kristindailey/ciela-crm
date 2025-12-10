@@ -66,13 +66,17 @@ const CompanyOverview = ({
                     value={company.description}
                     placeholder="Add description"
                     onSave={onSaveDescription}
+					bgColor="bg-[var(--soft-lavender)]"
                 />
+
                 <InfoPill 
                     label="HQ Location"
                     value={company.hqLocation}
                     placeholder="Add HQ location"
                     onSave={onSaveHQLocation}
+					bgColor="bg-[var(--cream-moon)]"
                 />
+
                 <InfoPill 
                     label="Employee Count"
                     value={formatEmployeeCount(company.employeeCount)}
@@ -81,13 +85,16 @@ const CompanyOverview = ({
                         const cleanValue = newValue.replace(/,/g, "");
                         onSaveEmployeeCount(parseInt(cleanValue, 10));
                     }}
+					bgColor="bg-[var(--blush-pink)]"
                 />
+				
                 <InfoPill 
                     label="Last Contacted"
                     value={lastContactedDate ? formatDate(lastContactedDate) : undefined}
                     placeholder="Not yet contacted"
                     onSave={() => {}}
                     readOnly={true}
+					bgColor="bg-[var(--soft-lavender)]"
                 />
             </div>
 
@@ -103,6 +110,7 @@ const CompanyOverview = ({
                                 onSaveGlassdoorRating(rating);
                             }
                         }}
+						bgColor="bg-[var(--cream-moon)]"
                     />
 
                     <InfoPill
@@ -114,7 +122,8 @@ const CompanyOverview = ({
                             if (!isNaN(rating) && rating >= 0 && rating <= 5) {
                                 onSaveBlindRating(rating);
                             }
-                            }}
+                        }}
+						bgColor="bg-[var(--blush-pink)]"
                     />
                 </div>
 
@@ -124,13 +133,14 @@ const CompanyOverview = ({
                     placeholder="Add office policy"
                     dropdownOptions={["Remote", "Hybrid", "In-Office"]}
                     onSave={(newValue) => {
-                            const policyMap: Record<string, string> = {
-                                "Remote": "REMOTE",
-                                "Hybrid": "HYBRID",
-                                "In-Office": "IN_OFFICE",
-                            };
-                            onSaveOfficePolicy(policyMap[newValue]);
-                        }}
+                        const policyMap: Record<string, string> = {
+                            "Remote": "REMOTE",
+                            "Hybrid": "HYBRID",
+                            "In-Office": "IN_OFFICE",
+                        };
+                        onSaveOfficePolicy(policyMap[newValue]);
+                    }}
+					bgColor="bg-[var(--soft-lavender)]"
                 />
 
                 <InfoPill 
@@ -138,6 +148,7 @@ const CompanyOverview = ({
                     value={company.localLocation}
                     placeholder="Add local location"
                     onSave={onSaveLocalLocation}
+					bgColor="bg-[var(--cream-moon)]"
                 />
 
             	<InfoPill 
@@ -145,6 +156,7 @@ const CompanyOverview = ({
                     value={company.techStack}
                     placeholder="Add tech stack"
                     onSave={onSaveTechStack}
+					bgColor="bg-[var(--blush-pink)]"
                 />
         	</div>
 
