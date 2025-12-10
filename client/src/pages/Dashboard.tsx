@@ -15,6 +15,7 @@ const Dashboard = () => {
 	const [companiesByTier, setCompaniesByTier] = useState<Array<{ tier: string, _count: { tier: number } }>>([]);
 	const [interactionsByTier, setInteractionsByTier] = useState<Record<string, number>>({});
 	const [topCompanies, setTopCompanies] = useState<Array<{ id: string; name: string; interactionCount: number; }>>([]);
+	const [topContacts, setTopContacts] = useState<Array<{ id: string; name: string; interactionCount: number; }>>([]);
 	const [isLoadingMetrics, setIsLoadingMetrics] = useState(true);
 	const [isLoadingPriorities, setIsLoadingPriorities] = useState(true);
 	const [isLoadingWins, setIsLoadingWins] = useState(true);
@@ -142,6 +143,7 @@ const Dashboard = () => {
 				setCompaniesByTier(data.companiesByTier);
 				setInteractionsByTier(data.interactionsByTier);
 				setTopCompanies(data.topCompanies);
+				setTopContacts(data.topContacts);
 			}
 		} catch (error) {
 			console.error("Error fetching analytics:", error);

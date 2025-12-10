@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma";
+import { dmmfToRuntimeDataModel } from "@prisma/client/runtime/library";
 
 const router = Router();
 
@@ -68,10 +69,39 @@ router.get("/", async (req, res) => {
 			.sort((a, b) => b.interactionCount - a.interactionCount)
 			.slice(0, 5);
 
+		const topContacts = await prisma.contact.findMany({
+			where: {
+				userId,
+			},
+			select: {
+				id: true,
+				firstName: true,
+				lastName: true,
+				_count: {
+					select: {
+						interactions: true,
+					},
+				},
+			},
+			orderBy: {
+				interactions: {
+					_count: "desc",
+				},
+			},
+			take: 5,
+		});
+
+		const formattedTopContacts = topContacts.map((contact) => ({
+			id: contact.id,
+			name: `${contact.firstName} ${contact.lastName}`,
+			interactionCount: contact._count.interactions,
+		}));
+
 		res.json({
 			companiesByTier,
 			interactionsByTier,
 			topCompanies,
+			topContacts: formattedTopContacts,
 		});
 	} catch (error) {
 		console.error("Error fetching dashboard analytics:", error);
