@@ -474,6 +474,40 @@ const Dashboard = () => {
 							</ResponsiveContainer>
 						)}
 					</div>
+
+					<div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+						<h3 className="font-inter font-semibold text-lg mb-4 text-gray-500">Top Contacts by Interactions</h3>
+
+						{isLoadingAnalytics ? (
+							<div className="flex items-center justify-center">
+								<p className="text-gray-500">Loading chart...</p>
+							</div>
+						) : topContacts.length === 0 ? (
+							<div className="flex items-center justify-center">
+								<p className="text-gray-500">No interaction data yet.</p>
+							</div>
+						) : (
+							<ResponsiveContainer width="100%" height={200}>
+								<BarChart data={topContacts} layout="vertical">
+									<XAxis type="number" allowDecimals={false} />
+									<YAxis 
+										type="category"
+										dataKey="name"
+										width={65}
+										tick={{ cursor: "pointer" }}
+										onClick={(data) => {
+											if (data && data.value) {
+												const contact = topContacts.find((contact) => contact.name === data.value);
+												if (contact) navigate(`/contacts/${contact.id}`);
+											}
+										}}
+									/>
+									<Tooltip />
+									<Bar dataKey="interactionCount" fill="var(--royal-blue)" />
+								</BarChart>
+							</ResponsiveContainer>
+						)}
+					</div>
 				</div>
 			</div>
 
