@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useAuth } from "../context/AuthContext";
 import InfoPill from "../components/InfoPill";
 import List from "../components/List";
@@ -303,7 +303,7 @@ const Dashboard = () => {
 		return tierOrder.map((tier) => {
 			const found = companiesByTier.find((item) => item.tier === tier);
 			return {
-				tier: tier.replace("TIER_", "Tier ").replace("BACKLOG", "Blacklog"),
+				tier: tier.replace("TIER_", "Tier ").replace("BACKLOG", "Backlog"),
 				count: found?._count.tier || 0,
 			};
 		});
@@ -388,13 +388,12 @@ const Dashboard = () => {
 						<h3 className="font-inter font-semibold text-lg mb-4 text-gray-500">Company Count by Tier</h3>
 
 						{isLoadingAnalytics ? (
-							<div className="h-64 flex items-center justify-center">
+							<div className="flex items-center justify-center">
 								<p className="text-gray-500">Loading chart...</p>
 							</div>
 						) : (
 							<ResponsiveContainer width="100%" height={200}>
 								<BarChart data={getChartData()}>
-									<CartesianGrid strokeDasharray="3 3" />
 									<XAxis dataKey="tier" />
 									<YAxis allowDecimals={false} />
 									<Tooltip />

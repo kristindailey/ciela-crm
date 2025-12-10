@@ -17,7 +17,33 @@ router.get("/", async (req, res) => {
 			},
 		});
 
-		res.json(companiesByTier);
+		const interactions = await prisma.interaction.findMany({
+			where: {
+				userId,
+			},
+			include: {
+				contact: {
+					include: {
+						company: {
+							select: {
+								tier: true,
+							},
+						},
+					},
+				},
+			},
+		});
+
+		const interactionsByTier = interactions.reduce((acc, interaction) => {
+			const tier = interaction.contact.company.tier;
+			acc[tier] = (acc[tier] || 0) + 1;
+			return acc;
+		}, {} as Record<string, number>);
+
+		res.json({
+			companiesByTier,
+			interactionsByTier,
+		});
 	} catch (error) {
 		console.error("Error fetching dashboard analytics:", error);
 		res.status(500).json({ error: "Failed to fetch dashboard analytics." });
