@@ -13,7 +13,6 @@ const AddCompanyPage = () => {
         tier: "BACKLOG",
     });
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
     const navigate = useNavigate();
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

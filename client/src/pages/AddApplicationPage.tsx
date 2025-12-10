@@ -1,21 +1,22 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { Button, Calendar, CalendarCell, CalendarGrid, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Popover } from "react-aria-components";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { CalendarDate } from "@internationalized/date";
 import type { Company } from "../types/company";
+import type { Application } from "../types/application";
 import { normalizeUrl } from "../utils/urlHelpers";
 
-const AddContactPage = () => {
+const AddApplicationPage = () => {
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        role: "",
-        location: "",
-        email: "",
-        bluesky: "",
-        github: "",
-        linkedin: "",
-        website: "",
+        jobTitle: "",
+		status: "APPLIED" as Application["status"],
+		resumeUrl: "",
+		coverLetterUrl: "",
+		projectDocsUrl: "",
         notes: "",
     });
+	const [appliedDate, setAppliedDate] = useState<CalendarDate | null>(null);
     const [companies, setCompanies] = useState<Company[]>([]);
     const [selectedCompany, setSelectedCompany] = useState("");
     const [showNewCompany, setShowNewCompany] = useState(false);
@@ -28,7 +29,7 @@ const AddContactPage = () => {
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const navigate = useNavigate();
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = event.target;
 
         setFormData(prev => ({
@@ -93,24 +94,24 @@ const AddContactPage = () => {
                 companyId = newCompany.id;
             }
 
-            const contactResponse = await fetch(`${API_BASE_URL}/contacts`, {
+            const applicationResponse = await fetch(`${API_BASE_URL}/applications`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     ...formData,
                     companyId,
-                    website: normalizeUrl(formData.website),
-                    linkedin: normalizeUrl(formData.linkedin),
-                    bluesky: normalizeUrl(formData.bluesky),
-                    github: normalizeUrl(formData.github),
+					appliedDate: appliedDate ? appliedDate.toString() : new Date().toISOString(),
+                    resumeUrl: normalizeUrl(formData.resumeUrl),
+                    coverLetterUrl: normalizeUrl(formData.coverLetterUrl),
+                    projectDocsUrl: normalizeUrl(formData.projectDocsUrl),
                 }),
                 credentials: "include",
             });
 
-            const newContact = await contactResponse.json();
-            navigate(`/contacts/${newContact.id}`);
+            await applicationResponse.json();
+            navigate("/applications");
         } catch (error) {
-            console.error("Error creating contact:", error);
+            console.error("Error creating application:", error);
         }
     };
 
@@ -135,7 +136,7 @@ const AddContactPage = () => {
 
     return (
         <div className="p-6 text-black">
-            <h1 className="text-2xl font-bold mt-20 mb-4">Add New Contact</h1>
+            <h1 className="text-2xl font-bold mt-20 mb-4">Add New Application</h1>
 
             {error && (
                 <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
@@ -146,26 +147,13 @@ const AddContactPage = () => {
             <form className="space-y-4" onSubmit={handleSave}>
                 <div className="flex gap-5 mt-5">
                     <div>
-                        <label htmlFor="firstName" className="block text-sm font-medium mb-1">First Name</label>
+                        <label htmlFor="jobTitle" className="block text-sm font-medium mb-1">Job Title</label>
                         <input
                             type="text"
-                            id="firstName"
-                            name="firstName"
+                            id="jobTitle"
+                            name="jobTitle"
                             required
-                            value={formData.firstName}
-                            onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                        />
-                    </div>
-
-                    <div>
-                        <label htmlFor="lastName" className="block text-sm font-medium mb-1">Last Name</label>
-                        <input
-                            type="text"
-                            id="lastName"
-                            name="lastName"
-                            required
-                            value={formData.lastName}
+                            value={formData.jobTitle}
                             onChange={handleInputChange}
                             className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
                         />
@@ -228,88 +216,96 @@ const AddContactPage = () => {
 
                 <div className="flex gap-5 mt-8">
                     <div>
-                        <label htmlFor="role" className="block text-sm font-medium mb-1">Role</label>
-                        <input
-                            type="text"
-                            id="role"
-                            name="role"
-                            value={formData.role}
+                        <label htmlFor="status" className="block text-sm font-medium mb-1">Status</label>
+                        <select
+                            id="status"
+                            name="status"
+                            value={formData.status}
                             onChange={handleInputChange}
                             className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                        />
+                        >
+							<option value="APPLIED">Applied</option>
+							<option value="PHONE_SCREEN">Phone Screen</option>
+							<option value="TECHNICAL">Tehnical</option>
+							<option value="ONSITE">Onsite</option>
+							<option value="OFFER">Offer</option>
+							<option value="REJECTED">Rejected</option>
+							<option value="WITHDRAWN">Withdrawn</option>
+						</select>
                     </div>
 
                     <div>
-                        <label htmlFor="location" className="block text-sm font-medium mb-1">Location</label>
-                        <input
-                            type="text"
-                            id="location"
-                            name="location"
-                            value={formData.location}
-                            onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                        />
-                    </div>
-                </div>
-
-                <div className="flex gap-5 mt-8">
-                    <div>
-                        <label htmlFor="linkedin" className="block text-sm font-medium mb-1">LinkedIn</label>
-                        <input
-                            type="text"
-                            id="linkedin"
-                            name="linkedin"
-                            value={formData.linkedin}
-                            onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                        />
-                    </div>
-
-                    <div>
-                        <label htmlFor="bluesky" className="block text-sm font-medium mb-1">Bluesky</label>
-                        <input
-                            type="text"
-                            id="bluesky"
-                            name="bluesky"
-                            value={formData.bluesky}
-                            onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                        />
-                    </div>
-
-                    <div>
-                        <label htmlFor="github" className="block text-sm font-medium mb-1">GitHub</label>
-                        <input
-                            type="text"
-                            id="github"
-                            name="github"
-                            value={formData.github}
-                            onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
-                        />
+                        <label htmlFor="appliedDate" className="block text-sm font-medium mb-1">Applied Date</label>
+                        
+						<DatePicker value={appliedDate} onChange={setAppliedDate} aria-label="Applied Date">
+							<Group className="flex w-fit items-center border-2 border-[var(--royal-blue)] rounded-md px-2 py-2">
+								<DateInput className="py-1 pr-10 pl-2">
+									{(segment) => <DateSegment segment={segment} />}
+								</DateInput>
+								<Button className="bg-[var(--royal-blue)] text-white rounded ml-3 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors">
+									<ChevronDown size={20} />
+								</Button>
+							</Group>
+							<Popover className="max-w-none bg-white shadow-lg rounded-lg border border-2 border-[var(--royal-blue)] p-4 text-black">
+								<Dialog>
+									<Calendar>
+										<header className="flex justify-center mb-5">
+											<Button slot="previous" className="bg-[var(--royal-blue)] text-white rounded ml-3 mr-3 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors">
+												<ChevronLeft size={20} />
+											</Button>
+											<Heading />
+											<Button slot="next" className="bg-[var(--royal-blue)] text-white rounded ml-3 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors">
+												<ChevronRight size={20} />
+											</Button>
+										</header>
+										<CalendarGrid>
+											{(date) => 
+												<CalendarCell date={date} className="flex justify-center">
+													{({ isOutsideMonth }) => (
+														<span className={isOutsideMonth ? "text-gray-400" : "p-2 rounded-md hover:bg-[var(--royal-blue)] hover:text-white transition-colors duration-150"}>{date.day}</span>
+													)}
+												</CalendarCell>
+											}
+										</CalendarGrid>
+									</Calendar>
+								</Dialog>
+							</Popover>
+						</DatePicker>
                     </div>
                 </div>
 
                 <div className="flex gap-5 mt-8">
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
+                        <label htmlFor="resumeUrl" className="block text-sm font-medium mb-1">Resume URL</label>
                         <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
+                            type="text"
+                            id="resumeUrl"
+                            name="resumeUrl"
+                            value={formData.resumeUrl}
                             onChange={handleInputChange}
                             className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="website" className="block text-sm font-medium mb-1">Website</label>
+                        <label htmlFor="coverLetterUrl" className="block text-sm font-medium mb-1">Cover Letter URL</label>
                         <input
                             type="text"
-                            id="website"
-                            name="website"
-                            value={formData.website}
+                            id="coverLetterUrl"
+                            name="coverLetterUrl"
+                            value={formData.coverLetterUrl}
+                            onChange={handleInputChange}
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="projectDocsUrl" className="block text-sm font-medium mb-1">Project Docs URL</label>
+                        <input
+                            type="text"
+                            id="projectDocsUrl"
+                            name="projectDocsUrl"
+                            value={formData.projectDocsUrl}
                             onChange={handleInputChange}
                             className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
                         />
@@ -332,11 +328,11 @@ const AddContactPage = () => {
                     type="submit"
                     className="w-full py-2 bg-[var(--royal-blue)] text-white rounded-md hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] hover:font-medium"
                 >
-                    Create Contact
+                    Create Application
                 </button>
             </form>
         </div>
     );
 };
 
-export default AddContactPage;
+export default AddApplicationPage;
