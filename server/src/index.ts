@@ -14,6 +14,7 @@ import companyRoutes from "./routes/companies";
 import interactionRoutes from "./routes/interactions";
 import priorityRoutes from "./routes/priorities";
 import winRoutes from "./routes/wins";
+import applicationRoutes from "./routes/applications";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -56,6 +57,7 @@ app.use("/companies", requireAuth, companyRoutes);
 app.use("/interactions", requireAuth, interactionRoutes);
 app.use("/priorities", requireAuth, priorityRoutes);
 app.use("/wins", requireAuth, winRoutes);
+app.use("/applications", requireAuth, applicationRoutes);
 
 app.get("/api/test", (req, res) => {
     res.json({ 
