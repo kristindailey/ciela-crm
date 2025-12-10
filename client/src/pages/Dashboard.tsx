@@ -398,7 +398,7 @@ const Dashboard = () => {
 				/>
 			</div>
 
-			<div className="mt-5">
+			<div className="mt-5 mb-5">
 				<h2 className="text-[var(--royal-blue)] font-pacifico text-3xl ml-5 mb-4">analytics</h2>
 				<hr className="border-[var(--royal-blue)] border-2 ml-5 mr-5 mb-5" />
 
