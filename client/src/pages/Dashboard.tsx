@@ -417,8 +417,8 @@ const Dashboard = () => {
 						) : (
 							<ResponsiveContainer width="100%" height={200}>
 								<BarChart data={getTierChartData()}>
-									<XAxis dataKey="tier" />
-									<YAxis allowDecimals={false} />
+									<XAxis dataKey="tier" tickLine={false} />
+									<YAxis allowDecimals={false} tickLine={false} />
 									<Tooltip />
 									<Bar dataKey="count">
 										{getTierChartData().map((_, index) => (
@@ -440,8 +440,8 @@ const Dashboard = () => {
 						) : (
 							<ResponsiveContainer width="100%" height={200}>
 								<BarChart data={getInteractionsChartData()}>
-									<XAxis dataKey="tier" />
-									<YAxis allowDecimals={false} />
+									<XAxis dataKey="tier" tickLine={false} />
+									<YAxis allowDecimals={false} tickLine={false} />
 									<Tooltip />
 									<Bar dataKey="count">
 										{getInteractionsChartData().map((_, index) => (
@@ -467,12 +467,13 @@ const Dashboard = () => {
 						) : (
 							<ResponsiveContainer width="100%" height={200}>
 								<BarChart data={topCompanies} layout="vertical">
-									<XAxis type="number" allowDecimals={false} />
+									<XAxis type="number" allowDecimals={false} tickLine={false} />
 									<YAxis 
 										type="category"
 										dataKey="name"
 										width={65}
 										tick={{ cursor: "pointer" }}
+										tickLine={false}
 										onClick={(data) => {
 											if (data && data.value) {
 												const company = topCompanies.find((company) => company.name === data.value);
@@ -505,12 +506,13 @@ const Dashboard = () => {
 						) : (
 							<ResponsiveContainer width="100%" height={200}>
 								<BarChart data={topContacts} layout="vertical">
-									<XAxis type="number" allowDecimals={false} />
+									<XAxis type="number" allowDecimals={false} tickLine={false} />
 									<YAxis 
 										type="category"
 										dataKey="name"
 										width={65}
 										tick={{ cursor: "pointer" }}
+										tickLine={false}
 										onClick={(data) => {
 											if (data && data.value) {
 												const contact = topContacts.find((contact) => contact.name === data.value);
