@@ -40,9 +40,38 @@ router.get("/", async (req, res) => {
 			return acc;
 		}, {} as Record<string, number>);
 
+		const companiesWithInteractions = await prisma.company.findMany({
+			where: {
+				userId,
+			},
+			select: {
+				id: true,
+				name: true,
+				contacts: {
+					select: {
+						interactions: {
+							select: {
+								id: true,
+							}
+						},
+					},
+				},
+			},
+		});
+
+		const topCompanies = companiesWithInteractions
+			.map((company) => ({
+				id: company.id,
+				name: company.name,
+				interactionCount: company.contacts.reduce((acc, contact) => acc + contact.interactions.length, 0),
+			}))
+			.sort((a, b) => b.interactionCount - a.interactionCount)
+			.slice(0, 5);
+
 		res.json({
 			companiesByTier,
 			interactionsByTier,
+			topCompanies,
 		});
 	} catch (error) {
 		console.error("Error fetching dashboard analytics:", error);
