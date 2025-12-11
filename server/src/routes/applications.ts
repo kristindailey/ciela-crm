@@ -94,4 +94,27 @@ router.post("/", async (req, res) => {
 	}
 });
 
+router.delete("/:id", async (req, res) => {
+	try {
+		const userId = (req.user as any).id;
+		const { id } = req.params;
+
+		const result = await prisma.application.deleteMany({
+			where: {
+				id,
+				userId,
+			},
+		});
+
+		if (result.count === 0) {
+			return res.status(404).json({ error: "Application not found." });
+		}
+
+		res.sendStatus(204);
+	} catch (error) {
+		console.error("Error deleting application:", error);
+		res.status(500).json({ error: "Failed to delete application." });
+	}
+});
+
 export default router;
