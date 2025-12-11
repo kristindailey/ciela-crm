@@ -111,14 +111,14 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
 			<div className="flex justify-end gap-2 mt-3">
 				<button
 					onClick={() => onClear(reminder.id)}
-					className="px-3 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+					className="px-3 py-2 text-gray-700 text-sm bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
 				>
 					Clear
 				</button>
 
 				<button
 					onClick={() => onSnooze(reminder.id)}
-					className="px-3 py-2 text-white bg-[var(--royal-blue)] rounded-lg hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors"
+					className="px-3 py-2 text-white text-sm bg-[var(--royal-blue)] rounded-lg hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors"
 				>
 					Snooze
 				</button>
