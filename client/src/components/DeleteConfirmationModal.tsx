@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 interface DeleteConfirmationModalProps {
 	isOpen: boolean;
-	itemName: string;
+	itemName: string | undefined;
 	itemType: string;
 	onClose: () => void;
 	onConfirm: () => void;
