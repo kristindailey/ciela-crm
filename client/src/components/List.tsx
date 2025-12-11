@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import ListItem from "./ListItem";
 
 interface Item {
@@ -20,6 +21,7 @@ interface ListProps {
 }
 
 const List = ({ title, items, minRows, itemPlaceholder, isLoading, scrollable, onCreate, onChange, onDelete, onClearAll }: ListProps) => {
+	const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 	let displayItems = [...items];
 
 	if (minRows) {
@@ -33,6 +35,13 @@ const List = ({ title, items, minRows, itemPlaceholder, isLoading, scrollable, o
 	} else {
 		displayItems = items;
 	}
+
+	const focusNextItem = (currentIndex: number) => {
+		const nextIndex = currentIndex + 1;
+		if (nextIndex < inputRefs.current.length) {
+			inputRefs.current[nextIndex]?.focus();
+		}
+	};
 
 	return (
 		<div className={`flex flex-col bg-white rounded-xl shadow-md p-4 max-h-[30vh] ${scrollable ? "overflow-y-auto" : ""}`}>
@@ -54,6 +63,9 @@ const List = ({ title, items, minRows, itemPlaceholder, isLoading, scrollable, o
 					displayItems.map((item, index) => (
 						<ListItem
 							key={item.id || `empty-${index}`}
+							ref={(el) => {
+								inputRefs.current[index] = el;
+							}}
 							id={item.id}
 							value={item.text}
 							position={item.position}
@@ -61,6 +73,7 @@ const List = ({ title, items, minRows, itemPlaceholder, isLoading, scrollable, o
 							onCreate={onCreate}
 							onChange={onChange}
 							onDelete={onDelete}
+							onFocusNext={() => focusNextItem(index)}
 						/>
 					))
 				)}
