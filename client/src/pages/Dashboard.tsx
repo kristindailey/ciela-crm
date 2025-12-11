@@ -378,6 +378,7 @@ const Dashboard = () => {
 					items={priorities}
 					itemPlaceholder="Add new priority..."
 					isLoading={isLoadingPriorities}
+					scrollable={false}
 					onCreate={handleCreatePriority}
 					onChange={handleUpdatePriority}
 					onDelete={handleDeletePriority}
@@ -393,6 +394,7 @@ const Dashboard = () => {
 					minRows={3}
 					itemPlaceholder="Add new win..."
 					isLoading={isLoadingWins}
+					scrollable={true}
 					onCreate={handleCreateWin}
 					onChange={handleUpdateWin}
 					onDelete={handleDeleteWin}

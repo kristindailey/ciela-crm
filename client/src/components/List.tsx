@@ -12,13 +12,14 @@ interface ListProps {
 	minRows?: number; 
 	itemPlaceholder?: string;
 	isLoading?: boolean;
+	scrollable: boolean;
 	onCreate: (text: string, position?: number) => void;
 	onChange: (id: string, newValue: string) => void;
 	onDelete: (id: string) => void;
 	onClearAll: () => void;
 }
 
-const List = ({ title, items, minRows, itemPlaceholder, isLoading, onCreate, onChange, onDelete, onClearAll }: ListProps) => {
+const List = ({ title, items, minRows, itemPlaceholder, isLoading, scrollable, onCreate, onChange, onDelete, onClearAll }: ListProps) => {
 	let displayItems = [...items];
 
 	if (minRows) {
@@ -34,7 +35,7 @@ const List = ({ title, items, minRows, itemPlaceholder, isLoading, onCreate, onC
 	}
 
 	return (
-		<div className="flex flex-col bg-white rounded-xl shadow-md p-4 max-h-[30vh] overflow-y-auto">
+		<div className={`flex flex-col bg-white rounded-xl shadow-md p-4 max-h-[30vh] ${scrollable ? "overflow-y-auto" : ""}`}>
 			<div className="flex justify-between items-center mb-4 font-inter">
 				<h2 className="text-medium font-semibold text-[var(--royal-blue)]">{title}</h2>
 
