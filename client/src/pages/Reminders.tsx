@@ -208,7 +208,7 @@ const Reminders = () => {
 
 						{!isLoading && reminders.length > 0 && displayReminders.length === 0 && searchQuery && (
 							<div className="text-center text-gray-500 mt-8">
-								No reminders found matching your search criteria.
+								No reminders found matching your search.
 							</div>
 						)}
 					</div>
