@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import type { Application } from "../types/application";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { FaFolderOpen } from "react-icons/fa6";
+import { FaFileAlt, FaFile } from "react-icons/fa";
 import DropdownMenu from "./DropdownMenu";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 
@@ -12,7 +14,22 @@ interface ContactCardProps {
 const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+	const [editingField, setEditingField] = useState<string | null>(null);
+	const [tempStatus, setTempStatus] = useState(application.status);
+	const [tempNotes, setTempNotes] = useState(application.notes || "");
 	const dropdownRef = useRef<HTMLDivElement>(null);
+	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+	const formatDate = (dateString: string) => {
+        const [year, month, day] = dateString.split("T")[0].split("-");
+		const date = new Date(Number(year), Number(month) - 1, Number(day));
+
+        return date.toLocaleDateString("en-US", {
+            month: "2-digit",
+            day: "2-digit",
+            year: "numeric",
+        });
+    };
 
 	const formatTier = (tier: string) => {
         return tier
@@ -20,6 +37,40 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
             .replace(/_/g, " ")
             .replace(/^\w/, c => c.toUpperCase());
     };
+
+	const handleStatusUpdate = async (newStatus: Application["status"]) => {
+		setTempStatus(newStatus);
+		setEditingField(null);
+
+		try {
+			await fetch(`${API_BASE_URL}/applications/${application.id}`, {
+				method: "PATCH",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ status: newStatus }),
+				credentials: "include",
+			});
+		} catch (error) {
+			console.error("Failed to update status:", error);
+			setTempStatus(application.status);
+		}
+	};
+
+	const handleNotesUpdate = async (newNotes: string) => {
+		setTempNotes(newNotes);
+		setEditingField(null);
+
+		try {
+			await fetch(`${API_BASE_URL}/applications/${application.id}`, {
+				method: "PATCH",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ notes: newNotes }),
+				credentials: "include",
+			});
+		} catch (error) {
+			console.error("Failed to update notes:", error);
+			setTempNotes(application.notes || "");
+		}
+	};
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -47,7 +98,7 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
 
 	return (
 		<div 
-            className="flex flex-col relative bg-white p-4 rounded-lg border shadow-sm cursor-pointer hover:shadow-md hover:bg-[var(--royal-blue)]/20 hover:border-[var(--royal-blue)]/30 transition-all h-[162px]"
+            className="flex flex-col relative bg-white p-4 rounded-lg border shadow-sm cursor-pointer hover:shadow-md hover:bg-[var(--royal-blue)]/20 hover:border-[var(--royal-blue)]/30 transition-all min-h-[162px]"
         >
             <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-[var(--royal-blue)]">
@@ -67,12 +118,118 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
                 <span>{application.company.name}</span>
             </div>
 
-            <div className="text-sm text-gray-600 font-medium">
-                <span>{application.status}</span>
+            <div className="mt-2">
+                {editingField === "status" ? (
+					<select 
+						value={tempStatus}
+						onChange={(e) => handleStatusUpdate(e.target.value as Application["status"])}
+						onBlur={() => setEditingField(null)}
+						autoFocus
+						className="text-xs px-2 py-1 rounded border border-[var(--royal-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--royal-blue)]"
+					>	
+						<option value="APPLIED">Applied</option>
+						<option value="PHONE_SCREEN">Phone Screen</option>
+						<option value="TECHNICAL">Technical</option>
+						<option value="ONSITE">Onsite</option>
+						<option value="OFFER">Offer</option>
+						<option value="REJECTED">Rejected</option>
+						<option value="WITHDRAWN">Withdrawn</option>
+					</select>
+				) : (
+					<span
+						onClick={(e) => {
+							e.stopPropagation();
+							setEditingField("status");
+						}}
+						className="inline-block text-xs px-2 py-1 rounded bg-[var(--soft-lavender)] text-gray-700 cursor-pointer hover:bg-[var(--soft-lavender)]/80"
+					>
+						{tempStatus.replace(/_/g, " ")}
+					</span>
+				)}
             </div>
+			
+			<div className="mt-2">
+				<span className="text-xs text-gray-700 bg-[var(--cream-moon)] rounded-sm p-1">
+					Applied: {formatDate(application.appliedDate)}
+				</span>
+			</div>
 
-            <div className="text-sm text-gray-600 font-medium mt-auto">
-                <span>{formatTier(application.company.tier)}</span>
+			<div className="flex gap-2 mt-2">
+				{application.resumeUrl && (
+					<a 
+						href={application.resumeUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						onClick={(e) => e.stopPropagation()}
+						className="text-[var(--royal-blue)] hover:text-[var(--royal-blue)]/70 transition-colors"
+						title="Resume"
+					>
+						<FaFileAlt size={16} />
+					</a>
+				)}
+
+				{application.coverLetterUrl && (
+					<a 
+						href={application.coverLetterUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						onClick={(e) => e.stopPropagation()}
+						className="text-[var(--royal-blue)] hover:text-[var(--royal-blue)]/70 transition-colors"
+						title="Cover Letter"
+					>
+						<FaFile size={16} />
+					</a>
+				)}
+
+				{application.projectDocsUrl && (
+					<a 
+						href={application.projectDocsUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						onClick={(e) => e.stopPropagation()}
+						className="text-[var(--royal-blue)] hover:text-[var(--royal-blue)]/70 transition-colors"
+						title="Project Docs"
+					>
+						<FaFolderOpen size={16} />
+					</a>
+				)}
+			</div>
+
+			<div className="mt-2">
+				 {editingField === "notes" ? (
+					<textarea 
+						value={tempNotes}
+						onChange={(e) => setTempNotes(e.target.value)}
+						onBlur={() => handleNotesUpdate(tempNotes)}
+						onKeyDown={(e) => {
+							if (e.key === "Enter" && !e.shiftKey) {
+								e.preventDefault();
+								handleNotesUpdate(tempNotes);
+							}
+						}}
+						onClick={(e) => e.stopPropagation()}
+						autoFocus
+						placeholder="Add notes..."
+						className="w-full text-xs px-2 py-1 rounded border border-[var(--royal-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--royal-blue)] resize-none"
+						rows={2}
+					/>
+				) : (
+					<div
+						onClick={(e) => {
+							e.stopPropagation();
+							setEditingField("notes");
+						}}
+						className="text-xs text-gray-600 cursor-pointer hover:bg-gray-50 p-1 rounded min-h-[2rem]"
+					>
+						{tempNotes || <span className="text-gray-400 italic">Click to add notes...</span>}
+					</div>
+				)}
+			</div>
+
+            <div className="mt-auto pt-2">
+                <span className="text-xs px-2 py-1 rounded bg-[var(--blush-pink)] text-gray-700">
+					{formatTier(application.company.tier)}
+				</span>
             </div>
 
             <div className="absolute top-2 right-2" ref={dropdownRef}>
