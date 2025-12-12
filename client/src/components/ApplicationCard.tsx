@@ -122,14 +122,12 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
                 )}
             </div>
 
-            <div>
-                <span 
-					onClick={handleCompanyClick}
-					className="text-sm text-gray-600 font-medium hover:text-[var(--soft-lavender)] cursor-pointer"
-				>
-					{application.company.name}
-				</span>
-            </div>
+            <span 
+				onClick={handleCompanyClick}
+				className="text-sm text-gray-600 font-medium hover:text-[var(--soft-lavender)] cursor-pointer"
+			>
+				{application.company.name}
+			</span>
 
             <div className="mt-2">
                 {editingField === "status" ? (
