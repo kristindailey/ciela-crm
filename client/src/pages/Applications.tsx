@@ -66,6 +66,14 @@ const Applications = () => {
 		setCurrentPage(1);
     };
 
+	const handleUpdateApplication = (updatedApplication: Application) => {
+		setApplications((prevApplications) => 
+			prevApplications.map((application) => 
+				application.id === updatedApplication.id ? updatedApplication : application
+			)
+		);
+	};
+
 	const handleDeleteApplication = async (applicationId: string) => {
 		try {
 			const response = await fetch(`${API_BASE_URL}/applications/${applicationId}`, {
@@ -130,6 +138,7 @@ const Applications = () => {
 							<ApplicationCard
 								key={application.id}
 								application={application}
+								onUpdateApplication={handleUpdateApplication}
 								onDelete={() => handleDeleteApplication(application.id)}
 							/>
 						))}

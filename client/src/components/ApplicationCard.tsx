@@ -10,10 +10,11 @@ import Icon from "./Icon";
 
 interface ContactCardProps {
 	application: Application;
+	onUpdateApplication: (updatedApplication: Application) => void;
 	onDelete: () => void;
 }
 
-const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
+const ApplicationCard = ({ application, onUpdateApplication, onDelete }: ContactCardProps) => {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const [editingField, setEditingField] = useState<string | null>(null);
@@ -23,9 +24,9 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 	const navigate = useNavigate();
 	const iconLinks = [
-		{ url: application.resumeUrl, icon: FaFileAlt, label: "resume" },
-		{ url: application.coverLetterUrl, icon: FaFile, label: "coverLetter" },
-		{ url: application.projectDocsUrl, icon: FaFolderOpen, label: "projectDocs" },
+		{ url: application.resumeUrl, icon: FaFileAlt, label: "resumeUrl" },
+		{ url: application.coverLetterUrl, icon: FaFile, label: "coverLetterUrl" },
+		{ url: application.projectDocsUrl, icon: FaFolderOpen, label: "projectDocsUrl" },
 	];
 
 	const formatDate = (dateString: string) => {
@@ -81,6 +82,9 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
 	};
 
 	const handleDocumentUrlUpdate = async (field: string, newUrl: string) => {
+		const updatedApplication = {...application, [field]: newUrl};
+		onUpdateApplication(updatedApplication);
+
 		try {
 			await fetch(`${API_BASE_URL}/applications/${application.id}`, {
 				method: "PATCH",
@@ -90,6 +94,7 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
 			});
 		} catch (error) {
 			console.error(`Failed to update ${field}:`, error);
+			onUpdateApplication(application);
 		}
 	};
 
@@ -199,7 +204,7 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
 						onClick={(e) => e.stopPropagation()}
 						autoFocus
 						placeholder="Add notes..."
-						className="w-full text-xs px-2 py-1 rounded border border-[var(--royal-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--royal-blue)] resize-none"
+						className="w-full text-xs text-gray-900 px-2 py-1 rounded border border-[var(--royal-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--royal-blue)] resize-none"
 						rows={2}
 					/>
 				) : (

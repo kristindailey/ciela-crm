@@ -23,9 +23,9 @@ const Icon = ({ url, icon: Icon, label, size = 22, onSave }: IconProps) => {
         careersPage: "Careers Page",
         glassdoor: "Glassdoor",
         blind: "Blind",
-		resume: "Resume",
-		coverLetter: "Cover Letter",
-		projectDocs: "Project Docs",
+		resumeUrl: "Resume",
+		coverLetterUrl: "Cover Letter",
+		projectDocsUrl: "Project Docs",
     };
 
     const handleSave = async () => {
