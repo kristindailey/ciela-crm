@@ -65,6 +65,11 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 	};
 
 	const handleNotesUpdate = async (newNotes: string) => {
+		// if (newNotes === application.notes) {
+		// 	setEditingField(null);
+		// 	return;
+		// }
+
 		setTempNotes(newNotes);
 		setEditingField(null);
 
@@ -202,6 +207,12 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 							}
 						}}
 						onClick={(e) => e.stopPropagation()}
+						ref={(textarea) => {
+							if (textarea) {
+								const length = textarea.value.length;
+								textarea.setSelectionRange(length, length);
+							}
+						}}
 						autoFocus
 						placeholder="Add notes..."
 						className="w-full text-xs text-gray-900 px-2 py-1 rounded border border-[var(--royal-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--royal-blue)] resize-none"
