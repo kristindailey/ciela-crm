@@ -98,7 +98,7 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
 
 	return (
 		<div 
-            className="flex flex-col relative bg-white p-4 rounded-lg border shadow-sm cursor-pointer hover:shadow-md hover:bg-[var(--royal-blue)]/20 hover:border-[var(--royal-blue)]/30 transition-all min-h-[162px]"
+            className="flex flex-col relative bg-white p-4 rounded-lg border shadow-sm min-h-[162px]"
         >
             <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-[var(--royal-blue)]">
@@ -238,7 +238,7 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
 						e.stopPropagation();
 						setIsDropdownOpen(!isDropdownOpen);
 					}}
-                    className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-500 hover:text-gray-50 shadow-md transition-colors"
+                    className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-500 hover:text-gray-50 shadow-md transition-colors cursor-pointer"
                 >
                     <BsThreeDotsVertical size={18} />
                 </div>
