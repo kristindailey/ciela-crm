@@ -6,6 +6,7 @@ import { FaFolderOpen } from "react-icons/fa6";
 import { FaFileAlt, FaFile } from "react-icons/fa";
 import DropdownMenu from "./DropdownMenu";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import Icon from "./Icon";
 
 interface ContactCardProps {
 	application: Application;
@@ -21,6 +22,11 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 	const navigate = useNavigate();
+	const iconLinks = [
+		{ url: application.resumeUrl, icon: FaFileAlt, label: "resume" },
+		{ url: application.coverLetterUrl, icon: FaFile, label: "coverLetter" },
+		{ url: application.projectDocsUrl, icon: FaFolderOpen, label: "projectDocs" },
+	];
 
 	const formatDate = (dateString: string) => {
         const [year, month, day] = dateString.split("T")[0].split("-");
@@ -71,6 +77,19 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
 		} catch (error) {
 			console.error("Failed to update notes:", error);
 			setTempNotes(application.notes || "");
+		}
+	};
+
+	const handleDocumentUrlUpdate = async (field: string, newUrl: string) => {
+		try {
+			await fetch(`${API_BASE_URL}/applications/${application.id}`, {
+				method: "PATCH",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ [field]: newUrl }),
+				credentials: "include",
+			});
+		} catch (error) {
+			console.error(`Failed to update ${field}:`, error);
 		}
 	};
 
@@ -165,47 +184,6 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
 				</span>
 			</div>
 
-			<div className="flex gap-4 mt-3">
-				{application.resumeUrl && (
-					<a 
-						href={application.resumeUrl}
-						target="_blank"
-						rel="noopener noreferrer"
-						onClick={(e) => e.stopPropagation()}
-						className="text-[var(--royal-blue)] hover:text-[var(--royal-blue)]/70 transition-colors"
-						title="Resume"
-					>
-						<FaFileAlt size={16} />
-					</a>
-				)}
-
-				{application.coverLetterUrl && (
-					<a 
-						href={application.coverLetterUrl}
-						target="_blank"
-						rel="noopener noreferrer"
-						onClick={(e) => e.stopPropagation()}
-						className="text-[var(--royal-blue)] hover:text-[var(--royal-blue)]/70 transition-colors"
-						title="Cover Letter"
-					>
-						<FaFile size={16} />
-					</a>
-				)}
-
-				{application.projectDocsUrl && (
-					<a 
-						href={application.projectDocsUrl}
-						target="_blank"
-						rel="noopener noreferrer"
-						onClick={(e) => e.stopPropagation()}
-						className="text-[var(--royal-blue)] hover:text-[var(--royal-blue)]/70 transition-colors"
-						title="Project Docs"
-					>
-						<FaFolderOpen size={16} />
-					</a>
-				)}
-			</div>
-
 			<div className="mt-2">
 				 {editingField === "notes" ? (
 					<textarea 
@@ -237,7 +215,20 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
 				)}
 			</div>
 
-            <div className="mt-auto pt-2">
+			<div className="flex gap-4 mb-3">
+				{iconLinks.map(({ url, icon, label }) => (
+                    <Icon 
+                        key={label}
+                        url={url}
+                        icon={icon}
+                        label={label}
+						size={16}
+                        onSave={(newValue) => handleDocumentUrlUpdate(label, newValue)}
+                    />
+                ))}
+			</div>
+
+            <div className="mt-auto">
                 <span className="text-xs px-2 py-1 rounded bg-[var(--blush-pink)] text-gray-700">
 					{formatTier(application.company.tier)}
 				</span>

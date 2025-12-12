@@ -6,10 +6,11 @@ interface IconProps {
     url: string | undefined;
     icon: IconType;
     label: string;
+	size?: number;
     onSave: (newValue: string) => Promise<void>;
 }
 
-const Icon = ({ url, icon: Icon, label, onSave }: IconProps) => {
+const Icon = ({ url, icon: Icon, label, size = 22, onSave }: IconProps) => {
     const [isEditing, setIsEditing] = useState(false);
     const [value, setValue] = useState(url || "");
 
@@ -22,6 +23,9 @@ const Icon = ({ url, icon: Icon, label, onSave }: IconProps) => {
         careersPage: "Careers Page",
         glassdoor: "Glassdoor",
         blind: "Blind",
+		resume: "Resume",
+		coverLetter: "Cover Letter",
+		projectDocs: "Project Docs",
     };
 
     const handleSave = async () => {
@@ -48,7 +52,7 @@ const Icon = ({ url, icon: Icon, label, onSave }: IconProps) => {
                         }
                     }}
                     placeholder={`${labelMap[label]} URL`}
-                    className="w-32 sm:w-40 md:w-48 px-2 py-1 text-sm border border-[var(--royal-blue)] rounded focus:outline-none focus:ring-1 focus:ring-[var(--royal-blue)]"
+                    className="w-32 sm:w-40 md:w-48 px-2 py-1 text-sm text-gray-900 border border-[var(--royal-blue)] rounded focus:outline-none focus:ring-1 focus:ring-[var(--royal-blue)]"
                     autoFocus
                 />
             </div>
@@ -61,9 +65,9 @@ const Icon = ({ url, icon: Icon, label, onSave }: IconProps) => {
                 href={label === "email" && url ? `mailto:${url}` : url || "#"}
                 target={url && label !== "email" ? "_blank" : undefined}
                 rel={url ? "noopener noreferrer" : undefined}
-                className={`flex items-center justify-center w-9 h-9 rounded-full bg-[var(--soft-lavender)] hover:bg-[var(--royal-blue)] shadow-md transition-colors ${url ? "text-[var(--royal-blue)] hover:text-[var(--soft-lavender)]" : "text-gray-400 pointer-events-none"}`}
+                className={`flex items-center justify-center rounded-full bg-[var(--soft-lavender)] hover:bg-[var(--royal-blue)] shadow-md transition-colors ${size >= 22 ? "w-9 h-9" : "w-7 h-7"} ${url ? "text-[var(--royal-blue)] hover:text-[var(--soft-lavender)]" : "text-gray-400 pointer-events-none"}`}
             >
-                <Icon size={22} />
+                <Icon size={size} />
             </a>
             <button
                 onClick={(e) => {
