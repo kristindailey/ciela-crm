@@ -210,16 +210,6 @@ const ContactDetail = () => {
         }
     }, [id, API_BASE_URL]);
 
-    if (isLoading) {
-        return (
-            <div className="flex-1 flex items-center justify-center">
-                <div className="text-center text-gray-500">
-                    Loading contact...
-                </div>
-            </div>
-        );
-    }
-
     if (!contact) return null;
 
     return (
@@ -231,73 +221,85 @@ const ContactDetail = () => {
                 onDelete={handleDeleteContact}
             />
 
-            <div className="grid grid-cols-4 gap-4 px-5 mt-5">
-                <InfoPill 
-                    label="Role"
-                    value={contact.role}
-                    placeholder="Add role"
-                    onSave={(newValue) => handleSaveRole(newValue)}
-					bgColor="bg-[var(--soft-lavender)]"
-                />
+			{isLoading && (
+				<div className="p-6">
+					<div className="text-center text-gray-500 mt-8">
+						Loading contact...
+					</div>
+				</div>
+			)}
 
-                <InfoPill 
-                    label="Company"
-                    value={contact.company.name}
-                    placeholder="Add company"
-                    onSave={(newValue) => handleSaveCompany(newValue)}
-					bgColor="bg-[var(--cream-moon)]"
-                />
-                
-				<InfoPill
-                    label="Location"
-                    value={contact.location}
-                    placeholder="Add location"
-                    onSave={(newValue) => handleSaveLocation(newValue)}
-					bgColor="bg-[var(--blush-pink)]"
-                />
+			{!isLoading && contact && (
+				<>
+					<div className="grid grid-cols-4 gap-4 px-5 mt-5">
+						<InfoPill 
+							label="Role"
+							value={contact.role}
+							placeholder="Add role"
+							onSave={(newValue) => handleSaveRole(newValue)}
+							bgColor="bg-[var(--soft-lavender)]"
+						/>
 
-            	<InfoPill 
-                    label="Last Contacted"
-                    value={lastContactedDate ? formatDate(lastContactedDate) : undefined}
-                    placeholder="Not yet contacted"
-                    onSave={() => {}}
-                    readOnly={true}
-					bgColor="bg-[var(--soft-lavender)]"
-                />
-            </div>
+						<InfoPill 
+							label="Company"
+							value={contact.company.name}
+							placeholder="Add company"
+							onSave={(newValue) => handleSaveCompany(newValue)}
+							bgColor="bg-[var(--cream-moon)]"
+						/>
+						
+						<InfoPill
+							label="Location"
+							value={contact.location}
+							placeholder="Add location"
+							onSave={(newValue) => handleSaveLocation(newValue)}
+							bgColor="bg-[var(--blush-pink)]"
+						/>
 
-            <div className="grid grid-cols-12 gap-4 px-5 mt-5">
-                <div className="col-span-4">
-                    <NotesSection 
-                        label="Contact Notes"
-                        value={contact.notes}
-                        placeholder="Add contact notes"
-                        onSave={(newValue) => handleSaveContactNotes(newValue)}
-                    />
-                </div>
-                    
-                <div className="col-span-4">
-                    <NotesSection 
-                        label="Outreach Notes"
-                        value={contact.outreachNotes}
-                        placeholder="Add outreach notes"
-                        onSave={(newValue) => handleSaveOutreachNotes(newValue)}
-                    />
-                </div>
-                    
-                <div className="col-span-4">
-                    <OutreachHistory 
-                        label="Outreach History"
-                        contactId={contact.id}
-                        searchValue={searchQuery}
-                        searchPlaceholder="Search interactions..."
-						shouldOpenModal={searchParams.get("openModal") === "true"}
-						onModalClosed={() => setSearchParams({})}
-                        onSearchChange={handleSearchInteractions}
-                        onInteractionAdded={handleAddInteraction}
-                    />
-                </div>
-            </div>
+						<InfoPill 
+							label="Last Contacted"
+							value={lastContactedDate ? formatDate(lastContactedDate) : undefined}
+							placeholder="Not yet contacted"
+							onSave={() => {}}
+							readOnly={true}
+							bgColor="bg-[var(--soft-lavender)]"
+						/>
+					</div>
+
+					<div className="grid grid-cols-12 gap-4 px-5 mt-5">
+						<div className="col-span-4">
+							<NotesSection 
+								label="Contact Notes"
+								value={contact.notes}
+								placeholder="Add contact notes"
+								onSave={(newValue) => handleSaveContactNotes(newValue)}
+							/>
+						</div>
+							
+						<div className="col-span-4">
+							<NotesSection 
+								label="Outreach Notes"
+								value={contact.outreachNotes}
+								placeholder="Add outreach notes"
+								onSave={(newValue) => handleSaveOutreachNotes(newValue)}
+							/>
+						</div>
+							
+						<div className="col-span-4">
+							<OutreachHistory 
+								label="Outreach History"
+								contactId={contact.id}
+								searchValue={searchQuery}
+								searchPlaceholder="Search interactions..."
+								shouldOpenModal={searchParams.get("openModal") === "true"}
+								onModalClosed={() => setSearchParams({})}
+								onSearchChange={handleSearchInteractions}
+								onInteractionAdded={handleAddInteraction}
+							/>
+						</div>
+					</div>
+				</>
+			)}
         </>
     );
 };

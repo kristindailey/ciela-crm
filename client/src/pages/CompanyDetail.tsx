@@ -292,16 +292,6 @@ const CompanyDetail = () => {
         }
     }, [id, API_BASE_URL]);
 
-    if (isLoading) {
-        return (
-            <div className="flex items-center justify-center">
-                <div className="text-center text-gray-500">
-                    Loading company...
-                </div>
-            </div>
-        );
-    }
-
     if (!company) return null;
 
     return (
@@ -322,7 +312,15 @@ const CompanyDetail = () => {
                 onTabChange={handleTabChange}
             />
 
-            {activeTab === "overview" && (
+			{isLoading && (
+				<div className="p-6">
+					<div className="text-center text-gray-500 mt-8">
+						Loading company...
+					</div>
+				</div>
+			)}
+
+            {!isLoading && company && activeTab === "overview" && (
                 <CompanyOverview
                     company={company}
                     lastContactedDate={lastContactedDate}
@@ -339,7 +337,7 @@ const CompanyDetail = () => {
                 />
             )}
 
-            {activeTab === "contacts" && (
+            {!isLoading && company && activeTab === "contacts" && (
                 <CompanyContacts companyId={id!} />
             )}
         </>
