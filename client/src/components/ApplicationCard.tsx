@@ -65,11 +65,6 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 	};
 
 	const handleNotesUpdate = async (newNotes: string) => {
-		// if (newNotes === application.notes) {
-		// 	setEditingField(null);
-		// 	return;
-		// }
-
 		setTempNotes(newNotes);
 		setEditingField(null);
 
@@ -150,13 +145,15 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
                     />
                 )}
             </div>
-
-            <span 
-				onClick={handleCompanyClick}
-				className="text-sm text-gray-600 font-medium hover:text-[var(--soft-lavender)] cursor-pointer"
-			>
-				{application.company.name}
-			</span>
+			
+			<div>
+				<span 
+					onClick={handleCompanyClick}
+					className="text-sm text-gray-600 font-medium hover:text-[var(--soft-lavender)] cursor-pointer"
+				>
+					{application.company.name}
+				</span>
+			</div>
 
             <div className="mt-2">
                 {editingField === "status" ? (

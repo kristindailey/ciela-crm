@@ -69,6 +69,7 @@ const Icon = ({ url, icon: Icon, label, size = 22, onSave }: IconProps) => {
             >
                 <Icon size={size} />
             </a>
+			
             <button
                 onClick={(e) => {
                     e.stopPropagation();
