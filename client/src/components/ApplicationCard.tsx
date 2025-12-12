@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router";
 import type { Application } from "../types/application";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaFolderOpen } from "react-icons/fa6";
@@ -19,6 +20,7 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
 	const [tempNotes, setTempNotes] = useState(application.notes || "");
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+	const navigate = useNavigate();
 
 	const formatDate = (dateString: string) => {
         const [year, month, day] = dateString.split("T")[0].split("-");
@@ -72,6 +74,12 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
 		}
 	};
 
+	const handleCompanyClick = () => {
+		if (application.company) {
+			navigate(`/companies/${application.company.id}`);
+		}
+	};
+
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -114,8 +122,13 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
                 )}
             </div>
 
-            <div className="text-sm text-gray-600 font-medium">
-                <span>{application.company.name}</span>
+            <div>
+                <span 
+					onClick={handleCompanyClick}
+					className="text-sm text-gray-600 font-medium hover:text-[var(--soft-lavender)] cursor-pointer"
+				>
+					{application.company.name}
+				</span>
             </div>
 
             <div className="mt-2">
