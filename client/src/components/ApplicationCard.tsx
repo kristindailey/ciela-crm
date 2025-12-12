@@ -154,7 +154,7 @@ const ApplicationCard = ({ application, onDelete }: ContactCardProps) => {
 				</span>
 			</div>
 
-			<div className="flex gap-2 mt-2">
+			<div className="flex gap-4 mt-3">
 				{application.resumeUrl && (
 					<a 
 						href={application.resumeUrl}
