@@ -16,6 +16,13 @@ const Applications = () => {
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 	const navigate = useNavigate();
 
+	const formatTier = (tier: string) => {
+        return tier
+            .toLowerCase()
+            .replace(/_/g, " ")
+            .replace(/^\w/, c => c.toUpperCase());
+    };
+
 	const filteredApplications = useMemo(() => {
         let filtered = applications;
 
@@ -31,7 +38,8 @@ const Applications = () => {
 
                 return application.jobTitle?.toLowerCase().includes(searchLower) ||
 					application.company.name.toLowerCase().includes(searchLower) || 
-					application.company.tier.toLowerCase().includes(searchLower) ||
+					formatTier(application.company.tier).toLowerCase().includes(searchLower) ||
+					application.status.toLowerCase().includes(searchLower) ||
 					application.notes?.toLowerCase().includes(searchLower);
             });
         }
