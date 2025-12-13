@@ -44,7 +44,7 @@ const List = ({ title, items, minRows, itemPlaceholder, isLoading, scrollable, o
 	};
 
 	return (
-		<div className={`flex flex-col bg-white rounded-xl shadow-md p-4 max-h-[30vh] ${scrollable ? "overflow-y-auto" : ""}`}>
+		<div className={`flex flex-col bg-white rounded-xl shadow-md p-4 min-h-[30vh] max-h-[30vh] ${scrollable ? "overflow-y-auto" : ""}`}>
 			<div className="flex justify-between items-center mb-4 font-inter">
 				<h2 className="text-medium font-semibold text-[var(--royal-blue)]">{title}</h2>
 
@@ -58,7 +58,7 @@ const List = ({ title, items, minRows, itemPlaceholder, isLoading, scrollable, o
 
 			<div>
 				{isLoading ? (
-					<div className="flex justify-center text-gray-500 text-sm">Loading...</div>
+					<div className="flex justify-center items-center min-h-[20vh] text-medium font-semibold text-[var(--royal-blue)]">Loading...</div>
 				) : (
 					displayItems.map((item, index) => (
 						<ListItem
