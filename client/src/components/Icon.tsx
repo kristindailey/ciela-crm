@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { IconType } from "react-icons";
 import { FiEdit2 } from "react-icons/fi";
+import { normalizeUrl } from "../utils/urlHelpers";
 
 interface IconProps {
     url: string | undefined;
@@ -30,9 +31,10 @@ const Icon = ({ url, icon: Icon, label, size = 22, onSave }: IconProps) => {
 
     const handleSave = async () => {
         setIsEditing(false);
+		const normalizedValue = normalizeUrl(value);
 
-        if (value !== url) {
-            await onSave(value);
+        if (normalizedValue !== url) {
+            await onSave(normalizedValue);
         }
     };
 
