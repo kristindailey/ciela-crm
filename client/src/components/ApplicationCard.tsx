@@ -46,6 +46,29 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
             .replace(/^\w/, c => c.toUpperCase());
     };
 
+	const handleJobTitleUpdate = async (newJobTitle: string) => {
+		if (newJobTitle === application.jobTitle) {
+			setEditingField(null);
+			return;
+		}
+
+		setEditingField(null);
+		const updatedApplication = { ...application, jobTitle: newJobTitle };
+		onUpdateApplication(updatedApplication);
+
+		try {
+			await fetch(`${API_BASE_URL}/applications/${application.id}`, {
+				method: "PATCH",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ jobTitle: newJobTitle }),
+				credentials: "include",
+			});
+		} catch (error) {
+			console.error("Failed to update job title:", error);
+			onUpdateApplication(application);
+		}
+	};
+
 	const handleStatusUpdate = async (newStatus: Application["status"]) => {
 		if (newStatus === application.status) {
 			setEditingField(null);
@@ -144,9 +167,32 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
             className="flex flex-col relative bg-white p-4 rounded-lg border shadow-sm min-h-[162px]"
         >
             <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-[var(--royal-blue)]">
-                    {application.jobTitle}
-                </h3>
+				{editingField === "jobTitle" ? (
+					<input
+						type="text"
+						value={tempValue}
+						onChange={(e) => setTempValue(e.target.value)}
+						onBlur={() => handleJobTitleUpdate(tempValue)}
+						onKeyDown={(e) => {
+							if (e.key === "Enter") {
+								e.preventDefault();
+								handleJobTitleUpdate(tempValue);
+							}
+						}}
+						autoFocus
+						className="text-lg font-semibold text-[var(--royal-blue)] border border-[var(--royal-blue)] rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-[var(--royal-blue)] w-full"
+					/>
+				) : (
+					<h3 
+						onClick={() => {
+							setEditingField("jobTitle");
+							setTempValue(application.jobTitle || "");
+						}}
+						className="text-lg font-semibold text-[var(--royal-blue)]"
+					>
+                    	{application.jobTitle}
+                	</h3>
+				)}
 
                 {application.company.logoUrl && (
                     <img 
