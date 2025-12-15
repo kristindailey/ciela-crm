@@ -18,8 +18,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const [editingField, setEditingField] = useState<string | null>(null);
-	const [tempStatus, setTempStatus] = useState(application.status);
-	const [tempNotes, setTempNotes] = useState(application.notes || "");
+	const [tempValue, setTempValue] = useState<string>("");
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 	const navigate = useNavigate();
@@ -48,8 +47,14 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
     };
 
 	const handleStatusUpdate = async (newStatus: Application["status"]) => {
-		setTempStatus(newStatus);
+		if (newStatus === application.status) {
+			setEditingField(null);
+			return;
+		}
+
 		setEditingField(null);
+		const updatedApplication = { ...application, status: newStatus };
+		onUpdateApplication(updatedApplication);
 
 		try {
 			await fetch(`${API_BASE_URL}/applications/${application.id}`, {
@@ -60,13 +65,19 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 			});
 		} catch (error) {
 			console.error("Failed to update status:", error);
-			setTempStatus(application.status);
+			onUpdateApplication(application);
 		}
 	};
 
 	const handleNotesUpdate = async (newNotes: string) => {
-		setTempNotes(newNotes);
+		if (newNotes === application.notes || "") {
+			setEditingField(null);
+			return;
+		}
+
 		setEditingField(null);
+		const updatedApplication = { ...application, status: newNotes } as Application;
+		onUpdateApplication(updatedApplication);
 
 		try {
 			await fetch(`${API_BASE_URL}/applications/${application.id}`, {
@@ -77,7 +88,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 			});
 		} catch (error) {
 			console.error("Failed to update notes:", error);
-			setTempNotes(application.notes || "");
+			onUpdateApplication(application);
 		}
 	};
 
@@ -158,9 +169,9 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
             <div className="mt-2">
                 {editingField === "status" ? (
 					<select 
-						value={tempStatus}
-						onChange={(e) => handleStatusUpdate(e.target.value as Application["status"])}
-						onBlur={() => setEditingField(null)}
+						value={tempValue}
+						onChange={(e) => setTempValue(e.target.value)}
+						onBlur={() => handleStatusUpdate(tempValue as Application["status"])}
 						autoFocus
 						className="text-xs px-2 py-1 rounded border border-[var(--royal-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--royal-blue)]"
 					>	
@@ -177,10 +188,11 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 						onClick={(e) => {
 							e.stopPropagation();
 							setEditingField("status");
+							setTempValue(application.status)
 						}}
 						className="inline-block text-xs px-2 py-1 rounded bg-[var(--soft-lavender)] text-gray-700 cursor-pointer hover:bg-[var(--soft-lavender)]/80"
 					>
-						{tempStatus.replace(/_/g, " ")}
+						{application.status.replace(/_/g, " ")}
 					</span>
 				)}
             </div>
@@ -194,13 +206,13 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 			<div className="mt-2">
 				 {editingField === "notes" ? (
 					<textarea 
-						value={tempNotes}
-						onChange={(e) => setTempNotes(e.target.value)}
-						onBlur={() => handleNotesUpdate(tempNotes)}
+						value={tempValue}
+						onChange={(e) => setTempValue(e.target.value)}
+						onBlur={() => handleNotesUpdate(tempValue)}
 						onKeyDown={(e) => {
 							if (e.key === "Enter" && !e.shiftKey) {
 								e.preventDefault();
-								handleNotesUpdate(tempNotes);
+								handleNotesUpdate(tempValue);
 							}
 						}}
 						onClick={(e) => e.stopPropagation()}
@@ -220,10 +232,11 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 						onClick={(e) => {
 							e.stopPropagation();
 							setEditingField("notes");
+							setTempValue(application.notes || "")
 						}}
 						className="text-xs text-gray-600 cursor-pointer hover:bg-gray-50 p-1 rounded min-h-[2rem]"
 					>
-						{tempNotes || <span className="text-gray-400 italic">Click to add notes...</span>}
+						{application.notes || <span className="text-gray-400 italic">Click to add notes...</span>}
 					</div>
 				)}
 			</div>
