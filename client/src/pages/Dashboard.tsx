@@ -413,9 +413,11 @@ const Dashboard = () => {
 					<div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 min-h-[300px]">
 						<h3 className="font-inter font-semibold text-lg mb-4 text-gray-500">Company Count by Tier</h3>
 
-						{isLoadingAnalytics ? (
+						{isLoadingAnalytics || companiesByTier.length === 0 ? (
 							<div className="flex items-center justify-center h-[200px]">
-								<p className="text-medium font-semibold text-[var(--royal-blue)]">Loading chart...</p>
+								<p className="text-medium font-semibold text-[var(--royal-blue)]">
+									{isLoadingAnalytics ? "Loading chart..." : "No company data yet."}
+								</p>
 							</div>
 						) : (
 							<ResponsiveContainer width="100%" height={200}>
@@ -436,9 +438,11 @@ const Dashboard = () => {
 					<div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 min-h-[300px]">
 						<h3 className="font-inter font-semibold text-lg mb-4 text-gray-500">Interaction Count by Tier</h3>
 
-						{isLoadingAnalytics ? (
+						{isLoadingAnalytics || Object.keys(interactionsByTier).length === 0 ? (
 							<div className="flex items-center justify-center h-[200px]">
-								<p className="text-medium font-semibold text-[var(--royal-blue)]">Loading chart...</p>
+								<p className="text-medium font-semibold text-[var(--royal-blue)]">
+									{isLoadingAnalytics ? "Loading chart..." : "No interaction data yet."}
+								</p>
 							</div>
 						) : (
 							<ResponsiveContainer width="100%" height={200}>
@@ -459,7 +463,7 @@ const Dashboard = () => {
 					<div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 min-h-[300px]">
 						<h3 className="font-inter font-semibold text-lg mb-4 text-gray-500">Top Companies by Interactions</h3>
 
-						{isLoadingAnalytics || topContacts.length === 0 ? (
+						{isLoadingAnalytics || topCompanies.length === 0 ? (
 							<div className="flex items-center justify-center h-[200px]">
 								<p className="text-medium font-semibold text-[var(--royal-blue)]">
 									{isLoadingAnalytics ? "Loading chart..." : "No interaction data yet."}
