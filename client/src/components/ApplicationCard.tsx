@@ -140,7 +140,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 		}
 
 		setEditingField(null);
-		const updatedApplication = { ...application, status: newNotes } as Application;
+		const updatedApplication = { ...application, notes: newNotes } as Application;
 		onUpdateApplication(updatedApplication);
 
 		try {
@@ -319,41 +319,27 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 			</div>
 
 			<div className="mt-2">
-				 {editingField === "notes" ? (
-					<textarea 
-						value={tempValue}
-						onChange={(e) => setTempValue(e.target.value)}
-						onBlur={() => handleNotesUpdate(tempValue)}
-						onKeyDown={(e) => {
-							if (e.key === "Enter" && !e.shiftKey) {
-								e.preventDefault();
-								handleNotesUpdate(tempValue);
-							}
-						}}
-						onClick={(e) => e.stopPropagation()}
-						ref={(textarea) => {
-							if (textarea) {
-								const length = textarea.value.length;
-								textarea.setSelectionRange(length, length);
-							}
-						}}
-						autoFocus
-						placeholder="Add notes..."
-						className="w-full text-xs text-gray-900 px-2 py-1 rounded border border-[var(--royal-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--royal-blue)] resize-none"
-						rows={2}
-					/>
-				) : (
-					<div
-						onClick={(e) => {
-							e.stopPropagation();
+				<textarea 
+					value={editingField === "notes" ? tempValue : (application.notes || "")}
+					readOnly={editingField !== "notes"}
+					onClick={(e) => {
+						e.stopPropagation();
+						if (editingField !== "notes") {
 							setEditingField("notes");
-							setTempValue(application.notes || "")
-						}}
-						className="text-xs text-gray-600 cursor-pointer hover:bg-gray-50 p-1 rounded min-h-[2rem]"
-					>
-						{application.notes || <span className="text-gray-400 italic">Click to add notes...</span>}
-					</div>
-				)}
+							setTempValue(application.notes || "");
+						}
+					}}
+					onBlur={() => handleNotesUpdate(tempValue)}
+					onKeyDown={(e) => {
+						if (e.key === "Enter" && !e.shiftKey) {
+							e.preventDefault();
+							handleNotesUpdate(tempValue);
+						}
+					}}
+					onChange={(e) => setTempValue(e.target.value)}
+					placeholder="Click to add notes..."
+					className="block text-xs text-gray-600 px-1 py-1 focus:outline-none resize-none w-full"
+				/>
 			</div>
 
 			<div className="flex gap-4 mb-3">
