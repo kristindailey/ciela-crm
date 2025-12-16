@@ -274,7 +274,7 @@ const Applications = () => {
         	/>
 
 			<div className="p-6">
-				<div className="flex flex-col min-h-[calc(100vh-180px)]">
+				<div className="flex flex-col min-h-[calc(100vh-150px)]">
 					<div className={`${paginatedApplications.length > 0 ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-start" : ""} flex-grow`}>
 						{paginatedApplications.map((application) => (
 							<ApplicationCard

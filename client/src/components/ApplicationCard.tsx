@@ -235,12 +235,14 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
                 	</h3>
 				)}
 
-                {application.company.logoUrl && (
+                {application.company.logoUrl ? (
                     <img 
                         src={application.company.logoUrl} 
                         alt={`${application.company.name} logo`}
                         className="h-10 max-w-16 object-contain mr-6"
                     />
+				) : (
+					<div className="h-10 max-w-16"></div>
                 )}
             </div>
 			
@@ -342,7 +344,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 				/>
 			</div>
 
-			<div className="flex gap-4 mb-3">
+			<div className="flex gap-4 mb-4">
 				{iconLinks.map(({ url, icon, label }) => (
                     <Icon 
                         key={label}
