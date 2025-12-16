@@ -91,6 +91,47 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 			onUpdateApplication(application);
 		}
 	};
+	
+	const handleAppliedDateUpdate = async (newDateString: string) => {
+		const dateRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
+		const match = newDateString.match(dateRegex);
+
+		if (!match) {
+			setEditingField(null);
+			return;
+		}
+
+		const [, month, day, year] = match;
+		const parsedDate = new Date(Number(year), Number(month) - 1, Number(day));
+
+		if (isNaN(parsedDate.getTime())) {
+			setEditingField(null);
+			return;
+		}
+
+		const isoDateString = parsedDate.toISOString();
+
+		if (isoDateString === application.appliedDate) {
+			setEditingField(null);
+			return;
+		}
+
+		setEditingField(null);
+		const updatedApplication = { ...application, appliedDate: isoDateString };
+		onUpdateApplication(updatedApplication);
+
+		try {
+			await fetch(`${API_BASE_URL}/applications/${application.id}`, {
+				method: "PATCH",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ appliedDate: isoDateString }),
+				credentials: "include",
+			});
+		} catch (error) {
+			console.error("Failed to update applied date:", error);
+			onUpdateApplication(application);
+		}
+	};
 
 	const handleNotesUpdate = async (newNotes: string) => {
 		if (newNotes === application.notes || "") {
@@ -245,7 +286,35 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 			
 			<div className="mt-2">
 				<span className="text-xs text-gray-700 bg-[var(--cream-moon)] rounded-sm p-1">
-					Applied: {formatDate(application.appliedDate)}
+					Applied: {editingField === "appliedDate" ? (
+						<input
+							type="text"
+							size={9}
+							value={tempValue}
+							onChange={(e) => setTempValue(e.target.value)}
+							onBlur={() => handleAppliedDateUpdate(tempValue)}
+							onKeyDown={(e) => {
+								if (e.key === "Enter") {
+									e.preventDefault();
+									handleAppliedDateUpdate(tempValue);
+								}
+							}}
+							autoFocus
+							placeholder="MM/DD/YYYY"
+							className="text-xs text-gray-700 bg-[var(--cream-moon)] rounded-sm p-1 focus:outline-none"
+						/>
+					) : (
+						<span 
+							onClick={(e) => {
+								e.stopPropagation();
+								setEditingField("appliedDate");
+								setTempValue(formatDate(application.appliedDate))
+							}}
+							className="text-xs text-gray-700 bg-[var(--cream-moon)] rounded-sm p-1"
+						>
+							{formatDate(application.appliedDate)}
+						</span>
+					)}
 				</span>
 			</div>
 
