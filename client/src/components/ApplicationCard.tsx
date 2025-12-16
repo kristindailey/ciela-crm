@@ -180,7 +180,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 							}
 						}}
 						autoFocus
-						className="text-lg font-semibold text-[var(--royal-blue)] border border-[var(--royal-blue)] rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-[var(--royal-blue)] w-full"
+						className="font-semibold text-[var(--royal-blue)] border border-[var(--royal-blue)] rounded px-2 focus:outline-none focus:ring-1 focus:ring-[var(--royal-blue)]"
 					/>
 				) : (
 					<h3 
@@ -219,15 +219,15 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 						onChange={(e) => setTempValue(e.target.value)}
 						onBlur={() => handleStatusUpdate(tempValue as Application["status"])}
 						autoFocus
-						className="text-xs px-2 py-1 rounded border border-[var(--royal-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--royal-blue)]"
+						className="text-xs text-gray-900 border border-[var(--royal-blue)] rounded px-1 py-2 focus:outline-none focus:ring-1 focus:ring-[var(--royal-blue)]"
 					>	
-						<option value="APPLIED">Applied</option>
-						<option value="PHONE_SCREEN">Phone Screen</option>
-						<option value="TECHNICAL">Technical</option>
-						<option value="ONSITE">Onsite</option>
-						<option value="OFFER">Offer</option>
-						<option value="REJECTED">Rejected</option>
-						<option value="WITHDRAWN">Withdrawn</option>
+						<option value="APPLIED">APPLIED</option>
+						<option value="PHONE_SCREEN">PHONE SCREEN</option>
+						<option value="TECHNICAL">TECHNICAL</option>
+						<option value="ONSITE">ONSITE</option>
+						<option value="OFFER">OFFER</option>
+						<option value="REJECTED">REJECTED</option>
+						<option value="WITHDRAWN">WITHDRAWN</option>
 					</select>
 				) : (
 					<span
