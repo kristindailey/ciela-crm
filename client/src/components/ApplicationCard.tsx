@@ -180,7 +180,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 							}
 						}}
 						autoFocus
-						className="font-semibold text-[var(--royal-blue)] border border-[var(--royal-blue)] rounded px-2 focus:outline-none focus:ring-1 focus:ring-[var(--royal-blue)]"
+						className="text-lg font-semibold text-[var(--royal-blue)] focus:outline-none w-full leading-tight"
 					/>
 				) : (
 					<h3 
@@ -188,7 +188,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 							setEditingField("jobTitle");
 							setTempValue(application.jobTitle || "");
 						}}
-						className="text-lg font-semibold text-[var(--royal-blue)]"
+						className="text-lg font-semibold text-[var(--royal-blue)] leading-tight"
 					>
                     	{application.jobTitle}
                 	</h3>
@@ -219,7 +219,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 						onChange={(e) => setTempValue(e.target.value)}
 						onBlur={() => handleStatusUpdate(tempValue as Application["status"])}
 						autoFocus
-						className="text-xs text-gray-900 border border-[var(--royal-blue)] rounded px-1 py-2 focus:outline-none focus:ring-1 focus:ring-[var(--royal-blue)]"
+						className="text-xs text-gray-700 px-1 py-1 rounded bg-[var(--soft-lavender)] focus:outline-none leading-tight"
 					>	
 						<option value="APPLIED">APPLIED</option>
 						<option value="PHONE_SCREEN">PHONE SCREEN</option>
@@ -236,7 +236,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 							setEditingField("status");
 							setTempValue(application.status)
 						}}
-						className="inline-block text-xs px-2 py-1 rounded bg-[var(--soft-lavender)] text-gray-700 cursor-pointer hover:bg-[var(--soft-lavender)]/80"
+						className="inline-block text-xs text-gray-700 px-2 py-1 rounded bg-[var(--soft-lavender)] cursor-pointer hover:bg-[var(--soft-lavender)]/80 leading-tight"
 					>
 						{application.status.replace(/_/g, " ")}
 					</span>
