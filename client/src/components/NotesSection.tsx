@@ -10,7 +10,6 @@ interface NotesSectionProps {
 const NotesSection = ({ label, value, placeholder, onSave }: NotesSectionProps) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editValue, setEditValue] = useState(value || "");
-    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const handleClick = () => {
@@ -20,40 +19,15 @@ const NotesSection = ({ label, value, placeholder, onSave }: NotesSectionProps) 
 
     const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setEditValue(event.target.value);
-
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-        }
-
-        timeoutRef.current = setTimeout(() => {
-            const newValue = event.target.value;
-
-            if (newValue !== (value || "")) {
-                onSave(newValue);
-                setIsEditing(false);
-            }
-        }, 700);
     };
 
-    const handleSave = () => {
+    const handleBlur = () => {
         setIsEditing(false);
 
         if (editValue !== (value || "")) {
             onSave(editValue);
         }
     };
-
-    const handleBlur = () => {
-        handleSave();
-    };
-
-    useEffect(() => {
-        return () => {
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-            }
-        }
-    }, []);
 
     useEffect(() => {
         if (isEditing && textareaRef.current) {
