@@ -202,7 +202,7 @@ const Reminders = () => {
 
 						{!isLoading && reminders.length === 0 && (
 							<div className="text-center text-gray-500 mt-8">
-								No reminders. Get started by adding follow-up dates to your interactions.
+								Ready to add your first reminder? Get started by adding follow-up dates to your interactions.
 							</div>
 						)}
 
