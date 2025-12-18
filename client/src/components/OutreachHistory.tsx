@@ -130,7 +130,7 @@ const OutreachHistory = ({ label, contactId, companyId, searchValue, searchPlace
                     <div className="flex justify-center text-gray-500 text-sm">Loading...</div>
                 ) : filteredInteractions.length === 0 ? (
                     <div className="flex justify-center text-gray-500 text-sm">
-                        {searchValue ? "No interactions found matching your search." : "No interactions yet."}
+                        {searchValue ? "No interactions found matching your search." : "No interactions. Log your first call or email."}
                     </div>
                 ) : (
                     filteredInteractions.map((interaction) => (

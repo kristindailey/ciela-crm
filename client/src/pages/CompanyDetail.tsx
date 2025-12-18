@@ -338,7 +338,10 @@ const CompanyDetail = () => {
             )}
 
             {!isLoading && company && activeTab === "contacts" && (
-                <CompanyContacts companyId={id!} />
+                <CompanyContacts 
+					companyId={id!} 
+					company={company}
+				/>
             )}
         </>
     );

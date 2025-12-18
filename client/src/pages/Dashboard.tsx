@@ -347,7 +347,7 @@ const Dashboard = () => {
 				<InfoPill
 					label="Tier 1 Interactions"
                     value={tier1Count?.toString()}
-                    placeholder={isLoadingMetrics ? "Loading..." : "No data yet"}
+                    placeholder={isLoadingMetrics ? "Loading..." : "No recent activity"}
                     onSave={() => {}}
                     readOnly={true}
 					bgColor="bg-[var(--soft-lavender)]"
@@ -356,7 +356,7 @@ const Dashboard = () => {
 				<InfoPill
 					label="Total Interactions"
                     value={totalCount?.toString()}
-                    placeholder={isLoadingMetrics ? "Loading..." : "No data yet"}
+                    placeholder={isLoadingMetrics ? "Loading..." : "No recent activity"}
                     onSave={() => {}}
                     readOnly={true}
 					bgColor="bg-[var(--cream-moon)]"
@@ -365,7 +365,7 @@ const Dashboard = () => {
 				<InfoPill
 					label="Week-Over-Week Comparison"
                     value={weekOverWeek}
-                    placeholder={isLoadingMetrics ? "Loading..." : "No data yet"}
+                    placeholder={isLoadingMetrics ? "Loading..." : "No recent activity"}
                     onSave={() => {}}
                     readOnly={true}
 					bgColor="bg-[var(--blush-pink)]"
@@ -416,7 +416,7 @@ const Dashboard = () => {
 						{isLoadingAnalytics || companiesByTier.length === 0 ? (
 							<div className="flex items-center justify-center h-[200px]">
 								<p className="text-medium font-semibold text-[var(--royal-blue)]">
-									{isLoadingAnalytics ? "Loading chart..." : "No company data yet."}
+									{isLoadingAnalytics ? "Loading chart..." : "No company data"}
 								</p>
 							</div>
 						) : (
@@ -441,7 +441,7 @@ const Dashboard = () => {
 						{isLoadingAnalytics || Object.keys(interactionsByTier).length === 0 ? (
 							<div className="flex items-center justify-center h-[200px]">
 								<p className="text-medium font-semibold text-[var(--royal-blue)]">
-									{isLoadingAnalytics ? "Loading chart..." : "No interaction data yet."}
+									{isLoadingAnalytics ? "Loading chart..." : "No interaction data"}
 								</p>
 							</div>
 						) : (
@@ -466,7 +466,7 @@ const Dashboard = () => {
 						{isLoadingAnalytics || topCompanies.length === 0 || topCompanies.every((contact) => contact.interactionCount === 0) ? (
 							<div className="flex items-center justify-center h-[200px]">
 								<p className="text-medium font-semibold text-[var(--royal-blue)]">
-									{isLoadingAnalytics ? "Loading chart..." : "No interaction data yet."}
+									{isLoadingAnalytics ? "Loading chart..." : "No interaction data"}
 								</p>
 							</div>
 						) : (
@@ -503,7 +503,7 @@ const Dashboard = () => {
 						{isLoadingAnalytics || topContacts.length === 0 || topContacts.every((contact) => contact.interactionCount === 0) ? (
 							<div className="flex items-center justify-center h-[200px]">
 								<p className="text-medium font-semibold text-[var(--royal-blue)]">
-									{isLoadingAnalytics ? "Loading chart..." : "No interaction data yet."}
+									{isLoadingAnalytics ? "Loading chart..." : "No interaction data"}
 								</p>
 							</div>
 						) : (

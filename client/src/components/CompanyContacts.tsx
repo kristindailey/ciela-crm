@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import type { Contact } from "../types/contact";
+import type { Company } from "../types/company";
 import ContactCard from "./ContactCard";
 import Pagination from "./Pagination";
 import { usePagination } from "../hooks/usePagination";
@@ -7,9 +8,10 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 
 interface CompanyContactsProps {
 	companyId: string;
+	company: Company;
 }
 
-const CompanyContacts = ({ companyId }: CompanyContactsProps) => {
+const CompanyContacts = ({ companyId, company }: CompanyContactsProps) => {
 	const [contacts, setContacts] = useState<Contact[]>([]);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
@@ -123,7 +125,7 @@ const CompanyContacts = ({ companyId }: CompanyContactsProps) => {
 
 			{!isLoading && contacts.length === 0 && (
 				<div className="text-center text-gray-500 mt-8">
-					No contacts yet for this company.
+					{`No contacts at ${company.name}. Add your first contact`}.
 				</div>
 			)}
 
