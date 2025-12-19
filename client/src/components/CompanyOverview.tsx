@@ -160,7 +160,7 @@ const CompanyOverview = ({
                 />
         	</div>
 
-        	<div className="grid grid-cols-4 gap-4 px-5 mt-5">
+        	<div className="grid grid-cols-4 gap-4 px-5 mt-5 mb-5">
             	<div className="col-span-2">
                 	<NotesSection 
                 		label="Company Notes"
