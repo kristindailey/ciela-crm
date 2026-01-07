@@ -3,6 +3,10 @@ export const normalizeUrl = (url: string): string => {
 
     const trimmed = url.trim();
 
+	if (trimmed.includes("@")) {
+		return trimmed;
+	}
+
     if (trimmed && !trimmed.startsWith("http://") && !trimmed.startsWith("https://")) {
         return `https://${trimmed}`;
     }
