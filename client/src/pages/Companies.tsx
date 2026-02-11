@@ -46,7 +46,7 @@ const Companies = () => {
         return filtered;
     }, [companies, searchQuery, activeTier]);
 
-    const { currentPage, setCurrentPage, totalPages, paginatedItems: paginatedCompanies, handlePageChange } = usePagination<Company>({
+    const { currentPage, windowStart, setCurrentPage, totalPages, paginatedItems: paginatedCompanies, handlePageChange } = usePagination<Company>({
         items: filteredCompanies,
         itemsPerPage: 9,
     });
@@ -266,6 +266,7 @@ const Companies = () => {
 
                 <Pagination
                     currentPage={currentPage}
+					windowStart={windowStart}
                     totalPages={totalPages}
                     onPageChange={handlePageChange}
                 />

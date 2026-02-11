@@ -48,7 +48,7 @@ const Contacts = () => {
         return filtered;
     }, [contacts, searchQuery, activeTier]);
 
-    const { currentPage, setCurrentPage, totalPages, paginatedItems: paginatedContacts, handlePageChange } = usePagination<Contact>({
+    const { currentPage, windowStart, setCurrentPage, totalPages, paginatedItems: paginatedContacts, handlePageChange } = usePagination<Contact>({
         items: filteredContacts,
         itemsPerPage: 6,
     });
@@ -300,6 +300,7 @@ const Contacts = () => {
 
                 <Pagination
                     currentPage={currentPage}
+					windowStart={windowStart}
                     totalPages={totalPages}
                     onPageChange={handlePageChange}
                 />

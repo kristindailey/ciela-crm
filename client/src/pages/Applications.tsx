@@ -56,7 +56,7 @@ const Applications = () => {
         return filtered;
     }, [applications, searchQuery, activeTier]);
 
-	const { currentPage, setCurrentPage, totalPages, paginatedItems: paginatedApplications, handlePageChange } = usePagination<Application>({
+	const { currentPage, windowStart, setCurrentPage, totalPages, paginatedItems: paginatedApplications, handlePageChange } = usePagination<Application>({
 		items: filteredApplications,
 		itemsPerPage: 6,
 	});
@@ -307,6 +307,7 @@ const Applications = () => {
 
 				<Pagination
                     currentPage={currentPage}
+					windowStart={windowStart}
                     totalPages={totalPages}
                     onPageChange={handlePageChange}
                 />
