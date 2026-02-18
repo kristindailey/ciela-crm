@@ -1,16 +1,16 @@
 import { Link } from "react-router";
-import logo from "../assets/ciela-logo.png";
+import logo from "../assets/ciela-text.png";
 import ThemeToggle from "../components/ThemeToggle";
 
 const Home = () => {
     return (
         <div className="min-h-screen flex flex-col bg-app text-primary font-inter">
-			<nav className="flex justify-between sticky top-0 z-10 bg-sidebar w-full h-20 px-4">
+			<nav className="flex justify-between sticky top-0 z-10 bg-sidebar w-full h-18 px-4">
 				<Link 
 					to="/" 
 					className="flex items-center"
 				>
-					<img src={logo} alt="Ciela CRM logo" className="h-30 w-auto" />
+					<img src={logo} alt="Ciela CRM logo" className="h-18 w-auto" />
 				</Link>
 
 				<div className="flex items-center gap-2 sm:gap-4">
