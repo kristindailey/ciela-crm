@@ -164,7 +164,7 @@ const Home = () => {
 								<div className="flex flex-col flex-1 bg-app rounded-lg p-4 border border-card-border">
 									<div className="flex items-center justify-between mb-1">
 										<span className="text-sm font-semibold text-heading">Pepper Potts</span>
-										<span className="text-xs text-muted">Apr 20, 2026</span>
+										<span className="text-xs text-muted">Apr 20</span>
 									</div>
 
 									<div className="flex items-center justify-between mb-1">
