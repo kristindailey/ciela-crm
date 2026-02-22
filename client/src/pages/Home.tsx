@@ -21,14 +21,14 @@ const Home = () => {
 
 					<Link
 						to="/login"
-						className="text-primary bg-cancel hover:bg-cancel-hover text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+						className="bg-cancel hover:bg-cancel-hover text-primary text-sm font-medium px-4 py-2 rounded-lg transition-colors w-full sm:w-auto"
 					>
 						Sign In
 					</Link>
 
 					<Link
 						to="/register"
-						className="bg-lavender text-heading hover:text-primary text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+						className="bg-lavender text-heading hover:text-primary text-sm font-medium px-4 py-2 rounded-lg transition-colors w-full sm:w-auto"
 					>
 						Sign Up
 					</Link>
@@ -36,7 +36,7 @@ const Home = () => {
 			</nav>
 
 			<main>
-				<section className="max-w-6xl mx-auto px-6 py-1 md:py-16">
+				<section className="max-w-6xl mx-auto px-6 py-10 md:py-16">
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
 						<div className="text-center md:text-left">
 							<h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-heading tracking-tight">
@@ -218,7 +218,31 @@ const Home = () => {
 				</section>
 
 				<section className="max-w-6xl mx-auto px-6 py-16 md:py-24">
-					
+					<div className="text-center">
+						<h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-heading tracking-tight">
+							Start building your network today.
+						</h2>
+
+						<p className="mt-4 text-base md:text-lg text-muted max-w-xl mx-auto">
+							Join Ciela and turn every conversation into your next opportunity.
+						</p>
+					</div>
+
+					<div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center items-center">
+						<Link
+							to="/register"
+							className="bg-lavender text-heading hover:text-primary text-sm font-medium px-6 py-3 rounded-lg transition-colors w-full sm:w-auto"
+						>
+							Sign Up
+						</Link>
+
+						<Link
+							to="/login"
+							className="bg-cancel hover:bg-cancel-hover text-primary text-sm font-medium px-6 py-3 rounded-lg transition-colors w-full sm:w-auto"
+						>
+							Sign In
+						</Link>
+					</div>
 				</section>
 			</main>
 
