@@ -246,8 +246,11 @@ const Home = () => {
 				</section>
 			</main>
 
-			<footer>
-
+			<footer className="bg-sidebar mt-auto">
+				<div className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-center gap-4">
+					<img src={logo} alt="Ciela CRM logo" className="h-12 w-auto" />
+					<span className="text-sm text-sidebar-text">© {new Date().getFullYear()} Ciela</span>
+				</div>
 			</footer>
         </div>
     );
