@@ -5,30 +5,35 @@ import ThemeToggle from "../components/ThemeToggle";
 const Home = () => {
     return (
         <div className="min-h-screen flex flex-col bg-app text-primary font-inter">
-			<nav className="flex justify-between sticky top-0 z-10 bg-sidebar w-full h-18 px-4">
+			<nav 
+				aria-label="Primary"
+				className="flex justify-between sticky top-0 z-10 bg-sidebar w-full h-18 px-4"
+			>
 				<Link 
 					to="/" 
-					className="flex items-center"
+					className="flex items-center rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-sidebar"
 				>
 					<img src={logo} alt="Ciela CRM logo" className="h-18 w-auto" />
 				</Link>
 
 				<div className="flex items-center gap-2 sm:gap-4">
 					<ThemeToggle 
-						className="text-sidebar-text hover:text-white transition-colors p-2"
+						className="text-sidebar-text hover:text-white transition-colors p-2 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-sidebar"
 						showLabel={false}
 					/>
 
 					<Link
 						to="/login"
-						className="bg-cancel hover:bg-cancel-hover text-primary text-sm font-medium px-4 py-2 rounded-lg transition-colors w-full sm:w-auto"
+						aria-label="Ciela home"
+						className="bg-cancel hover:bg-cancel-hover text-primary text-sm font-medium px-4 py-2 rounded-lg transition-colors w-full sm:w-auto focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-sidebar"
 					>
 						Sign In
 					</Link>
 
 					<Link
 						to="/register"
-						className="bg-lavender text-heading hover:text-primary text-sm font-medium px-4 py-2 rounded-lg transition-colors w-full sm:w-auto"
+						aria-label="Registration page"
+						className="bg-lavender text-heading hover:text-primary text-sm font-medium px-4 py-2 rounded-lg transition-colors w-full sm:w-auto focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-sidebar"
 					>
 						Sign Up
 					</Link>
@@ -49,7 +54,7 @@ const Home = () => {
 						</div>
 
 						<div className="bg-card border border-card-border rounded-2xl shadow-xl p-6 md:p-8">
-							<h2 className="font-pacifico text-script text-2xl mb-2">this week</h2>
+							<div className="font-pacifico text-script text-2xl mb-2">this week</div>
 							<hr className="border-divider border-2 mb-5" />
 
 							<dl className="grid grid-cols-3 gap-3 text-center font-inter mb-6">
@@ -70,7 +75,7 @@ const Home = () => {
 							</dl>
 
 							<div>
-								<h3 className="font-semibold text-sm text-heading mb-3">This Week's Priorities</h3>
+								<div className="font-semibold text-sm text-heading mb-3">This Week's Priorities</div>
 								<ul className="space-y-2">
 									<li className="flex items-center gap-2">
 										<div className="flex-1 px-3 py-2 border border-card-border rounded-lg text-primary text-sm">
@@ -102,9 +107,9 @@ const Home = () => {
 					<div className="max-w-6xl mx-auto px-6 py-16 md:py-24">
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
 							<div className="bg-card border border-card-border rounded-2xl p-6 md:p-8 shadow-xl">
-								<h3 className="text-lg md:text-xl font-semibold text-heading mb-2">
+								<h2 className="text-lg md:text-xl font-semibold text-heading mb-2">
 									Focus on who matters most
-								</h3>
+								</h2>
 
 								<p className="text-sm md:text-base text-muted leading-relaxed mb-4">
 									Sort contacts and companies into tiers so your energy goes where it counts.
@@ -129,9 +134,9 @@ const Home = () => {
 							</div>
 
 							<div className="flex flex-col bg-card border border-card-border rounded-2xl p-6 md:p-8 shadow-xl">
-								<h3 className="text-lg md:text-xl font-semibold text-heading mb-2">
+								<h2 className="text-lg md:text-xl font-semibold text-heading mb-2">
 									Start with your whole network
-								</h3>
+								</h2>
 
 								<p className="text-sm md:text-base text-muted leading-relaxed mb-4">
 									Bring your contacts over in a single CSV upload. Ciela handles the rest.
@@ -153,9 +158,9 @@ const Home = () => {
 							</div>
 
 							<div className="flex flex-col bg-card border border-card-border rounded-2xl p-6 md:p-8 shadow-xl">
-								<h3 className="text-lg md:text-xl font-semibold text-heading mb-2">
+								<h2 className="text-lg md:text-xl font-semibold text-heading mb-2">
 									Never let a warm lead go cold
-								</h3>
+								</h2>
 
 								<p className="text-sm md:text-base text-muted leading-relaxed mb-4">
 									Gentle nudges to follow up and stay top of mind so the right people remember you when it counts.
@@ -186,9 +191,9 @@ const Home = () => {
 							</div>
 
 							<div className="flex flex-col bg-card border border-card-border rounded-2xl p-6 md:p-8 shadow-xl">
-								<h3 className="text-lg md:text-xl font-semibold text-heading mb-2">
+								<h2 className="text-lg md:text-xl font-semibold text-heading mb-2">
 									See your search take shape
-								</h3>
+								</h2>
 
 								<p className="text-sm md:text-base text-muted leading-relaxed mb-4">
 									Weekly trends, tier breakdowns, and momentum metrics that turn "am I doing enough?" into a clear answer.
@@ -219,9 +224,9 @@ const Home = () => {
 
 				<section className="max-w-6xl mx-auto px-6 py-16 md:py-24">
 					<div className="text-center">
-						<h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-heading tracking-tight">
+						<h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-heading tracking-tight">
 							Start building your network today.
-						</h2>
+						</h3>
 
 						<p className="mt-4 text-base md:text-lg text-muted max-w-xl mx-auto">
 							Join Ciela and turn every conversation into your next opportunity.
@@ -231,14 +236,16 @@ const Home = () => {
 					<div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center items-center">
 						<Link
 							to="/register"
-							className="bg-lavender text-heading hover:text-primary text-sm font-medium px-6 py-3 rounded-lg transition-colors w-full sm:w-auto"
+							aria-label="Registration page"
+							className="bg-lavender text-heading hover:text-primary text-sm font-medium px-6 py-3 rounded-lg transition-colors w-full sm:w-auto focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-app"
 						>
 							Sign Up
 						</Link>
 
 						<Link
 							to="/login"
-							className="bg-cancel hover:bg-cancel-hover text-primary text-sm font-medium px-6 py-3 rounded-lg transition-colors w-full sm:w-auto"
+							aria-label="Login page"
+							className="bg-cancel hover:bg-cancel-hover text-primary text-sm font-medium px-6 py-3 rounded-lg transition-colors w-full sm:w-auto focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-app"
 						>
 							Sign In
 						</Link>
@@ -246,7 +253,10 @@ const Home = () => {
 				</section>
 			</main>
 
-			<footer className="bg-sidebar mt-auto">
+			<footer 
+				aria-label="Site footer"
+				className="bg-sidebar mt-auto"
+			>
 				<div className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-center gap-4">
 					<img src={logo} alt="Ciela CRM logo" className="h-12 w-auto" />
 					<span className="text-sm text-sidebar-text">© {new Date().getFullYear()} Ciela</span>

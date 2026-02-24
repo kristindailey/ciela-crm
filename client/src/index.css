@@ -19,6 +19,7 @@
 	--color-hover: var(--hover);
 	--color-cancel: var(--cancel);
 	--color-cancel-hover: var(--cancel-hover);
+	--color-focus-ring: var(--focus-ring);
 	
 	--color-primary: var(--primary);
 	--color-heading: var(--heading);
@@ -83,6 +84,7 @@
 	--hover: #E8E4F0;
 	--cancel: #E5E7EB;
 	--cancel-hover: #D1D5DB;
+	--focus-ring: #B45309;
 
 	/* Text */
 	--primary: #1F2937;
@@ -117,6 +119,7 @@
 	--hover: #222947;
 	--cancel: #2A3252;
 	--cancel-hover: #363F66;
+	--focus-ring: #F9FAFB;
 
 	/* Text */
 	--primary: #E8EAF5;
