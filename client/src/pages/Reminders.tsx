@@ -65,7 +65,7 @@ const Reminders = () => {
 		return filterRemindersByTab(filteredReminders, activeTab);
 	}, [filteredReminders, activeTab]);
 
-	const { currentPage, setCurrentPage, totalPages, paginatedItems: paginatedReminders, handlePageChange } = usePagination<Interaction>({
+	const { currentPage, windowStart, setCurrentPage, totalPages, paginatedItems: paginatedReminders, handlePageChange } = usePagination<Interaction>({
 		items: displayReminders,
 		itemsPerPage: 6,
 	});
@@ -216,6 +216,7 @@ const Reminders = () => {
 
 				<Pagination 
 					currentPage={currentPage}
+					windowStart={windowStart}
 					totalPages={totalPages}
 					onPageChange={handlePageChange}
 				/>
