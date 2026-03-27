@@ -32,8 +32,8 @@ const Register = () => {
         <div className="min-h-screen flex items-center justify-center bg-sidebar">
             <div className="w-full max-w-md">
                 <div className="text-center mb-8">
-                    <h1 className="text-4xl font-thin">Create Account</h1>
-                    <p className="text-white mt-2">Join Ciela CRM today!</p>
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-sidebar-text tracking-tight">Create Account</h1>
+                    <p className="mt-2 text-lg md:text-xl text-placeholder leading-relaxed">Join Ciela CRM today!</p>
                 </div>
 
                 <div className="bg-card p-8 rounded-lg shadow-md">
