@@ -42,7 +42,7 @@ const PageHeader = ({ title, searchValue, searchPlaceholder, onSearchChange, onA
                     value={searchValue}
                     onChange={(e) => onSearchChange(e.target.value)}
                     placeholder={searchPlaceholder} 
-                    className="pl-9 py-1 w-75 border border-2 borde-heading rounded-full text-primary"
+                    className="pl-9 py-1 w-75 border border-2 border-heading rounded-full text-primary"
                 />
 
                 <div className="absolute left-3 top-1/2 translate -translate-y-1/2">
