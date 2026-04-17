@@ -195,19 +195,19 @@ const Reminders = () => {
 						))}
 
 						{isLoading && (
-							<div className="text-center text-gray-500 mt-8">
+							<div className="text-center text-muted mt-8">
 								Loading reminders...
 							</div>
 						)}
 
 						{!isLoading && reminders.length === 0 && (
-							<div className="text-center text-gray-500 mt-8">
+							<div className="text-center text-muted mt-8">
 								Ready to add your first reminder? Get started by adding follow-up dates to your interactions.
 							</div>
 						)}
 
 						{!isLoading && reminders.length > 0 && displayReminders.length === 0 && searchQuery && (
-							<div className="text-center text-gray-500 mt-8">
+							<div className="text-center text-muted mt-8">
 								No reminders found matching your search.
 							</div>
 						)}

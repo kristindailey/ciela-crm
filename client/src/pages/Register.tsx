@@ -29,14 +29,14 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[var(--royal-blue)]">
+        <div className="min-h-screen flex items-center justify-center bg-[var(--sidebar)]">
             <div className="w-full max-w-md">
                 <div className="text-center mb-8">
                     <h1 className="text-4xl font-thin">Create Account</h1>
                     <p className="text-white mt-2">Join Ciela CRM today!</p>
                 </div>
 
-                <div className="bg-white p-8 rounded-lg shadow-md">
+                <div className="bg-card p-8 rounded-lg shadow-md">
                     <ErrorMessage error={error} />
 
                     <form onSubmit={handleSubmit}>
@@ -73,9 +73,9 @@ const Register = () => {
                     </form>
 
                     <div className="mt-6 text-center">
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-muted">
                             Already have an account?{" "}
-                            <a href="/login" className="text-[var(--royal-blue)] hover:text-[#535bf2] decoration-inherit font-medium">
+                            <a href="/login" className="text-[var(--heading)] hover:text-[var(--heading)] decoration-inherit font-medium">
                                 Sign In
                             </a>
                         </p>

@@ -54,10 +54,10 @@ const CompanyCard = ({ company, onDelete }: CompanyCardProps) => {
   	return (
     	<div 
       		onClick={handleClick}
-      		className="relative bg-white p-6 rounded-lg shadow-sm cursor-pointer hover:shadow-md hover:bg-[var(--royal-blue)]/10 transition-all"
+      		className="relative bg-card p-6 rounded-lg shadow-sm cursor-pointer hover:shadow-md hover:bg-[var(--sidebar)]/10 transition-all"
     	>
       		<div className="flex items-center justify-between">
-        		<h3 className="text-lg font-semibold text-[var(--royal-blue)]">
+        		<h3 className="text-lg font-semibold text-[var(--heading)]">
           			{company.name}
         		</h3>
 
@@ -70,7 +70,7 @@ const CompanyCard = ({ company, onDelete }: CompanyCardProps) => {
 				)}
       		</div>
       
-      		<span className="text-sm text-gray-600 font-medium">{formatTier(company.tier)}</span>
+      		<span className="text-sm text-muted font-medium">{formatTier(company.tier)}</span>
 
 			<div className="absolute top-2 right-2" ref={dropdownRef}>
                 <div 
@@ -78,7 +78,7 @@ const CompanyCard = ({ company, onDelete }: CompanyCardProps) => {
 						e.stopPropagation();
 						setIsDropdownOpen(!isDropdownOpen);
 					}}
-                    className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-500 hover:text-gray-50 shadow-md transition-colors"
+                    className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 hover:bg-gray-400 text-muted hover:text-gray-50 shadow-md transition-colors"
                 >
                     <BsThreeDotsVertical size={18} />
                 </div>

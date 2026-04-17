@@ -11,7 +11,7 @@ interface AuthInputProps {
 const AuthInput = ({ id, label, type, value, onChange, disabled = false, required = true }: AuthInputProps) => {
   return (
     <div className="mb-4">
-        <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor={id} className="block text-sm font-medium text-primary mb-2">
             {label}
         </label>
         <input 
@@ -20,7 +20,7 @@ const AuthInput = ({ id, label, type, value, onChange, disabled = false, require
             value={value}
             onChange={onChange}
             required={required}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#535bf2] text-gray-900"
+            className="w-full px-3 py-2 border border-card-border rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--heading)] text-primary"
             disabled={disabled}
         />
     </div>

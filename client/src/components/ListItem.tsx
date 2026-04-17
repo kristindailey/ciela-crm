@@ -45,12 +45,12 @@ const ListItem = forwardRef<HTMLInputElement, ListItemProps>(({ id, value, place
 						handleSave();
 					}
 				}}
-				className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-black"
+				className="flex-1 px-3 py-2 border border-card-border rounded-lg text-primary"
 			/>
 
 			<button
 				onClick={() => id && onDelete(id)}
-				className="text-medium font-medium text-[var(--royal-blue)] hover:text-red-500 hover:font-normal transition-colors"
+				className="text-medium font-medium text-[var(--heading)] hover:text-danger hover:font-normal transition-colors"
 				disabled={!id}
 			>
 				X

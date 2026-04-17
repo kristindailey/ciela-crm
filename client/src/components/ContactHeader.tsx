@@ -95,16 +95,16 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField, onDelete }: Cont
                                     setIsEditingName(false);
                                 }
                             }}
-                            className="text-[var(--royal-blue)] font-extrabold text-3xl bg-transparent focus:outline-none focus:border-b-2 focus:border-[var(--soft-lavender)]"
+                            className="text-[var(--heading)] font-extrabold text-3xl bg-transparent focus:outline-none focus:border-b-2 focus:border-[var(--lavender)]"
                             style={{ width: `${nameValue.length * 0.6}em` }}
                             autoFocus 
                         />
                     ) : (
-                        <h1 className="relative group text-[var(--royal-blue)] font-extrabold text-3xl">
+                        <h1 className="relative group text-[var(--heading)] font-extrabold text-3xl">
                             {contact.firstName} {contact.lastName}
                             <button
                                 onClick={() => setIsEditingName(true)}
-                                className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-white border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
+                                className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-card border border-card-border rounded-full text-muted hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
                                 aria-label="Edit contact name"
                             >
                                 <FiEdit2 className="w-3 h-3"/>
@@ -122,12 +122,12 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField, onDelete }: Cont
                         </div>
                     )}
 
-                    <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold">
+                    <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--sidebar)] text-[var(--lavender)] text-lg font-bold">
                         {contact.company.tier.toLowerCase().replace("_", " ")}
                     </div>
                 </div>
 
-                <div className="flex items-center gap-4 text-2xl text-[var(--royal-blue)] ml-auto">
+                <div className="flex items-center gap-4 text-2xl text-[var(--heading)] ml-auto">
                     {iconLinks.map(({ url, icon, label }) => (
                         <Icon 
                             key={label}
@@ -142,7 +142,7 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField, onDelete }: Cont
                 <div className="relative" ref={dropdownRef}>
                     <div 
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                        className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-500 hover:text-gray-50 shadow-md transition-colors ml-10"
+                        className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-300 hover:bg-gray-400 text-muted hover:text-gray-50 shadow-md transition-colors ml-10"
                     >
                         <BsThreeDotsVertical size={22} />
                     </div>
@@ -170,8 +170,8 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField, onDelete }: Cont
                 />
             </div>
 
-            <div className="h-11 bg-[var(--royal-blue)] mt-2 mx-5"></div>
-            <div className="h-[5px] bg-[var(--soft-lavender)] mt-1 mx-5"></div>
+            <div className="h-11 bg-[var(--sidebar)] mt-2 mx-5"></div>
+            <div className="h-[5px] bg-[var(--lavender)] mt-1 mx-5"></div>
         </div>
     );
 };

@@ -54,14 +54,14 @@ const UploadModal = ({ isOpen, uploadType, uploadStatus, onClose, onDownloadTemp
 		>
 			<div 
 				onClick={(e) => e.stopPropagation()}
-				className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl font-inter border-3 border-gray-300"
+				className="bg-card rounded-lg p-6 max-w-md w-full mx-4 shadow-xl font-inter border-3 border-card-border"
 			>
-				<h2 className="text-xl font-bold text-gray-900 mb-4">Upload {uploadType}</h2>
+				<h2 className="text-xl font-bold text-primary mb-4">Upload {uploadType}</h2>
 
 				{uploadStatus && (
 					<div className="mb-4 p-4 bg-gray-100 rounded">
 						{uploadStatus.isProcessing? (
-							<p className="text-gray-600">Processing...</p>
+							<p className="text-muted">Processing...</p>
 						) : (
 							<div className="text-sm font-semibold">
 								<p className="text-green-600">Imported: {uploadStatus.imported}</p>
@@ -74,7 +74,7 @@ const UploadModal = ({ isOpen, uploadType, uploadStatus, onClose, onDownloadTemp
 
 				<button
 					onClick={onDownloadTemplate}
-					className="w-full mb-4 px-4 py-2 text-white bg-[var(--royal-blue)] rounded hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-color"
+					className="w-full mb-4 px-4 py-2 text-white bg-[var(--sidebar)] rounded hover:bg-[var(--lavender)] hover:text-[var(--heading)] transition-color"
 				>
 					Download CSV Template
 				</button>
@@ -90,14 +90,14 @@ const UploadModal = ({ isOpen, uploadType, uploadStatus, onClose, onDownloadTemp
 				<button
 					onClick={() => fileInputRef.current?.click()}
 					disabled={uploadStatus?.isProcessing}
-					className="w-full mb-4 px-4 py-2 text-white bg-[var(--royal-blue)] rounded hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-color disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[var(--royal-blue)] disabled:hover:text-white"
+					className="w-full mb-4 px-4 py-2 text-white bg-[var(--sidebar)] rounded hover:bg-[var(--lavender)] hover:text-[var(--heading)] transition-color disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[var(--sidebar)] disabled:hover:text-white"
 				>
 					{uploadStatus?.isProcessing ? "Processing..." : "Select CSV File"}
 				</button>
 
 				<button 
 					onClick={onClose}
-					className="w-full px-4 py-2 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+					className="w-full px-4 py-2 text-primary bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
 				>
 					{uploadStatus && !uploadStatus.isProcessing ? "Close" : "Cancel"}
 				</button>

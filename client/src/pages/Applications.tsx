@@ -286,19 +286,19 @@ const Applications = () => {
 						))}
 
 						{isLoading && (
-							<div className="text-center text-gray-500 mt-8">
+							<div className="text-center text-muted mt-8">
 								Loading reminders...
 							</div>
 						)}
 
 						{!isLoading && applications.length === 0 && (
-							<div className="text-center text-gray-500 mt-8">
+							<div className="text-center text-muted mt-8">
 								Ready to add your first application? Click the + button to get started.
 							</div>
 						)}
 
 						{!isLoading && applications.length > 0 && filteredApplications.length === 0 && searchQuery && (
-							<div className="text-center text-gray-500 mt-8">
+							<div className="text-center text-muted mt-8">
 								No applications found matching your search.
 							</div>
 						)}

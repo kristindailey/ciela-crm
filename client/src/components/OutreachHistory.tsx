@@ -96,9 +96,9 @@ const OutreachHistory = ({ label, contactId, companyId, searchValue, searchPlace
 
     return (
         <div>
-            <label className="font-inter text-sm text-gray-600 block">{label}</label>
+            <label className="font-inter text-sm text-muted block">{label}</label>
 
-            <div className="bg-white rounded-xl shadow-md p-4 h-70 w-full overflow-y-auto">
+            <div className="bg-card rounded-xl shadow-md p-4 h-70 w-full overflow-y-auto">
                 <div className="flex items-center gap-3 mt-1 mb-4">
                     <div className="relative flex-1">
                         <input 
@@ -106,17 +106,17 @@ const OutreachHistory = ({ label, contactId, companyId, searchValue, searchPlace
                             value={searchValue}
                             onChange={(e) => onSearchChange(e.target.value)}
                             placeholder={searchPlaceholder} 
-                            className="pl-9 py-1 w-full border border-2 border-[var(--royal-blue)] rounded-full text-black"
+                            className="pl-9 py-1 w-full border border-2 border-[var(--input-border)] rounded-full text-primary"
                         />
                 
                         <div className="absolute left-3 top-1/2 translate -translate-y-1/2">
-                            <FaMagnifyingGlass className="text-[var(--royal-blue)]"/>
+                            <FaMagnifyingGlass className="text-[var(--heading)]"/>
                         </div>
                     </div>
 
                     <button 
                         onClick={() => setAddModalOpen(!isAddModalOpen)}
-                        className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] drop-shadow-sm transition-colors duration-150 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] ml-auto"
+                        className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[var(--sidebar)] text-[var(--lavender)] drop-shadow-sm transition-colors duration-150 hover:bg-[var(--lavender)] hover:text-[var(--heading)] ml-auto"
                     >
                         <FaPlus size={16} />
                     </button>
@@ -127,9 +127,9 @@ const OutreachHistory = ({ label, contactId, companyId, searchValue, searchPlace
                 )}
 
                 {isLoading ? (
-                    <div className="flex justify-center text-gray-500 text-sm">Loading...</div>
+                    <div className="flex justify-center text-muted text-sm">Loading...</div>
                 ) : filteredInteractions.length === 0 ? (
-                    <div className="flex justify-center text-gray-500 text-sm">
+                    <div className="flex justify-center text-muted text-sm">
                         {searchValue ? "No interactions found matching your search." : "No interactions. Log your first call or email."}
                     </div>
                 ) : (

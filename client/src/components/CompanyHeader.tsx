@@ -185,16 +185,16 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
                                 setIsEditingName(false);
                             }
                         }} 
-                        className="text-[var(--royal-blue)] font-extrabold text-3xl bg-transparent focus:outline-none focus:border-b-2 focus:border-[var(--soft-lavender)]"
+                        className="text-[var(--heading)] font-extrabold text-3xl bg-transparent focus:outline-none focus:border-b-2 focus:border-[var(--lavender)]"
                         style={{ width: `${nameValue.length * 0.6}em` }}
                         autoFocus
                     />
                 ) : (
-                    <h1 className="relative group text-[var(--royal-blue)] font-extrabold text-3xl">
+                    <h1 className="relative group text-[var(--heading)] font-extrabold text-3xl">
                         {company.name}
                         <button
                             onClick={() => setIsEditingName(true)}
-                            className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-white border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
+                            className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-card border border-card-border rounded-full text-muted hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
                             aria-label="Edit company name"
                         >
                             <FiEdit2 className="w-3 h-3"/>
@@ -215,7 +215,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
                             />
                         ) : (
                             <div
-                                className="w-13 h-13 rounded-full bg-gray-200 border border-dashed border-gray-400 flex items-center justify-center hover:bg-gray-100 transition-colors"
+                                className="w-13 h-13 rounded-full bg-gray-200 border border-dashed border-input-border flex items-center justify-center hover:bg-gray-100 transition-colors"
                             >
                                 <IoImageOutline className="text-2xl"/>
                             </div>
@@ -226,7 +226,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
                                 e.stopPropagation();
                                 handleLogoClick();
                             }}
-                            className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-white border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
+                            className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-card border border-card-border rounded-full text-muted hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
                             aria-label="Edit logo"
                         >
                             <FiEdit2 className="w-3 h-3"/> 
@@ -247,7 +247,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
                         value={company.tier}
                         onChange={(e) => handleSaveTier(e.target.value)}
                         onBlur={() => setIsEditingTier(false)}
-                        className="h-10 px-6 rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold ml-8 border-2 border-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-white"
+                        className="h-10 px-6 rounded-full bg-[var(--sidebar)] text-[var(--lavender)] text-lg font-bold ml-8 border-2 border-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-white"
                         autoFocus
                     >
                         <option value="TIER_1">tier 1</option>
@@ -257,13 +257,13 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
                     </select>
                 ) : (
                     <div className="relative group inline-block">
-                        <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--royal-blue)] text-[var(--soft-lavender)] text-lg font-bold">
+                        <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--sidebar)] text-[var(--lavender)] text-lg font-bold">
                             {company.tier.toLowerCase().replace("_", " ")}
                         </div>
 
                         <button
                             onClick={() => setIsEditingTier(true)}
-                            className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-white border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
+                            className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-card border border-card-border rounded-full text-muted hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
                             aria-label="Edit tier"
                         >
                             <FiEdit2 className="w-3 h-3" />
@@ -272,7 +272,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
                 )}
             </div>
 
-            <div className="flex items-center gap-4 text-2xl text-[var(--royal-blue)] ml-auto">
+            <div className="flex items-center gap-4 text-2xl text-[var(--heading)] ml-auto">
                 {iconLinks.map(({ url, icon, label }) => (
                     <Icon 
                         key={label}
@@ -287,7 +287,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
             <div className="relative" ref={dropdownRef}>
                 <div 
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-500 hover:text-gray-50 shadow-md transition-colors ml-10"
+                    className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-300 hover:bg-gray-400 text-muted hover:text-gray-50 shadow-md transition-colors ml-10"
                 >
                     <BsThreeDotsVertical size={22} />
                 </div>

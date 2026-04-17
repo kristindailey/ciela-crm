@@ -33,7 +33,7 @@ const CompanyContacts = ({ companyId, company }: CompanyContactsProps) => {
         return filtered;
 	}, [contacts, searchQuery]);
 
-	const { currentPage, setCurrentPage, totalPages, paginatedItems: paginatedContacts, handlePageChange } = usePagination<Contact>({
+	const { currentPage, windowStart, setCurrentPage, totalPages, paginatedItems: paginatedContacts, handlePageChange } = usePagination<Contact>({
 		items: filteredContacts,
 		itemsPerPage,
 	});
@@ -91,11 +91,11 @@ const CompanyContacts = ({ companyId, company }: CompanyContactsProps) => {
 						setSearchQuery(e.target.value);
 						setCurrentPage(1);
 					}}
-					className="w-full px-10 py-2 border border-2 border-[var(--royal-blue)] rounded-full focus:outline-none focus:ring-2 focus:ring-[var(--royal-blue)] focus:border-transparent text-black"
+					className="w-full px-10 py-2 border border-2 border-[var(--input-border)] rounded-full focus:outline-none focus:ring-2 focus:ring-[var(--heading)] focus:border-transparent text-primary"
 				/>
 
 				<div className="absolute left-3 top-1/2 translate -translate-y-1/2">
-					<FaMagnifyingGlass className="text-[var(--royal-blue)]"/>
+					<FaMagnifyingGlass className="text-[var(--heading)]"/>
 				</div>
 			</div>
 
@@ -113,24 +113,25 @@ const CompanyContacts = ({ companyId, company }: CompanyContactsProps) => {
 
 			<Pagination 
 				currentPage={currentPage}
+				windowStart={windowStart}
 				totalPages={totalPages}
 				onPageChange={handlePageChange}
 			/>
 
 			{isLoading && (
-				<div className="text-center text-gray-500 mt-8">
+				<div className="text-center text-muted mt-8">
 					Loading contacts...
 				</div>
 			)}
 
 			{!isLoading && contacts.length === 0 && (
-				<div className="text-center text-gray-500 mt-8">
+				<div className="text-center text-muted mt-8">
 					{`No contacts at ${company.name}. Add your first contact`}.
 				</div>
 			)}
 
 			{!isLoading && contacts.length > 0 && filteredContacts.length === 0 && (
-				<div className="text-center text-gray-500 mt-8">
+				<div className="text-center text-muted mt-8">
 					No contacts found matching your search.
 				</div>
 			)}

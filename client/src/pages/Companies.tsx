@@ -245,19 +245,19 @@ const Companies = () => {
 						))}
 
 						{isLoading && (
-							<div className="text-center text-gray-500 mt-8">
+							<div className="text-center text-muted mt-8">
 								Loading companies...
 							</div>
                 		)}
 
 						{!isLoading && companies.length === 0 && (
-							<div className="text-center text-gray-500 mt-8">
+							<div className="text-center text-muted mt-8">
 								Ready to add your first company? Click the + button to get started.
 							</div>
 						)}
 
 						{!isLoading && companies.length > 0 && filteredCompanies.length === 0 && searchQuery && (
-							<div className="text-center text-gray-500 mt-8">
+							<div className="text-center text-muted mt-8">
 								No companies found matching your search.
 							</div>
 						)}

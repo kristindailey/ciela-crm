@@ -8,6 +8,7 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import logo from "../assets/ciela-logo.png"; 
 import mobileLogo from "../assets/ciela-text.png";
 import { useReminders } from "../context/RemindersContext";
+import ThemeToggle from "./ThemeToggle";
 
 const Sidebar = () => {
     const { logout } = useAuth();
@@ -23,14 +24,14 @@ const Sidebar = () => {
     };
 
     return (
-        <div className="fixed top-0 left-0 h-screen w-20 sm:w-35 md:w-48 bg-[var(--royal-blue)] shadow-sm border-r flex flex-col font-inter">
+        <div className="fixed top-0 left-0 h-screen w-20 sm:w-35 md:w-48 bg-[var(--sidebar)] shadow-sm flex flex-col font-inter">
             <div className="flex-1 flex flex-col items-start self-center justify-center px-2 sm:px-4 md:px-6 space-y-4 sm:space-y-6 md:space-y-8 sm:pt-24 md:pt-30 text-sm sm:text-base md:text-lg">
                 <Link 
 					to="/dashboard" 
 					className={`flex items-center ${
 						location.pathname === "/dashboard"
 						? "text-white"
-						: "text-[var(--soft-lavender)] hover:text-white"
+						: "text-sidebar-text hover:text-white"
 					}`}
 				>
                     <FaHouse className="text-xl mr-0 sm:mr-2"/>
@@ -42,7 +43,7 @@ const Sidebar = () => {
 					className={`flex items-center ${
 						location.pathname === "/contacts"
 							? "text-white"
-							: "text-[var(--soft-lavender)] hover:text-white"
+							: "text-sidebar-text hover:text-white"
 					}`}
 				>
                     <FaUserLarge className="text-xl mr-0 sm:mr-2"/>
@@ -54,7 +55,7 @@ const Sidebar = () => {
 					className={`flex items-center ${
 						location.pathname === "/companies"
 							? "text-white"
-							: "text-[var(--soft-lavender)] hover:text-white"
+							: "text-sidebar-text hover:text-white"
 					}`}
 				>
                     <BsBuildingsFill className="text-xl mr-0 sm:mr-2"/>
@@ -66,7 +67,7 @@ const Sidebar = () => {
 					className={`flex items-center ${
 						location.pathname === "/applications"
 							? "text-white"
-							: "text-[var(--soft-lavender)] hover:text-white"
+							: "text-sidebar-text hover:text-white"
 					}`}
 				>
                     <GrDocumentText className="text-xl mr-0 sm:mr-2"/>
@@ -78,7 +79,7 @@ const Sidebar = () => {
 					className={`flex items-center ${
 						location.pathname === "/reminders"
 							? "text-white"
-							: "text-[var(--soft-lavender)] hover:text-white"
+							: "text-sidebar-text hover:text-white"
 					}`}
 				>
 					<div className="relative">
@@ -94,9 +95,11 @@ const Sidebar = () => {
                     <span className="hidden sm:block md:block">Reminders</span>
                 </Link>
 
-                <button 
+				<ThemeToggle />
+
+				<button 
                     onClick={handleLogout}
-                    className="flex items-center pt-7 text-[var(--soft-lavender)] hover:text-white"
+                    className="flex items-center text-sidebar-text hover:text-white"
                 >
                     <RiLogoutBoxLine className="text-xl mr-0 sm:mr-2"/>
                     <span className="hidden sm:block md:block">Logout</span>

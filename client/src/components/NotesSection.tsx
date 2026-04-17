@@ -39,9 +39,9 @@ const NotesSection = ({ label, value, placeholder, onSave }: NotesSectionProps) 
 
     return (
         <div>
-            <label className="font-inter text-sm text-gray-600 block">{label}</label>
+            <label className="font-inter text-sm text-muted block">{label}</label>
             <div 
-                className="bg-white rounded-xl shadow-md cursor-pointer transition-all text-md font-medium text-[var(--royal-blue)] h-70 w-full overflow-y-auto"
+                className="bg-card rounded-xl shadow-md cursor-pointer transition-all text-md font-medium text-[var(--heading)] h-70 w-full overflow-y-auto"
                 onClick={!isEditing ? handleClick : undefined}
             >
                 {isEditing ? (

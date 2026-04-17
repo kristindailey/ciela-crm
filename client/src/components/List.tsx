@@ -44,13 +44,13 @@ const List = ({ title, items, minRows, itemPlaceholder, isLoading, scrollable, o
 	};
 
 	return (
-		<div className={`flex flex-col bg-white rounded-xl shadow-md p-4 min-h-[30vh] max-h-[30vh] ${scrollable ? "overflow-y-auto" : ""}`}>
+		<div className={`flex flex-col bg-card rounded-xl shadow-md p-4 min-h-[30vh] max-h-[30vh] ${scrollable ? "overflow-y-auto" : ""}`}>
 			<div className="flex justify-between items-center mb-4 font-inter">
-				<h2 className="text-medium font-semibold text-[var(--royal-blue)]">{title}</h2>
+				<h2 className="text-medium font-semibold text-[var(--heading)]">{title}</h2>
 
 				<button
 					onClick={onClearAll}
-					className="text-sm text-red-500 hover:text-red-700"
+					className="text-sm text-danger hover:text-danger-hover transition-colors"
 				>
 					Clear All
 				</button>
@@ -58,7 +58,7 @@ const List = ({ title, items, minRows, itemPlaceholder, isLoading, scrollable, o
 
 			<div>
 				{isLoading ? (
-					<div className="flex justify-center items-center min-h-[20vh] text-medium font-semibold text-[var(--royal-blue)]">Loading...</div>
+					<div className="flex justify-center items-center min-h-[20vh] text-medium font-semibold text-[var(--heading)]">Loading...</div>
 				) : (
 					displayItems.map((item, index) => (
 						<ListItem

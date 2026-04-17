@@ -35,10 +35,10 @@ const Pagination = ({ currentPage, windowStart, totalPages, onPageChange }: Pagi
 				aria-label="Previous page"
 				disabled={currentPage === 1}
 				onClick={() => onPageChange(currentPage - 1)}
-				className={`px-3 py-2 rounded-lg font-semibold font-inter min-w-[44px] transition-all focus-visible:ring-2 focus-visible:ring-[var(--royal-blue)] focus-visible:ring-offset-2 focus-visible:outline-none ${
+				className={`px-3 py-2 rounded-lg font-semibold font-inter min-w-[44px] transition-all focus-visible:ring-2 focus-visible:ring-[var(--heading)] focus-visible:ring-offset-2 focus-visible:outline-none ${
 					currentPage === 1
-						? "bg-white text-[var(--royal-blue)]/30 border border-[var(--royal-blue)]/10 cursor-not-allowed"
-						: "bg-white text-[var(--royal-blue)] shadow-sm cursor-pointer border border-[var(--royal-blue)]/20 hover:shadow-md hover:bg-[var(--royal-blue)]/20 hover:border-[var(--royal-blue)]/30"
+						? "bg-card text-[var(--heading)]/30 border border-[var(--heading)]/10 cursor-not-allowed"
+						: "bg-card text-[var(--heading)] shadow-sm cursor-pointer border border-[var(--heading)]/20 hover:shadow-md hover:bg-[var(--sidebar)]/20 hover:border-[var(--heading)]/30"
 				}`}
 			>
 				←
@@ -52,10 +52,10 @@ const Pagination = ({ currentPage, windowStart, totalPages, onPageChange }: Pagi
 					aria-current={currentPage === page ? "page" : undefined}
 					disabled={currentPage === page}
 					onClick={() => onPageChange(page)}
-					className={`px-4 py-2 rounded-lg font-semibold font-inter min-w-[44px] transition-none focus-visible:ring-2 focus-visible:ring-[var(--royal-blue)] focus-visible:ring-offset-2 focus-visible:outline-none ${
+					className={`px-4 py-2 rounded-lg font-semibold font-inter min-w-[44px] transition-none focus-visible:ring-2 focus-visible:ring-[var(--heading)] focus-visible:ring-offset-2 focus-visible:outline-none ${
 						currentPage === page
-							? "bg-[var(--royal-blue)] text-[var(--soft-lavender)] shadow-sm border border-[var(--royal-blue)]"
-							: "bg-white text-[var(--royal-blue)] shadow-sm cursor-pointer border border-[var(--royal-blue)]/20 hover:shadow-md hover:bg-[var(--royal-blue)]/20 hover:border-[var(--royal-blue)]/30"
+							? "bg-[var(--sidebar)] text-[var(--lavender)] shadow-sm border border-[var(--heading)]"
+							: "bg-card text-[var(--heading)] shadow-sm cursor-pointer border border-[var(--heading)]/20 hover:shadow-md hover:bg-[var(--sidebar)]/20 hover:border-[var(--heading)]/30"
 					}`}
 				>
 					{page}
@@ -66,10 +66,10 @@ const Pagination = ({ currentPage, windowStart, totalPages, onPageChange }: Pagi
 				aria-label="Next page"
 				disabled={currentPage === totalPages}
 				onClick={() => onPageChange(currentPage + 1)}
-				className={`px-3 py-2 rounded-lg font-semibold font-inter min-w-[44px] transition-all focus-visible:ring-2 focus-visible:ring-[var(--royal-blue)] focus-visible:ring-offset-2 focus-visible:outline-none ${
+				className={`px-3 py-2 rounded-lg font-semibold font-inter min-w-[44px] transition-all focus-visible:ring-2 focus-visible:ring-[var(--heading)] focus-visible:ring-offset-2 focus-visible:outline-none ${
 					currentPage === totalPages
-						? "bg-white text-[var(--royal-blue)]/30 border border-[var(--royal-blue)]/10 cursor-not-allowed"
-						: "bg-white text-[var(--royal-blue)] shadow-sm cursor-pointer border border-[var(--royal-blue)]/20 hover:shadow-md hover:bg-[var(--royal-blue)]/20 hover:border-[var(--royal-blue)]/30"
+						? "bg-card text-[var(--heading)]/30 border border-[var(--heading)]/10 cursor-not-allowed"
+						: "bg-card text-[var(--heading)] shadow-sm cursor-pointer border border-[var(--heading)]/20 hover:shadow-md hover:bg-[var(--sidebar)]/20 hover:border-[var(--heading)]/30"
 				}`}
 			>
 				→

@@ -135,7 +135,7 @@ const AddApplicationPage = () => {
     }, []);
 
     return (
-        <div className="p-6 text-black">
+        <div className="p-6 text-primary">
             <h1 className="text-2xl font-bold mt-20 mb-4">Add New Application</h1>
 
             {error && (
@@ -155,7 +155,7 @@ const AddApplicationPage = () => {
                             required
                             value={formData.jobTitle}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
                         />
                     </div>
 
@@ -167,7 +167,7 @@ const AddApplicationPage = () => {
                             value={selectedCompany}
                             onChange={handleCompanySelect}
                             required={!showNewCompany}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
                         >
                             <option value="">Choose a company...</option>
                             {companies.map((company) => (
@@ -179,7 +179,7 @@ const AddApplicationPage = () => {
                             <option value="create-new">Create New Company</option>
                         </select>
                         {showNewCompany && (
-                            <div className="mt-4 p-4 border border-2 border-[var(--royal-blue)] rounded-md">
+                            <div className="mt-4 p-4 border border-2 border-[var(--card-border)] rounded-md">
                                 <h3 className="text-lg font-medium mb-4">New Company Details</h3>
 
                                 <div className="space-y-4">
@@ -192,7 +192,7 @@ const AddApplicationPage = () => {
                                             required
                                             value={newCompanyData.name}
                                             onChange={handleNewCompanyChange}
-                                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
                                         />
                                     </div>
 
@@ -205,7 +205,7 @@ const AddApplicationPage = () => {
                                             required
                                             value={newCompanyData.website}
                                             onChange={handleNewCompanyChange}
-                                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
                                         />
                                     </div>
                                 </div>
@@ -222,7 +222,7 @@ const AddApplicationPage = () => {
                             name="status"
                             value={formData.status}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
                         >
 							<option value="APPLIED">Applied</option>
 							<option value="PHONE_SCREEN">Phone Screen</option>
@@ -238,23 +238,23 @@ const AddApplicationPage = () => {
                         <label htmlFor="appliedDate" className="block text-sm font-medium mb-1">Applied Date</label>
                         
 						<DatePicker value={appliedDate} onChange={setAppliedDate} aria-label="Applied Date">
-							<Group className="flex w-fit items-center border-2 border-[var(--royal-blue)] rounded-md px-2 py-2">
+							<Group className="flex w-fit items-center border-2 border-[var(--card-border)] rounded-md px-2 py-2">
 								<DateInput className="py-1 pr-10 pl-2">
 									{(segment) => <DateSegment segment={segment} />}
 								</DateInput>
-								<Button className="bg-[var(--royal-blue)] text-white rounded ml-3 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors">
+								<Button className="bg-[var(--sidebar)] text-white rounded ml-3 hover:bg-[var(--lavender)] hover:text-[var(--heading)] transition-colors">
 									<ChevronDown size={20} />
 								</Button>
 							</Group>
-							<Popover className="max-w-none bg-white shadow-lg rounded-lg border border-2 border-[var(--royal-blue)] p-4 text-black">
+							<Popover className="max-w-none bg-card shadow-lg rounded-lg border border-2 border-[var(--sidebar)] p-4 text-primary">
 								<Dialog>
 									<Calendar>
 										<header className="flex justify-center mb-5">
-											<Button slot="previous" className="bg-[var(--royal-blue)] text-white rounded ml-3 mr-3 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors">
+											<Button slot="previous" className="bg-[var(--sidebar)] text-white rounded ml-3 mr-3 hover:bg-[var(--lavender)] hover:text-[var(--heading)] transition-colors">
 												<ChevronLeft size={20} />
 											</Button>
 											<Heading />
-											<Button slot="next" className="bg-[var(--royal-blue)] text-white rounded ml-3 hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors">
+											<Button slot="next" className="bg-[var(--sidebar)] text-white rounded ml-3 hover:bg-[var(--lavender)] hover:text-[var(--heading)] transition-colors">
 												<ChevronRight size={20} />
 											</Button>
 										</header>
@@ -262,7 +262,7 @@ const AddApplicationPage = () => {
 											{(date) => 
 												<CalendarCell date={date} className="flex justify-center">
 													{({ isOutsideMonth }) => (
-														<span className={isOutsideMonth ? "text-gray-400" : "p-2 rounded-md hover:bg-[var(--royal-blue)] hover:text-white transition-colors duration-150"}>{date.day}</span>
+														<span className={isOutsideMonth ? "text-placeholder" : "p-2 rounded-md hover:bg-[var(--sidebar)] hover:text-white transition-colors duration-150"}>{date.day}</span>
 													)}
 												</CalendarCell>
 											}
@@ -283,7 +283,7 @@ const AddApplicationPage = () => {
                             name="resumeUrl"
                             value={formData.resumeUrl}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
                         />
                     </div>
 
@@ -295,7 +295,7 @@ const AddApplicationPage = () => {
                             name="coverLetterUrl"
                             value={formData.coverLetterUrl}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
                         />
                     </div>
 
@@ -307,7 +307,7 @@ const AddApplicationPage = () => {
                             name="projectDocsUrl"
                             value={formData.projectDocsUrl}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
                         />
                     </div>
                 </div>
@@ -320,13 +320,13 @@ const AddApplicationPage = () => {
                         rows={2}
                         value={formData.notes}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-2 border-[var(--royal-blue)] rounded-md"
+                        className="w-full px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
                     />
                 </div>
 
                 <button
                     type="submit"
-                    className="w-full py-2 bg-[var(--royal-blue)] text-white rounded-md hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] hover:font-medium"
+                    className="w-full py-2 bg-[var(--sidebar)] text-white rounded-md hover:bg-[var(--lavender)] hover:text-[var(--heading)] hover:font-medium"
                 >
                     Create Application
                 </button>

@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { AuthProvider } from "./context/AuthContext";
 import { RemindersProvider } from "./context/RemindersContext";
+import { ThemeProvider } from "./context/ThemeContext";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -80,9 +81,11 @@ const router = createBrowserRouter([
 const App = () => {
 	return (
 		<AuthProvider>
-			<RemindersProvider>
-				<RouterProvider router={router} />
-			</RemindersProvider>
+			<ThemeProvider>
+				<RemindersProvider>
+					<RouterProvider router={router} />
+				</RemindersProvider>
+			</ThemeProvider>
 		</AuthProvider>
 	);
 };

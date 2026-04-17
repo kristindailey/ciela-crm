@@ -314,7 +314,7 @@ const CompanyDetail = () => {
 
 			{isLoading && (
 				<div className="p-6">
-					<div className="text-center text-gray-500 mt-8">
+					<div className="text-center text-muted mt-8">
 						Loading company...
 					</div>
 				</div>

@@ -54,10 +54,10 @@ const ContactCard = ({ contact, onDelete }: ContactCardProps) => {
     return (
         <div
             onClick={handleClick} 
-            className="flex flex-col relative bg-white p-4 rounded-lg border shadow-sm cursor-pointer hover:shadow-md hover:bg-[var(--royal-blue)]/20 hover:border-[var(--royal-blue)]/30 transition-all h-[162px]"
+            className="flex flex-col relative bg-card p-4 rounded-lg shadow-sm cursor-pointer hover:shadow-md hover:bg-[var(--sidebar)]/20 hover:border-[var(--card-border)]/30 transition-all h-[162px]"
         >
             <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-[var(--royal-blue)]">
+                <h3 className="text-lg font-semibold text-[var(--heading)]">
                     {contact.firstName} {contact.lastName}
                 </h3>
 
@@ -70,11 +70,11 @@ const ContactCard = ({ contact, onDelete }: ContactCardProps) => {
                 )}
             </div>
 
-            <div className="text-sm text-gray-600 font-medium">
+            <div className="text-sm text-muted font-medium">
                 <span>{contact.company.name}</span>
             </div>
 
-            <div className="text-sm text-gray-600 font-medium">
+            <div className="text-sm text-muted font-medium">
                 <span>{contact.role}</span>
             </div>
 
@@ -90,7 +90,7 @@ const ContactCard = ({ contact, onDelete }: ContactCardProps) => {
                 </a>
             )}
 
-            <div className="text-sm text-gray-600 font-medium mt-auto">
+            <div className="text-sm text-muted font-medium mt-auto">
                 <span>{formatTier(contact.company.tier)}</span>
             </div>
 
@@ -100,7 +100,7 @@ const ContactCard = ({ contact, onDelete }: ContactCardProps) => {
 						e.stopPropagation();
 						setIsDropdownOpen(!isDropdownOpen);
 					}}
-                    className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-500 hover:text-gray-50 shadow-md transition-colors"
+                    className="flex items-center justify-center w-6 h-6 rounded-full bg-dropdown hover:bg-dropdown-hover text-dropdown-text hover:text-gray-50 shadow-md transition-colors"
                 >
                     <BsThreeDotsVertical size={18} />
                 </div>

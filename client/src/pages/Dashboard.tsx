@@ -26,14 +26,14 @@ const Dashboard = () => {
 	const { isLoading } = useAuth();
 	const navigate = useNavigate();
 	const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-	const colors = ["var(--royal-blue)", "var(--soft-lavender)", "var(--cream-moon)", "var(--blush-pink)"];
+	const colors = ["var(--sidebar)", "var(--lavender)", "var(--cream)", "var(--blush)"];
 
     if (isLoading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-                    <p className="text-gray-600">Loading...</p>
+                    <p className="text-muted">Loading...</p>
                 </div>
             </div>
         );
@@ -339,9 +339,9 @@ const Dashboard = () => {
  
 	return (
 		<>
-			<h1 className="text-[var(--royal-blue)] font-pacifico text-3xl mt-20 ml-5 mb-2">this week</h1>
+			<h1 className="text-[var(--script)] font-pacifico text-3xl mt-20 ml-5 mb-2">this week</h1>
 
-			<hr className="border-[var(--royal-blue)] border-2 ml-5 mr-5" />
+			<hr className="border-[var(--divider)] border-2 ml-5 mr-5" />
                 
 			<div className="grid grid-cols-3 gap-6 px-5 mt-5 text-center font-inter font-medium text-lg">
 				<InfoPill
@@ -350,7 +350,7 @@ const Dashboard = () => {
                     placeholder={isLoadingMetrics ? "Loading..." : "No recent activity"}
                     onSave={() => {}}
                     readOnly={true}
-					bgColor="bg-[var(--soft-lavender)]"
+					bgColor="bg-[var(--lavender)]"
 				/>
 
 				<InfoPill
@@ -359,7 +359,7 @@ const Dashboard = () => {
                     placeholder={isLoadingMetrics ? "Loading..." : "No recent activity"}
                     onSave={() => {}}
                     readOnly={true}
-					bgColor="bg-[var(--cream-moon)]"
+					bgColor="bg-[var(--cream)]"
 				/>
 
 				<InfoPill
@@ -368,7 +368,7 @@ const Dashboard = () => {
                     placeholder={isLoadingMetrics ? "Loading..." : "No recent activity"}
                     onSave={() => {}}
                     readOnly={true}
-					bgColor="bg-[var(--blush-pink)]"
+					bgColor="bg-[var(--blush)]"
 				/>
 			</div>
 
@@ -406,16 +406,16 @@ const Dashboard = () => {
 			</div>
 
 			<div className="mt-5 mb-5">
-				<h2 className="text-[var(--royal-blue)] font-pacifico text-3xl ml-5 mb-4">analytics</h2>
-				<hr className="border-[var(--royal-blue)] border-2 ml-5 mr-5 mb-5" />
+				<h2 className="text-[var(--script)] font-pacifico text-3xl ml-5 mb-4">analytics</h2>
+				<hr className="border-[var(--divider)] border-2 ml-5 mr-5 mb-5" />
 
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-6 ml-5 mr-5 font-inter">
-					<div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 min-h-[300px]">
-						<h3 className="font-inter font-semibold text-lg mb-4 text-gray-500">Company Count by Tier</h3>
+					<div className="bg-card p-6 rounded-lg shadow-md border border-card-border min-h-[300px]">
+						<h3 className="font-inter font-semibold text-lg mb-4 text-muted">Company Count by Tier</h3>
 
 						{isLoadingAnalytics || companiesByTier.length === 0 ? (
 							<div className="flex items-center justify-center h-[200px]">
-								<p className="text-medium font-semibold text-[var(--royal-blue)]">
+								<p className="text-medium font-semibold text-[var(--heading)]">
 									{isLoadingAnalytics ? "Loading chart..." : "No company data"}
 								</p>
 							</div>
@@ -435,12 +435,12 @@ const Dashboard = () => {
 						)}
 					</div>
 
-					<div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 min-h-[300px]">
-						<h3 className="font-inter font-semibold text-lg mb-4 text-gray-500">Interaction Count by Tier</h3>
+					<div className="bg-card p-6 rounded-lg shadow-md border border-card-border min-h-[300px]">
+						<h3 className="font-inter font-semibold text-lg mb-4 text-muted">Interaction Count by Tier</h3>
 
 						{isLoadingAnalytics || Object.keys(interactionsByTier).length === 0 ? (
 							<div className="flex items-center justify-center h-[200px]">
-								<p className="text-medium font-semibold text-[var(--royal-blue)]">
+								<p className="text-medium font-semibold text-[var(--heading)]">
 									{isLoadingAnalytics ? "Loading chart..." : "No interaction data"}
 								</p>
 							</div>
@@ -460,12 +460,12 @@ const Dashboard = () => {
 						)}
 					</div>
 				
-					<div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 min-h-[300px]">
-						<h3 className="font-inter font-semibold text-lg mb-4 text-gray-500">Top Companies by Interactions</h3>
+					<div className="bg-card p-6 rounded-lg shadow-md border border-card-border min-h-[300px]">
+						<h3 className="font-inter font-semibold text-lg mb-4 text-muted">Top Companies by Interactions</h3>
 
 						{isLoadingAnalytics || topCompanies.length === 0 || topCompanies.every((contact) => contact.interactionCount === 0) ? (
 							<div className="flex items-center justify-center h-[200px]">
-								<p className="text-medium font-semibold text-[var(--royal-blue)]">
+								<p className="text-medium font-semibold text-[var(--heading)]">
 									{isLoadingAnalytics ? "Loading chart..." : "No interaction data"}
 								</p>
 							</div>
@@ -497,12 +497,12 @@ const Dashboard = () => {
 						)}
 					</div>
 
-					<div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 min-h-[300px]">
-						<h3 className="font-inter font-semibold text-lg mb-4 text-gray-500">Top Contacts by Interactions</h3>
+					<div className="bg-card p-6 rounded-lg shadow-md border border-card-border min-h-[300px]">
+						<h3 className="font-inter font-semibold text-lg mb-4 text-muted">Top Contacts by Interactions</h3>
 
 						{isLoadingAnalytics || topContacts.length === 0 || topContacts.every((contact) => contact.interactionCount === 0) ? (
 							<div className="flex items-center justify-center h-[200px]">
-								<p className="text-medium font-semibold text-[var(--royal-blue)]">
+								<p className="text-medium font-semibold text-[var(--heading)]">
 									{isLoadingAnalytics ? "Loading chart..." : "No interaction data"}
 								</p>
 							</div>

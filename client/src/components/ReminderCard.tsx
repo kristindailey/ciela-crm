@@ -57,17 +57,17 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
 
     return (
         <div
-            className="flex flex-col relative bg-white p-4 rounded-lg border shadow-sm cursor-pointer font-inter"
+            className="flex flex-col relative bg-card p-4 rounded-lg shadow-sm cursor-pointer font-inter"
         >
             <div className="flex items-center justify-between">
 				<h3 
 					onClick={handleContactClick}
-					className="text-md font-semibold text-[var(--royal-blue)] hover:text-[var(--soft-lavender)]"
+					className="text-md font-semibold text-[var(--heading)] hover:text-[var(--lavender)]"
 				>
                     {reminder.contact?.firstName} {reminder.contact?.lastName}
                 </h3>
 
-				<span className="text-xs text-gray-500">
+				<span className="text-xs text-muted">
 					{formatDate(reminder.interactionDate)}
 				</span>
 			</div>
@@ -75,35 +75,35 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
 			<div className="flex items-center justify-between">
 				<span 
 					onClick={handleCompanyClick}
-					className="text-sm font-medium text-gray-600 hover:text-[var(--soft-lavender)]"
+					className="text-sm font-medium text-muted hover:text-[var(--lavender)]"
 				>
 					{reminder.contact?.company?.name}
 				</span>
 
-				<span className="text-xs text-gray-700 bg-[var(--soft-lavender)] rounded-sm p-1">
+				<span className="text-xs text-primary bg-[var(--lavender)] rounded-sm p-1">
 					Due: {reminder.followUpDate && formatDate(reminder.followUpDate)}
 				</span>
 			</div>
 
-			<hr className="border-[var(--royal-blue)] mt-2 mb-2"/>
+			<hr className="border-[var(--divider)] mt-2 mb-2"/>
 
 			<div className="flex items-center justify-between mb-1">
-				<span className="text-xs text-gray-500 font-medium">
+				<span className="text-xs text-muted font-medium">
 					{formatInteractionType(reminder.type)}
 				</span>
 
-				<span className="text-xs text-gray-500 font-medium">
+				<span className="text-xs text-muted font-medium">
 					{formatTier(reminder.contact?.company?.tier)}
 				</span> 
 			</div>
 			
-			<span className="text-xs text-gray-500 font-medium mt-1 min-h-[1.25rem]">
+			<span className="text-xs text-muted font-medium mt-1 min-h-[1.25rem]">
 				{reminder?.subject}
 			</span>
 
 			<span 
 				onClick={reminder.message && reminder.message.length > 75 ? () => setIsExpanded(!isExpanded) : undefined}
-				className={`text-xs text-gray-500 font-medium mt-1 ${reminder.message && reminder.message.length > 75 ? "cursor-pointer hover:text-gray-700" : ""}  ${isExpanded ? "" : "line-clamp-1"}`}
+				className={`text-xs text-muted font-medium mt-1 ${reminder.message && reminder.message.length > 75 ? "cursor-pointer hover:text-primary" : ""}  ${isExpanded ? "" : "line-clamp-1"}`}
 			>
 				{reminder.message}
 			</span>
@@ -111,14 +111,14 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
 			<div className="flex justify-end gap-2 mt-3">
 				<button
 					onClick={() => onClear(reminder.id)}
-					className="px-3 py-2 text-gray-700 text-sm bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+					className="px-3 py-2 text-primary text-sm bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
 				>
 					Clear
 				</button>
 
 				<button
 					onClick={() => onSnooze(reminder.id)}
-					className="px-3 py-2 text-white text-sm bg-[var(--royal-blue)] rounded-lg hover:bg-[var(--soft-lavender)] hover:text-[var(--royal-blue)] transition-colors"
+					className="px-3 py-2 text-white text-sm bg-[var(--sidebar)] rounded-lg hover:bg-[var(--lavender)] hover:text-[var(--heading)] transition-colors"
 				>
 					Snooze
 				</button>

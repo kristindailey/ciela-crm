@@ -3,6 +3,35 @@
 
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+	--color-app: var(--app);
+	--color-sidebar: var(--sidebar);
+	--color-card: var(--card);
+	--color-input: var(--input);
+	--color-card-border: var(--card-border);
+	--color-input-border: var(--input-border);
+	--color-divider: var(--divider);
+	--color-dropdown: var(--dropdown);
+	--color-dropdown-hover: var(--dropdown-hover);
+	--color-dropdown-menu-hover: var(--dropdown-menu-hover);
+	
+	--color-primary: var(--primary);
+	--color-heading: var(--heading);
+	--color-script: var(--script);
+	--color-muted: var(--muted);
+	--color-placeholder: var(--placeholder);
+	--color-sidebar-text: var(--sidebar-text);
+	--color-dropdown-text: var(--dropdown-text);
+	--color-danger: var(--danger);
+	--color-danger-hover: var(--danger-hover);
+	
+	--color-lavender: var(--lavender);
+	--color-cream: var(--cream);
+	--color-blush: var(--blush);
+}
+
 @layer utilities {
 	.font-pacifico {
 		font-family: "Pacifico", sans-serif;
@@ -17,11 +46,13 @@
 	input[type="number"]::-webkit-inner-spin-button,
 	input[type="number"]::-webkit-outer-spin-button {
 		-webkit-appearance: none;
+		appearance: none;
 		margin: 0;
 	}
 
 	input[type="number"] {
 		-moz-appearance: textfield;
+		appearance: textfield;
 	}
 }
 
@@ -33,8 +64,62 @@
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	--royal-blue: #2A4AA1;
-	--soft-lavender: #D4C5F9;
-	--blush-pink: #F8D7DA;
-	--cream-moon: #FEF7E0;
+
+	/* Surfaces */
+	--app: #F9FAFB;
+	--sidebar: #2A4AA1;
+	--card: #FFFFFF;
+	--input: #FFFFFF;
+	--card-border: #E5E7EB;
+	--input-border: #E5E7EB;
+	--divider: #2A4AA1;
+	--dropdown: #D1D5DB;
+	--dropdown-hover: #9CA3AF;
+	--dropdown-menu-hover: #FEF2F2;
+
+	/* Text */
+	--primary: #1F2937;
+	--heading: #2A4AA1;
+	--script: #2A4AA1;
+	--muted: #6B7280;
+	--placeholder: #9CA3AF;
+	--sidebar-text: #D4C5F9;
+	--dropdown-text: #6B7280;
+	--danger: #EF4444;
+	--danger-hover: #B91C1C;
+
+	/* Accents */
+	--lavender: #D4C5F9;
+	--cream: #FEF7E0;
+	--blush: #F8D7DA;	
+}
+
+.dark {
+	/* Surfaces */
+	--app: #0B0E1A;
+	--sidebar: #1B2450;
+	--card: #141930;
+	--input: #0F1428;
+	--card-border: #232A47;
+	--input-border: #2A3252;
+	--divider: #D4C5F9;
+	--dropdown: #9CA3AF;
+	--dropdown-hover: #D1D5DB;
+	--dropdown-menu-hover: #222947;
+
+	/* Text */
+	--primary: #E8EAF5;
+	--heading: #D4C5F9;
+	--script: #D4C5F9;
+	--muted: #9EA4C4;
+	--placeholder: #6C7599;
+	--sidebar-text: #D4C5F9;
+	--dropdown-text: #FFFFFF;
+	--danger: #F87171;
+	--danger-hover: #FCA5A5;
+
+	/* Accents */
+	--lavender: #3A3478;
+	--cream: #2C4A3F;
+	--blush: #5A3644;
 }

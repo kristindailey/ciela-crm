@@ -19,18 +19,18 @@ const InteractionCard = ({ interaction, onEdit }: InteractionCardProps) => {
 	};
 
     return (
-        <div className="bg-gray-50 rounded-lg p-3 mb-3 border border-gray-200">
+        <div className="bg-app rounded-lg p-3 mb-3 border border-card-border">
 			<div className={`grid ${interaction.contact ? "grid-cols-[2fr_2fr_2fr_auto]" : "grid-cols-[2fr_2fr_0fr_auto]"} items-center gap-4 font-inter mb-2`}>
-				<span className="text-xs font-bold text-[var(--royal-blue)] uppercase">
+				<span className="text-xs font-bold text-[var(--heading)] uppercase">
 					{interaction.type}
 				</span>
 
-				<span className="text-xs text-gray-500">
+				<span className="text-xs text-muted">
 					{formatDate(interaction.interactionDate)}
 				</span>
 
 				{interaction.contact ? (
-        			<span className="text-xs text-gray-600">
+        			<span className="text-xs text-muted">
             			{interaction.contact.firstName} {interaction.contact.lastName}
         			</span>
     			) : (
@@ -38,7 +38,7 @@ const InteractionCard = ({ interaction, onEdit }: InteractionCardProps) => {
     			)}
 
 				<button
-					className="text-gray-400 hover:text-[var(--royal-blue)] transition-colors"
+					className="text-placeholder hover:text-[var(--heading)] transition-colors"
 					aria-label="Edit interaction"
 					onClick={() => onEdit(interaction)}
 				>
@@ -47,19 +47,19 @@ const InteractionCard = ({ interaction, onEdit }: InteractionCardProps) => {
 			</div>
 
 			{interaction.subject && (
-				<div className="text-sm text-black mb-1">
+				<div className="text-sm text-primary mb-1">
 					{interaction.subject}
 				</div>
 			)}
 
 			{interaction.message && (
-				<div className="text-sm text-black mb-1">
+				<div className="text-sm text-primary mb-1">
 					{interaction.message}
 				</div>
 			)}
 
 			{interaction.followUpDate && (
-				<div className="text-xs text-gray-500 mt-2">
+				<div className="text-xs text-muted mt-2">
 					Follow-up: {formatDate(interaction.followUpDate)}
 				</div>
 			)}

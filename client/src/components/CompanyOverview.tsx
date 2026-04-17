@@ -66,7 +66,7 @@ const CompanyOverview = ({
                     value={company.description}
                     placeholder="Add description"
                     onSave={onSaveDescription}
-					bgColor="bg-[var(--soft-lavender)]"
+					bgColor="bg-[var(--lavender)]"
                 />
 
                 <InfoPill 
@@ -74,7 +74,7 @@ const CompanyOverview = ({
                     value={company.hqLocation}
                     placeholder="Add HQ location"
                     onSave={onSaveHQLocation}
-					bgColor="bg-[var(--cream-moon)]"
+					bgColor="bg-[var(--cream)]"
                 />
 
                 <InfoPill 
@@ -85,7 +85,7 @@ const CompanyOverview = ({
                         const cleanValue = newValue.replace(/,/g, "");
                         onSaveEmployeeCount(parseInt(cleanValue, 10));
                     }}
-					bgColor="bg-[var(--blush-pink)]"
+					bgColor="bg-[var(--blush)]"
                 />
 				
                 <InfoPill 
@@ -94,7 +94,7 @@ const CompanyOverview = ({
                     placeholder="Not yet contacted"
                     onSave={() => {}}
                     readOnly={true}
-					bgColor="bg-[var(--soft-lavender)]"
+					bgColor="bg-[var(--lavender)]"
                 />
             </div>
 
@@ -110,7 +110,7 @@ const CompanyOverview = ({
                                 onSaveGlassdoorRating(rating);
                             }
                         }}
-						bgColor="bg-[var(--cream-moon)]"
+						bgColor="bg-[var(--cream)]"
                     />
 
                     <InfoPill
@@ -123,7 +123,7 @@ const CompanyOverview = ({
                                 onSaveBlindRating(rating);
                             }
                         }}
-						bgColor="bg-[var(--blush-pink)]"
+						bgColor="bg-[var(--blush)]"
                     />
                 </div>
 
@@ -140,7 +140,7 @@ const CompanyOverview = ({
                         };
                         onSaveOfficePolicy(policyMap[newValue]);
                     }}
-					bgColor="bg-[var(--soft-lavender)]"
+					bgColor="bg-[var(--lavender)]"
                 />
 
                 <InfoPill 
@@ -148,7 +148,7 @@ const CompanyOverview = ({
                     value={company.localLocation}
                     placeholder="Add local location"
                     onSave={onSaveLocalLocation}
-					bgColor="bg-[var(--cream-moon)]"
+					bgColor="bg-[var(--cream)]"
                 />
 
             	<InfoPill 
@@ -156,7 +156,7 @@ const CompanyOverview = ({
                     value={company.techStack}
                     placeholder="Add tech stack"
                     onSave={onSaveTechStack}
-					bgColor="bg-[var(--blush-pink)]"
+					bgColor="bg-[var(--blush)]"
                 />
         	</div>
 

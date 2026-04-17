@@ -223,7 +223,7 @@ const ContactDetail = () => {
 
 			{isLoading && (
 				<div className="p-6">
-					<div className="text-center text-gray-500 mt-8">
+					<div className="text-center text-muted mt-8">
 						Loading contact...
 					</div>
 				</div>
@@ -237,7 +237,7 @@ const ContactDetail = () => {
 							value={contact.role}
 							placeholder="Add role"
 							onSave={(newValue) => handleSaveRole(newValue)}
-							bgColor="bg-[var(--soft-lavender)]"
+							bgColor="bg-[var(--lavender)]"
 						/>
 
 						<InfoPill 
@@ -245,7 +245,7 @@ const ContactDetail = () => {
 							value={contact.company.name}
 							placeholder="Add company"
 							onSave={(newValue) => handleSaveCompany(newValue)}
-							bgColor="bg-[var(--cream-moon)]"
+							bgColor="bg-[var(--cream)]"
 						/>
 						
 						<InfoPill
@@ -253,7 +253,7 @@ const ContactDetail = () => {
 							value={contact.location}
 							placeholder="Add location"
 							onSave={(newValue) => handleSaveLocation(newValue)}
-							bgColor="bg-[var(--blush-pink)]"
+							bgColor="bg-[var(--blush)]"
 						/>
 
 						<InfoPill 
@@ -262,7 +262,7 @@ const ContactDetail = () => {
 							placeholder="Not yet contacted"
 							onSave={() => {}}
 							readOnly={true}
-							bgColor="bg-[var(--soft-lavender)]"
+							bgColor="bg-[var(--lavender)]"
 						/>
 					</div>
 

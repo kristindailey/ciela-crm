@@ -54,7 +54,7 @@ const Icon = ({ url, icon: Icon, label, size = 22, onSave }: IconProps) => {
                         }
                     }}
                     placeholder={`${labelMap[label]} URL`}
-                    className="w-32 sm:w-40 md:w-48 px-2 py-1 text-sm text-gray-900 border border-[var(--royal-blue)] rounded focus:outline-none focus:ring-1 focus:ring-[var(--royal-blue)]"
+                    className="w-32 sm:w-40 md:w-48 px-2 py-1 text-sm text-primary border border-[var(--input-border)] rounded focus:outline-none focus:ring-1 focus:ring-[var(--heading)]"
                     autoFocus
                 />
             </div>
@@ -67,7 +67,7 @@ const Icon = ({ url, icon: Icon, label, size = 22, onSave }: IconProps) => {
                 href={label === "email" && url ? `mailto:${url}` : url || "#"}
                 target={url && label !== "email" ? "_blank" : undefined}
                 rel={url ? "noopener noreferrer" : undefined}
-                className={`flex items-center justify-center rounded-full bg-[var(--soft-lavender)] hover:bg-[var(--royal-blue)] shadow-md transition-colors ${size >= 22 ? "w-9 h-9" : "w-7 h-7"} ${url ? "text-[var(--royal-blue)] hover:text-[var(--soft-lavender)]" : "text-gray-400 pointer-events-none"}`}
+                className={`flex items-center justify-center rounded-full bg-[var(--lavender)] hover:bg-[var(--sidebar)] shadow-md transition-colors ${size >= 22 ? "w-9 h-9" : "w-7 h-7"} ${url ? "text-[var(--heading)] hover:text-[var(--lavender)]" : "text-placeholder pointer-events-none"}`}
             >
                 <Icon size={size} />
             </a>
@@ -77,7 +77,7 @@ const Icon = ({ url, icon: Icon, label, size = 22, onSave }: IconProps) => {
                     e.stopPropagation();
                     setIsEditing(true);
                 }}
-                className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center bg-white border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
+                className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center bg-card border border-card-border rounded-full text-muted hover:bg-gray-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200"
                 aria-label={`Edit ${labelMap[label]}`}
             >
                 <FiEdit2 className="w-2.5 h-2.5"/>
