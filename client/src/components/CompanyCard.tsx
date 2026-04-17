@@ -78,7 +78,7 @@ const CompanyCard = ({ company, onDelete }: CompanyCardProps) => {
 						e.stopPropagation();
 						setIsDropdownOpen(!isDropdownOpen);
 					}}
-                    className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 hover:bg-gray-400 text-muted hover:text-gray-50 shadow-md transition-colors"
+                    className="flex items-center justify-center w-6 h-6 rounded-full bg-dropdown hover:bg-dropdown-hover text-dropdown-text hover:text-gray-50 shadow-md transition-colors"
                 >
                     <BsThreeDotsVertical size={18} />
                 </div>
