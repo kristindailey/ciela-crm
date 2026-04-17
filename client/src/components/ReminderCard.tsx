@@ -111,7 +111,7 @@ const ReminderCard = ({ reminder, onClear, onSnooze }: ReminderCardProps) => {
 			<div className="flex justify-end gap-2 mt-3">
 				<button
 					onClick={() => onClear(reminder.id)}
-					className="px-3 py-2 text-primary text-sm bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+					className="px-3 py-2 text-primary text-sm bg-cancel rounded-lg hover:bg-cancel-hover transition-colors"
 				>
 					Clear
 				</button>
