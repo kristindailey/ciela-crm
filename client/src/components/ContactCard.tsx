@@ -54,7 +54,7 @@ const ContactCard = ({ contact, onDelete }: ContactCardProps) => {
     return (
         <div
             onClick={handleClick} 
-            className="flex flex-col relative bg-card p-4 rounded-lg shadow-sm cursor-pointer hover:shadow-md hover:bg-[var(--sidebar)]/20 hover:border-[var(--card-border)]/30 transition-all h-[162px]"
+            className="flex flex-col relative bg-card p-4 rounded-lg shadow-sm cursor-pointer hover:shadow-md hover:bg-hover transition-all h-[162px]"
         >
             <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-[var(--heading)]">

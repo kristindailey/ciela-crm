@@ -97,7 +97,7 @@ const UploadModal = ({ isOpen, uploadType, uploadStatus, onClose, onDownloadTemp
 
 				<button 
 					onClick={onClose}
-					className="w-full px-4 py-2 text-primary bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+					className="w-full px-4 py-2 text-primary bg-cancel rounded-lg hover:bg-cancel-hover transition-colors"
 				>
 					{uploadStatus && !uploadStatus.isProcessing ? "Close" : "Cancel"}
 				</button>

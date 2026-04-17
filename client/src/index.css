@@ -16,6 +16,9 @@
 	--color-dropdown: var(--dropdown);
 	--color-dropdown-hover: var(--dropdown-hover);
 	--color-dropdown-menu-hover: var(--dropdown-menu-hover);
+	--color-hover: var(--hover);
+	--color-cancel: var(--cancel);
+	--color-cancel-hover: var(--cancel-hover);
 	
 	--color-primary: var(--primary);
 	--color-heading: var(--heading);
@@ -76,6 +79,9 @@
 	--dropdown: #D1D5DB;
 	--dropdown-hover: #9CA3AF;
 	--dropdown-menu-hover: #FEF2F2;
+	--hover: #E8E4F0;
+	--cancel: #E5E7EB;
+	--cancel-hover: #D1D5DB;
 
 	/* Text */
 	--primary: #1F2937;
@@ -106,6 +112,9 @@
 	--dropdown: #9CA3AF;
 	--dropdown-hover: #D1D5DB;
 	--dropdown-menu-hover: #222947;
+	--hover: #222947;
+	--cancel: #2A3252;
+	--cancel-hover: #363F66;
 
 	/* Text */
 	--primary: #E8EAF5;

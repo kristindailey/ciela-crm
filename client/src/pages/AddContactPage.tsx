@@ -330,7 +330,7 @@ const AddContactPage = () => {
 
                 <button
                     type="submit"
-                    className="w-full py-2 bg-[var(--sidebar)] text-white rounded-md hover:bg-[var(--lavender)] hover:text-[var(--heading)] hover:font-medium"
+                    className="w-full py-2 bg-[var(--sidebar)] text-white rounded-md hover:bg-[var(--lavender)] hover:text-[var(--heading)]"
                 >
                     Create Contact
                 </button>
