@@ -247,7 +247,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
                         value={company.tier}
                         onChange={(e) => handleSaveTier(e.target.value)}
                         onBlur={() => setIsEditingTier(false)}
-                        className="h-10 px-6 rounded-full bg-[var(--sidebar)] text-[var(--lavender)] text-lg font-bold ml-8 border-2 border-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-white"
+                        className="h-10 px-6 rounded-full bg-[var(--sidebar)] text-sidebar-text text-lg font-bold ml-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-white"
                         autoFocus
                     >
                         <option value="TIER_1">tier 1</option>
@@ -257,7 +257,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
                     </select>
                 ) : (
                     <div className="relative group inline-block">
-                        <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--sidebar)] text-[var(--lavender)] text-lg font-bold">
+                        <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--sidebar)] text-sidebar-text text-lg font-bold">
                             {company.tier.toLowerCase().replace("_", " ")}
                         </div>
 
