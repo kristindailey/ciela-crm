@@ -24,7 +24,7 @@ const Sidebar = () => {
     };
 
     return (
-        <div className="fixed top-0 left-0 h-screen w-20 sm:w-35 md:w-48 bg-[var(--sidebar)] shadow-sm flex flex-col font-inter">
+        <div className="fixed top-0 left-0 h-screen w-20 sm:w-35 md:w-48 bg-sidebar shadow-sm flex flex-col font-inter">
             <div className="flex-1 flex flex-col items-start self-center justify-center px-2 sm:px-4 md:px-6 space-y-4 sm:space-y-6 md:space-y-8 sm:pt-24 md:pt-30 text-sm sm:text-base md:text-lg">
                 <Link 
 					to="/dashboard" 

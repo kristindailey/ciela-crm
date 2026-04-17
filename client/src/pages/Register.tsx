@@ -29,7 +29,7 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[var(--sidebar)]">
+        <div className="min-h-screen flex items-center justify-center bg-sidebar">
             <div className="w-full max-w-md">
                 <div className="text-center mb-8">
                     <h1 className="text-4xl font-thin">Create Account</h1>
@@ -75,7 +75,7 @@ const Register = () => {
                     <div className="mt-6 text-center">
                         <p className="text-sm text-muted">
                             Already have an account?{" "}
-                            <a href="/login" className="text-[var(--heading)] hover:text-[var(--heading)] decoration-inherit font-medium">
+                            <a href="/login" className="text-heading hover:text-heading decoration-inherit font-medium">
                                 Sign In
                             </a>
                         </p>

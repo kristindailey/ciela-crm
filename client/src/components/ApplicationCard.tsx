@@ -221,7 +221,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 							}
 						}}
 						autoFocus
-						className="text-lg font-semibold text-[var(--heading)] focus:outline-none w-full leading-tight"
+						className="text-lg font-semibold text-heading focus:outline-none w-full leading-tight"
 					/>
 				) : (
 					<h3 
@@ -229,7 +229,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 							setEditingField("jobTitle");
 							setTempValue(application.jobTitle || "");
 						}}
-						className="text-lg font-semibold text-[var(--heading)] leading-tight"
+						className="text-lg font-semibold text-heading leading-tight"
 					>
                     	{application.jobTitle}
                 	</h3>
@@ -249,7 +249,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 			<div>
 				<span 
 					onClick={handleCompanyClick}
-					className="text-sm text-muted font-medium hover:text-[var(--lavender)] cursor-pointer"
+					className="text-sm text-muted font-medium hover:text-lavender cursor-pointer"
 				>
 					{application.company.name}
 				</span>
@@ -262,7 +262,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 						onChange={(e) => setTempValue(e.target.value)}
 						onBlur={() => handleStatusUpdate(tempValue as Application["status"])}
 						autoFocus
-						className="text-xs text-primary px-1 py-1 rounded bg-[var(--lavender)] focus:outline-none leading-tight"
+						className="text-xs text-primary px-1 py-1 rounded bg-lavender focus:outline-none leading-tight"
 					>	
 						<option value="APPLIED">APPLIED</option>
 						<option value="PHONE_SCREEN">PHONE SCREEN</option>
@@ -279,7 +279,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 							setEditingField("status");
 							setTempValue(application.status)
 						}}
-						className="inline-block text-xs text-primary px-2 py-1 rounded bg-[var(--lavender)] cursor-pointer hover:bg-[var(--lavender)]/80 leading-tight"
+						className="inline-block text-xs text-primary px-2 py-1 rounded bg-lavender cursor-pointer hover:bg-lavender/80 leading-tight"
 					>
 						{application.status.replace(/_/g, " ")}
 					</span>
@@ -287,7 +287,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
             </div>
 			
 			<div className="mt-2">
-				<span className="text-xs text-primary bg-[var(--cream)] rounded-sm p-1">
+				<span className="text-xs text-primary bg-cream rounded-sm p-1">
 					Applied: {editingField === "appliedDate" ? (
 						<input
 							type="text"
@@ -303,7 +303,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 							}}
 							autoFocus
 							placeholder="MM/DD/YYYY"
-							className="text-xs text-primary bg-[var(--cream)] rounded-sm p-1 focus:outline-none"
+							className="text-xs text-primary bg-cream rounded-sm p-1 focus:outline-none"
 						/>
 					) : (
 						<span 
@@ -312,7 +312,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 								setEditingField("appliedDate");
 								setTempValue(formatDate(application.appliedDate))
 							}}
-							className="text-xs text-primary bg-[var(--cream)] rounded-sm p-1"
+							className="text-xs text-primary bg-cream rounded-sm p-1"
 						>
 							{formatDate(application.appliedDate)}
 						</span>
@@ -358,7 +358,7 @@ const ApplicationCard = ({ application, onUpdateApplication, onDelete }: Contact
 			</div>
 
             <div className="mt-auto">
-                <span className="text-xs px-2 py-1 rounded bg-[var(--blush)] text-primary">
+                <span className="text-xs px-2 py-1 rounded bg-blush text-primary">
 					{formatTier(application.company.tier)}
 				</span>
             </div>

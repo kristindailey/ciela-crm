@@ -74,7 +74,7 @@ const UploadModal = ({ isOpen, uploadType, uploadStatus, onClose, onDownloadTemp
 
 				<button
 					onClick={onDownloadTemplate}
-					className="w-full mb-4 px-4 py-2 text-white bg-[var(--sidebar)] rounded hover:bg-[var(--lavender)] hover:text-[var(--heading)] transition-color"
+					className="w-full mb-4 px-4 py-2 text-white bg-sidebar rounded hover:bg-lavender hover:text-heading transition-color"
 				>
 					Download CSV Template
 				</button>
@@ -90,7 +90,7 @@ const UploadModal = ({ isOpen, uploadType, uploadStatus, onClose, onDownloadTemp
 				<button
 					onClick={() => fileInputRef.current?.click()}
 					disabled={uploadStatus?.isProcessing}
-					className="w-full mb-4 px-4 py-2 text-white bg-[var(--sidebar)] rounded hover:bg-[var(--lavender)] hover:text-[var(--heading)] transition-color disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[var(--sidebar)] disabled:hover:text-white"
+					className="w-full mb-4 px-4 py-2 text-white bg-sidebar rounded hover:bg-lavender hover:text-heading transition-color disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-sidebar disabled:hover:text-white"
 				>
 					{uploadStatus?.isProcessing ? "Processing..." : "Select CSV File"}
 				</button>

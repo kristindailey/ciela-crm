@@ -54,7 +54,7 @@ const Icon = ({ url, icon: Icon, label, size = 22, onSave }: IconProps) => {
                         }
                     }}
                     placeholder={`${labelMap[label]} URL`}
-                    className="w-32 sm:w-40 md:w-48 px-2 py-1 text-sm text-primary border border-[var(--input-border)] rounded focus:outline-none focus:ring-1 focus:ring-[var(--heading)]"
+                    className="w-32 sm:w-40 md:w-48 px-2 py-1 text-sm text-primary border border-input-border rounded focus:outline-none focus:ring-1 focus:ring-heading"
                     autoFocus
                 />
             </div>
@@ -67,7 +67,7 @@ const Icon = ({ url, icon: Icon, label, size = 22, onSave }: IconProps) => {
                 href={label === "email" && url ? `mailto:${url}` : url || "#"}
                 target={url && label !== "email" ? "_blank" : undefined}
                 rel={url ? "noopener noreferrer" : undefined}
-                className={`flex items-center justify-center rounded-full bg-[var(--lavender)] hover:bg-[var(--sidebar)] shadow-md transition-colors ${size >= 22 ? "w-9 h-9" : "w-7 h-7"} ${url ? "text-heading hover:text-icon-hover" : "text-placeholder pointer-events-none"}`}
+                className={`flex items-center justify-center rounded-full bg-lavender hover:bg-sidebar shadow-md transition-colors ${size >= 22 ? "w-9 h-9" : "w-7 h-7"} ${url ? "text-heading hover:text-icon-hover" : "text-placeholder pointer-events-none"}`}
             >
                 <Icon size={size} />
             </a>

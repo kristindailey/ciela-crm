@@ -1,19 +1,19 @@
 const Home = () => {
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[var(--sidebar)]">
+        <div className="min-h-screen flex items-center justify-center bg-sidebar">
             <div className="text-center font-thin">
                 <h1 className="text-4xl mb-4">Ciela CRM</h1>
                 <p className="mb-10">Welcome to your job search management system.</p>
                 <div className="space-x-4">
                     <a 
                         href="/login"
-                        className="border-2 border-white text-white font-medium px-5 py-[0.6em] rounded-lg bg-transparent hover:bg-[var(--lavender)] hover:text-[var(--heading)] transition-colors duration-250 focus:outline-4 focus:outline-auto cursor-pointer"
+                        className="border-2 border-white text-white font-medium px-5 py-[0.6em] rounded-lg bg-transparent hover:bg-lavender hover:text-heading transition-colors duration-250 focus:outline-4 focus:outline-auto cursor-pointer"
                     >
                         Sign In
                     </a>
                     <a 
                         href="/register"
-                        className="border-2 border-[var(--lavender)] text-white font-medium px-5 py-[0.6em] rounded-lg text-[var(--heading)] hover:bg-card hover:text-[var(--heading)] transition-colors duration-250 focus:outline-4 focus:outline-auto cursor-pointer"
+                        className="border-2 border-lavender text-white font-medium px-5 py-[0.6em] rounded-lg text-heading hover:bg-card hover:text-heading transition-colors duration-250 focus:outline-4 focus:outline-auto cursor-pointer"
                     >
                         Sign Up
                     </a>

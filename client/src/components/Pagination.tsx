@@ -66,7 +66,7 @@ const Pagination = ({ currentPage, windowStart, totalPages, onPageChange }: Pagi
 				aria-label="Next page"
 				disabled={currentPage === totalPages}
 				onClick={() => onPageChange(currentPage + 1)}
-				className={`px-3 py-2 rounded-lg font-semibold font-inter min-w-[44px] transition-all focus-visible:ring-2 focus-visible:ring-[var(--heading)] focus-visible:ring-offset-2 focus-visible:outline-none ${
+				className={`px-3 py-2 rounded-lg font-semibold font-inter min-w-[44px] transition-all focus-visible:ring-2 focus-visible:ring-heading focus-visible:ring-offset-2 focus-visible:outline-none ${
 					currentPage === totalPages
 						? "bg-card text-heading/30 border border-heading/10 cursor-not-allowed"
 						: "bg-card text-heading shadow-sm cursor-pointer border border-heading/20 hover:bg-hover hover:border-heading/30 transition-all"

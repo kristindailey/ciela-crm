@@ -11,7 +11,7 @@ interface TabBarProps {
 
 const TabBar = ({ tabs, activeTab, onTabChange }: TabBarProps) => {
 	return (
-		<div className="bg-[var(--sidebar)] mx-5 mt-2 mb-2">
+		<div className="bg-sidebar mx-5 mt-2 mb-2">
 			<div className="flex">
 				{tabs.map((tab) => (
 					<button

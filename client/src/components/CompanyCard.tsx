@@ -54,10 +54,10 @@ const CompanyCard = ({ company, onDelete }: CompanyCardProps) => {
   	return (
     	<div 
       		onClick={handleClick}
-      		className="relative bg-card p-6 rounded-lg shadow-sm cursor-pointer hover:shadow-md hover:bg-[var(--sidebar)]/10 transition-all"
+      		className="relative bg-card p-6 rounded-lg shadow-sm cursor-pointer hover:shadow-md hover:bg-sidebar/10 transition-all"
     	>
       		<div className="flex items-center justify-between">
-        		<h3 className="text-lg font-semibold text-[var(--heading)]">
+        		<h3 className="text-lg font-semibold text-heading">
           			{company.name}
         		</h3>
 

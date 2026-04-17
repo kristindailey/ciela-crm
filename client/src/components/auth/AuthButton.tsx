@@ -9,7 +9,7 @@ const AuthButton = ({ isLoading, loadingText, children }: AuthButtonProps) => {
         <button
             type="submit"
             disabled={isLoading}
-            className="w-full rounded-lg border-3 border-transparent px-5 py-[0.6em] text-base font-medium font-inherit bg-[var(--lavender)] text-[var(--heading)] cursor-pointer transition-colors duration-250 hover:border-[var(--heading)] focus:outline-4 focus:outline-auto disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full rounded-lg border-3 border-transparent px-5 py-[0.6em] text-base font-medium font-inherit bg-lavender text-heading cursor-pointer transition-colors duration-250 hover:border-heading focus:outline-4 focus:outline-auto disabled:opacity-50 disabled:cursor-not-allowed"
         >
             { isLoading ? loadingText : children }
         </button>

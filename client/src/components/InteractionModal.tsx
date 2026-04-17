@@ -233,7 +233,7 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
 							id="type"
 							value={selectedInteractionType}
 							onChange={handleInteractionTypeSelect}
-							className="w-full px-2 py-2 border border-2 border-[var(--input-border)] rounded-md" 
+							className="w-full px-2 py-2 border border-2 border-input-border rounded-md" 
 						>
 							<option value="">Choose an interaction type...</option>
 							{interactionTypes.map((type) => (
@@ -256,7 +256,7 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
 								<select
 									value={selectedContactId}
 									onChange={(e) => setSelectedContactId(e.target.value)}
-									className="w-full px-2 py-2 border border-2 border-[var(--input-border)] rounded-md"
+									className="w-full px-2 py-2 border border-2 border-input-border rounded-md"
 								>
 									<option value="">Choose a contact...</option>
 									{contacts.map((contact) => (
@@ -276,23 +276,23 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
 							</label>
 
 							<DatePicker value={interactionDate} onChange={setInteractionDate} aria-label="Date of Interaction">
-								<Group className="flex w-fit items-center border-2 border-[var(--card-border)] rounded-md px-2 py-2">
+								<Group className="flex w-fit items-center border-2 border-card-border rounded-md px-2 py-2">
 									<DateInput className="py-1 pr-10 pl-2">
 										{(segment) => <DateSegment segment={segment} />}
 									</DateInput>
-									<Button className="bg-[var(--sidebar)] text-white rounded ml-3 hover:bg-[var(--lavender)] hover:text-[var(--heading)] transition-colors">
+									<Button className="bg-sidebar text-white rounded ml-3 hover:bg-lavender hover:text-heading transition-colors">
 										<ChevronDown size={20} />
 									</Button>
 								</Group>
-								<Popover className="max-w-none bg-card shadow-lg rounded-lg border border-2 border-[var(--sidebar)] p-4 text-primary">
+								<Popover className="max-w-none bg-card shadow-lg rounded-lg border border-2 border-sidebar p-4 text-primary">
 									<Dialog>
 										<Calendar>
 											<header className="flex justify-center mb-5">
-												<Button slot="previous" className="bg-[var(--sidebar)] text-white rounded ml-3 mr-3 hover:bg-[var(--lavender)] hover:text-[var(--heading)] transition-colors">
+												<Button slot="previous" className="bg-sidebar text-white rounded ml-3 mr-3 hover:bg-lavender hover:text-heading transition-colors">
 													<ChevronLeft size={20} />
 												</Button>
 												<Heading />
-												<Button slot="next" className="bg-[var(--sidebar)] text-white rounded ml-3 hover:bg-[var(--lavender)] hover:text-[var(--heading)] transition-colors">
+												<Button slot="next" className="bg-sidebar text-white rounded ml-3 hover:bg-lavender hover:text-heading transition-colors">
 													<ChevronRight size={20} />
 												</Button>
 											</header>
@@ -300,7 +300,7 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
 												{(date) => 
 													<CalendarCell date={date} className="flex justify-center">
 														{({ isOutsideMonth }) => (
-															<span className={isOutsideMonth ? "text-placeholder" : "p-2 rounded-md hover:bg-[var(--sidebar)] hover:text-white transition-colors duration-150"}>{date.day}</span>
+															<span className={isOutsideMonth ? "text-placeholder" : "p-2 rounded-md hover:bg-sidebar hover:text-white transition-colors duration-150"}>{date.day}</span>
 														)}
 													</CalendarCell>
 												}
@@ -317,23 +317,23 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
 							</label>
 
 							<DatePicker value={followUpDate} onChange={setFollowUpDate} aria-label="Follow-Up Date">
-								<Group className="flex w-fit items-center border-2 border-[var(--card-border)] rounded-md px-2 py-2">
+								<Group className="flex w-fit items-center border-2 border-card-border rounded-md px-2 py-2">
 									<DateInput className="py-1 pr-10 pl-2">
 										{(segment) => <DateSegment segment={segment} />}
 									</DateInput>
-									<Button className="bg-[var(--sidebar)] text-white rounded ml-3 hover:bg-[var(--lavender)] hover:text-[var(--heading)] transition-colors">
+									<Button className="bg-sidebar text-white rounded ml-3 hover:bg-lavender hover:text-heading transition-colors">
 										<ChevronDown size={20} />
 									</Button>
 								</Group>
-								<Popover className="max-w-none bg-card shadow-lg rounded-lg border border-2 border-[var(--sidebar)] p-4 text-primary">
+								<Popover className="max-w-none bg-card shadow-lg rounded-lg border border-2 border-sidebar p-4 text-primary">
 									<Dialog>
 										<Calendar>
 											<header className="flex justify-center mb-5">
-												<Button slot="previous" className="bg-[var(--sidebar)] text-white rounded ml-3 mr-3 hover:bg-[var(--lavender)] hover:text-[var(--heading)] transition-colors">
+												<Button slot="previous" className="bg-sidebar text-white rounded ml-3 mr-3 hover:bg-lavender hover:text-heading transition-colors">
 													<ChevronLeft size={20} />
 												</Button>
 												<Heading />
-												<Button slot="next" className="bg-[var(--sidebar)] text-white rounded ml-3 hover:bg-[var(--lavender)] hover:text-[var(--heading)] transition-colors">
+												<Button slot="next" className="bg-sidebar text-white rounded ml-3 hover:bg-lavender hover:text-heading transition-colors">
 													<ChevronRight size={20} />
 												</Button>
 											</header>
@@ -341,7 +341,7 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
 												{(date) => 
 													<CalendarCell date={date} className="flex justify-center">
 														{({ isOutsideMonth }) => (
-															<span className={isOutsideMonth ? "text-placeholder" : "p-2 rounded-md hover:bg-[var(--sidebar)] hover:text-white transition-colors duration-150"}>{date.day}</span>
+															<span className={isOutsideMonth ? "text-placeholder" : "p-2 rounded-md hover:bg-sidebar hover:text-white transition-colors duration-150"}>{date.day}</span>
 														)}
 													</CalendarCell>
 												}
@@ -363,7 +363,7 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
 							id="subject"
 							value={subject}
 							onChange={(e) => setSubject(e.target.value)}
-							className="w-full px-3 py-2 border border-2 border-[var(--input-border)] rounded-md" 
+							className="w-full px-3 py-2 border border-2 border-input-border rounded-md" 
 						/>
 					</div>
 
@@ -378,7 +378,7 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
 							rows={4}
 							value={message}
 							onChange={(e) => setMessage(e.target.value)}
-							className="w-full px-3 py-2 border border-2 border-[var(--input-border)] rounded-md resize-vertical" 
+							className="w-full px-3 py-2 border border-2 border-input-border rounded-md resize-vertical" 
 							required
 						>
 						</textarea>
@@ -406,7 +406,7 @@ const InteractionModal = ({ isOpen, contactId, companyId, editingInteraction, on
 
 							<button
 								type="submit"
-								className="px-4 py-2 text-white bg-[var(--sidebar)] rounded-lg hover:bg-[var(--lavender)] hover:text-[var(--heading)] transition-colors"
+								className="px-4 py-2 text-white bg-sidebar rounded-lg hover:bg-lavender hover:text-heading transition-colors"
 							>
 								{editingInteraction ? "Update" : "Add"}
 							</button>

@@ -33,7 +33,7 @@ const InfoPill = ({ label, value, placeholder, dropdownOptions, readOnly = false
             <label className="font-inter text-sm text-muted mb-1 block">{label}</label>
             <div 
                 onClick={handleClick}
-                className={`${bgColor || "bg-card"} rounded-xl shadow-md transition-all text-medium font-semibold text-[var(--heading)] overflow-hidden flex items-center justify-center h-25 w-full ${readOnly ? "" : "cursor-pointer"}`}
+                className={`${bgColor || "bg-card"} rounded-xl shadow-md transition-all text-medium font-semibold text-heading overflow-hidden flex items-center justify-center h-25 w-full ${readOnly ? "" : "cursor-pointer"}`}
             >
                 {isEditing ? (
                     dropdownOptions ? (

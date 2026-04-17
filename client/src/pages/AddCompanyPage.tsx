@@ -61,7 +61,7 @@ const AddCompanyPage = () => {
                             required
                             value={formData.name}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                         />
                     </div>
 
@@ -74,7 +74,7 @@ const AddCompanyPage = () => {
                             required
                             value={formData.website}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                         />
                     </div>
 
@@ -85,7 +85,7 @@ const AddCompanyPage = () => {
                             name="tier" 
                             value={formData.tier}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                         >    
                             <option value="BACKLOG">Backlog</option>
                             <option value="TIER_1">Tier 1</option>
@@ -105,7 +105,7 @@ const AddCompanyPage = () => {
                             required
                             value={formData.employeeCount}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                         />
                     </div>
 
@@ -118,7 +118,7 @@ const AddCompanyPage = () => {
                             required
                             value={formData.hqLocation}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                         />
                     </div>
 
@@ -130,7 +130,7 @@ const AddCompanyPage = () => {
                             name="localLocation"
                             value={formData.localLocation}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                         />
                     </div>
                 </div>
@@ -143,14 +143,14 @@ const AddCompanyPage = () => {
                         rows={2}
                         value={formData.description}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                        className="w-full px-3 py-2 border border-2 border-input-border rounded-md"
                     >    
                     </textarea>
                 </div>
 
                 <button
                     type="submit"
-                    className="w-full px-3 py-2 bg-[var(--sidebar)] text-white rounded-md hover:bg-[var(--lavender)] hover:text-[var(--heading)] hover:font-medium"
+                    className="w-full px-3 py-2 bg-sidebar text-white rounded-md hover:bg-lavender hover:text-heading hover:font-medium"
                 >
                     Create Company
                 </button>

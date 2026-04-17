@@ -21,7 +21,7 @@ const InteractionCard = ({ interaction, onEdit }: InteractionCardProps) => {
     return (
         <div className="bg-app rounded-lg p-3 mb-3 border border-card-border">
 			<div className={`grid ${interaction.contact ? "grid-cols-[2fr_2fr_2fr_auto]" : "grid-cols-[2fr_2fr_0fr_auto]"} items-center gap-4 font-inter mb-2`}>
-				<span className="text-xs font-bold text-[var(--heading)] uppercase">
+				<span className="text-xs font-bold text-heading uppercase">
 					{interaction.type}
 				</span>
 
@@ -38,7 +38,7 @@ const InteractionCard = ({ interaction, onEdit }: InteractionCardProps) => {
     			)}
 
 				<button
-					className="text-placeholder hover:text-[var(--heading)] transition-colors"
+					className="text-placeholder hover:text-heading transition-colors"
 					aria-label="Edit interaction"
 					onClick={() => onEdit(interaction)}
 				>

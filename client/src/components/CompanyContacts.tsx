@@ -91,11 +91,11 @@ const CompanyContacts = ({ companyId, company }: CompanyContactsProps) => {
 						setSearchQuery(e.target.value);
 						setCurrentPage(1);
 					}}
-					className="w-full px-10 py-2 border border-2 border-[var(--input-border)] rounded-full focus:outline-none focus:ring-2 focus:ring-[var(--heading)] focus:border-transparent text-primary"
+					className="w-full px-10 py-2 border border-2 border-input-border rounded-full focus:outline-none focus:ring-2 focus:ring-heading focus:border-transparent text-primary"
 				/>
 
 				<div className="absolute left-3 top-1/2 translate -translate-y-1/2">
-					<FaMagnifyingGlass className="text-[var(--heading)]"/>
+					<FaMagnifyingGlass className="text-heading"/>
 				</div>
 			</div>
 

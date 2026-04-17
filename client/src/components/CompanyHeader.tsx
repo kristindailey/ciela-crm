@@ -185,12 +185,12 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
                                 setIsEditingName(false);
                             }
                         }} 
-                        className="text-[var(--heading)] font-extrabold text-3xl bg-transparent focus:outline-none focus:border-b-2 focus:border-[var(--lavender)]"
+                        className="text-heading font-extrabold text-3xl bg-transparent focus:outline-none focus:border-b-2 focus:border-lavender"
                         style={{ width: `${nameValue.length * 0.6}em` }}
                         autoFocus
                     />
                 ) : (
-                    <h1 className="relative group text-[var(--heading)] font-extrabold text-3xl">
+                    <h1 className="relative group text-heading font-extrabold text-3xl">
                         {company.name}
                         <button
                             onClick={() => setIsEditingName(true)}
@@ -247,7 +247,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
                         value={company.tier}
                         onChange={(e) => handleSaveTier(e.target.value)}
                         onBlur={() => setIsEditingTier(false)}
-                        className="h-10 px-6 rounded-full bg-[var(--sidebar)] text-sidebar-text text-lg font-bold ml-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-white"
+                        className="h-10 px-6 rounded-full bg-sidebar text-sidebar-text text-lg font-bold ml-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-white"
                         autoFocus
                     >
                         <option value="TIER_1">tier 1</option>
@@ -257,7 +257,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
                     </select>
                 ) : (
                     <div className="relative group inline-block">
-                        <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--sidebar)] text-sidebar-text text-lg font-bold">
+                        <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-sidebar text-sidebar-text text-lg font-bold">
                             {company.tier.toLowerCase().replace("_", " ")}
                         </div>
 
@@ -272,7 +272,7 @@ const CompanyHeader = ({ company, onCompanyUpdate, onSaveField, onDelete }: Comp
                 )}
             </div>
 
-            <div className="flex items-center gap-4 text-2xl text-[var(--heading)] ml-auto">
+            <div className="flex items-center gap-4 text-2xl text-heading ml-auto">
                 {iconLinks.map(({ url, icon, label }) => (
                     <Icon 
                         key={label}

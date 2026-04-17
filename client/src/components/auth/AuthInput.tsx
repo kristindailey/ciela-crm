@@ -20,7 +20,7 @@ const AuthInput = ({ id, label, type, value, onChange, disabled = false, require
             value={value}
             onChange={onChange}
             required={required}
-            className="w-full px-3 py-2 border border-card-border rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--heading)] text-primary"
+            className="w-full px-3 py-2 border border-card-border rounded-md focus:outline-none focus:ring-2 focus:ring-heading text-primary"
             disabled={disabled}
         />
     </div>

@@ -339,9 +339,9 @@ const Dashboard = () => {
  
 	return (
 		<>
-			<h1 className="text-[var(--script)] font-pacifico text-3xl mt-20 ml-5 mb-2">this week</h1>
+			<h1 className="text-script font-pacifico text-3xl mt-20 ml-5 mb-2">this week</h1>
 
-			<hr className="border-[var(--divider)] border-2 ml-5 mr-5" />
+			<hr className="border-divider border-2 ml-5 mr-5" />
                 
 			<div className="grid grid-cols-3 gap-6 px-5 mt-5 text-center font-inter font-medium text-lg">
 				<InfoPill
@@ -350,7 +350,7 @@ const Dashboard = () => {
                     placeholder={isLoadingMetrics ? "Loading..." : "No recent activity"}
                     onSave={() => {}}
                     readOnly={true}
-					bgColor="bg-[var(--lavender)]"
+					bgColor="bg-lavender"
 				/>
 
 				<InfoPill
@@ -359,7 +359,7 @@ const Dashboard = () => {
                     placeholder={isLoadingMetrics ? "Loading..." : "No recent activity"}
                     onSave={() => {}}
                     readOnly={true}
-					bgColor="bg-[var(--cream)]"
+					bgColor="bg-cream"
 				/>
 
 				<InfoPill
@@ -368,7 +368,7 @@ const Dashboard = () => {
                     placeholder={isLoadingMetrics ? "Loading..." : "No recent activity"}
                     onSave={() => {}}
                     readOnly={true}
-					bgColor="bg-[var(--blush)]"
+					bgColor="bg-blush"
 				/>
 			</div>
 
@@ -406,8 +406,8 @@ const Dashboard = () => {
 			</div>
 
 			<div className="mt-5 mb-5">
-				<h2 className="text-[var(--script)] font-pacifico text-3xl ml-5 mb-4">analytics</h2>
-				<hr className="border-[var(--divider)] border-2 ml-5 mr-5 mb-5" />
+				<h2 className="text-script font-pacifico text-3xl ml-5 mb-4">analytics</h2>
+				<hr className="border-divider border-2 ml-5 mr-5 mb-5" />
 
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-6 ml-5 mr-5 font-inter">
 					<div className="bg-card p-6 rounded-lg shadow-md border border-card-border min-h-[300px]">
@@ -415,7 +415,7 @@ const Dashboard = () => {
 
 						{isLoadingAnalytics || companiesByTier.length === 0 ? (
 							<div className="flex items-center justify-center h-[200px]">
-								<p className="text-medium font-semibold text-[var(--heading)]">
+								<p className="text-medium font-semibold text-heading">
 									{isLoadingAnalytics ? "Loading chart..." : "No company data"}
 								</p>
 							</div>
@@ -440,7 +440,7 @@ const Dashboard = () => {
 
 						{isLoadingAnalytics || Object.keys(interactionsByTier).length === 0 ? (
 							<div className="flex items-center justify-center h-[200px]">
-								<p className="text-medium font-semibold text-[var(--heading)]">
+								<p className="text-medium font-semibold text-heading">
 									{isLoadingAnalytics ? "Loading chart..." : "No interaction data"}
 								</p>
 							</div>
@@ -465,7 +465,7 @@ const Dashboard = () => {
 
 						{isLoadingAnalytics || topCompanies.length === 0 || topCompanies.every((contact) => contact.interactionCount === 0) ? (
 							<div className="flex items-center justify-center h-[200px]">
-								<p className="text-medium font-semibold text-[var(--heading)]">
+								<p className="text-medium font-semibold text-heading">
 									{isLoadingAnalytics ? "Loading chart..." : "No interaction data"}
 								</p>
 							</div>
@@ -502,7 +502,7 @@ const Dashboard = () => {
 
 						{isLoadingAnalytics || topContacts.length === 0 || topContacts.every((contact) => contact.interactionCount === 0) ? (
 							<div className="flex items-center justify-center h-[200px]">
-								<p className="text-medium font-semibold text-[var(--heading)]">
+								<p className="text-medium font-semibold text-heading">
 									{isLoadingAnalytics ? "Loading chart..." : "No interaction data"}
 								</p>
 							</div>

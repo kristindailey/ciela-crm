@@ -95,12 +95,12 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField, onDelete }: Cont
                                     setIsEditingName(false);
                                 }
                             }}
-                            className="text-[var(--heading)] font-extrabold text-3xl bg-transparent focus:outline-none focus:border-b-2 focus:border-[var(--lavender)]"
+                            className="text-heading font-extrabold text-3xl bg-transparent focus:outline-none focus:border-b-2 focus:border-lavender"
                             style={{ width: `${nameValue.length * 0.6}em` }}
                             autoFocus 
                         />
                     ) : (
-                        <h1 className="relative group text-[var(--heading)] font-extrabold text-3xl">
+                        <h1 className="relative group text-heading font-extrabold text-3xl">
                             {contact.firstName} {contact.lastName}
                             <button
                                 onClick={() => setIsEditingName(true)}
@@ -127,7 +127,7 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField, onDelete }: Cont
                     </div>
                 </div>
 
-                <div className="flex items-center gap-4 text-2xl text-[var(--heading)] ml-auto">
+                <div className="flex items-center gap-4 text-2xl text-heading ml-auto">
                     {iconLinks.map(({ url, icon, label }) => (
                         <Icon 
                             key={label}

@@ -50,7 +50,7 @@ const ListItem = forwardRef<HTMLInputElement, ListItemProps>(({ id, value, place
 
 			<button
 				onClick={() => id && onDelete(id)}
-				className="text-medium font-medium text-[var(--heading)] hover:text-danger hover:font-normal transition-colors"
+				className="text-medium font-medium text-heading hover:text-danger hover:font-normal transition-colors"
 				disabled={!id}
 			>
 				X

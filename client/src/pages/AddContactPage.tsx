@@ -154,7 +154,7 @@ const AddContactPage = () => {
                             required
                             value={formData.firstName}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                         />
                     </div>
 
@@ -167,7 +167,7 @@ const AddContactPage = () => {
                             required
                             value={formData.lastName}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                         />
                     </div>
 
@@ -179,7 +179,7 @@ const AddContactPage = () => {
                             value={selectedCompany}
                             onChange={handleCompanySelect}
                             required={!showNewCompany}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                         >
                             <option value="">Choose a company...</option>
                             {companies.map((company) => (
@@ -191,7 +191,7 @@ const AddContactPage = () => {
                             <option value="create-new">Create New Company</option>
                         </select>
                         {showNewCompany && (
-                            <div className="mt-4 p-4 border border-2 border-[var(--card-border)] rounded-md">
+                            <div className="mt-4 p-4 border border-2 border-card-border rounded-md">
                                 <h3 className="text-lg font-medium mb-4">New Company Details</h3>
 
                                 <div className="space-y-4">
@@ -204,7 +204,7 @@ const AddContactPage = () => {
                                             required
                                             value={newCompanyData.name}
                                             onChange={handleNewCompanyChange}
-                                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                                         />
                                     </div>
 
@@ -217,7 +217,7 @@ const AddContactPage = () => {
                                             required
                                             value={newCompanyData.website}
                                             onChange={handleNewCompanyChange}
-                                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                                         />
                                     </div>
                                 </div>
@@ -235,7 +235,7 @@ const AddContactPage = () => {
                             name="role"
                             value={formData.role}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                         />
                     </div>
 
@@ -247,7 +247,7 @@ const AddContactPage = () => {
                             name="location"
                             value={formData.location}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                         />
                     </div>
                 </div>
@@ -261,7 +261,7 @@ const AddContactPage = () => {
                             name="linkedin"
                             value={formData.linkedin}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                         />
                     </div>
 
@@ -273,7 +273,7 @@ const AddContactPage = () => {
                             name="bluesky"
                             value={formData.bluesky}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                         />
                     </div>
 
@@ -285,7 +285,7 @@ const AddContactPage = () => {
                             name="github"
                             value={formData.github}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                         />
                     </div>
                 </div>
@@ -299,7 +299,7 @@ const AddContactPage = () => {
                             name="email"
                             value={formData.email}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                         />
                     </div>
 
@@ -311,7 +311,7 @@ const AddContactPage = () => {
                             name="website"
                             value={formData.website}
                             onChange={handleInputChange}
-                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                            className="w-full md:w-[18rem] px-3 py-2 border border-2 border-input-border rounded-md"
                         />
                     </div>
                 </div>
@@ -324,13 +324,13 @@ const AddContactPage = () => {
                         rows={2}
                         value={formData.notes}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-2 border-[var(--input-border)] rounded-md"
+                        className="w-full px-3 py-2 border border-2 border-input-border rounded-md"
                     />
                 </div>
 
                 <button
                     type="submit"
-                    className="w-full py-2 bg-[var(--sidebar)] text-white rounded-md hover:bg-[var(--lavender)] hover:text-[var(--heading)]"
+                    className="w-full py-2 bg-sidebar text-white rounded-md hover:bg-lavender hover:text-heading"
                 >
                     Create Contact
                 </button>
