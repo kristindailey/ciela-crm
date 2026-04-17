@@ -29,6 +29,7 @@
 	--color-dropdown-text: var(--dropdown-text);
 	--color-danger: var(--danger);
 	--color-danger-hover: var(--danger-hover);
+	--color-icon-hover: var(--icon-hover);
 	
 	--color-lavender: var(--lavender);
 	--color-cream: var(--cream);
@@ -93,6 +94,7 @@
 	--dropdown-text: #6B7280;
 	--danger: #EF4444;
 	--danger-hover: #B91C1C;
+	--icon-hover: #D4C5F9;
 
 	/* Accents */
 	--lavender: #D4C5F9;
@@ -126,6 +128,7 @@
 	--dropdown-text: #FFFFFF;
 	--danger: #F87171;
 	--danger-hover: #FCA5A5;
+	--icon-hover: #E8EAF5;
 
 	/* Accents */
 	--lavender: #3A3478;

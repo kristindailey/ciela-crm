@@ -67,7 +67,7 @@ const Icon = ({ url, icon: Icon, label, size = 22, onSave }: IconProps) => {
                 href={label === "email" && url ? `mailto:${url}` : url || "#"}
                 target={url && label !== "email" ? "_blank" : undefined}
                 rel={url ? "noopener noreferrer" : undefined}
-                className={`flex items-center justify-center rounded-full bg-[var(--lavender)] hover:bg-[var(--sidebar)] shadow-md transition-colors ${size >= 22 ? "w-9 h-9" : "w-7 h-7"} ${url ? "text-[var(--heading)] hover:text-[var(--lavender)]" : "text-placeholder pointer-events-none"}`}
+                className={`flex items-center justify-center rounded-full bg-[var(--lavender)] hover:bg-[var(--sidebar)] shadow-md transition-colors ${size >= 22 ? "w-9 h-9" : "w-7 h-7"} ${url ? "text-heading hover:text-icon-hover" : "text-placeholder pointer-events-none"}`}
             >
                 <Icon size={size} />
             </a>
