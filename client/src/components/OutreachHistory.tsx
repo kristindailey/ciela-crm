@@ -106,17 +106,17 @@ const OutreachHistory = ({ label, contactId, companyId, searchValue, searchPlace
                             value={searchValue}
                             onChange={(e) => onSearchChange(e.target.value)}
                             placeholder={searchPlaceholder} 
-                            className="pl-9 py-1 w-full border border-2 border-[var(--input-border)] rounded-full text-primary"
+                            className="pl-9 py-1 w-full border border-2 border-input-border rounded-full text-primary"
                         />
                 
                         <div className="absolute left-3 top-1/2 translate -translate-y-1/2">
-                            <FaMagnifyingGlass className="text-[var(--heading)]"/>
+                            <FaMagnifyingGlass className="text-heading"/>
                         </div>
                     </div>
 
                     <button 
                         onClick={() => setAddModalOpen(!isAddModalOpen)}
-                        className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[var(--sidebar)] text-[var(--lavender)] drop-shadow-sm transition-colors duration-150 hover:bg-[var(--lavender)] hover:text-[var(--heading)] ml-auto"
+                        className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-sidebar text-sidebar-text drop-shadow-sm transition-colors duration-150 hover:bg-lavender hover:text-primary ml-auto"
                     >
                         <FaPlus size={16} />
                     </button>

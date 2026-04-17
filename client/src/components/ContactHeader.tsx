@@ -122,7 +122,7 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField, onDelete }: Cont
                         </div>
                     )}
 
-                    <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-[var(--sidebar)] text-[var(--lavender)] text-lg font-bold">
+                    <div className="inline-flex h-10 px-6 items-center justify-center rounded-full bg-sidebar text-sidebar-text text-lg font-bold">
                         {contact.company.tier.toLowerCase().replace("_", " ")}
                     </div>
                 </div>
@@ -142,7 +142,7 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField, onDelete }: Cont
                 <div className="relative" ref={dropdownRef}>
                     <div 
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                        className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-300 hover:bg-gray-400 text-muted hover:text-gray-50 shadow-md transition-colors ml-10"
+                        className="flex items-center justify-center w-9 h-9 rounded-full bg-dropdown hover:bg-dropdown-hover text-dropdown-text hover:text-gray-50 shadow-md transition-colors ml-10"
                     >
                         <BsThreeDotsVertical size={22} />
                     </div>
@@ -170,8 +170,8 @@ const ContactHeader = ({ contact, onContactUpdate, onSaveField, onDelete }: Cont
                 />
             </div>
 
-            <div className="h-11 bg-[var(--sidebar)] mt-2 mx-5"></div>
-            <div className="h-[5px] bg-[var(--lavender)] mt-1 mx-5"></div>
+            <div className="h-11 bg-sidebar mt-2 mx-5"></div>
+            <div className="h-[5px] bg-sidebar-text mt-1 mx-5"></div>
         </div>
     );
 };
