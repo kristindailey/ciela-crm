@@ -5,7 +5,7 @@ import session from "express-session";
 import passport from "passport";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import { prisma } from "./lib/prisma.js";
-import "./config/auth";
+import "./config/auth.js";
 import authRoutes from "./routes/auth.js";
 import metricsRoutes from "./routes/metrics.js";
 import analyticsRoutes from "./routes/analytics.js";
