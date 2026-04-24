@@ -3,7 +3,7 @@ import * as argon2 from "argon2";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy  as GitHubStrategy } from "passport-github2";
-import { prisma } from "../lib/prisma";
+import { prisma } from "../lib/prisma.js";
 import { User } from "@prisma/client";
 
 passport.use(new GoogleStrategy({

@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Router } from "express";
-import { hashPassword } from "../lib/auth";
-import { prisma } from "../lib/prisma";
+import { hashPassword } from "../lib/auth.js";
+import { prisma } from "../lib/prisma.js";
 
 const router = Router();
 

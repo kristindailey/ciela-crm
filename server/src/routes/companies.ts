@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { prisma } from "../lib/prisma";
+import { prisma } from "../lib/prisma.js";
 
 const router = Router();
 
