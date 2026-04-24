@@ -43,6 +43,7 @@ app.use(session({
     }),
     cookie: {
         secure: process.env.NODE_ENV === "production",
+		sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000,
     },
@@ -58,6 +59,7 @@ app.use("/interactions", requireAuth, interactionRoutes);
 app.use("/priorities", requireAuth, priorityRoutes);
 app.use("/wins", requireAuth, winRoutes);
 app.use("/applications", requireAuth, applicationRoutes);
+app.set("trust proxy", 1);
 
 app.get("/api/test", (req, res) => {
     res.json({ 
