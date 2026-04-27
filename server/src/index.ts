@@ -17,6 +17,7 @@ import winRoutes from "./routes/wins.js";
 import applicationRoutes from "./routes/applications.js";
 
 const app = express();
+app.set("trust proxy", 1);
 const PORT = process.env.PORT;
 
 const requireAuth = (req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -59,7 +60,6 @@ app.use("/interactions", requireAuth, interactionRoutes);
 app.use("/priorities", requireAuth, priorityRoutes);
 app.use("/wins", requireAuth, winRoutes);
 app.use("/applications", requireAuth, applicationRoutes);
-app.set("trust proxy", 1);
 
 app.get("/api/test", (req, res) => {
     res.json({ 
