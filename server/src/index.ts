@@ -39,7 +39,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: new PrismaSessionStore(prisma, {
-        checkPeriod: 2 * 60 * 1000,
+        // No checkPeriod: disables the background prune interval so the
+        // database can scale to zero when idle. Expired sessions are still
+        // treated as expired on read; stale rows are harmless for this app.
         dbRecordIdIsSessionId: true,
     }),
     cookie: {
